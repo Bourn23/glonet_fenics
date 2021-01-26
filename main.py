@@ -49,9 +49,9 @@ if __name__ == '__main__':
     params.step_size = int(params.step_size)    
 
     if args.wavelength is not None:
-        params.wavelength = int(args.wavelength)
+        params.wavelength = torch.tensor(args.wavelength, requires_grad = True, dtype = torch.float64)
     if args.angle is not None:
-        params.angle = int(args.angle)
+        params.angle = torch.tensor(args.angle, requires_grad = True, dtype = torch.float64)
 
 
     # make directory
@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
     # Generate images and save 
     logging.info('Start generating devices')
-    evaluate(generator, eng, numImgs=500, params=params)
+    evaluate(generator, eng, numImgs=1, params=params)
 
 
 
