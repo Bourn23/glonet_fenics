@@ -12,7 +12,7 @@ import torch
 
 # start matlab engine
 varproblem = HomogeneousBeam()
-eng = engine(varproblem)
+
 # eng = matlab.engine.start_matlab()
 # RCWA path
 # eng.addpath(eng.genpath('/home/users/jiangjq/Desktop/reticolo_allege'));
@@ -55,6 +55,7 @@ if __name__ == '__main__':
     if args.angle is not None:
         params.angle = torch.tensor(args.angle, requires_grad = True, dtype = torch.float64)
 
+    eng = engine(varproblem, params.wavelength, params.angle)
 
     # make directory
     os.makedirs(args.output_dir + '/outputs', exist_ok = True)
