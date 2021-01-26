@@ -1,6 +1,7 @@
 class engine:
     def __init__(self, fenics_model, *args):
         self.model = fenics_model
+        print('args are'.format(args))
         self.wavelength = args[0]
         self.desired_angle = args[1]
         self.u = None
