@@ -1,8 +1,9 @@
 class engine:
     def __init__(self, fenics_model, wavelength, angle):
         self.model = fenics_model
-        self.wavelength = wavelength
-        self.desired_angle = angle
+        print(type(wavelength))
+        self.wavelength = torch.tensor(wavelength, requires_grad = True, dtype = torch.float64)
+        self.desired_angle = torch.tensor(angle, requires_grad = True, dtype = torch.float64)
         self.u = None
     def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
         # this only works a single image
