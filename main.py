@@ -1,3 +1,4 @@
+from torch_fenics_model import *
 from matlab import *
 import os
 import logging
@@ -10,6 +11,7 @@ import torch
  
 
 # start matlab engine
+varproblem = HomogeneousBeam()
 eng = engine(varproblem)
 # eng = matlab.engine.start_matlab()
 # RCWA path
