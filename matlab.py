@@ -16,7 +16,7 @@ class engine:
             if type(self.wavelength) != torch.Tensor:
                 self.wavelength = torch.tensor([self.wavelength], dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor([self.desired_angl], dtype = torch.float64, requires_grad=True)
-            print(self.wavelength.shape(), self.desired_angle.shape())
+            print(self.wavelength.size(), self.desired_angle.size())
             self.u = self.model(self.wavelength, self.desired_angle)
         self.u.sum().backward()
         effs_and_gradients = []
