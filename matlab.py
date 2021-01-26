@@ -11,7 +11,7 @@ class engine:
     
     def GradientFromSolver_1D_parallel(self, img):
         if self.u is None:
-            self.u = model(self.wavelength, self.desired_angle)
+            self.u = self.model(self.wavelength, self.desired_angle)
         self.u.sum().backward()
         effs_and_gradients = []
         effs_and_gradients.append(self.u - img)
