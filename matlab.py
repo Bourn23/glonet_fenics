@@ -1,9 +1,9 @@
 class engine:
-    def __init__(self, fenics_model, *args):
+    def __init__(self, fenics_model, wavelength, angle):
         self.model = fenics_model
         print('args are'.format(args))
-        self.wavelength = args[0]
-        self.desired_angle = args[1]
+        self.wavelength = wavelength
+        self.desired_angle = angle
         self.u = None
     def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
         # this only works a single image
