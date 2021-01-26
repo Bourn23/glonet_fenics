@@ -1,3 +1,5 @@
+import torch
+
 class engine:
     def __init__(self, fenics_model, wavelength, angle):
         self.model = fenics_model
