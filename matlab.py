@@ -15,7 +15,7 @@ class engine:
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
                 self.wavelength = torch.tensor([self.wavelength], dtype = torch.float64, requires_grad=True)
-                self.desired_angle = torch.tensor([self.desired_angl]e, dtype = torch.float64, requires_grad=True)
+                self.desired_angle = torch.tensor([self.desired_angl], dtype = torch.float64, requires_grad=True)
             print(self.wavelength, self.desired_angle)
             self.u = self.model(self.wavelength, self.desired_angle)
         self.u.sum().backward()
