@@ -10,7 +10,7 @@ import torch
  
 
 # start matlab engine
-eng = engine(HomogeneousBeam())
+eng = engine(varproblem)
 # eng = matlab.engine.start_matlab()
 # RCWA path
 # eng.addpath(eng.genpath('/home/users/jiangjq/Desktop/reticolo_allege'));
