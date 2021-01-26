@@ -3,7 +3,6 @@ import torch
 class engine:
     def __init__(self, fenics_model, wavelength, angle):
         self.model = fenics_model
-        print(type(wavelength))
         self.wavelength = torch.tensor(wavelength, requires_grad = True, dtype = torch.float64)
         self.desired_angle = torch.tensor(angle, requires_grad = True, dtype = torch.float64)
         self.u = None
@@ -17,6 +16,7 @@ class engine:
             if type(self.wavelength) != torch.Tensor:
                 self.wavelength = torch.tensor(self.wavelength, dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor(self.desired_angle, dtype = torch.float64, requires_grad=True)
+            print(self.wavelength, self.desired_angle)
             self.u = self.model(self.wavelength, self.desired_angle)
         self.u.sum().backward()
         effs_and_gradients = []
