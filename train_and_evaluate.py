@@ -173,7 +173,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
 
     # call matlab function to compute efficiencies and gradients
 
-    effs_and_gradients = eng.GradientFromSolver_1D_parallel()  
+    effs_and_gradients = eng.GradientFromSolver_1D_parallel(img)  
     effs_and_gradients = Tensor(effs_and_gradients) 
     effs = effs_and_gradients[:, 0]             
     gradients = effs_and_gradients[:, 1:].unsqueeze(1)
