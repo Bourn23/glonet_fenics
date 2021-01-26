@@ -86,7 +86,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
     def input_templates(self):
         # Declare input shapes
         # return Constant((0, 0, 0)), 
-        return Constant((1)), Constant((1))
+        return Constant(1), Constant(1)
 
     def exec(self, expression):
         # To work with fenics' functions
