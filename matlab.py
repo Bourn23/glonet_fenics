@@ -14,6 +14,9 @@ class engine:
     
     def GradientFromSolver_1D_parallel(self, img):
         if self.u is None:
+            if type(self.wavelength) != torch.Tensor:
+                self.wavelength = torch.tensor(self.wavelength, dtype = torch.float64, requires_grad=True)
+                self.desired_angle = torch.tensor(self.desired_angle, dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.wavelength, self.desired_angle)
         self.u.sum().backward()
         effs_and_gradients = []
