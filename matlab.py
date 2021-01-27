@@ -14,7 +14,7 @@ class engine:
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.wavelength, self.desired_angle)
 
-        return self.u.sum() - img.sum()
+        return (self.u.sum() - img.sum()).float()
     
     def GradientFromSolver_1D_parallel(self, img):
         if self.u is None:
