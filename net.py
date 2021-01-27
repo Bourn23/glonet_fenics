@@ -47,6 +47,8 @@ class Generator(nn.Module):
         net = conv1d_meta(net + noise.unsqueeze(1), self.gkernel)
         # net = conv1d_meta(net , self.gkernel)
         net = torch.tanh(net* params.binary_amp) * 1.05
+        print(net)
+        print(net.size())
         return net
 
 
