@@ -8,6 +8,8 @@ class engine:
         self.u = None
     def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
         # this only works a single image
+        print(wavelength, desired_angle)
+        print(self.wavelength, self.desired_angle)
         self.u = self.model(wavelength, desired_angle)
         return self.u.sum() - img.sum()
     
