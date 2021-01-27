@@ -8,15 +8,15 @@ class engine:
         self.u = None
     def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
         # this only works a single image
-        self.u = model(wavelength, desired_angle)
-        return self.u - img
+        self.u = self.model(wavelength, desired_angle)
+        return self.u.sum() - img.sum()
     
     def GradientFromSolver_1D_parallel(self, img):
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
                 self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
-            print(self.wavelength.size(), self.desired_angle.size())
+            # print(self.wavelength.size(), self.desired_angle.size())
             self.u = self.model(self.wavelength, self.desired_angle)
         self.u.sum().backward(retain_graph = True)
         effs_and_gradients = []
