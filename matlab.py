@@ -25,7 +25,7 @@ class engine:
 
         try:
             effs_and_gradients.append(self.wavelength.grad)
-            effs_and_gradients.append(self.angle.grad)
+            effs_and_gradients.append(self.desired_angle.grad)
         except:
             import sys
             e = sys.exc_info()[0]
