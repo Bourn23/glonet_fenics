@@ -206,7 +206,8 @@ def compute_effs(imgs, eng, params):
     effs = eng.Eval_Eff_1D_parallel(img, wavelength, desired_angle)
     
     
-    return Tensor(effs)
+    # return Tensor(effs)
+    return effs
 
 
 
@@ -256,7 +257,8 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
 
     # efficiencies of generated images
     effs = compute_effs(imgs, eng, params)
-    effs_mean = torch.mean(effs.view(-1))
+    # effs_mean = torch.mean(effs.view(-1))
+    effs_mean = effs
 
     # binarization of generated images
     binarization = torch.mean(torch.abs(imgs.view(-1))).cpu().detach().numpy()
