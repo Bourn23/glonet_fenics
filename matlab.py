@@ -18,7 +18,7 @@ class engine:
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
             print(self.wavelength.size(), self.desired_angle.size())
             self.u = self.model(self.wavelength, self.desired_angle)
-        self.u.sum().backward()
+        self.u.sum().backward(retain_graph = True)
         effs_and_gradients = []
         # effs_and_gradients.append(self.u[:, :100, 1] - img[:, :, torch.randint(0, 255, (1,))[0].numpy().tolist()]) # dims needs to match
         effs_and_gradients.append(self.u.sum() - img.sum())
