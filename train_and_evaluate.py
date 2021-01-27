@@ -243,7 +243,7 @@ def visualize_generated_images(generator, params, n_row = 4, n_col = 4):
     
 
 
-def evaluate_training_generator(generator, eng, params, num_imgs = 100):
+def evaluate_training_generator(generator, eng, params, num_imgs = 1):
 
     # generate images
     z = sample_z(num_imgs, params)
