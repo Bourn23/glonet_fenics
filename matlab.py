@@ -24,9 +24,11 @@ class engine:
         effs_and_gradients.append(self.u.sum() - img.sum())
 
         try:
-            effs_and_gradients.append(wavelength.grad)
-            effs_and_gradients.append(angle.grad)
-        except error as e:
-            print(f"Error computing gradient {e}")
+            effs_and_gradients.append(self.wavelength.grad)
+            effs_and_gradients.append(self.angle.grad)
+        except:
+            import sys
+            e = sys.exc_info()[0]
+            print( "<p>Error: %s</p>" % e )
         
         return effs_and_gradients
