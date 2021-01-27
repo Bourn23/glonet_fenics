@@ -20,7 +20,9 @@ class engine:
             self.u = self.model(self.wavelength, self.desired_angle)
         self.u.sum().backward()
         effs_and_gradients = []
-        effs_and_gradients.append(self.u[:100] - img[:, :, torch.randint(0, 255, (1,))[0].numpy().tolist()])
+        print(self.u.)
+        # effs_and_gradients.append(self.u[:, :100, 1] - img[:, :, torch.randint(0, 255, (1,))[0].numpy().tolist()]) # dims needs to match
+        effs_and_gradients.append(self.u.sum() - img.sum())
         for param in self.args:
             try:
                 effs_and_gradients.append(param.grad)
