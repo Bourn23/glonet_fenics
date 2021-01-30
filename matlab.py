@@ -1,4 +1,5 @@
 import torch
+import logging
 
 class engine:
     def __init__(self, fenics_model, wavelength, angle):
