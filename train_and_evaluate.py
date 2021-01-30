@@ -102,7 +102,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             
             # sample  z
             z = sample_z(params.batch_size, params)
-            logging.info(f'train_shape_of_z {self.z.size}')
+            logging.info(f'train_shape_of_z {z.size}')
 
             # generate a batch of iamges
             gen_imgs = generator(z, params)
