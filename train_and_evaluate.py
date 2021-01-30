@@ -102,6 +102,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             
             # sample  z
             z = sample_z(params.batch_size, params)
+            logging.info('train_shape_of_z {self.z.size}')
 
             # generate a batch of iamges
             gen_imgs = generator(z, params)
@@ -149,6 +150,7 @@ def sample_z(batch_size, params):
     '''
     smaple noise vector z
     '''
+    logging.info("generating sample_z")
     return (torch.rand(batch_size, params.noise_dims).type(Tensor)*2.-1.) * params.noise_amplitude
 
 
