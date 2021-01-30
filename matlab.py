@@ -10,6 +10,7 @@ class engine:
         # this only works a single image
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
+                print("EVAL_EFF_data_U_Unknown")
                 self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.wavelength, self.desired_angle)
@@ -19,6 +20,7 @@ class engine:
     def GradientFromSolver_1D_parallel(self, img):
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
+                print("EVAL_EFF_data_U_Unknown_TENSORS")
                 self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
             # print(self.wavelength.size(), self.desired_angle.size())

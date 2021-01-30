@@ -64,7 +64,6 @@ if __name__ == '__main__':
     os.makedirs(args.output_dir + '/figures/deviceSamples', exist_ok = True)
 
     # Define the models 
-    print("Making sure this is running!")
     generator = Generator(params)
         
     # Move to gpu if possible
