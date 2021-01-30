@@ -102,7 +102,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             
             # sample  z
             z = sample_z(params.batch_size, params)
-            logging.info('train_shape_of_z {self.z.size}')
+            logging.info(f'train_shape_of_z {self.z.size}')
 
             # generate a batch of iamges
             gen_imgs = generator(z, params)
@@ -150,7 +150,6 @@ def sample_z(batch_size, params):
     '''
     smaple noise vector z
     '''
-    logging.info("generating sample_z")
     return (torch.rand(batch_size, params.noise_dims).type(Tensor)*2.-1.) * params.noise_amplitude
 
 
@@ -166,6 +165,8 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
         effs: N x 1
         gradients: N x C x H
     '''
+    logging.info("compute_effs_and_grads_called")
+    
     # convert from tensor to numpy array
     imgs = gen_imgs.clone().detach()
     N = imgs.size(0)
@@ -198,6 +199,7 @@ def compute_effs(imgs, eng, params):
     Returns:
         effs: N x 1
     '''
+    logging.info("compute_effs_called")
     # convert from tensor to numpy array
     N = imgs.size(0)
     img = imgs.data#cpu().numpy().tolist()
@@ -252,7 +254,7 @@ def visualize_generated_images(generator, params, n_row = 4, n_col = 4):
 
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
-
+    logging.info("evaluate_training_generator")
     # generate images
     z = sample_z(num_imgs, params)
     imgs = generator(z, params)
