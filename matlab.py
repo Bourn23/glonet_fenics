@@ -5,12 +5,13 @@ class engine:
         self.model = fenics_model
         self.wavelength = torch.tensor([[wavelength]], requires_grad = True, dtype = torch.float64)
         self.desired_angle = torch.tensor([[angle]], requires_grad = True, dtype = torch.float64)
+        logging.info(f"all initialized: type of wave {type(self.wavelength)} and angle {type(self.desired_angle)}")
         self.u = None
     def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
         # this only works a single image
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
-                ogging.info("EVAL_EFF_data_U_Unknown")
+                logging.info("EVAL_EFF_data_U_Unknown")
                 self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.wavelength, self.desired_angle)
@@ -20,7 +21,7 @@ class engine:
     def GradientFromSolver_1D_parallel(self, img):
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
-                ogging.info("EVAL_EFF_data_U_Unknown_TENSORS")
+                logging.info("EVAL_EFF_data_U_Unknown_TENSORS")
                 self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
             # print(self.wavelength.size(), self.desired_angle.size())
