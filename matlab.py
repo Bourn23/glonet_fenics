@@ -7,7 +7,7 @@ class engine:
         self.wavelength = torch.tensor([[wavelength]], requires_grad = True, dtype = torch.float64)
         self.desired_angle = torch.tensor([[angle]], requires_grad = True, dtype = torch.float64)
         self.u = None
-        logging.info(f"matlab_All initialized: type of wave {type(self.wavelength)} and angle {type(self.desired_angle)}")
+        # logging.info(f"matlab_All initialized: type of wave {type(self.wavelength)} and angle {type(self.desired_angle)}")
     def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
         logging.info("matlab_eval_eff_called")
         # this only works a single image
