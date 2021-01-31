@@ -150,10 +150,10 @@ def sample_z(batch_size, params):
     '''
     smaple noise vector z
     '''
-    if len(params.noise_dims) > 1:
-        return (torch.rand(batch_size, params.noise_dims[0], params.noise_dim[1]).type(Tensor)*2.-1.) * params.noise_amplitude
-    else:
+    if type(params.noise_dims) == int:
         return (torch.rand(batch_size, params.noise_dims).type(Tensor)*2.-1.) * params.noise_amplitude
+    else:
+        return (torch.rand(batch_size, params.noise_dims[0], params.noise_dim[1]).type(Tensor)*2.-1.) * params.noise_amplitude
 
 
 def compute_effs_and_gradients(gen_imgs, eng, params):
