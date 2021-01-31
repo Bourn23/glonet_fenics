@@ -102,7 +102,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             
             # sample  z
             z = sample_z(params.batch_size, params)
-            logging.info(f'train_shape_of_z {z.size()}')
+            logging.info(f'train_shape_of_z {z}')
 
             # generate a batch of iamges
             gen_imgs = generator(z, params)
@@ -150,7 +150,10 @@ def sample_z(batch_size, params):
     '''
     smaple noise vector z
     '''
-    return (torch.rand(batch_size, params.noise_dims).type(Tensor)*2.-1.) * params.noise_amplitude
+    if len(params.noise_dims) > 1:
+        return (torch.rand(batch_size, params.noise_dims[0], params.noise_dim[1]).type(Tensor)*2.-1.) * params.noise_amplitude
+    else:
+        return (torch.rand(batch_size, params.noise_dims).type(Tensor)*2.-1.) * params.noise_amplitude
 
 
 def compute_effs_and_gradients(gen_imgs, eng, params):
