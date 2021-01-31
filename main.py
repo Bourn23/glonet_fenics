@@ -46,7 +46,10 @@ if __name__ == '__main__':
     params.cuda = torch.cuda.is_available()
     params.restore_from = args.restore_from
     params.numIter = int(params.numIter)
-    params.noise_dims = int(params.noise_dims)
+    
+    try:       params.noise_dims = int(params.noise_dims)
+    except:    params.noise_dims = list(params.noise_dims)
+    
     params.gkernlen = int(params.gkernlen)
     params.step_size = int(params.step_size)    
 
