@@ -1,7 +1,7 @@
 {
     "wavelength": 900,
     "angle": 60,
-    "noise_dims": [176.0, 3.0],
+    "noise_dims": 528,
     "noise_amplitude": 1,
     "numIter": 1000.0,
     "gkernlen": 19.0,
