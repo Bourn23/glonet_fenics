@@ -33,10 +33,10 @@ class Generator(nn.Module):
             ConvTranspose1d_meta(16, 8, 5, stride=2, bias=False),
             nn.BatchNorm1d(8),
             nn.LeakyReLU(0.2),
-            ConvTranspose1d_meta(8, 4, 5, stride=2, bias=False),
+            ConvTranspose1d_meta(8, 4, 2, stride=2, bias=False),
             nn.BatchNorm1d(4),
             nn.LeakyReLU(0.2),
-            ConvTranspose1d_meta(4, 2, 5),
+            ConvTranspose1d_meta(4, 1, 2),
             )
 
 
