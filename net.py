@@ -41,13 +41,13 @@ class Generator(nn.Module):
 
 
     def forward(self, noise, params):
-        logging.info(f"noise size: {noise.size()} and type: {type(noise)}")
+        # logging.info(f"noise size: {noise.size()} and type: {type(noise)}")
         net = self.FC(noise)
         logging.info(f"1st pass size: {net.size()}")
 
         net = net.view(-1, 16, 32)
         logging.info(f"2st pass size: {net.size()}")
-        
+
         net = self.CONV(net)    
         logging.info(f"3st pass size: {net.size()}")
 
