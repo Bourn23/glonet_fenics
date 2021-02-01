@@ -181,12 +181,15 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # call matlab function to compute efficiencies and gradients
 
     effs_and_gradients = eng.GradientFromSolver_1D_parallel(img)  
-    logging.info(f'train_and effs_grad: {effs_and_gradients.size()}')
     # effs_and_gradients = Tensor(effs_and_gradients) 
     # effs = effs_and_gradients[:, 0]             
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
+    logging.info(f'train_and grad_effs: {len(effs)')
     effs = effs_and_gradients[0]             
     gradients = effs_and_gradients[1:]
+    logging.info(f'train_and effs: {effs.size()')
+    logging.info(f'train_and grad: {gradients.size()')
+    
 
     return (effs, gradients)
 
