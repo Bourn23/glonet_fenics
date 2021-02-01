@@ -75,7 +75,7 @@ def conv1d_meta(inputs, kernel):
         inputs: B x C x H x W
         gkernel: 1d kernel
     """
-    logging.info('inputs ', inputs)
+    # logging.info(f'inputs  {inputs}')
     kH = kernel.size(0)
     padded_inputs = pad1d_meta(inputs, kH-1)
     # logging.info(f'padded inputs {inputs}')
