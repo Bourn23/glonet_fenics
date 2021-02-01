@@ -33,6 +33,7 @@ class engine:
 
             # compute gradients for all!
             self.u = self.model(self.wavelength, self.desired_angle)
+        logging.info(f"self.u.size before is : {self.u.size()}")
         self.u.mean().backward(retain_graph = True) # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
         # self.u.sum().backward(retain_graph = True)
 
