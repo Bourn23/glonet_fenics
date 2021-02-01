@@ -2,7 +2,7 @@ import torch
 import logging
 
 class engine:
-    def __init__(self, fenics_model, wavelength, angle):
+    def __init__(self, fenics_model, wavelength, angle, batch_size):
         self.model = fenics_model
         self.wavelength = torch.tensor([[wavelength]] * params.batch_size, requires_grad = True, dtype = torch.float64)
         self.desired_angle = torch.tensor([[angle]] * params.batch_size, requires_grad = True, dtype = torch.float64)
