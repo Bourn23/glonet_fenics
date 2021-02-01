@@ -172,7 +172,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     
     # convert from tensor to numpy array
     imgs = gen_imgs.clone().detach()
-    logging.info(f'images tensor is : {imgs}')
+    # logging.info(f'images tensor is : {imgs}')
     N = imgs.size(0)
     img = imgs#.cpu().numpy().tolist()
     wavelength = torch.tensor([params.wavelength] * N)
@@ -181,8 +181,8 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # call matlab function to compute efficiencies and gradients
 
     effs_and_gradients = eng.GradientFromSolver_1D_parallel(img)  
+    logging.info(f'train_and effs_grad: {effs_and_gradients}')
     effs_and_gradients = Tensor(effs_and_gradients) 
-    logging.info("train_and_eval effs_and_gradients: {effs_and_gradients}")
     # effs = effs_and_gradients[:, 0]             
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
     effs = effs_and_gradients[0]             
