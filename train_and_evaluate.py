@@ -182,7 +182,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
 
     effs_and_gradients = eng.GradientFromSolver_1D_parallel(img)  
     effs_and_gradients = Tensor(effs_and_gradients) 
-    # print(effs_and_gradients)
+    logging.info("train_and_eval effs_and_gradients: {effs_and_gradients}")
     # effs = effs_and_gradients[:, 0]             
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
     effs = effs_and_gradients[0]             

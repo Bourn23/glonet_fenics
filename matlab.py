@@ -22,15 +22,18 @@ class engine:
         return (self.u.sum() - img.sum()).float()
     
     def GradientFromSolver_1D_parallel(self, img):
+        # What should be going on here? 1. see paper for what they're doing / 2. see the .mat file
+        # And what is going on now?:))
         logging.info("matlab_grad_solver_called")
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
                 logging.info("matlab_EVAL_EFF_data_U_Unknown_TENSORS")
                 self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
-            # print(self.wavelength.size(), self.desired_angle.size())
+
+            # compute gradients for all!
             self.u = self.model(self.wavelength, self.desired_angle)
-        self.u.mean(axis = 0).backward(retain_graph = True) # mean to average over batches
+        self.u.mean().backward(retain_graph = True) # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
         # self.u.sum().backward(retain_graph = True)
 
         logging.info(f"self.u.size is : {self.u.size()}")
