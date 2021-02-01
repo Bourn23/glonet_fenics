@@ -102,13 +102,14 @@ class ConvTranspose1d_meta(nn.Module):
         self.trim = self.padding * stride // 2
         pad = (kernel_size - stride) // 2 
         self.output_padding = (kernel_size - stride) % 2 
-        logging.info('meta_layers_in_channels : {in_channels}, out_channels:  {out_channels}')
+        logging.info(f'meta_layers_in_channels : {in_channels}, out_channels:  {out_channels}')
         self.conv1d_transpose = nn.ConvTranspose1d(in_channels, out_channels, kernel_size, stride, padding=pad,
                                           output_padding=0, groups=groups, bias=bias, dilation=dilation)
     
     def forward(self, inputs):
         padded_inputs = pad1d_meta(inputs, self.padding)
         padded_outputs = self.conv1d_transpose(padded_inputs)
+        logging.info(f"metalayers_padded_outputs {padded_outputs}")
         if self.output_padding:
             padded_outputs = padded_outputs[:, :, 1:]
         
