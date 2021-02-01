@@ -172,6 +172,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     
     # convert from tensor to numpy array
     imgs = gen_imgs.clone().detach()
+    logging.info(f'images tensor is : {imgs}')
     N = imgs.size(0)
     img = imgs#.cpu().numpy().tolist()
     wavelength = torch.tensor([params.wavelength] * N)
