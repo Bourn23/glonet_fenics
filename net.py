@@ -33,11 +33,13 @@ class Generator(nn.Module):
             ConvTranspose1d_meta(16, 8, 5, stride=2, bias=False),
             nn.BatchNorm1d(8),
             nn.LeakyReLU(0.2),
-            ConvTranspose1d_meta(8, 4, 2, stride=2, bias=False),
+            ConvTranspose1d_meta(8, 4, 5, stride=2, bias=False),
             nn.BatchNorm1d(4),
             nn.LeakyReLU(0.2),
-            ConvTranspose1d_meta(4, 1, 2),
+            ConvTranspose1d_meta(4, 1, 5),
             )
+        
+        self.FC1 = nn.Linear(256, self.noise_dim)
 
 
     def forward(self, noise, params):
@@ -51,7 +53,7 @@ class Generator(nn.Module):
         net = self.CONV(net)    
         logging.info(f"3st pass size: {net.size()}")
         logging.info(f"3st pass noise_size: {noise.unsqueeze(1).size()}")
-        
+        net = self.FC1(net)
         net = conv1d_meta(net + noise.unsqueeze(1), self.gkernel)
         logging.info(f"4st pass size: {net.size()}")
         
