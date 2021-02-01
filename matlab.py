@@ -4,9 +4,8 @@ import logging
 class engine:
     def __init__(self, fenics_model, wavelength, angle):
         self.model = fenics_model
-        logging.info(f'matlab_model is {type(self.model)}')
-        self.wavelength = torch.tensor([[wavelength]], requires_grad = True, dtype = torch.float64)
-        self.desired_angle = torch.tensor([[angle]], requires_grad = True, dtype = torch.float64)
+        self.wavelength = torch.tensor([[wavelength]] * params.batch_size, requires_grad = True, dtype = torch.float64)
+        self.desired_angle = torch.tensor([[angle]] * params.batch_size, requires_grad = True, dtype = torch.float64)
         self.u = None
         # logging.info(f"matlab_All initialized: type of wave {type(self.wavelength)} and angle {type(self.desired_angle)}")
     def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
@@ -15,8 +14,8 @@ class engine:
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
                 logging.info("matlab_EVAL_EFF_data_U_Unknown")
-                self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
-                self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
+                self.wavelength = torch.tensor([[self.wavelength]] * params.batch_size, dtype = torch.float64, requires_grad=True)
+                self.desired_angle = torch.tensor([[self.desired_angl]] * params.batch_size, dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.wavelength, self.desired_angle)
 
         return (self.u.sum() - img.sum()).float()
@@ -28,8 +27,8 @@ class engine:
         if self.u is None:
             if type(self.wavelength) != torch.Tensor:
                 logging.info("matlab_EVAL_EFF_data_U_Unknown_TENSORS")
-                self.wavelength = torch.tensor([[self.wavelength]], dtype = torch.float64, requires_grad=True)
-                self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
+                self.wavelength = torch.tensor([[self.wavelength]] * params.batch_size, dtype = torch.float64, requires_grad=True)
+                self.desired_angle = torch.tensor([[self.desired_angl]] * params.batch_size, dtype = torch.float64, requires_grad=True)
 
             # compute gradients for all!
             self.u = self.model(self.wavelength, self.desired_angle)
