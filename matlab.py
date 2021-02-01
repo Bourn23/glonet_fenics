@@ -4,6 +4,7 @@ import logging
 class engine:
     def __init__(self, fenics_model, wavelength, angle):
         self.model = fenics_model
+        logging.info(f'matlab_model is {type(self.model)}')
         self.wavelength = torch.tensor([[wavelength]], requires_grad = True, dtype = torch.float64)
         self.desired_angle = torch.tensor([[angle]], requires_grad = True, dtype = torch.float64)
         self.u = None
@@ -29,7 +30,7 @@ class engine:
                 self.desired_angle = torch.tensor([[self.desired_angl]], dtype = torch.float64, requires_grad=True)
             # print(self.wavelength.size(), self.desired_angle.size())
             self.u = self.model(self.wavelength, self.desired_angle)
-        self.u.backward(retain_graph = True)
+        self.u.mean(axis = 0).backward(retain_graph = True) # mean to average over batches
         # self.u.sum().backward(retain_graph = True)
 
         logging.info(f"self.u.size is : {self.u.size()}")
