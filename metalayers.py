@@ -109,7 +109,7 @@ class ConvTranspose1d_meta(nn.Module):
     def forward(self, inputs):
         padded_inputs = pad1d_meta(inputs, self.padding)
         padded_outputs = self.conv1d_transpose(padded_inputs)
-        logging.info(f"metalayers_padded_outputs {padded_outputs}")
+        logging.info(f"metalayers_padded_outputs {padded_outputs.size()}")
         if self.output_padding:
             padded_outputs = padded_outputs[:, :, 1:]
         
