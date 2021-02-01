@@ -188,7 +188,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     effs = effs_and_gradients[0]             
     gradients = effs_and_gradients[1:]
     logging.info(f'train_and effs: {effs.size()}')
-    logging.info(f'train_and grad: {gradients.size()}')
+    logging.info(f'train_and grad: {len(gradients)}')
     
 
     return (effs, gradients)
