@@ -58,7 +58,7 @@ if __name__ == '__main__':
     if args.angle is not None:
         params.angle = torch.tensor(args.angle, requires_grad = True, dtype = torch.float64)
 
-    eng = engine(varproblem, params.wavelength, params.angle, params.batch_size)
+    eng = engine(varproblem, params.wavelength, params.angle, params.batch_size_start)
 
     # make directory
     os.makedirs(args.output_dir + '/outputs', exist_ok = True)
