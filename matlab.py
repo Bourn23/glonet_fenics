@@ -10,7 +10,7 @@ class engine:
         self.batch_size = 1
         self.mu = torch.tensor([[mu]] * self.batch_size, requires_grad = True, dtype = torch.float64)
         self.beta = torch.tensor([[beta]] * self.batch_size, requires_grad = True, dtype = torch.float64)
-        self.f = torch.tensor([[force]] * self.batch_size, requires_grad = True, dtype = torch.float64)
+        self.force = torch.tensor([[force]] * self.batch_size, requires_grad = True, dtype = torch.float64)
         self.u = None
         # logging.info(f"matlab_All initialized: type of wave {type(self.mu)} and angle {type(self.beta)}")
     def Eval_Eff_1D_parallel(self, img, mu, beta, force):
