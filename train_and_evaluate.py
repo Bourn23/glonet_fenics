@@ -10,6 +10,7 @@ import torch
 import utils
 import scipy.io as io
 import numpy as np
+from dolfin import *; from mshr import *
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
@@ -256,7 +257,7 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
 def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
-    from dolfin import *; from mshr import *
+    
 
     scene_settings = dict(
             xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
