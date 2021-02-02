@@ -258,7 +258,9 @@ def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
     
-
+    logging.info(f"size of image: {imgs.size()}")
+    # logging.info(f"deatched oned {imgs.detach().numpy()[0].size()}")
+    logging.info(f"deatched oned {imgs.detach().numpy()[0]}")
     scene_settings = dict(
             xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
             yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
