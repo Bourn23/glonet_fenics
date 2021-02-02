@@ -119,8 +119,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
 
             # train the generator
-            if it < 2: g_loss.backward(retain_graph = True)
-            else: g_loss.backward()
+            g_loss.backward(retain_graph = True)
             optimizer.step()
 
 
