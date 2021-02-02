@@ -6,6 +6,7 @@ class engine:
     def __init__(self, fenics_model, batch_size, mu, beta, force):
         #TODO: our [mu, beta, force] itself must differ; something that currently is not happening
         self.model = fenics_model
+        self.v2d = vertex_to_dof_map(self.model.V)
         # self.batch_size = batch_size
         self.batch_size = 1
         self.mu = torch.tensor([[mu]] * self.batch_size, requires_grad = True, dtype = torch.float64)
@@ -22,10 +23,10 @@ class engine:
                 self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
                 self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.mu, self.beta, self.force)
-            u_ = self.u.detach()
+            u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
 
 
-        return (self.u.unsqueeze_(0).repeat(img.size()[0]) - img).float()
+        return (u_ - img).float()
     
     def GradientFromSolver_1D_parallel(self, img):
         # What should be going on here? 1. see paper for what they're doing / 2. see the .mat file
@@ -39,14 +40,11 @@ class engine:
 
             # compute gradients for all!
             self.u = self.model(self.mu, self.beta, self.force)
-            # logging.info(f"Computing backward gradients only once.")
-            self.u.sum().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
-        # self.u.sum().backward(retain_graph = True)
-        # logging.info(f"{img.size()}")
-        v2d = vertex_to_dof_map(self.model.V)
-        u_ = self.u.detach().flatten()[v2d].reshape(-1, 3)
-        # logging.info(f"self.u.size is : {u_.unsqueeze(0).repeat(len(img[0]), 1, 1, 1)}")
-        # logging.info(f"img size is : {img.size()}")
+
+            self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
+
+        u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
+
 
         effs_and_gradients = []
         # effs_and_gradients.append(u_.unsqueeze_(0).repeat(img.size()[0], 1, 1, 1) - img)
