@@ -331,7 +331,7 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # efficiencies of generated images
     effs = compute_effs(imgs, eng, params)
     # effs_mean = torch.mean(effs.view(-1))
-    effs_mean = effs
+    effs_mean = effs.cpu().detach().numpy()
 
     # binarization of generated images
     binarization = torch.mean(torch.abs(imgs.view(-1))).cpu().detach().numpy()
