@@ -276,10 +276,10 @@ def save_images(imgs, eng, fig_path):
     
     tris = np.array(triangles)
 
-    x, y, z = (eng.model.mesh.coordinates() + img.detach().numpy()[0]).T
+    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()[0]).T
     i, j, k = tris.T
     # [0] change it to i so to save all images!
-    disp = np.linalg.norm(img.detach().numpy()[0], axis=1).T  # the zero index is because of the "N" above!
+    disp = np.linalg.norm(imgs.detach().numpy()[0], axis=1).T  # the zero index is because of the "N" above!
 
     fig = go.Figure(data=[
         go.Mesh3d(
