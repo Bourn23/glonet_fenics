@@ -1,6 +1,7 @@
 {
-    "wavelength": 900,
-    "angle": 60,
+    "wavelength": 1,
+    "angle": 1.25,
+    "force": 10,
     "noise_dims": 528,
     "noise_amplitude": 1,
     "numIter": 1000.0,

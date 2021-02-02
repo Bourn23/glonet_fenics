@@ -1,52 +1,60 @@
 import torch
 import logging
+from dolfin import vertex_to_dof_map
 
 class engine:
-    def __init__(self, fenics_model, wavelength, angle, batch_size):
+    def __init__(self, fenics_model, batch_size, mu, beta, force):
+        #TODO: our [mu, beta, force] itself must differ; something that currently is not happening
         self.model = fenics_model
-        self.batch_size = batch_size
-        self.wavelength = torch.tensor([[wavelength]] * self.batch_size, requires_grad = True, dtype = torch.float64)
-        self.desired_angle = torch.tensor([[angle]] * self.batch_size, requires_grad = True, dtype = torch.float64)
+        # self.batch_size = batch_size
+        self.batch_size = 1
+        self.mu = torch.tensor([[mu]] * self.batch_size, requires_grad = True, dtype = torch.float64)
+        self.beta = torch.tensor([[beta]] * self.batch_size, requires_grad = True, dtype = torch.float64)
+        self.f = torch.tensor([[force]] * self.batch_size, requires_grad = True, dtype = torch.float64
         self.u = None
-        # logging.info(f"matlab_All initialized: type of wave {type(self.wavelength)} and angle {type(self.desired_angle)}")
-    def Eval_Eff_1D_parallel(self, img, wavelength, desired_angle):
+        # logging.info(f"matlab_All initialized: type of wave {type(self.mu)} and angle {type(self.beta)}")
+    def Eval_Eff_1D_parallel(self, img, mu, beta, force):
         # logging.info("matlab_eval_eff_called")
         # this only works a single image
         if self.u is None:
-            if type(self.wavelength) != torch.Tensor:
+            if type(self.mu) != torch.Tensor:
                 # logging.info("matlab_EVAL_EFF_data_U_Unknown")
-                self.wavelength = torch.tensor([[self.wavelength]] * self.batch_size, dtype = torch.float64, requires_grad=True)
-                self.desired_angle = torch.tensor([[self.desired_angl]] * self.batch_size, dtype = torch.float64, requires_grad=True)
-            self.u = self.model(self.wavelength, self.desired_angle)
+                self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+                self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+            self.u = self.model(self.mu, self.beta, self.force)
+            u_ = self.u.detach()
 
-        return (self.u.sum() - img.sum()).float()
+
+        return (self.u.unsqueeze_(0).repeat(img.size()[0]) - img).float()
     
     def GradientFromSolver_1D_parallel(self, img):
         # What should be going on here? 1. see paper for what they're doing / 2. see the .mat file
         # And what is going on now?:))
         # logging.info("matlab_grad_solver_called")
         if self.u is None:
-            if type(self.wavelength) != torch.Tensor:
+            if type(self.mu) != torch.Tensor:
                 # logging.info("matlab_EVAL_EFF_data_U_Unknown_TENSORS")
-                self.wavelength = torch.tensor([[self.wavelength]] * self.batch_size, dtype = torch.float64, requires_grad=True)
-                self.desired_angle = torch.tensor([[self.desired_angl]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+                self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+                self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
 
             # compute gradients for all!
-            self.u = self.model(self.wavelength, self.desired_angle)
-        # logging.info(f"self.u.size before is : {self.u.size()}")
-        self.u.mean().backward(retain_graph = True) # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
+            self.u = self.model(self.mu, self.beta, self.force)
+            logging.info(f"Computing backward gradients only once.")
+            self.u.sum().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
         # self.u.sum().backward(retain_graph = True)
-
-        # logging.info(f"self.u.size is : {self.u.size()}")
-        # logging.info(f"img size is : {img.size()}")
+        v2d = vertex_to_dof_map(self.model.V)
+        u_ = self.u.detach().flatten()[v2d].reshape(-1, 3)
+        logging.info(f"self.u.size is : {u_.unsqueeze(0).repeat(img.size()[0], 1, 1, 1)}")
+        logging.info(f"img size is : {img.size()}")
 
         effs_and_gradients = []
-        # effs_and_gradients.append(self.u[:, :100, 1] - img[:, :, torch.randint(0, 255, (1,))[0].numpy().tolist()]) # dims needs to match
-        effs_and_gradients.append(self.u - img)
+        effs_and_gradients.append(u_.unsqueeze_(0).repeat(img.size()[0], 1, 1, 1) - img)
+
 
         try:
-            effs_and_gradients.append(self.wavelength.grad)
-            effs_and_gradients.append(self.desired_angle.grad)
+            #TODO: increased parameters to be supported
+            effs_and_gradients.append(self.mu.grad.detach())
+            effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
         except:
             import sys
             e = sys.exc_info()[0]

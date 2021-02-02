@@ -21,7 +21,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
     def __init__(self):
         # Call super constructor
         super().__init__()
-
+        #TODO: make L, W variables
         # Scaled variables
         self.bc = None
         self.L = 1
@@ -39,7 +39,6 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
 
         # Create trial and test functions
         self.v = TestFunction(self.V)
-        self.f = Constant((0, 0, -self.rho*self.g))
         self.T = Constant((0, 0, 0)) 
 
 
@@ -60,14 +59,15 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
     @staticmethod
     def clamped_boundary_right(x, on_boundary):
         tol = 1E-14# tolerance is manually defined here as 1e-14
-        return on_boundary and near(x[1], 1., tol) # should be using self.tol
+        return on_boundary and near(x[0], 1., tol) # should be using self.tol
 
 
-    def solve(self, mu, beta):
+    def solve(self, mu, beta, force_multiplier):
         # Parameters to be optimized
         self.mu = mu
         self.beta = beta
         self.lambda_ = self.beta
+        self.f = Constant((0, 0, -self.rho*self.g*force_multiplier))
 
 
         self.u = TrialFunction(self.V)
@@ -93,7 +93,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
 
     def input_templates(self):
         # Declare input shapess
-        return Constant((1)), Constant((1))
+        return Constant((1)), Constant((1)), Constant((1))
 
     def exec(self, expression):
         # To work with fenics' functions

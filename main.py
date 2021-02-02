@@ -51,14 +51,15 @@ if __name__ == '__main__':
     except:    params.noise_dims = list(params.noise_dims)
 
     params.gkernlen = int(params.gkernlen)
-    params.step_size = int(params.step_size)    
+    params.step_size = int(params.step_size)   
+    params.force = float(params.force) 
 
     if args.wavelength is not None:
         params.wavelength = torch.tensor(args.wavelength, requires_grad = True, dtype = torch.float64)
     if args.angle is not None:
         params.angle = torch.tensor(args.angle, requires_grad = True, dtype = torch.float64)
 
-    eng = engine(varproblem, params.wavelength, params.angle, params.batch_size_start)
+    eng = engine(varproblem, params.batch_size_start, params.wavelength, params.angle, params.force)
 
     # make directory
     os.makedirs(args.output_dir + '/outputs', exist_ok = True)

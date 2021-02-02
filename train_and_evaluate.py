@@ -120,7 +120,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
 
             # train the generator
-            g_loss.backward(retain_graph = True)
+            # g_loss.backward(retain_graph = True)
+            g_loss.backward()
             optimizer.step()
 
 
@@ -175,7 +176,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     imgs = gen_imgs.clone().detach()
     # logging.info(f'images tensor is : {imgs}')
     N = imgs.size(0)
-    img = imgs#.cpu().numpy().tolist()
+    img = imgs.cpu().numpy().tolist()
     wavelength = torch.tensor([params.wavelength] * N)
     desired_angle = torch.tensor([params.angle] * N)
 
@@ -187,7 +188,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
     # logging.info(f'train_and grad_effs: {len(effs_and_gradients)}')
     effs = effs_and_gradients[0]             
-    gradients = effs_and_gradients[1:]
+    gradients = torch.tensor(effs_and_gradients[1:], dtype = torch.float64)
     # logging.info(f'train_and effs: {effs.size()}')
     # logging.info(f'train_and grad: {len(gradients)}')
     
@@ -210,12 +211,14 @@ def compute_effs(imgs, eng, params):
     # logging.info("compute_effs_called")
     # convert from tensor to numpy array
     N = imgs.size(0)
-    img = imgs.data#cpu().numpy().tolist()
+    img = imgs.data.cpu().numpy().tolist()
     wavelength = torch.tensor([params.wavelength] * N)
     desired_angle = torch.tensor([params.angle] * N)
+    force = torch.tensor([params.force] * N)
+
    
     # call matlab function to compute efficiencies 
-    effs = eng.Eval_Eff_1D_parallel(img, wavelength, desired_angle)
+    effs = eng.Eval_Eff_1D_parallel(img, wavelength, desired_angle, force)
     
     
     # return Tensor(effs)
