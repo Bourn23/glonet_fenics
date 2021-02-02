@@ -276,6 +276,7 @@ def save_images(imgs, eng, fig_path):
 
     x, y, z = (eng.model.mesh.coordinates() + img.detach().numpy()[0]).T
     i, j, k = tris.T
+    # [0] change it to i so to save all images!
     disp = np.linalg.norm(img.detach().numpy()[0], axis=1).T  # the zero index is because of the "N" above!
 
     fig = go.Figure(data=[
@@ -295,25 +296,8 @@ def save_images(imgs, eng, fig_path):
         )
     ])
     fig.update_layout(scene = scene_settings)
-    # fig.update_layout(scene_aspectmode = 'cube')
-    # fig.show()
     fig.write_image(fig_path)
 
-
-    disp = np.linalg.norm(s.detach().numpy()[0], axis=1).T  # the zero index is because of the "N" above!
-
-    x, y, z = varproblem.mesh.coordinates().T
-    fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
-                                    mode='markers',
-                                    marker=dict(
-            color=disp,                # set color to an array/list of desired values
-            colorscale='Viridis',   # choose a colorscale
-        )
-                                    )
-    ])
-    fig.update_layout(scene = scene_settings)
-    fig.update_layout(scene_aspectmode = 'cube')
-    fig.show()
 
 
 def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
@@ -325,7 +309,7 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     logging.info(imgs.size())
     imgs_2D = imgs#.unsqueeze(2).repeat(1, 1, 64, 1)
     # save_image(imgs_2D, fig_path, n_row, range=(-1, 1))
-    save_images(imgs, eng)
+    save_images(imgs, eng, fig_path)
     
     
 
