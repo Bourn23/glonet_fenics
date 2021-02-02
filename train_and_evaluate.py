@@ -119,7 +119,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
 
             # train the generator
-            g_loss.backward(retain_graph = True)
+            if it < 2: g_loss.backward(retain_graph = True)
+            else: g_loss.backward()
             optimizer.step()
 
 
@@ -128,7 +129,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 generator.eval()
 
                 # vilualize generated images at various conditions
-                visualize_generated_images(generator, params)
+                visualize_generated_images(generator, params, eng)
 
                 # evaluate the performance of current generator
                 effs_mean, binarization, diversity = evaluate_training_generator(generator, eng, params)
@@ -253,16 +254,80 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     return loss
 
 
+def save_images(imgs, eng, fig_path):
+    import plotly.graph_objects as go
+    import numpy as np
 
-def visualize_generated_images(generator, params, n_row = 4, n_col = 4):
+    scene_settings = dict(
+            xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
+            yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
+            zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
+
+    triangles = []
+    for cell in cells(eng.model.mesh):
+        for facet in facets(cell):
+            vertex_coords = []
+            vertex_indices = []
+            for vertex in vertices(facet):
+                vertex_coords.append(list(vertex.point().array()))
+                vertex_indices.append(vertex.index())
+            triangles.append(vertex_indices)
+    
+    tris = np.array(triangles)
+
+    x, y, z = (eng.model.mesh.coordinates() + img.detach().numpy()[0]).T
+    i, j, k = tris.T
+    disp = np.linalg.norm(img.detach().numpy()[0], axis=1).T  # the zero index is because of the "N" above!
+
+    fig = go.Figure(data=[
+        go.Mesh3d(
+            x=x,
+            y=y,
+            z=z,
+            # Intensity of each vertex, which will be interpolated and color-coded
+            intensity=disp,
+            # i, j and k give the vertices of triangles
+            # here we represent the 4 triangles of the tetrahedron surface
+            i=i,
+            j=j,
+            k=k,
+            name='y',
+            showscale=True
+        )
+    ])
+    fig.update_layout(scene = scene_settings)
+    # fig.update_layout(scene_aspectmode = 'cube')
+    # fig.show()
+    fig.write_image(fig_path)
+
+
+    disp = np.linalg.norm(s.detach().numpy()[0], axis=1).T  # the zero index is because of the "N" above!
+
+    x, y, z = varproblem.mesh.coordinates().T
+    fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
+                                    mode='markers',
+                                    marker=dict(
+            color=disp,                # set color to an array/list of desired values
+            colorscale='Viridis',   # choose a colorscale
+        )
+                                    )
+    ])
+    fig.update_layout(scene = scene_settings)
+    fig.update_layout(scene_aspectmode = 'cube')
+    fig.show()
+
+
+def visualize_generated_images(generator, params, n_row = 10, n_col = 1):
     # generate images and save
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
     z = sample_z(n_col * n_row, params)
     imgs = generator(z, params)
     logging.info(imgs.size())
-    imgs_2D = imgs.unsqueeze(2).repeat(1, 1, 64, 1)
-    save_image(imgs_2D, fig_path, n_row, range=(-1, 1))
+    imgs_2D = imgs#.unsqueeze(2).repeat(1, 1, 64, 1)
+    # save_image(imgs_2D, fig_path, n_row, range=(-1, 1))
+    save_images(imgs, eng)
+    
     
 
 
