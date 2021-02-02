@@ -168,7 +168,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
         effs: N x 1
         gradients: N x C x H
     '''
-    logging.info("compute_effs_and_grads_called")
+    # logging.info("compute_effs_and_grads_called")
     
     # convert from tensor to numpy array
     imgs = gen_imgs.clone().detach()
@@ -184,11 +184,11 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # effs_and_gradients = Tensor(effs_and_gradients) 
     # effs = effs_and_gradients[:, 0]             
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
-    logging.info(f'train_and grad_effs: {len(effs_and_gradients)}')
+    # logging.info(f'train_and grad_effs: {len(effs_and_gradients)}')
     effs = effs_and_gradients[0]             
     gradients = effs_and_gradients[1:]
-    logging.info(f'train_and effs: {effs.size()}')
-    logging.info(f'train_and grad: {len(gradients)}')
+    # logging.info(f'train_and effs: {effs.size()}')
+    # logging.info(f'train_and grad: {len(gradients)}')
     
 
     return (effs, gradients)
@@ -206,7 +206,7 @@ def compute_effs(imgs, eng, params):
     Returns:
         effs: N x 1
     '''
-    logging.info("compute_effs_called")
+    # logging.info("compute_effs_called")
     # convert from tensor to numpy array
     N = imgs.size(0)
     img = imgs.data#cpu().numpy().tolist()
@@ -235,12 +235,12 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     
     # efficiency loss
     # eff_loss_tensor = - gen_imgs[:2] * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    logging.info(f"gen_imgsize: {gen_imgs.view(10, -1).size()}, gradients_size {gradients[0].size()}, {gradients[1].size()}, effs_size {effs.size()}")
+    # logging.info(f"gen_imgsize: {gen_imgs.view(10, -1).size()}, gradients_size {gradients[0].size()}, {gradients[1].size()}, effs_size {effs.size()}")
     # logging.info(f"gen_imgsize: {gen_imgs.size()}, gradients_size {gradients.size()}, effs_size {effs.size()}")
                                     # batchsize
     eff_loss_tensor = [- gen_imgs.view(10, -1) * gradients[i] for i in range(len(gradients))]
     eff_loss_tensor = sum(eff_loss_tensor).view(10, -1, 3)
-    logging.info(f'eff_loss_tensor: {eff_loss_tensor} and type is {torch.exp(effs/sigma).size()}')
+    # logging.info(f'eff_loss_tensor: {eff_loss_tensor} and type is {torch.exp(effs/sigma).size()}')
     eff_loss_tensor *= (1./sigma) * (torch.exp(effs/sigma)).view(10, -1, 3)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
@@ -266,7 +266,7 @@ def visualize_generated_images(generator, params, n_row = 4, n_col = 4):
 
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
-    logging.info("evaluate_training_generator")
+    # logging.info("evaluate_training_generator")
     # generate images
     z = sample_z(num_imgs, params)
     imgs = generator(z, params)
