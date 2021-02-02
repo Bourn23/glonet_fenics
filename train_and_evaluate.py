@@ -212,7 +212,7 @@ def compute_effs(imgs, eng, params):
     # logging.info("compute_effs_called")
     # convert from tensor to numpy array
     N = imgs.size(0)
-    img = imgs.data.cpu().numpy().tolist()
+    img = imgs.data.cpu()#.numpy().tolist()
     wavelength = torch.tensor([params.wavelength] * N)
     desired_angle = torch.tensor([params.angle] * N)
     force = torch.tensor([params.force] * N)
