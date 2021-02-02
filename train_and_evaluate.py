@@ -316,7 +316,7 @@ def save_images(imgs, eng, fig_path):
     fig.show()
 
 
-def visualize_generated_images(generator, params, n_row = 10, n_col = 1):
+def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     # generate images and save
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
