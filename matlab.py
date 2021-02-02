@@ -50,12 +50,12 @@ class engine:
 
         effs_and_gradients = []
         # effs_and_gradients.append(u_.unsqueeze_(0).repeat(img.size()[0], 1, 1, 1) - img)
-        effs_and_gradients.append(u_.unsqueeze_(0).repeat(len(img[0]), 1, 1) - img)
+        effs_and_gradients.append(u_ - img)
 
 
         try:
             #TODO: increased parameters to be supported
-            effs_and_gradients.append(self.mu.grad.detach())
+            effs_and_gradients.append(self.mu.grad.detach().numpy())
             effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
         except:
             import sys
