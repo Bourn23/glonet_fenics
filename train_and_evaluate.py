@@ -186,7 +186,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
     logging.info(f'train_and grad_effs: {len(effs_and_gradients)}')
     effs = effs_and_gradients[0]             
-    gradients = effs_and_gradients[1:]
+    gradients = torch.tensor(effs_and_gradients[1:])
     logging.info(f'train_and effs: {effs.size()}')
     logging.info(f'train_and grad: {len(gradients)}')
     
@@ -236,7 +236,6 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # efficiency loss
     # eff_loss_tensor = - gen_imgs[:2] * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     logging.info(f"gen_imgsize: {gen_imgs.view(10, -1).size()}, gradients_size {gradients[0].size()}, {gradients[1].size()}, effs_size {effs.size()}")
-    gradients = torch.tensor([gradients[0], gradients[1]], dtype = torch.long)
     # logging.info(f"gen_imgsize: {gen_imgs.size()}, gradients_size {gradients.size()}, effs_size {effs.size()}")
                                     # batchsize
     eff_loss_tensor = - gen_imgs.view(10, -1) * gradients 
