@@ -23,7 +23,8 @@ class engine:
                 self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
                 self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.mu, self.beta, self.force)
-            u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
+        
+        u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
 
 
         return (u_ - img).float()
