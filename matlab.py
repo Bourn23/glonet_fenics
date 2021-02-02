@@ -45,11 +45,12 @@ class engine:
         # logging.info(f"{img.size()}")
         v2d = vertex_to_dof_map(self.model.V)
         u_ = self.u.detach().flatten()[v2d].reshape(-1, 3)
-        logging.info(f"self.u.size is : {u_.unsqueeze(0).repeat(len(img[0]), 1, 1, 1)}")
-        logging.info(f"img size is : {img.size()}")
+        # logging.info(f"self.u.size is : {u_.unsqueeze(0).repeat(len(img[0]), 1, 1, 1)}")
+        # logging.info(f"img size is : {img.size()}")
 
         effs_and_gradients = []
-        effs_and_gradients.append(u_.unsqueeze_(0).repeat(img.size()[0], 1, 1, 1) - img)
+        # effs_and_gradients.append(u_.unsqueeze_(0).repeat(img.size()[0], 1, 1, 1) - img)
+        effs_and_gradients.append(u_.unsqueeze_(0).repeat(len(img[0]), 1, 1) - img)
 
 
         try:
