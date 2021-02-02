@@ -238,9 +238,9 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     logging.info(f"gen_imgsize: {gen_imgs.view(10, -1).size()}, gradients_size {gradients[0].size()}, {gradients[1].size()}, effs_size {effs.size()}")
     # logging.info(f"gen_imgsize: {gen_imgs.size()}, gradients_size {gradients.size()}, effs_size {effs.size()}")
                                     # batchsize
-    eff_loss_tensor = [- gen_imgs.view(10, -1) * gradients[i] for i in len(gradients)]
+    eff_loss_tensor = [- gen_imgs.view(10, -1) * gradients[i] for i in range(len(gradients))]
     eff_loss_tensor = sum(eff_loss_tensor) 
-    logging.info(f'eff_loss_tensor: {eff_loss_tensor}')
+    logging.info(f'eff_loss_tensor: {eff_loss_tensor} and type is {type(eff_loss_tensor)}')
     eff_loss_tensor *= (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
