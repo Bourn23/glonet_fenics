@@ -267,7 +267,7 @@ def save_images(imgs, eng, fig_path):
     
     # logging.info(f"size of image: {imgs.size()}")
     # logging.info(f"deatched oned {imgs.detach().numpy()[0].size()}")
-    logging.info(f"detached ones {imgs.numpy()}")
+    logging.info(f"detached ones {imgs.detach().numpy()}")
     imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)
     scene_settings = dict(
             xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
@@ -286,10 +286,10 @@ def save_images(imgs, eng, fig_path):
     
     tris = np.array(triangles)
 
-    x, y, z = (eng.model.mesh.coordinates() + imgs.numpy()).T
+    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
     # [0] change it to i so to save all images!
-    disp = np.linalg.norm(imgs.numpy(), axis=1).T  # the zero index is because of the "N" above!
+    disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
 
     fig = go.Figure(data=[
         go.Mesh3d(
