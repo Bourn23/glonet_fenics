@@ -269,7 +269,7 @@ def save_images(imgs, eng, fig_path):
     # logging.info(f"deatched oned {imgs.detach().numpy()[0].size()}")
     
     imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)
-    logging.info(f"detached ones {imgs}")
+    # logging.info(f"detached ones {imgs}")
     scene_settings = dict(
             xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
             yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
@@ -309,7 +309,7 @@ def save_images(imgs, eng, fig_path):
         )
     ])
     fig.update_layout(scene = scene_settings)
-    fig.update_layout(scene_aspectmode = 'cube')
+    # fig.update_layout(scene_aspectmode = 'cube')
     fig.write_image(fig_path)
 
 
@@ -319,9 +319,9 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
     z = sample_z(n_col * n_row, params) # generates n_row devices
-    logging.info(f"z is {z}")
+    # logging.info(f"z is {z}")
     imgs = generator(z, params)
-    logging.info(imgs.size())
+    # logging.info(imgs.size())
     imgs_2D = imgs.cpu().detach()#.unsqueeze(2).repeat(1, 1, 64, 1)
     # save_image(imgs_2D, fig_path, n_row, range=(-1, 1))
     save_images(imgs, eng, fig_path)
