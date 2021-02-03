@@ -137,8 +137,11 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
                 # add to history 
                 effs_mean_history.append(effs_mean)
+                logging.info(f'effs_mean_history: {effs_mean_history}')
                 binarization_history.append(binarization)
+                logging.info(f'binarization: {binarization}')
                 diversity_history.append(diversity)
+                logging.info(f'diversity: {diversity}')
 
                 # plot current history
                 utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
@@ -264,7 +267,8 @@ def save_images(imgs, eng, fig_path):
     
     # logging.info(f"size of image: {imgs.size()}")
     # logging.info(f"deatched oned {imgs.detach().numpy()[0].size()}")
-    logging.info(f"deatched ones {imgs.detach().numpy()[0]}")
+    logging.info(f"detached ones {imgs.numpy()}")
+    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)
     scene_settings = dict(
             xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
             yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
@@ -282,10 +286,10 @@ def save_images(imgs, eng, fig_path):
     
     tris = np.array(triangles)
 
-    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()[0]).T
+    x, y, z = (eng.model.mesh.coordinates() + imgs.numpy()).T
     i, j, k = tris.T
     # [0] change it to i so to save all images!
-    disp = np.linalg.norm(imgs.detach().numpy()[0], axis=1).T  # the zero index is because of the "N" above!
+    disp = np.linalg.norm(imgs.numpy(), axis=1).T  # the zero index is because of the "N" above!
 
     fig = go.Figure(data=[
         go.Mesh3d(
@@ -312,10 +316,11 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     # generate images and save
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
-    z = sample_z(n_col * n_row, params)
+    z = sample_z(n_col * n_row, params) # generates n_row devices
+    logging.info(f"z is {z}")
     imgs = generator(z, params)
     logging.info(imgs.size())
-    imgs_2D = imgs#.unsqueeze(2).repeat(1, 1, 64, 1)
+    imgs_2D = imgs.cpu().detach()#.unsqueeze(2).repeat(1, 1, 64, 1)
     # save_image(imgs_2D, fig_path, n_row, range=(-1, 1))
     save_images(imgs, eng, fig_path)
     
