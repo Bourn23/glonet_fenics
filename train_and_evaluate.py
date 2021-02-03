@@ -268,7 +268,8 @@ def save_images(imgs, eng, fig_path):
     # logging.info(f"size of image: {imgs.size()}")
     # logging.info(f"deatched oned {imgs.detach().numpy()[0].size()}")
     
-    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3) / 1000.
+    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3) / 100.
+    logging.info(f"images are {imgs}")
     # logging.info(f"detached ones {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
