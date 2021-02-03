@@ -292,6 +292,7 @@ def save_images(imgs, eng, fig_path):
     x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T
+    logging.info(f"disp is :{disp}")
     fig = go.Figure(data=[
         go.Mesh3d(
             x=x,
@@ -309,7 +310,7 @@ def save_images(imgs, eng, fig_path):
         )
     ])
     fig.update_layout(scene = scene_settings)
-    fig.update_layout(scene_aspectmode = 'cube')
+    # fig.update_layout(scene_aspectmode = 'cube')
     # fig.show()
     fig.write_image(fig_path)
 
