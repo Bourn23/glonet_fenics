@@ -288,7 +288,7 @@ def save_images(imgs, eng, fig_path):
     
     tris = np.array(triangles)
     
-    x, y, z = (varproblem.mesh.coordinates() + imgs.detach().numpy()).T
+    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T
     fig = go.Figure(data=[
