@@ -275,13 +275,13 @@ def save_images(imgs, eng, fig_path):
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
 
-        x, y, z = eng.model.mesh.coordinates().T
-        fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
-                                        mode='markers')])
-        fig.update_layout(scene = scene_settings)
-        fig.update_layout(scene_aspectmode = 'cube')
-        # fig.show()
-        fig.write_image(fig_path)
+    x, y, z = eng.model.mesh.coordinates().T
+    fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
+                                    mode='markers')])
+    fig.update_layout(scene = scene_settings)
+    fig.update_layout(scene_aspectmode = 'cube')
+    # fig.show()
+    fig.write_image(fig_path)
     # scene_settings = dict(
     #         xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
     #         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
