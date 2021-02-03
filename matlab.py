@@ -50,7 +50,7 @@ class engine:
         effs_and_gradients = []
         # effs_and_gradients.append(u_.unsqueeze_(0).repeat(img.size()[0], 1, 1, 1) - img)
         effs_and_gradients.append(u_ - img)
-
+        logging.info(f"matlab_ effs_and_gradients[0] : {effs_and_gradients[0]} and {effs_and_gradients[0].size()}")
 
         try:
             #TODO: increased parameters to be supported
