@@ -272,7 +272,7 @@ def save_images(imgs, eng, fig_path):
     logging.info(f"images are {imgs}")
     # logging.info(f"detached ones {imgs}")
     scene_settings = dict(
-        xaxis = dict(range=[-2, 2], showbackground=False, zerolinecolor="black"),
+        xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
 
