@@ -308,8 +308,9 @@ def save_images(imgs, eng, fig_path):
         )
     ])
     fig.update_layout(scene = scene_settings)
-    # fig.update_layout(scene_aspectmode = 'cube')
-    fig.show()
+    fig.update_layout(scene_aspectmode = 'cube')
+    # fig.show()
+    fig.write_image(fig_path)
 
     
     # # [0] change it to i so to save all images!
