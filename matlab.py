@@ -59,7 +59,7 @@ class engine:
 
         # try:
         #     #TODO: increased parameters to be supported
-        effs_and_gradients.append(difference.sum().detach())
+        effs_and_gradients.append(difference.mean().detach())
         # effs_and_gradients.append(self.mu.grad.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(self.force.grad.detach().numpy()) # since we have to revert it back to tensor
