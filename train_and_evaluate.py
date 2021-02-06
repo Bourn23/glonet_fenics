@@ -264,13 +264,13 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # logging.info(torch.mean(eff_loss_tensor, dim = 0).view(-1))
 
     # binarization loss
-    # binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
+    binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
 
     # total loss
-    # loss = eff_loss + binary_loss * binary_penalty
-    # loss = eff_loss
+    loss = eff_loss + binary_loss * binary_penalty
+    loss = eff_loss
 
-    return eff_loss
+    return loss
 
 
 def save_images(imgs, eng, fig_path):
