@@ -49,20 +49,20 @@ class engine:
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
         effs_and_gradients = []
-        effs_and_gradients.append(difference)
+        effs_and_gradients.append(difference.detach())
     
         difference.mean().backward()
-        logging.info(f'dif iz2 {difference}')
+        logging.info(f'dif iz2 {difference.size()}')
         # # logging.info(f"matlab_ u_ is {u_.size()}")
         # # effs_and_gradients.append(u_ - img)
         # logging.info(f"matlab_ effs_and_gradients[0] : and {effs_and_gradients[0].size()}")
 
         # try:
         #     #TODO: increased parameters to be supported
-        
-        effs_and_gradients.append(self.mu.grad.detach().numpy()) # since we have to revert it back to tensor
-        effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
-        effs_and_gradients.append(self.force.grad.detach().numpy()) # since we have to revert it back to tensor
+        effs_and_gradients.append(difference.detach())
+        # effs_and_gradients.append(self.mu.grad.detach().numpy()) # since we have to revert it back to tensor
+        # effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
+        # effs_and_gradients.append(self.force.grad.detach().numpy()) # since we have to revert it back to tensor
         # except:
         #     import sys
         #     e = sys.exc_info()[0]
