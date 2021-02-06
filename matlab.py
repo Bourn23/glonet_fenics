@@ -47,7 +47,7 @@ class engine:
         u_ = self.u.flatten()[self.v2d].reshape(-1, 3)
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
-        difference = difference.backward()
+        difference = difference.mean().backward()
         logging.info(type(difference))
         effs_and_gradients = []
         effs_and_gradients.append(difference)
