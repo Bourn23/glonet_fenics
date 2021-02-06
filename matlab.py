@@ -68,4 +68,4 @@ class engine:
         #     print( "<p>Error: %s</p>" % e )
         
         # return effs_and_gradients
-        return self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1).float()
+        return self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1)
