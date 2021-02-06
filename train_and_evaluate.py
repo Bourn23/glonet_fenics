@@ -232,7 +232,7 @@ def compute_effs(imgs, eng, params):
 
 
 
-def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=2):
+def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0):
     '''
     Args:
         gen_imgs: N x C x H (x W)
@@ -257,8 +257,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=2)
     # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
     # new try:
-
-    eff_loss_tensor = - gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    eff_loss_tensor = - (gradients - gen_imgs)
+    # eff_loss_tensor = - gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     # eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
     
@@ -268,7 +268,7 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=2)
     binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (1.0 - torch.abs(gen_imgs.view(-1)))) 
 
     # total loss
-    loss = eff_loss + binary_loss * binary_penalty
+    # loss = eff_loss + binary_loss * binary_penalty
     loss = eff_loss
 
     return loss

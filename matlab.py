@@ -44,12 +44,12 @@ class engine:
 
             # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
 
-        difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
+        # difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
-        effs_and_gradients = []
-        effs_and_gradients.append(difference)
+        # effs_and_gradients = []
+        # effs_and_gradients.append(difference)
     
         # difference.mean().backward()
         # # logging.info(f"matlab_ u_ is {u_.size()}")
@@ -58,7 +58,7 @@ class engine:
 
         # try:
         #     #TODO: increased parameters to be supported
-        effs_and_gradients.append(difference)
+        # effs_and_gradients.append(difference)
         # effs_and_gradients.append(self.mu.grad.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(self.force.grad.detach().numpy()) # since we have to revert it back to tensor
@@ -67,4 +67,5 @@ class engine:
         #     e = sys.exc_info()[0]
         #     print( "<p>Error: %s</p>" % e )
         
-        return effs_and_gradients
+        # return effs_and_gradients
+        return self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1)
