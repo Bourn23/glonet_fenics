@@ -217,9 +217,9 @@ def compute_effs(imgs, eng, params):
     # convert from tensor to numpy array
     N = imgs.size(0)
     img = imgs.data.cpu()#.numpy().tolist()
-    wavelength = torch.tensor([params.wavelength] * N)
-    desired_angle = torch.tensor([params.angle] * N)
-    force = torch.tensor([params.force] * N)
+    wavelength = torch.tensor([params.wavelength] * N, requires_grad = True)
+    desired_angle = torch.tensor([params.angle] * N, requires_grad = True)
+    force = torch.tensor([params.force] * N, requires_grad = True)
 
    
     # call matlab function to compute efficiencies 
@@ -257,8 +257,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
 
     # new try:
 
-    eff_loss_tensor = - gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    # eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    # eff_loss_tensor = - gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
     
     # logging.info(torch.mean(eff_loss_tensor, dim = 0).view(-1))
