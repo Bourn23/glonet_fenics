@@ -51,7 +51,7 @@ class engine:
         effs_and_gradients = []
         effs_and_gradients.append(difference.detach())
     
-        difference.mean().backward()
+        # difference.mean().backward()
         logging.info(f'dif iz2 {difference.size()}')
         # # logging.info(f"matlab_ u_ is {u_.size()}")
         # # effs_and_gradients.append(u_ - img)
@@ -59,7 +59,7 @@ class engine:
 
         # try:
         #     #TODO: increased parameters to be supported
-        effs_and_gradients.append(difference.mean().detach())
+        effs_and_gradients.append(difference.mean())
         # effs_and_gradients.append(self.mu.grad.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(self.force.grad.detach().numpy()) # since we have to revert it back to tensor
