@@ -256,10 +256,10 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
     # new try:
-    logging.info(gen_imgs.size())
-    logging.info(gradients.size())
+
     eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+    # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+    logging.info(torch.mean(eff_loss_tensor, dim = 0).view(-1))
 
     # binarization loss
     # binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
