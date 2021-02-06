@@ -44,13 +44,13 @@ class engine:
 
             # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
 
-        u_ = self.u.flatten()[self.v2d].reshape(-1, 3)
+        difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
-        difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
+        # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
         effs_and_gradients = []
         effs_and_gradients.append(difference)
-        logging.info(f'dif iz {difference}')
+    
         difference.mean().backward()
         logging.info(f'dif iz2 {difference}')
         # # logging.info(f"matlab_ u_ is {u_.size()}")
