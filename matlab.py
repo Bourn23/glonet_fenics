@@ -54,7 +54,7 @@ class engine:
 
         # try:
         #     #TODO: increased parameters to be supported
-            effs_and_gradients.append(difference.grad.detach())
+        effs_and_gradients.append(difference.grad.detach())
             # effs_and_gradients.append(self.beta.grad.detach().numpy()) # since we have to revert it back to tensor
         # except:
         #     import sys
