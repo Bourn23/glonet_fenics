@@ -139,11 +139,11 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
                 # add to history 
                 effs_mean_history.append(effs_mean)
-                logging.info(f'effs_mean_history: {effs_mean_history}')
+                # logging.info(f'effs_mean_history: {effs_mean_history}')
                 binarization_history.append(binarization)
-                logging.info(f'binarization: {binarization}')
+                # logging.info(f'binarization: {binarization}')
                 diversity_history.append(diversity)
-                logging.info(f'diversity: {diversity}')
+                # logging.info(f'diversity: {diversity}')
 
                 # plot current history
                 utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
