@@ -191,9 +191,10 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # effs = effs_and_gradients[:, 0]             
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
     # logging.info(f'train_and grad_effs: {len(effs_and_gradients)}')
-    effs = effs_and_gradients[0]             
+    # effs = effs_and_gradients[0]          
+    effs = 0   
     # gradients = torch.tensor(effs_and_gradients[1:], dtype = torch.float64)
-    gradients = effs_and_gradients[1]
+    gradients = effs_and_gradients
     # logging.info(f'train_and effs: {effs.size()}')
     # logging.info(f'train_and grad: {len(gradients)}')
     
@@ -231,7 +232,7 @@ def compute_effs(imgs, eng, params):
 
 
 
-def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0):
+def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=2):
     '''
     Args:
         gen_imgs: N x C x H (x W)
@@ -264,7 +265,7 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # logging.info(torch.mean(eff_loss_tensor, dim = 0).view(-1))
 
     # binarization loss
-    binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
+    binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (1.0 - torch.abs(gen_imgs.view(-1)))) 
 
     # total loss
     loss = eff_loss + binary_loss * binary_penalty
