@@ -246,31 +246,35 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # logging.info(f"gen_imgsize: {gen_imgs.view(10, -1).size()}, gradients_size {gradients[0].size()}, {gradients[1].size()}, effs_size {effs.size()}")
     # logging.info(f"gen_imgsize: {gen_imgs.size()}, gradients_size {gradients.size()}, effs_size {effs.size()}")
                                     # batchsize
-    eff_loss_tensor = [- gen_imgs.view(10, -1) * gradients[i] for i in range(len(gradients))]
-    eff_loss_tensor = sum(eff_loss_tensor).view(10, -1, 3)
-    # logging.info(f'eff_loss_tensor: {eff_loss_tensor} and type is {torch.exp(effs/sigma).size()}')
-    eff_loss_tensor *= (1./sigma) * (torch.exp(effs/sigma)).view(10, -1, 3)
+
+                                    #working so far
+    # eff_loss_tensor = [- gen_imgs.view(10, -1) * gradients[i] for i in range(len(gradients))]
+    # eff_loss_tensor = sum(eff_loss_tensor).view(10, -1, 3)
+    # # logging.info(f'eff_loss_tensor: {eff_loss_tensor} and type is {torch.exp(effs/sigma).size()}')
+    # eff_loss_tensor *= (1./sigma) * (torch.exp(effs/sigma)).view(10, -1, 3)
+    # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+
+    # new try:
+    eff_loss_tensor = - gen_imgs * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
     # binarization loss
-    binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
+    # binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
 
     # total loss
-    loss = eff_loss + binary_loss * binary_penalty
+    # loss = eff_loss + binary_loss * binary_penalty
+    # loss = eff_loss
 
-    return loss
+    return eff_loss
 
 
 def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
-    
-    # logging.info(f"size of image: {imgs.size()}")
-    # logging.info(f"deatched oned {imgs.detach().numpy()[0].size()}")
+
     
     imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3) / 100.
     logging.info(f"images are {imgs}")
-    # logging.info(f"detached ones {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
@@ -310,33 +314,9 @@ def save_images(imgs, eng, fig_path):
         )
     ])
     fig.update_layout(scene = scene_settings)
-    # fig.update_layout(scene_aspectmode = 'cube')
-    # fig.show()
     fig.write_image(fig_path)
 
-    
-    # # [0] change it to i so to save all images!
-    # disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
 
-    # fig = go.Figure(data=[
-    #     go.Mesh3d(
-    #         x=x,
-    #         y=y,
-    #         z=z,
-    #         # Intensity of each vertex, which will be interpolated and color-coded
-    #         intensity=disp,
-    #         # i, j and k give the vertices of triangles
-    #         # here we represent the 4 triangles of the tetrahedron surface
-    #         i=i,
-    #         j=j,
-    #         k=k,
-    #         name='y',
-    #         showscale=True
-    #     )
-    # ])
-    # fig.update_layout(scene = scene_settings)
-    # # fig.update_layout(scene_aspectmode = 'cube')
-    # fig.write_image(fig_path)
 
 
 
