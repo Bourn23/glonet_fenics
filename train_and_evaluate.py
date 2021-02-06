@@ -117,11 +117,13 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # construct the loss function
             binary_penalty = params.binary_penalty_start if params.iter < params.binary_step_iter else params.binary_penalty_end
-            g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
+            # g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
+            loss = torch.nn.MSELoss()
+            g_loss = loss(gen_imgs, gradients)
 
             # train the generator
-            g_loss.backward(retain_graph = True)
-            # g_loss.backward()
+            # g_loss.backward(retain_graph = True)
+            g_loss.backward()
             optimizer.step()
 
 
