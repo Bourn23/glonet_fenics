@@ -49,7 +49,7 @@ class engine:
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
         effs_and_gradients = []
-        effs_and_gradients.append(difference.detach())
+        effs_and_gradients.append(difference.mean())
     
         # difference.mean().backward()
         # # logging.info(f"matlab_ u_ is {u_.size()}")
