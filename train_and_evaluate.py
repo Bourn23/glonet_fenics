@@ -257,8 +257,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
 
     # new try:
 
-    # eff_loss_tensor = - gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    eff_loss_tensor = - gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    # eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
     
     # logging.info(torch.mean(eff_loss_tensor, dim = 0).view(-1))
@@ -301,7 +301,7 @@ def save_images(imgs, eng, fig_path):
     x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T
-    logging.info(f"disp is :{disp}")
+    # logging.info(f"disp is :{disp}")
     fig = go.Figure(data=[
         go.Mesh3d(
             x=x,
