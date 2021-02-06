@@ -42,11 +42,12 @@ class engine:
             # compute gradients for all!
             self.u = self.model(self.mu, self.beta, self.force)
 
-            self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
+            # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
 
         u_ = self.u.flatten()[self.v2d].reshape(-1, 3)
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
+        difference = difference.backward()
         logging.info(type(difference))
         effs_and_gradients = []
         effs_and_gradients.append(difference)
