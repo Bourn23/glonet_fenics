@@ -7,7 +7,7 @@
     "numIter": 20000.0,
     "gkernlen": 19.0,
     "gkernsig": 6.0,
-    "lr": 1e-03,
+    "lr": 1e-04,
     "beta1": 0.9,
     "beta2": 0.99,
     "batch_size_start": 10,
