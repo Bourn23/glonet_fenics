@@ -194,7 +194,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
     # logging.info(f'train_and grad_effs: {len(effs_and_gradients)}')
     # effs = effs_and_gradients[0]          
-    effs = 0   
+    effs = torch.tensor([[1]] * 10, dtype = torch.float64)
     # gradients = torch.tensor(effs_and_gradients[1:], dtype = torch.float64)
     gradients = effs_and_gradients
     # logging.info(f'train_and effs: {effs.size()}')
