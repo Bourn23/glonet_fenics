@@ -44,7 +44,7 @@ class engine:
 
             # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
 
-        # difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
+        difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
@@ -67,5 +67,5 @@ class engine:
         #     e = sys.exc_info()[0]
         #     print( "<p>Error: %s</p>" % e )
         
-        # return effs_and_gradients
-        return self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1)
+        return difference
+        # return self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1)
