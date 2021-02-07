@@ -9,9 +9,9 @@ class engine:
         self.v2d = vertex_to_dof_map(self.model.V)
         # self.batch_size = batch_size
         self.batch_size = batch_size
-        self.mu = torch.normal(mean=mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size)), dtype = torch.float64).unsqueeze(1).requires_grad_(True)
-        self.beta = torch.normal(mean=beta, std=torch.arange(1, 0, -((1.-0.) / self.batch_size)), dtype = torch.float64).unsqueeze(1).requires_grad_(True)
-        self.force = torch.normal(mean=force, std=torch.arange(1, 0, -((1.-0.) / self.batch_size)), dtype = torch.float64).unsqueeze(1).requires_grad_(True)
+        self.mu = torch.normal(mean=mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size)), dtype = torch.float64).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        self.beta = torch.normal(mean=beta, std=torch.arange(1, 0, -((1.-0.) / self.batch_size)), dtype = torch.float64).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        self.force = torch.normal(mean=force, std=torch.arange(1, 0, -((1.-0.) / self.batch_size)), dtype = torch.float64).type(torch.float64).unsqueeze(1).requires_grad_(True)
         # self.force = torch.tensor([[force]] * self.batch_size, requires_grad = True, dtype = torch.float64)
         self.u = None
         # logging.info(f"matlab_All initialized: type of wave {type(self.mu)} and angle {type(self.beta)}")
