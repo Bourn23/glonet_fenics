@@ -8,7 +8,7 @@ class engine:
         self.model = fenics_model
         self.v2d = vertex_to_dof_map(self.model.V)
         # self.batch_size = batch_size
-        self.batch_size = self.batch_size
+        self.batch_size = batch_size
         self.mu = torch.normal(mean=mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).unsqueeze(1).requires_grad_(True)
         self.beta = torch.normal(mean=beta, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).unsqueeze(1).requires_grad_(True)
         self.force = torch.normal(mean=force, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).unsqueeze(1).requires_grad_(True)
