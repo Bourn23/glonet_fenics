@@ -122,8 +122,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # g_loss = loss(gen_imgs, gradients)
 
             # train the generator
-            g_loss.backward(retain_graph = True)
-            # g_loss.backward()
+            # g_loss.backward(retain_graph = True)
+            g_loss.backward()
             optimizer.step()
 
 
@@ -271,6 +271,7 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
 
     # total loss
     loss = eff_loss + binary_loss * binary_penalty
+    logging.info(f"Loss is {loss}")
     # loss = eff_loss
 
     return loss
@@ -282,7 +283,7 @@ def save_images(imgs, eng, fig_path):
 
     
     imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 100.
-    # logging.info(f"images are {imgs}")
+    logging.info(f"images are {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
