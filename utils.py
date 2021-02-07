@@ -138,7 +138,7 @@ def plot_loss_history(loss_history, params):
     effs_mean_history, diversity_history, binarization_history = loss_history
     iterations = [i*params.plot_iter for i in range(len(effs_mean_history))]
     plt.figure()
-    logging.info(f"iterations is {iterations}")
+    # logging.info(f"iterations is {iterations}")
     # plt.plot(iterations, effs_mean_history)
     # plt.plot(iterations, diversity_history)
     # plt.plot(iterations, binarization_history)

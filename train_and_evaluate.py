@@ -118,7 +118,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # construct the loss function
             binary_penalty = params.binary_penalty_start if params.iter < params.binary_step_iter else params.binary_penalty_end
             g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
-            t.set_description(f"Loss is {g_loss}", refresh=True)
+            t.set_description(f"Loss is {g_loss}\n", refresh=True)
             # loss = torch.nn.MSELoss()
             # g_loss = loss(gen_imgs, gradients)
 
@@ -283,7 +283,7 @@ def save_images(imgs, eng, fig_path):
 
     
     imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3) / 100.
-    logging.info(f"images are {imgs}")
+    # logging.info(f"images are {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
