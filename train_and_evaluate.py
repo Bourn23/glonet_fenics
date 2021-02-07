@@ -260,8 +260,7 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
     # new try:
-    # eff_loss_tensor = - 
-    eff_loss_tensor = gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    eff_loss_tensor = - gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     # eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
     
