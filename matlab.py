@@ -25,10 +25,18 @@ class engine:
                 self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
             self.u = self.model(self.mu, self.beta, self.force)
         
-        u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
+        # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
+        if self.batch_size == 1:
+            difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
+        else:
+            difference = torch.zeros((self.batch_size, 1))
+            for i in range(self.batch_size):
+                diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
+                difference[i] = diffs
+                logging.info(f"diffs shape is {diffs.shape}")
 
 
-        return (u_ - img).float()
+        return difference
     
     def GradientFromSolver_1D_parallel(self, img):
         # What should be going on here? 1. see paper for what they're doing / 2. see the .mat file
@@ -51,7 +59,7 @@ class engine:
             for i in range(self.batch_size):
                 diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
                 difference[i] = diffs
-                logging.info(f"diffs shape is {diffs.shape")
+                logging.info(f"diffs shape is {diffs.shape}")
         
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
