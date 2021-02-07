@@ -32,7 +32,7 @@ class engine:
             difference = torch.zeros((self.batch_size, 1))
             for i in range(self.batch_size):
                 diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
-                difference[1][i] = diffs
+                difference[i, :] = diffs
                 logging.info(f"diffs shape is {diffs.shape}")
 
 
@@ -58,9 +58,9 @@ class engine:
             difference = torch.zeros((self.batch_size, 1))
             for i in range(self.batch_size):
                 diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
-                difference[1][i] = diffs
+                difference[i, :] = diffs
                 logging.info(f"diffs shape is {diffs.shape}")
-        
+        logging.info(f"difference shape is {difference.shape}")
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
