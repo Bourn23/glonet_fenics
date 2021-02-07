@@ -60,7 +60,8 @@ class Generator(nn.Module):
         # net = conv1d_meta(net , self.gkernel)
         net = torch.tanh(net* params.binary_amp) * 1.05
         
-        net = torch.sigmoid(net.view(-1, 176, 3)) # borna added
+        # net = torch.sigmoid(net.view(-1, 176, 3)) # borna added
+        net = net.view(-1, 176, 3) # borna added
         # logging.info(f"5st pass size: {net.size()}")
         # logging.info(f"5st pass size: {net.size()}")
 

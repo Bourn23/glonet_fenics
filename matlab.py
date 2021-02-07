@@ -8,10 +8,11 @@ class engine:
         self.model = fenics_model
         self.v2d = vertex_to_dof_map(self.model.V)
         # self.batch_size = batch_size
-        self.batch_size = 1
-        self.mu = torch.tensor([[mu]] * self.batch_size, requires_grad = True, dtype = torch.float64)
-        self.beta = torch.tensor([[beta]] * self.batch_size, requires_grad = True, dtype = torch.float64)
-        self.force = torch.tensor([[force]] * self.batch_size, requires_grad = True, dtype = torch.float64)
+        self.batch_size = self.batch_size
+        self.mu = torch.normal(mean=mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).unsqueeze(1).requires_grad_(True)
+        self.beta = torch.normal(mean=beta, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).unsqueeze(1).requires_grad_(True)
+        self.force = torch.normal(mean=force, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).unsqueeze(1).requires_grad_(True)
+        # self.force = torch.tensor([[force]] * self.batch_size, requires_grad = True, dtype = torch.float64)
         self.u = None
         # logging.info(f"matlab_All initialized: type of wave {type(self.mu)} and angle {type(self.beta)}")
     def Eval_Eff_1D_parallel(self, img, mu, beta, force):
@@ -43,8 +44,15 @@ class engine:
             self.u = self.model(self.mu, self.beta, self.force)
 
             # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
-
-        difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
+        if self.batch_size == 1:
+            difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
+        else:
+            difference = torch.zeros((self.batch_size, 1))
+            for i in range(self.batch_size):
+                diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
+                difference[i] = diffs
+                logging.info(f"diffs shape is {diffs.shape")
+        
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
