@@ -234,7 +234,7 @@ def compute_effs(imgs, eng, params):
 
 
 
-def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=1):
+def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0):
     '''
     Args:
         gen_imgs: N x C x H (x W)
