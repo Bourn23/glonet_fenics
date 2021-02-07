@@ -29,10 +29,10 @@ class engine:
         if self.batch_size == 1:
             difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
         else:
-            difference = torch.zeros((self.batch_size, 1))
+            difference = torch.zeros((self.batch_size, 176, 3))
             for i in range(self.batch_size):
                 diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
-                difference[i, :] = diffs
+                difference[i, :, :] = diffs
                 logging.info(f"diffs shape is {diffs.shape}")
 
 
@@ -55,10 +55,10 @@ class engine:
         if self.batch_size == 1:
             difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
         else:
-            difference = torch.zeros((self.batch_size, 1))
+            difference = torch.zeros((self.batch_size, 176, 3))
             for i in range(self.batch_size):
                 diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
-                difference[i, :] = diffs
+                difference[i, :, :] = diffs
                 logging.info(f"diffs shape is {diffs.shape}")
         logging.info(f"difference shape is {difference.shape}")
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
