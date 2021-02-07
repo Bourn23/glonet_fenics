@@ -323,7 +323,7 @@ def save_images(imgs, eng, fig_path):
     ])
     fig.update_layout(scene = scene_settings)
     fig.write_image(fig_path)
-    fig.close()
+    # fig.close()
 
 
 
