@@ -48,13 +48,15 @@ class engine:
         # if self.u is None:
         # if type(self.mu) != torch.Tensor:
             # logging.info("matlab_EVAL_EFF_data_U_Unknown_TENSORS")
+        effs_and_gradients = []
+        
         mu = torch.normal(mean=self.mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
         beta = torch.normal(mean=self.beta, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
         force = torch.normal(mean=self.force, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
-        self.u.mean().backward()
+
 
             # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
         if self.batch_size == 1:
@@ -68,10 +70,16 @@ class engine:
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         # difference = u_.unsqueeze_(0).repeat(10, 1, 1) - img
         
-        effs_and_gradients = []
+
         effs_and_gradients.append(difference)
-    
-        # torch.sum(torch.mean(self.u, dim=0).view(-1)).backward()
+        # J = torch.sum(torch.mean(self.u, dim=0).view(-1)).backward()
+        J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward()
+        
+        effs_and_gradients.append(mu.grad.detach().numpy()) # since we have to revert it back to tensor
+        effs_and_gradients.append(beta.grad.detach().numpy()) # since we have to revert it back to tensor
+        effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
+        J = None
+        
         # difference.mean().backward()
         # # logging.info(f"matlab_ u_ is {u_.size()}")
         # # effs_and_gradients.append(u_ - img)
@@ -79,10 +87,7 @@ class engine:
 
         # try:
         #     #TODO: increased parameters to be supported
-        # effs_and_gradients.append(difference)
-        effs_and_gradients.append(mu.grad.detach().numpy()) # since we have to revert it back to tensor
-        effs_and_gradients.append(beta.grad.detach().numpy()) # since we have to revert it back to tensor
-        effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
+
         # except:
         #     import sys
         #     e = sys.exc_info()[0]
