@@ -77,11 +77,14 @@ class engine:
         dJdmu = mu.grad
         dJdbeta = beta.grad
         dJforce = force.grad
+        logging.info(f'dJdmu {dJdmu}')
+        logging.info(f'dJdmu {dJdbeta}')
+        logging.info(f'dJdmu {dJforce}')
 
         
-        effs_and_gradients.append(mu.grad.detach().numpy()) # since we have to revert it back to tensor
-        effs_and_gradients.append(beta.grad.detach().numpy()) # since we have to revert it back to tensor
-        effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
+        # effs_and_gradients.append(mu.grad.detach().numpy()) # since we have to revert it back to tensor
+        # effs_and_gradients.append(beta.grad.detach().numpy()) # since we have to revert it back to tensor
+        # effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
         J = None
         
         # difference.mean().backward()
