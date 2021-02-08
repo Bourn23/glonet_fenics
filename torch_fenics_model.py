@@ -66,8 +66,9 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # Parameters to be optimized
         self.mu = mu
         self.beta = beta
+        self.force = force
         self.lambda_ = self.beta
-        self.f = Constant((0, 0, -self.rho*self.g + force))
+        self.f = Constant((0, 0, -self.rho*self.g + self.force))
 
 
         self.u = TrialFunction(self.V)
