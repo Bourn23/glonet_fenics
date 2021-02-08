@@ -261,16 +261,33 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # # logging.info(f'eff_loss_tensor: {eff_loss_tensor} and type is {torch.exp(effs/sigma).size()}')
     # eff_loss_tensor *= (1./sigma) * (torch.exp(effs/sigma)).view(10, -1, 3)
     # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+    # eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
 
     # new try:
-    eff_loss_tensor = gradients.requires_grad_(True) * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    # eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
     
     # logging.info(torch.mean(eff_loss_tensor, dim = 0).view(-1))
 
     # binarization loss
-    binary_loss = - torch.mean(gen_imgs.view(-1) * (.5 - torch.abs(gen_imgs.view(-1)))) 
+    # eff_loss_tensor = gradients.requires_grad_(True) * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+    # binary_loss = - torch.mean(gen_imgs.view(-1) * (.5 - torch.abs(gen_imgs.view(-1)))) 
+
+        # efficiency loss
+    logging.info(gen_imgs.size())
+    
+    logging.info(gradients.size())
+    logging.info(effs.size())
+    eff_loss_tensor = - gen_imgs * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    logging.info(eff_loss_tensor.size())
+    
+
+    eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+
+    # binarization loss
+    binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
+
+    # total loss
+    loss = eff_loss + binary_loss * binary_penalty
 
     # total loss
     # loss = eff_loss + binary_loss * binary_penalty
