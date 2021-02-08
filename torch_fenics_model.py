@@ -62,12 +62,12 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         return on_boundary and near(x[0], 1., tol) # should be using self.tol
 
 
-    def solve(self, mu, beta, force_multiplier):
+    def solve(self, mu, beta, force):
         # Parameters to be optimized
         self.mu = mu
         self.beta = beta
         self.lambda_ = self.beta
-        self.f = Constant((0, 0, -self.rho*self.g*force_multiplier))
+        self.f = Constant((0, 0, -self.rho*self.g + force))
 
 
         self.u = TrialFunction(self.V)

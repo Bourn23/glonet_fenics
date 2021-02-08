@@ -54,7 +54,7 @@ class engine:
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
-        
+        self.u.mean().backward()
 
             # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
         if self.batch_size == 1:
@@ -71,7 +71,7 @@ class engine:
         effs_and_gradients = []
         effs_and_gradients.append(difference)
     
-        torch.sum(torch.mean(self.u, dim=0).view(-1)).backward()
+        # torch.sum(torch.mean(self.u, dim=0).view(-1)).backward()
         # difference.mean().backward()
         # # logging.info(f"matlab_ u_ is {u_.size()}")
         # # effs_and_gradients.append(u_ - img)
