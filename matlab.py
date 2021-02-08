@@ -35,7 +35,7 @@ class engine:
         #         logging.info(f"diffs shape is {diffs.shape}")
 
 
-        return difference.float()
+        return difference.detach().float()
     
     def GradientFromSolver_1D_parallel(self, img):
         # What should be going on here? 1. see paper for what they're doing / 2. see the .mat file
@@ -82,5 +82,5 @@ class engine:
         #     e = sys.exc_info()[0]
         #     print( "<p>Error: %s</p>" % e )
         
-        return difference
+        return difference.detach()
         # return self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1)
