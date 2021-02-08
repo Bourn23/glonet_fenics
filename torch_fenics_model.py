@@ -68,14 +68,9 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # Parameters to be optimized
         self.mu = mu
         self.beta = beta
-        self.force = force
+        self.force = force # how to get the derivative of force?
         self.lambda_ = self.beta
-        total_force = [0, 0, -self.rho * self.g - self.force]
-        # self.f = Constant((0, 0, total_force))
-        self.f = total_force
-
-        logging.info(f"total force is {self.force}")
-        logging.info(f"{dot(self.f, total_force)}")
+        self.f = Constant((0, 0, total_force))
 
 
         self.u = TrialFunction(self.V)
