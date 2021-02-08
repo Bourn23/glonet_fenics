@@ -68,7 +68,8 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         self.beta = beta
         self.force = force
         self.lambda_ = self.beta
-        self.f = Constant((0, 0, -self.rho*self.g + self.force))
+        total_force = -self.rho * self.g - self.force
+        self.f = Constant((0, 0, total_force))
 
 
         self.u = TrialFunction(self.V)
