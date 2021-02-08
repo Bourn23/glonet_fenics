@@ -18,12 +18,11 @@ class engine:
     def Eval_Eff_1D_parallel(self, img, mu, beta, force):
         # logging.info("matlab_eval_eff_called")
         # this only works a single image
-        if self.u is None:
-            if type(self.mu) != torch.Tensor:
-                # logging.info("matlab_EVAL_EFF_data_U_Unknown")
-                self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
-                self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
-            self.u = self.model(self.mu, self.beta, self.force)
+        if type(self.mu) != torch.Tensor:
+            # logging.info("matlab_EVAL_EFF_data_U_Unknown")
+            self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+            self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+        self.u = self.model(self.mu, self.beta, self.force)
         
         # u_ = self.u.detach().flatten()[self.v2d].reshape(-1, 3)
         # if self.batch_size == 1:
@@ -42,14 +41,15 @@ class engine:
         # What should be going on here? 1. see paper for what they're doing / 2. see the .mat file
         # And what is going on now?:))
         # logging.info("matlab_grad_solver_called")
-        if self.u is None:
-            if type(self.mu) != torch.Tensor:
-                # logging.info("matlab_EVAL_EFF_data_U_Unknown_TENSORS")
-                self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
-                self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+        # if self.u is None:
+        if type(self.mu) != torch.Tensor:
+            # logging.info("matlab_EVAL_EFF_data_U_Unknown_TENSORS")
+            self.mu = torch.tensor([[self.mu]] * self.batch_size, dtype = torch.float64, requires_grad=True)
+            self.beta = torch.tensor([[self.beta]] * self.batch_size, dtype = torch.float64, requires_grad=True)
 
-            # compute gradients for all!
-            self.u = self.model(self.mu, self.beta, self.force)
+        # compute gradients for all!
+        self.u = self.model(self.mu, self.beta, self.force)
+        self.u = self.u.detach()
 
             # self.u.mean().backward() # mean(axis = 0) to average over batches I'm thinking how to calculate gradients for each and one of them
         if self.batch_size == 1:
