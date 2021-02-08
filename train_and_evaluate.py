@@ -122,8 +122,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # g_loss = loss(gen_imgs, gradients)
 
             # train the generator
-            # g_loss.backward(retain_graph = True)
-            g_loss.backward()
+            g_loss.backward(retain_graph = True)
+            # g_loss.backward()
             optimizer.step()
             # free optimizer buffer 
             optimizer.zero_grad()
