@@ -5,6 +5,8 @@ from fenics import *
 from fenics_adjoint import *
 from ufl import nabla_div
 
+import logging
+
 class Corroded(SubDomain):
   def inside(self, x, on_boundary):
     tol = 1E-14
