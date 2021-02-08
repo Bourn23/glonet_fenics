@@ -74,15 +74,14 @@ class engine:
         effs_and_gradients.append(difference)
         # J = torch.sum(torch.mean(self.u, dim=0).view(-1)).backward()
         J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward()
-        logging.info(f"js is {J}")
 
         dJdmu = mu.grad
         dJbeta = beta.grad
         # dJforce = force.grad
 
         
-        effs_and_gradients.append(dJdmu) # since we have to revert it back to tensor
-        effs_and_gradients.append(dJbeta) # since we have to revert it back to tensor
+        effs_and_gradients.append(dJdmu.detach().numpy()) # since we have to revert it back to tensor
+        effs_and_gradients.append(dJbeta.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
         J = None
         
