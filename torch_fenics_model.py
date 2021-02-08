@@ -70,7 +70,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         self.beta = beta
         self.force = force
         self.lambda_ = self.beta
-        total_force = -self.rho * self.g - self.force
+        total_force = [-self.rho * self.g - self.force]
         self.f = Constant((0, 0, 1))
 
         logging.info(f"total force is {self.force}")
