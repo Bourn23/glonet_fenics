@@ -271,8 +271,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     binary_loss = - torch.mean(gen_imgs.view(-1) * (.5 - torch.abs(gen_imgs.view(-1)))) 
 
     # total loss
-    loss = eff_loss + binary_loss * binary_penalty
-    # loss = eff_loss
+    # loss = eff_loss + binary_loss * binary_penalty
+    loss = eff_loss
 
     return loss
 
@@ -282,7 +282,7 @@ def save_images(imgs, eng, fig_path):
     import numpy as np
 
     
-    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3) / 10.#0.
+    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 10.#0.
     # logging.info(f"images are {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
