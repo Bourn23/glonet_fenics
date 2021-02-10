@@ -230,7 +230,9 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # efficiency loss
     logging.info(gen_imgs.size())
     
+    gradients =  gradients.unsqueeze(2).T
     logging.info(gradients.size())
+    logging.info(gradients)
     logging.info(effs.size())
     eff_loss_tensor = - gen_imgs * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     logging.info(eff_loss_tensor.size())
