@@ -236,7 +236,7 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     fft_loss = torch.square(torch.real(actual_fft-pred_fft))
     fft_loss = torch.sum(torch.mean(fft_loss, dim=0).view(-1))
 
-    eff_loss_tensor = gen_imgs * gradients * (1./sigma) * torch.exp(fft_loss/(difference*sigma)).view(-1, 1, 1)
+    eff_loss_tensor = gen_imgs * gradients * torch.exp(difference/fft_loss).view(-1, 1, 1)
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
     loss = eff_loss #+ fft_loss #+ time_loss
