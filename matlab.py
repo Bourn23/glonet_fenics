@@ -32,6 +32,15 @@ class engine:
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
+        
+        # v1.2
+        if self.batch_size == 1:
+            difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1)
+        else:
+            difference = torch.zeros((self.batch_size, 176, 3))
+            for i in range(self.batch_size):
+                diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) # what's a more efficient way?
+                difference[i, :, :] = diffs 
 
 
         # v1.1
