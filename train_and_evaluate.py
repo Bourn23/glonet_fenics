@@ -284,13 +284,13 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
 
     actual_fft = torch.fft.fft(gen_imgs)
     pred_fft = torch.fft.fft(effs)
-    lossV = torch.square(torch.real(actual_fft-pred_fft))
-    logging.info(lossV.size())
+    eff_loss_tensor = torch.square(torch.real(actual_fft-pred_fft))
+    # logging.info(lossV.size())
 
-    # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+    eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
     # binarization loss
-    binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
+    # binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
 
     # total loss
     # loss = eff_loss + binary_loss * binary_penalty
