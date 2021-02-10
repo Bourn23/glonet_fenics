@@ -54,7 +54,7 @@ class engine:
 
         
 
-        effs_and_gradients.append(difference)
+        effs_and_gradients.append(difference.detach())
 
         J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward()
 
