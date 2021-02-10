@@ -273,25 +273,31 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # binary_loss = - torch.mean(gen_imgs.view(-1) * (.5 - torch.abs(gen_imgs.view(-1)))) 
 
         # efficiency loss
-    logging.info(gen_imgs.size())
+    # logging.info(gen_imgs.size())
     
-    logging.info(gradients.size())
-    logging.info(effs.size())
-    eff_loss_tensor = - gen_imgs * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    logging.info(eff_loss_tensor.size())
+    # logging.info(gradients.size())
+    # logging.info(effs.size())
+    # eff_loss_tensor = - gen_imgs * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
+    # logging.info(eff_loss_tensor.size())
     
 
-    eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
+    actual_fft = torch.fft.rfft(gen_imgs)
+    pred_fft = torch.fft.rfft(effs)
+    lossV = torch.square(actual_fft-pred_fft)
+    logging.info(lossV.size())
+
+    # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
     # binarization loss
     binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
 
     # total loss
-    loss = eff_loss + binary_loss * binary_penalty
+    # loss = eff_loss + binary_loss * binary_penalty
 
     # total loss
     # loss = eff_loss + binary_loss * binary_penalty
-    loss = eff_loss
+    # loss = eff_loss
+    loss = lossV
 
     return loss
 
