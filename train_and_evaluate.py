@@ -230,7 +230,7 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # efficiency loss
     logging.info(gen_imgs.size())
     
-    gradients =  gradients.unsqueeze(2).T
+    gradients =  gradients.squeeze(2).T.unsqueeze(2)
     logging.info(gradients.size())
     logging.info(gradients)
     logging.info(effs.size())
