@@ -282,8 +282,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     # logging.info(eff_loss_tensor.size())
     
 
-    actual_fft = torch.fft.rfft(gen_imgs)
-    pred_fft = torch.fft.rfft(effs)
+    actual_fft = torch.fft.fft(gen_imgs)
+    pred_fft = torch.fft.fft(effs)
     lossV = torch.real(torch.square(actual_fft-pred_fft))
     logging.info(lossV.size())
 
