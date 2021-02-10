@@ -104,7 +104,6 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             
             # sample  z
             z = sample_z(params.batch_size, params)
-            # logging.info(f'train_shape_of_z {z}')
 
             # generate a batch of iamges
             gen_imgs = generator(z, params)
@@ -113,17 +112,12 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # calculate efficiencies and gradients using EM solver
             effs, gradients = compute_effs_and_gradients(gen_imgs, eng, params)
 
-
-
             # construct the loss function
             binary_penalty = params.binary_penalty_start if params.iter < params.binary_step_iter else params.binary_penalty_end
             g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
             t.set_description(f"Loss is {g_loss}", refresh=True)
-            # loss = torch.nn.MSELoss()
-            # g_loss = loss(gen_imgs, gradients)
 
             # train the generator
-            # g_loss.backward(retain_graph = True)
             g_loss.backward()
             optimizer.step()
             # free optimizer buffer 
@@ -142,11 +136,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
                 # add to history 
                 effs_mean_history.append(effs_mean)
-                # logging.info(f'effs_mean_history: {effs_mean_history}')
                 binarization_history.append(binarization)
-                # logging.info(f'binarization: {binarization}')
                 diversity_history.append(diversity)
-                # logging.info(f'diversity: {diversity}')
 
                 # plot current history
                 utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
@@ -178,32 +169,19 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
         effs: N x 1
         gradients: N x C x H
     '''
-    # logging.info("compute_effs_and_grads_called")
-    
     # convert from tensor to numpy array
     imgs = gen_imgs.clone().detach()
-    # logging.info(f'images tensor is : {imgs}')
     N = imgs.size(0)
-    img = imgs.cpu()#.numpy().tolist()
-    # logging.info(f'image is : {img}')
+    img = imgs.cpu()
     wavelength = torch.tensor([params.wavelength] * N)
     desired_angle = torch.tensor([params.angle] * N)
 
     # call matlab function to compute efficiencies and gradients
 
     effs_and_gradients = eng.GradientFromSolver_1D_parallel(img)  
-    # effs_and_gradients = Tensor(effs_and_gradients) 
-    # effs = effs_and_gradients[:, 0]             
-    # gradients = effs_and_gradients[:, 1:].unsqueeze(1)
-    # logging.info(f'train_and grad_effs: {len(effs_and_gradients)}')
     effs = effs_and_gradients[0]          
     gradients = torch.tensor(effs_and_gradients[1:], dtype = torch.float64)
 
-    # effs = torch.tensor([[1]] * 10, dtype = torch.float64)
-    # gradients = effs_and_gradients
-
-    # logging.info(f'train_and effs: {effs.size()}')
-    # logging.info(f'train_and grad: {len(gradients)}')
     
 
     return (effs, gradients)
@@ -221,13 +199,12 @@ def compute_effs(imgs, eng, params):
     Returns:
         effs: N x 1
     '''
-    # logging.info("compute_effs_called")
     # convert from tensor to numpy array
     N = imgs.size(0)
     img = imgs.data.cpu()#.numpy().tolist()
-    wavelength = torch.tensor([params.wavelength] * N)#, requires_grad = True)
-    desired_angle = torch.tensor([params.angle] * N)#, requires_grad = True)
-    force = torch.tensor([params.force] * N)#, requires_grad = True)
+    wavelength = torch.tensor([params.wavelength] * N)
+    desired_angle = torch.tensor([params.angle] * N)
+    force = torch.tensor([params.force] * N)
 
    
     # call matlab function to compute efficiencies 
@@ -249,31 +226,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
         sigma: scalar
         binary_penalty: scalar
     '''
-    
+
     # efficiency loss
-    # eff_loss_tensor = - gen_imgs[:2] * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    # logging.info(f"gen_imgsize: {gen_imgs.view(10, -1).size()}, gradients_size {gradients[0].size()}, {gradients[1].size()}, effs_size {effs.size()}")
-    # logging.info(f"gen_imgsize: {gen_imgs.size()}, gradients_size {gradients.size()}, effs_size {effs.size()}")
-                                    # batchsize
-
-                                    #working so far
-    # eff_loss_tensor = [- gen_imgs.view(10, -1) * gradients[i] for i in range(len(gradients))]
-    # eff_loss_tensor = sum(eff_loss_tensor).view(10, -1, 3)
-    # # logging.info(f'eff_loss_tensor: {eff_loss_tensor} and type is {torch.exp(effs/sigma).size()}')
-    # eff_loss_tensor *= (1./sigma) * (torch.exp(effs/sigma)).view(10, -1, 3)
-    # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
-    # eff_loss_tensor = - gen_imgs * gradients #* (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-
-    # new try:
-    
-    # logging.info(torch.mean(eff_loss_tensor, dim = 0).view(-1))
-
-    # binarization loss
-    # eff_loss_tensor = gradients.requires_grad_(True) * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
-    # eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
-    # binary_loss = - torch.mean(gen_imgs.view(-1) * (.5 - torch.abs(gen_imgs.view(-1)))) 
-
-        # efficiency loss
     # logging.info(gen_imgs.size())
     
     # logging.info(gradients.size())
@@ -285,21 +239,10 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     actual_fft = torch.fft.fft(gen_imgs)
     pred_fft = torch.fft.fft(effs)
     eff_loss_tensor = torch.square(torch.real(actual_fft-pred_fft))
-    # logging.info(lossV.size())
 
     eff_loss = torch.sum(torch.mean(eff_loss_tensor, dim=0).view(-1))
 
-    # binarization loss
-    # binary_loss = - torch.mean(torch.abs(gen_imgs.view(-1)) * (2.0 - torch.abs(gen_imgs.view(-1)))) 
-
-    # total loss
-    # loss = eff_loss + binary_loss * binary_penalty
-
-    # total loss
-    # loss = eff_loss + binary_loss * binary_penalty
-    loss = eff_loss
-
-    return loss
+    return eff_loss
 
 
 def save_images(imgs, eng, fig_path):
@@ -307,8 +250,7 @@ def save_images(imgs, eng, fig_path):
     import numpy as np
 
     
-    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 10.#0.
-    # logging.info(f"images are {imgs}")
+    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
@@ -349,9 +291,6 @@ def save_images(imgs, eng, fig_path):
     ])
     fig.update_layout(scene = scene_settings)
     fig.write_image(fig_path)
-    # fig.close()
-
-
 
 
 
@@ -360,18 +299,14 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
     z = sample_z(n_col * n_row, params) # generates n_row devices
-    # logging.info(f"z is {z}")
     imgs = generator(z, params)
-    # logging.info(imgs.size())
-    imgs_2D = imgs.cpu().detach()#.unsqueeze(2).repeat(1, 1, 64, 1)
-    # save_image(imgs_2D, fig_path, n_row, range=(-1, 1))
+    imgs_2D = imgs.cpu().detach()
     save_images(imgs, eng, fig_path)
     
     
 
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
-    # logging.info("evaluate_training_generator")
     # generate images
     z = sample_z(num_imgs, params)
     imgs = generator(z, params)
