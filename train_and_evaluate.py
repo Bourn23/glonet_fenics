@@ -232,11 +232,10 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
     node_per_axis = 176
     axis = 3
     repeat_nodes = node_per_axis / gradients.shape[1]
-    logging.info('repeat_nodes')
+    logging.info(f'{repeat_nodes}')
     gradients =  gradients.squeeze(2).T.unsqueeze(2).repeat(1, 88, 3)
-    logging.info(gradients.size())
-    logging.info(gradients)
-    logging.info(effs.size())
+    difference = torch.mean(effs - gen_imgs, dim=0)
+    logging.info(f"shape of difference is {difference.shape}")
     eff_loss_tensor = - gen_imgs * gradients * (1./sigma) * (torch.exp(effs/sigma)).view(-1, 1, 1)
     logging.info(eff_loss_tensor.size())
     
