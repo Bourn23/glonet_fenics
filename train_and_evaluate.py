@@ -176,7 +176,7 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
     # convert from tensor to numpy array
     imgs = gen_imgs #.clone().detach()
     # N = imgs.size(0)
-    # img = imgs.cpu()
+    img = imgs#.cpu()
     # wavelength = torch.tensor([params.wavelength] * N)
     # desired_angle = torch.tensor([params.angle] * N)
 
@@ -204,15 +204,15 @@ def compute_effs(imgs, eng, params):
         effs: N x 1
     '''
     # convert from tensor to numpy array
-    N = imgs.size(0)
-    img = imgs.data.cpu()#.numpy().tolist()
-    wavelength = torch.tensor([params.wavelength] * N)
-    desired_angle = torch.tensor([params.angle] * N)
-    force = torch.tensor([params.force] * N)
+    # N = imgs.size(0)
+    img = imgs#.data.cpu()#.numpy().tolist()
+    # wavelength = torch.tensor([params.wavelength] * N)
+    # desired_angle = torch.tensor([params.angle] * N)
+    # force = torch.tensor([params.force] * N)
 
    
     # call matlab function to compute efficiencies 
-    effs = eng.Eval_Eff_1D_parallel(img, wavelength, desired_angle, force)
+    effs = eng.Eval_Eff_1D_parallel(img)
     
     
     # return Tensor(effs)
