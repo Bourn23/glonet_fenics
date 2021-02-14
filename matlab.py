@@ -21,7 +21,6 @@ class engine:
         mu = img[0]
         beta = img[1]
         force = img[2]
-        logging.info(f'type of mu is {type(mu)}')
 
         self.u = self.model(mu, beta, force)
         # loss = torch.nn.MSELoss()

@@ -10,9 +10,12 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 class Generator:
     def __init__(self, params):
-        self.mu = torch.tensor([[params.wavelength/100]], requires_grad=True, dtype=torch.float64)
-        self.beta = torch.tensor([[params.angle/100]], requires_grad=True, dtype=torch.float64)
-        self.force = torch.tensor([[params.force/100]], requires_grad=True, dtype=torch.float64)
+        # self.mu = torch.tensor([[params.wavelength/100]], requires_grad=True, dtype=torch.float64)
+        # self.beta = torch.tensor([[params.angle/100]], requires_grad=True, dtype=torch.float64)
+        # self.force = torch.tensor([[params.force/100]], requires_grad=True, dtype=torch.float64)
+        self.mu = torch.normal(mean=img[0], std=1).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        self.beta = torch.normal(mean=img[1], std=1).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        self.force = torch.normal(mean=img[2], std=1).type(torch.float64).unsqueeze(1).requires_grad_(True)
         self.params = [self.mu, self.beta, self.force]
     
     def parameters(self):
