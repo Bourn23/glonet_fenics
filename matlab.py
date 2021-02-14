@@ -36,7 +36,7 @@ class engine:
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
-        loss = torch.nn.MSEloss()
+        loss = torch.nn.MSELoss()
         # v1.2
         if self.batch_size == 1:
             difference = self.u.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
