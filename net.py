@@ -43,27 +43,17 @@ class Generator(nn.Module):
 
 
     def forward(self, noise, params):
-        # logging.info(f"noise size: {noise.size()} and type: {type(noise)}")
         net = self.FC(noise)
-        # logging.info(f"1st pass size: {net.size()}")
-
         net = net.view(-1, 16, 32)
-        # logging.info(f"2st pass size: {net.size()}")
-
         net = self.CONV(net)    
-        # logging.info(f"3st pass size: {net.size()}")
-        # logging.info(f"3st pass noise_size: {noise.unsqueeze(1).size()}")
         net = self.FC1(net) # borna added
         net = conv1d_meta(net + noise.unsqueeze(1), self.gkernel)
-        # logging.info(f"4st pass size: {net.size()}")
         
         # net = conv1d_meta(net , self.gkernel)
         net = torch.tanh(net* params.binary_amp) * 1.05
         
         # net = torch.sigmoid(net.view(-1, 176, 3)) # borna added
-        net = net.view(-1, 176, 3) # borna added
-        # logging.info(f"5st pass size: {net.size()}")
-        # logging.info(f"5st pass size: {net.size()}")
+        net = torch.tanh(net.view(-1, 176, 3)) # borna added
 
         return net
 

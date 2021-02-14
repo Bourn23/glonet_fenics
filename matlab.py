@@ -11,6 +11,8 @@ class engine:
         self.mu = mu
         self.beta = beta
         self.force = force
+        self.target_deflection = self.model(self.mu, self.beta, self.force).detach() # sure?
+        self.target_deflection = self.target_deflection.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
 
     def Eval_Eff_1D_parallel(self, img, mu, beta, force):
         mu = torch.normal(mean=self.mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
@@ -26,32 +28,26 @@ class engine:
     def GradientFromSolver_1D_parallel(self, img):
         effs_and_gradients = []
         
-        mu = torch.normal(mean=self.mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        beta = torch.normal(mean=self.beta, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        force = torch.normal(mean=self.force, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
+        # again something like a global optimizer
+        mu = torch.normal(mean=self.img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        beta = torch.normal(mean=self.img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        force = torch.normal(mean=sself.img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
-        
+        loss = torch.nn.MSEloss()
         # v1.2
         if self.batch_size == 1:
-            difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1)
-        else:
+            difference = self.u.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
+            logging.info(f"Differnc shape is {difference.size()}")
+            logging.info(f"target_shape shape is {self.target_deflection.size()}")
+            output = loss(difference, self.target_deflection)
+        else: # make sure value assignment works fine.
             difference = torch.zeros((self.batch_size, 176, 3))
             for i in range(self.batch_size):
                 diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) # what's a more efficient way?
                 difference[i, :, :] = diffs 
-
-
-        # v1.1
-        # if self.batch_size == 1:
-        #     difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
-        # else:
-        #     difference = torch.zeros((self.batch_size, 176, 3))
-        #     for i in range(self.batch_size):
-        #         diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - img[i] # what's a more efficient way?
-        #         difference[i, :, :] = diffs
-
         
 
         effs_and_gradients.append(difference.detach())
@@ -68,4 +64,6 @@ class engine:
         # effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
         J = None
         
-        return effs_and_gradients
+        logging.info("effs_and_gradients")
+        logging.info(effs_and_gradients)
+        return effs_and_gradients, outputs

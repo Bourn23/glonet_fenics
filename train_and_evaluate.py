@@ -105,16 +105,16 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # sample  z
             z = sample_z(params.batch_size, params)
 
-            # generate a batch of iamges
-            gen_imgs = generator(z, params)
+            # generate a batch of iamges; NN's is out of loop
+            # gen_imgs = generator(z, params)
 
 
             # calculate efficiencies and gradients using EM solver
-            effs, gradients = compute_effs_and_gradients(gen_imgs, eng, params)
+            effs, gradients, g_loss = compute_effs_and_gradients(gen_imgs, eng, params)
 
             # construct the loss function
-            binary_penalty = params.binary_penalty_start if params.iter < params.binary_step_iter else params.binary_penalty_end
-            g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
+            # binary_penalty = params.binary_penalty_start if params.iter < params.binary_step_iter else params.binary_penalty_end
+            # g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
             t.set_description(f"Loss is {g_loss}", refresh=True)
 
             # train the generator
@@ -150,11 +150,11 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 def sample_z(batch_size, params):
     '''
     smaple noise vector z
+
+    Returns:
+        params: [mu, lambda, beta]
     '''
-    if type(params.noise_dims) == int:
-        return (torch.rand(batch_size, params.noise_dims).type(Tensor)*2.-1.) * params.noise_amplitude
-    else:
-        return (torch.rand(batch_size, params.noise_dims[0], params.noise_dim[1]).type(Tensor)*2.-1.) * params.noise_amplitude
+    return torch.rand(3)
 
 
 def compute_effs_and_gradients(gen_imgs, eng, params):
@@ -170,21 +170,21 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
         gradients: N x C x H
     '''
     # convert from tensor to numpy array
-    imgs = gen_imgs.clone().detach()
+    imgs = gen_imgs #.clone().detach()
     N = imgs.size(0)
     img = imgs.cpu()
-    wavelength = torch.tensor([params.wavelength] * N)
-    desired_angle = torch.tensor([params.angle] * N)
+    # wavelength = torch.tensor([params.wavelength] * N)
+    # desired_angle = torch.tensor([params.angle] * N)
 
     # call matlab function to compute efficiencies and gradients
 
-    effs_and_gradients = eng.GradientFromSolver_1D_parallel(img)  
+    effs_and_gradients, loss = eng.GradientFromSolver_1D_parallel(img)  
     effs = effs_and_gradients[0]          
     gradients = torch.tensor(effs_and_gradients[1:], dtype = torch.float64)
 
     
 
-    return (effs, gradients)
+    return (effs, gradients, loss)
 
 
 def compute_effs(imgs, eng, params):
@@ -226,7 +226,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
         sigma: scalar
         binary_penalty: scalar
     '''
-
+    loss = nn.MSEloss()
+    output = loss(gen_imgs, effs)
     # efficiency loss
     gradients =  gradients.squeeze(2).T.unsqueeze(2).repeat(1, 88, 3)
     difference = torch.mean(torch.mean(effs - gen_imgs, dim=2), dim=1)

@@ -14,6 +14,7 @@ import torch
 varproblem = HomogeneousBeam()
 
 
+
 # parser
 parser = argparse.ArgumentParser()
 parser.add_argument('--output_dir', default='results',
