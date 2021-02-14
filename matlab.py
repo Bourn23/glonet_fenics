@@ -15,9 +15,13 @@ class engine:
         self.target_deflection = self.target_deflection.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
 
     def Eval_Eff_1D_parallel(self, img):
-        mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        # mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        # beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        # force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        mu = img[0]
+        beta = img[1]
+        force = img[2]
+        logging.info(f'type of mu is {type(mu)}')
 
         self.u = self.model(mu, beta, force)
         # loss = torch.nn.MSELoss()
@@ -31,9 +35,13 @@ class engine:
         
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
-        mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        # mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        # beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        # force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        mu = img[0]
+        beta = img[1]
+        force = img[2]
+        logging.info(f'type of mu is {type(mu)}')
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
@@ -53,6 +61,7 @@ class engine:
 
         J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward(retain_graph = True)
 
+        # What are these grads for?
         dJdmu = mu.grad
         dJbeta = beta.grad
         # dJforce = force.grad

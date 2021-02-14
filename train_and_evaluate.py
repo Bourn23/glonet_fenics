@@ -20,7 +20,8 @@ def evaluate(generator, eng, numImgs, params):
     generator.eval()
     
     # generate images
-    z = sample_z(numImgs, params)
+    # z = sample_z(numImgs, params)
+    z = sample_z(numImgs, generator)
     images = generator(z, params)
     logging.info('Generation is done. \n')
 
@@ -103,8 +104,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             
             # sample  z
-            if it == 0: z = sample_z(params.batch_size, params)
-            else: logging.info(f"z is {z}"); z = z
+            # if it == 0: z = sample_z(params.batch_size, params)
+            z = sample_z(params.batch_size, generator)
 
             # generate a batch of iamges; NN's is out of loop
             # gen_imgs = generator(z, params)
@@ -148,14 +149,15 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
 
 
-def sample_z(batch_size, params):
+def sample_z(batch_size, generator):
     '''
     smaple noise vector z
 
     Returns:
         params: [mu, lambda, beta]
     '''
-    return torch.rand(3)
+    return generator.parameters()
+    # return torch.rand(3)
 
 
 def compute_effs_and_gradients(gen_imgs, eng, params):
@@ -298,7 +300,8 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     # generate images and save
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
-    z = sample_z(n_col * n_row, params) # generates n_row devices
+    # z = sample_z(n_col * n_row, params) # generates n_row devices
+    z = sample_z(n_col * n_row, generator) # generates n_row devices
     # imgs = generator(z, params)
     # imgs_2D = imgs.cpu().detach()
     imgs = eng.Eval_Eff_1D_parallel(z)
@@ -309,7 +312,8 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # generate images
-    z = sample_z(num_imgs, params)
+    # z = sample_z(num_imgs, params)
+    z = sample_z(num_imgs, generator)
     imgs = generator(z, params)
 
     # efficiencies of generated images
