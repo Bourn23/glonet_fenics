@@ -248,8 +248,8 @@ def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
 
-    
-    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
+    logging.info(f'imgs dims are {imgs.size()}')
+    imgs = imgs[0]#.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
@@ -268,9 +268,9 @@ def save_images(imgs, eng, fig_path):
     
     tris = np.array(triangles)
     
-    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
+    x, y, z = (eng.model.mesh.coordinates() + imgs.numpy()).T
     i, j, k = tris.T
-    disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T
+    disp = np.linalg.norm(imgs.numpy(), axis=1).T
     # logging.info(f"disp is :{disp}")
     fig = go.Figure(data=[
         go.Mesh3d(
@@ -298,8 +298,9 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
     z = sample_z(n_col * n_row, params) # generates n_row devices
-    imgs = generator(z, params)
-    imgs_2D = imgs.cpu().detach()
+    # imgs = generator(z, params)
+    # imgs_2D = imgs.cpu().detach()
+    imgs = self.Eval_Eff_1D_parallel(z)
     save_images(imgs, eng, fig_path)
     
     
