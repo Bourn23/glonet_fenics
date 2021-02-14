@@ -30,9 +30,9 @@ class engine:
         
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
-        mu = torch.normal(mean=self.img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        beta = torch.normal(mean=self.img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        force = torch.normal(mean=sself.img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
