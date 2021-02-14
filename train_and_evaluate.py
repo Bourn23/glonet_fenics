@@ -17,7 +17,7 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 
 def evaluate(generator, eng, numImgs, params):
-    generator.eval()
+    # generator.eval()
     
     # generate images
     # z = sample_z(numImgs, params)
@@ -44,7 +44,7 @@ def evaluate(generator, eng, numImgs, params):
 
 def train(generator, optimizer, scheduler, eng, params, pca=None):
 
-    generator.train()
+    # generator.train()
 
     # initialization
     if params.restore_from is None:
@@ -86,17 +86,18 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # save model 
             if it % 5000 == 0 or it > params.numIter:
-                model_dir = os.path.join(params.output_dir, 'model','iter{}'.format(it+iter0))
-                os.makedirs(model_dir, exist_ok = True)
-                utils.save_checkpoint({'iter': it + iter0 - 1,
-                                       'gen_state_dict': generator.state_dict(),
-                                       'optim_state_dict': optimizer.state_dict(),
-                                       'scheduler_state_dict': scheduler.state_dict(),
-                                       'effs_mean_history': effs_mean_history,
-                                       'binarization_history': binarization_history,
-                                       'diversity_history': diversity_history
-                                       },
-                                       checkpoint=model_dir)
+                  logging.info(f"generator values are {generator.parameters()}")
+            #     model_dir = os.path.join(params.output_dir, 'model','iter{}'.format(it+iter0))
+            #     os.makedirs(model_dir, exist_ok = True)
+            #     utils.save_checkpoint({'iter': it + iter0 - 1,
+            #                            'gen_state_dict': generator.state_dict(),
+            #                            'optim_state_dict': optimizer.state_dict(),
+            #                            'scheduler_state_dict': scheduler.state_dict(),
+            #                            'effs_mean_history': effs_mean_history,
+            #                            'binarization_history': binarization_history,
+            #                            'diversity_history': diversity_history
+            #                            },
+            #                            checkpoint=model_dir)
 
             # terminate the loop
             if it > params.numIter:
