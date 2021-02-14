@@ -55,7 +55,7 @@ class engine:
 
         effs_and_gradients.append(difference.detach())
 
-        J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward()
+        J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward(retain_graph = True)
 
         dJdmu = mu.grad
         dJbeta = beta.grad
