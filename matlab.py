@@ -40,7 +40,7 @@ class engine:
         mu = img[0]
         beta = img[1]
         force = img[2]
-        logging.info(f'type of mu is {type(mu)}')
+        logging.info(f'type of mu is {mu.requires_grad)}')
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
@@ -63,6 +63,7 @@ class engine:
         # What are these grads for?
         dJdmu = mu.grad
         dJbeta = beta.grad
+        logging.info(dJdmu)
         # dJforce = force.grad
 
         

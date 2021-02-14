@@ -107,6 +107,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # sample  z
             # if it == 0: z = sample_z(params.batch_size, params)
             z = sample_z(params.batch_size, generator)
+            logging.info(f"z is {z}")
 
             # generate a batch of iamges; NN's is out of loop
             # gen_imgs = generator(z, params)
