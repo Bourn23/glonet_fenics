@@ -13,7 +13,7 @@ class Generator:
         self.mu = torch.tensor([[params.wavelength/100]], requires_grad=True, dtype=torch.float64)
         self.beta = torch.tensor([[params.angle/100]], requires_grad=True, dtype=torch.float64)
         self.force = torch.tensor([[params.force/100]], requires_grad=True, dtype=torch.float64)
-        self.params = [self.mu, self.beta, self.force]
+        self.params = torch.tensor(self.mu, self.beta, self.force)
     
     def parameters(self):
         return self.params
