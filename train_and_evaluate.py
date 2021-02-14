@@ -103,7 +103,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             
             # sample  z
-            z = sample_z(params.batch_size, params)
+            if it == 0: z = sample_z(params.batch_size, params)
+            else: logging.info(f"z is {z}"); z = z
 
             # generate a batch of iamges; NN's is out of loop
             # gen_imgs = generator(z, params)
@@ -126,22 +127,22 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # evaluate 
             if it % params.plot_iter == 0:
-                generator.eval()
+                # generator.eval()
 
                 # vilualize generated images at various conditions
                 visualize_generated_images(generator, params, eng)
 
                 # evaluate the performance of current generator
-                effs_mean, binarization, diversity = evaluate_training_generator(generator, eng, params)
+                # effs_mean, binarization, diversity = evaluate_training_generator(generator, eng, params)
 
-                # add to history 
-                effs_mean_history.append(effs_mean)
-                binarization_history.append(binarization)
-                diversity_history.append(diversity)
+                # # add to history 
+                # effs_mean_history.append(effs_mean)
+                # binarization_history.append(binarization)
+                # diversity_history.append(diversity)
 
                 # plot current history
-                utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
-                generator.train()
+                # utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
+                # generator.train()
 
             t.update()
 
