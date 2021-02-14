@@ -110,7 +110,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
 
             # calculate efficiencies and gradients using EM solver
-            effs, gradients, g_loss = compute_effs_and_gradients(gen_imgs, eng, params)
+            effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
 
             # construct the loss function
             # binary_penalty = params.binary_penalty_start if params.iter < params.binary_step_iter else params.binary_penalty_end
