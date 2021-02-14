@@ -15,14 +15,17 @@ class engine:
         self.target_deflection = self.target_deflection.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
 
     def Eval_Eff_1D_parallel(self, img, mu, beta, force):
-        mu = torch.normal(mean=self.mu, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        beta = torch.normal(mean=self.beta, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        force = torch.normal(mean=self.force, std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
+        force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
 
         self.u = self.model(mu, beta, force)
+        loss = torch.nn.MSELoss()
 
-        difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze_(0).repeat(10, 1, 1) - img
-
+        difference = self.u.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
+        logging.info(f"Differnc shape is {difference.size()}")
+        logging.info(f"target_shape shape is {self.target_deflection.size()}")
+        output = loss(difference, self.target_deflection)
         return difference.detach().float()
     
     def GradientFromSolver_1D_parallel(self, img):
@@ -66,4 +69,4 @@ class engine:
         
         logging.info("effs_and_gradients")
         logging.info(effs_and_gradients)
-        return effs_and_gradients, outputs
+        return effs_and_gradients, output
