@@ -300,7 +300,7 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     z = sample_z(n_col * n_row, params) # generates n_row devices
     # imgs = generator(z, params)
     # imgs_2D = imgs.cpu().detach()
-    imgs = self.Eval_Eff_1D_parallel(z)
+    imgs = eng.Eval_Eff_1D_parallel(z)
     save_images(imgs, eng, fig_path)
     
     
