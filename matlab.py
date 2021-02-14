@@ -26,7 +26,7 @@ class engine:
         logging.info(f"Differnc shape is {difference.size()}")
         logging.info(f"target_shape shape is {self.target_deflection.size()}")
         output = loss(difference, self.target_deflection)
-        return difference.detach().float()
+        return (difference.detach().float(), output)
     
     def GradientFromSolver_1D_parallel(self, img):
         effs_and_gradients = []
@@ -67,6 +67,4 @@ class engine:
         # effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
         J = None
         
-        logging.info("effs_and_gradients")
-        logging.info(effs_and_gradients)
         return effs_and_gradients, output

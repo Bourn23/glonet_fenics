@@ -118,7 +118,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             t.set_description(f"Loss is {g_loss}", refresh=True)
 
             # train the generator
-            g_loss.backward()
+            g_loss.backward(retain_graph = True)
             optimizer.step()
             # free optimizer buffer 
             optimizer.zero_grad()
