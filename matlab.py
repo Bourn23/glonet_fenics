@@ -8,9 +8,9 @@ class engine:
         self.model = fenics_model
         self.v2d = vertex_to_dof_map(self.model.V)
         self.batch_size = batch_size
-        self.mu = mu
-        self.beta = beta
-        self.force = force
+        self.mu = torch.tensor(mu, 1, requires_grad=True, dtype=torch.float64)
+        self.beta = torch.tensor(beta, 1, requires_grad=True, dtype=torch.float64)
+        self.force = torch.tensor(force, 1, requires_grad=True, dtype=torch.float64)
         self.target_deflection = self.model(self.mu, self.beta, self.force).detach() # sure?
         self.target_deflection = self.target_deflection.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
 
