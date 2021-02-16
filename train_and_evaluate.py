@@ -280,6 +280,7 @@ def save_images(imgs, eng, fig_path):
     v2d = vertex_to_dof_map(eng.model.V)
 
     imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
+    orig_imgs = eng.target_deflection.flatten()[v2d].reshape(-1, 3)
 
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
@@ -316,10 +317,28 @@ def save_images(imgs, eng, fig_path):
             showscale=True
         )
     ])
+
+    # add the second graph
+    x_, y_, z_ = (eng.model.mesh.coordinates() + org_imgs.detach().numpy()).T
+    disp_ = np.linalg.norm(org_imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
+    fig.add_trace(go.Mesh3d(
+        x=x_,
+        y=y_,
+        z=z_,
+        # Intensity of each vertex, which will be interpolated and color-coded
+        intensity=disp_,
+        # i, j and k give the vertices of triangles
+        # here we represent the 4 triangles of the tetrahedron surface
+        i=i,
+        j=j,
+        k=k,
+        name='y',
+        showscale=True ,
+        colorscale = 'rdylbu'
+    ))
+    
     fig.update_layout(scene = scene_settings)
     fig.update_layout(scene_aspectmode = 'cube')
-    
-    
     fig.write_image(fig_path)
 
 
