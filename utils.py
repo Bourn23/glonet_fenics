@@ -156,7 +156,7 @@ def plot_loss_history(loss_history, params):
 def plot_histogram(Effs, Iter, fig_path):
     ax = plt.figure()
     bins = [i*5 for i in range(21)]
-    plt.plot(Effs, Iter, facecolor='blue', alpha=0.5)
+    plt.plot(Effs, Iter, alpha=0.5)
     plt.xlim(0, 100)
     plt.ylim(0, 50)
     plt.yticks([])
