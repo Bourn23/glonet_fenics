@@ -332,9 +332,7 @@ def save_images(imgs, eng, fig_path):
         i=i,
         j=j,
         k=k,
-        name='y',
-        showscale=True ,
-        colorscale = 'rdylbu'
+        colorscale = 'teal'
     ))
 
     fig.update_layout(scene = scene_settings)
