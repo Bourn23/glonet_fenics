@@ -295,7 +295,7 @@ def save_images(imgs, eng, fig_path):
             triangles.append(vertex_indices)
     tris = np.array(triangles)
 
-    x, y, z = (eng.model.mesh.coordinates()).T
+    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
 
