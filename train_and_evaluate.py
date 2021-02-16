@@ -257,7 +257,7 @@ def save_images(imgs, eng, fig_path):
             vertex_indices = []
             for vertex in vertices(facet):
                 vertex_indices.append(vertex.index())
-            vertex_dofs = varproblem.V.dofmap().entity_dofs(varproblem.mesh, 0, vertex_indices)
+            vertex_dofs = eng.model.V.dofmap().entity_dofs(eng.model.mesh, 0, vertex_indices)
             triangles.append(vertex_indices)
     tris = np.array(triangles)
 
