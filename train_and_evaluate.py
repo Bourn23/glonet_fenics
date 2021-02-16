@@ -255,7 +255,7 @@ def save_images(imgs, eng, fig_path):
     x, y, z = (eng.model.mesh.coordinates() + imgs.numpy()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.numpy(), axis=1).T
-    logging.info(f"disp is :{disp}")
+    logging.info(f"disp is :{disp.shape}")
     fig = go.Figure(data=[
         go.Mesh3d(
             x=x,
