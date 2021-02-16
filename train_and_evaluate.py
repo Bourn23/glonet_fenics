@@ -107,7 +107,6 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # sample  z
             # if it == 0: z = sample_z(params.batch_size, params)
             z = sample_z(params.batch_size, generator)
-            logging.info(f"z is {z}")
 
             # generate a batch of iamges; NN's is out of loop
             # gen_imgs = generator(z, params)
@@ -122,7 +121,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             t.set_description(f"Loss is {g_loss}", refresh=True)
 
             # train the generator
-            g_loss.backward(retain_graph = True)
+            g_loss.backward()
             optimizer.step()
             # free optimizer buffer 
             optimizer.zero_grad()

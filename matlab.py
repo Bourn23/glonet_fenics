@@ -56,20 +56,21 @@ class engine:
                 difference[i, :, :] = diffs 
         
 
-        effs_and_gradients.append(difference.detach())
+        effs_and_gradients.append(difference)
 
-        J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward(retain_graph = True)
+        # J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward(retain_graph = True)
 
-        # What are these grads for?
-        dJdmu = mu.grad
-        dJbeta = beta.grad
-        logging.info(dJdmu)
+        # # What are these grads for?
+        # dJdmu = mu.grad
+        # dJbeta = beta.grad
+        # logging.info(dJdmu)
         # dJforce = force.grad
 
         
-        effs_and_gradients.append(dJdmu.detach().numpy()) # since we have to revert it back to tensor
-        effs_and_gradients.append(dJbeta.detach().numpy()) # since we have to revert it back to tensor
+        # effs_and_gradients.append(dJdmu.detach().numpy()) # since we have to revert it back to tensor
+        # effs_and_gradients.append(dJbeta.detach().numpy()) # since we have to revert it back to tensor
         # effs_and_gradients.append(force.grad.detach().numpy()) # since we have to revert it back to tensor
-        J = None
+        effs_and_gradients.append([1])
+        # J = None
         
         return effs_and_gradients, output
