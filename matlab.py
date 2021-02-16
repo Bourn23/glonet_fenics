@@ -12,7 +12,7 @@ class engine:
         self.beta = torch.tensor([[beta]], requires_grad=True, dtype=torch.float64)
         self.force = torch.tensor([[force]], requires_grad=True, dtype=torch.float64)
         self.target_deflection = self.model(self.mu, self.beta, self.force).detach() # sure?
-        self.target_deflection = self.target_deflection#.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
+        # self.target_deflection = self.target_deflection.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
 
     def Eval_Eff_1D_parallel(self, img):
         # mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
@@ -46,8 +46,8 @@ class engine:
         loss = torch.nn.MSELoss()
         # v1.2
         if self.batch_size == 1:
-            difference = self.u.flatten()[self.v2d]#.reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
-            output = loss(difference, self.target_deflection)
+            # difference = self.u.flatten()[self.v2d]#.reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
+            output = loss(self.u, self.target_deflection)
         else: # make sure value assignment works fine.
             difference = torch.zeros((self.batch_size, 176, 3))
             for i in range(self.batch_size):
