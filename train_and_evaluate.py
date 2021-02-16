@@ -286,29 +286,16 @@ def save_images(imgs, eng, fig_path):
         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
 
 
-    # triangles = []
-    # for cell in cells(eng.model.mesh):
-    #     for facet in facets(cell):
-    #         vertex_coords = []
-    #         vertex_indices = []
-    #         for vertex in vertices(facet):
-    #             vertex_coords.append(list(vertex.point().array()))
-    #             vertex_indices.append(vertex.index())
-    #         triangles.append(vertex_indices)
-    
-    # tris = np.array(triangles)
-
     triangles = []
     for cell in cells(eng.model.mesh):
         for facet in facets(cell):
             vertex_indices = []
             for vertex in vertices(facet):
                 vertex_indices.append(vertex.index())
-            vertex_dofs = eng.model.V.dofmap().entity_dofs(eng.model.mesh, 0, vertex_indices)
             triangles.append(vertex_indices)
     tris = np.array(triangles)
 
-    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
+    x, y, z = (eng.model.mesh.coordinates()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
 
