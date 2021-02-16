@@ -86,7 +86,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # save model 
             if it % 5000 == 0 or it > params.numIter:
-                  logging.info(f"generator values are {generator.parameters()}")
+                #   logging.info(f"generator values are {generator.parameters()}")
             #     model_dir = os.path.join(params.output_dir, 'model','iter{}'.format(it+iter0))
             #     os.makedirs(model_dir, exist_ok = True)
             #     utils.save_checkpoint({'iter': it + iter0 - 1,
@@ -132,7 +132,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 # generator.eval()
 
                 # vilualize generated images at various conditions
-                t.set_description(f"Values are {generator.parameters()}", refresh=True)
+                # t.set_description(f"Values are {generator.parameters()}", refresh=True)
                 visualize_generated_images(generator, params, eng)
 
                 # evaluate the performance of current generator
