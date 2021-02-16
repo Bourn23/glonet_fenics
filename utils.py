@@ -151,14 +151,16 @@ def plot_loss_history(loss_history, params):
     io.savemat(history_path, mdict={'effs_mean_history'   :np.asarray(effs_mean_history), 
                                     'diversity_history'   :np.asarray(diversity_history),
                                     'binarization_history':np.asarray(binarization_history)})
+
+    plt.close()
          
 
 def plot_histogram(Effs, Iter, fig_path):
     ax = plt.figure()
     bins = [i*5 for i in range(21)]
     plt.plot(Effs, Iter, alpha=0.5)
-    plt.xlim(0, 100)
-    plt.ylim(0, 50)
+    # plt.xlim(0, 100)
+    # plt.ylim(0, 50)
     plt.yticks([])
     plt.xticks(fontsize=12)
     #plt.yticks(fontsize=20)
