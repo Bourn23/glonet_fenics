@@ -232,8 +232,8 @@ def save_images(imgs, eng, fig_path):
     import numpy as np
 
     # logging.info(f'imgs dims are {imgs.size()}')
-    imgs = imgs[0]
-    # imgs = imgs#.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
+    # imgs = imgs[0]
+    imgs = imgs.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
