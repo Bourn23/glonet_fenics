@@ -132,6 +132,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 # generator.eval()
 
                 # vilualize generated images at various conditions
+                t.set_description(f"Values are {generator.parameters()}", refresh=True)
                 visualize_generated_images(generator, params, eng)
 
                 # evaluate the performance of current generator
@@ -231,6 +232,7 @@ def save_images(imgs, eng, fig_path):
     import numpy as np
 
     # logging.info(f'imgs dims are {imgs.size()}')
+    imgs = imgs[0]
     # imgs = imgs#.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
@@ -253,7 +255,7 @@ def save_images(imgs, eng, fig_path):
     x, y, z = (eng.model.mesh.coordinates() + imgs.numpy()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.numpy(), axis=1).T
-    # logging.info(f"disp is :{disp}")
+    logging.info(f"disp is :{disp}")
     fig = go.Figure(data=[
         go.Mesh3d(
             x=x,
