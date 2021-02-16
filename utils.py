@@ -139,18 +139,18 @@ def plot_loss_history(loss_history, params):
     iterations = [i*params.plot_iter for i in range(len(effs_mean_history))]
     plt.figure()
     # logging.info(f"iterations is {iterations}")
-    # plt.plot(iterations, effs_mean_history)
-    # plt.plot(iterations, diversity_history)
-    # plt.plot(iterations, binarization_history)
-    # plt.xlabel('iteration')
-    # plt.legend(('Average Efficiency', 'Pattern diversity', 'Binarizaion'))
-    # plt.axis([0, len(effs_mean_history)*params.plot_iter, 0, 1.05])
-    # plt.savefig(params.output_dir + '/figures/Train_history.png')
+    plt.plot(iterations, effs_mean_history)
+    plt.plot(iterations, diversity_history)
+    plt.plot(iterations, binarization_history)
+    plt.xlabel('iteration')
+    plt.legend(('Average Loss', 'mu', 'beta'))
+    plt.axis([0, len(effs_mean_history)*params.plot_iter, 0, 1.05])
+    plt.savefig(params.output_dir + '/figures/Train_history.png')
 
-    # history_path = os.path.join(params.output_dir,'history.mat')
-    # io.savemat(history_path, mdict={'effs_mean_history'   :np.asarray(effs_mean_history), 
-    #                                 'diversity_history'   :np.asarray(diversity_history),
-    #                                 'binarization_history':np.asarray(binarization_history)})
+    history_path = os.path.join(params.output_dir,'history.mat')
+    io.savemat(history_path, mdict={'effs_mean_history'   :np.asarray(effs_mean_history), 
+                                    'diversity_history'   :np.asarray(diversity_history),
+                                    'binarization_history':np.asarray(binarization_history)})
          
 
 def plot_histogram(Effs, Iter, fig_path):
@@ -162,7 +162,7 @@ def plot_histogram(Effs, Iter, fig_path):
     plt.yticks([])
     plt.xticks(fontsize=12)
     #plt.yticks(fontsize=20)
-    plt.xlabel('Deflection efficiency (%)', fontsize=12)
+    plt.xlabel('Loss (%)', fontsize=12)
     plt.title('Iteration {}'.format(Iter), fontsize=16)
     plt.savefig(fig_path, dpi=300)
     plt.close()

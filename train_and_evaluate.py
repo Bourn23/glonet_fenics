@@ -48,9 +48,9 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
     # initialization
     if params.restore_from is None:
-        effs_mean_history = []
-        binarization_history = []
-        diversity_history = []
+        effs_mean_history = [] # loss
+        binarization_history = [] # mu
+        diversity_history = [] # beta
         iter0 = 0   
     else:
         effs_mean_history = params.checkpoint['effs_mean_history']
@@ -136,16 +136,16 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 visualize_generated_images(generator, params, eng)
 
                 # evaluate the performance of current generator
-                # effs_mean, binarization, diversity = evaluate_training_generator(generator, eng, params)
+                effs_mean, binarization, diversity = evaluate_training_generator(generator, eng, params)
 
-                # # add to history 
-                # effs_mean_history.append(effs_mean)
-                # binarization_history.append(binarization)
-                # diversity_history.append(diversity)
+                # add to history 
+                effs_mean_history.append(effs_mean)
+                binarization_history.append(binarization)
+                diversity_history.append(diversity)
 
                 # plot current history
-                # utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
-                # generator.train()
+                utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
+                generator.train()
 
             t.update()
 
@@ -359,22 +359,21 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # generate images
     # z = sample_z(num_imgs, params)
     z = sample_z(num_imgs, generator)
-    imgs = generator(z, params)
 
     # efficiencies of generated images
-    effs = compute_effs(imgs, eng, params)
+    effs = compute_effs(z, eng, params)
     # effs_mean = torch.mean(effs.view(-1))
-    effs_mean = effs.cpu().detach().numpy()
+    ll = torch.nn.MSELoss()
+    effs_mean = ll(effs.cpu().detach(), eng.target_deflection).numpy()
 
     # binarization of generated images
-    binarization = torch.mean(torch.abs(imgs.view(-1))).cpu().detach().numpy()
+    binarization, diversity = generator.parameters()
 
     # diversity of generated images
-    diversity = torch.mean(torch.std(imgs, dim=0)).cpu().detach().numpy()
 
     # plot histogram
     fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-    utils.plot_histogram(effs.data.cpu().numpy().reshape(-1), params.iter, fig_path)
+    utils.plot_histogram(effs, params.iter, fig_path)
 
     
     return effs_mean, binarization, diversity
