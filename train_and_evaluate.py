@@ -230,9 +230,8 @@ def global_loss_function(gen_imgs, effs, gradients, sigma=0.5, binary_penalty=0)
 def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
-
-    
-    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 10.#0.
+    v2d = vertex_to_dof_map(eng.model.V)
+    imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
     # logging.info(f"images are {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
@@ -240,39 +239,55 @@ def save_images(imgs, eng, fig_path):
         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
 
 
-    triangles = []
-    for cell in cells(eng.model.mesh):
-        for facet in facets(cell):
-            vertex_coords = []
-            vertex_indices = []
-            for vertex in vertices(facet):
-                vertex_coords.append(list(vertex.point().array()))
-                vertex_indices.append(vertex.index())
-            triangles.append(vertex_indices)
+    # triangles = []
+    # for cell in cells(eng.model.mesh):
+    #     for facet in facets(cell):
+    #         vertex_coords = []
+    #         vertex_indices = []
+    #         for vertex in vertices(facet):
+    #             vertex_coords.append(list(vertex.point().array()))
+    #             vertex_indices.append(vertex.index())
+    #         triangles.append(vertex_indices)
     
-    tris = np.array(triangles)
+    # tris = np.array(triangles)
     
-    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
-    i, j, k = tris.T
-    disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T
+    # x, y, z = eng.model.mesh.coordinates().T# (eng.model.mesh.coordinates()).T# + imgs.detach().numpy()).T
+    # i, j, k = tris.T
+    # disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T
     # logging.info(f"disp is :{disp}")
-    fig = go.Figure(data=[
-        go.Mesh3d(
-            x=x,
-            y=y,
-            z=z,
-            # Intensity of each vertex, which will be interpolated and color-coded
-            intensity=disp,
-            # i, j and k give the vertices of triangles
-            # here we represent the 4 triangles of the tetrahedron surface
-            i=i,
-            j=j,
-            k=k,
-            name='y',
-            showscale=True
+    # fig = go.Figure(data=[
+    #     go.Mesh3d(
+    #         x=x,
+    #         y=y,
+    #         z=z,
+    #         # Intensity of each vertex, which will be interpolated and color-coded
+    #         intensity=disp,
+    #         # i, j and k give the vertices of triangles
+    #         # here we represent the 4 triangles of the tetrahedron surface
+    #         i=i,
+    #         j=j,
+    #         k=k,
+    #         name='y',
+    #         showscale=True
+    #     )
+    # ])
+    # fig.update_layout(scene = scene_settings)
+    # fig.write_image(fig_path)
+
+    disp = np.linalg.norm(imgs.numpy(), axis=1).T  # the zero index is because of the "N" above!
+
+    x, y, z = varproblem.mesh.coordinates().T
+    fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
+                                    mode='markers',
+                                    marker=dict(
+            color=disp,                # set color to an array/list of desired values
+            colorscale='Viridis',   # choose a colorscale
         )
+                                    )
     ])
     fig.update_layout(scene = scene_settings)
+    fig.update_layout(scene_aspectmode = 'cube')
+    # fig.show()
     fig.write_image(fig_path)
 
 
