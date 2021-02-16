@@ -86,6 +86,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # save model 
             if it % 5000 == 0 or it > params.numIter:
+                pass
                 #   logging.info(f"generator values are {generator.parameters()}")
             #     model_dir = os.path.join(params.output_dir, 'model','iter{}'.format(it+iter0))
             #     os.makedirs(model_dir, exist_ok = True)
