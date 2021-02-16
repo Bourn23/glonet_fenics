@@ -278,7 +278,7 @@ def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
     v2d = vertex_to_dof_map(eng.model.V)
-    x, y, z = (eng.model.mesh.coordinates() + imgs[0].detach().numpy()).T
+
     imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
 
     scene_settings = dict(
@@ -296,7 +296,7 @@ def save_images(imgs, eng, fig_path):
             triangles.append(vertex_indices)
     tris = np.array(triangles)
 
-    
+    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
 
