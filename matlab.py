@@ -25,7 +25,7 @@ class engine:
         self.u = self.model(mu, beta, force)
         # loss = torch.nn.MSELoss()
 
-        difference = self.u.flatten()[self.v2d].reshape(-1, 3)#.unsqueeze_(0).repeat(10, 1, 1)
+        difference = self.u.flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) - self.target_deflection.unsqueeze(0) #.repeat(10, 1, 1)
         # output = loss(difference, self.target_deflection)
         return difference.detach()#, output)
     
