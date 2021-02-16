@@ -232,7 +232,7 @@ def save_images(imgs, eng, fig_path):
     import numpy as np
 
     
-    imgs = imgs[0]#.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0.
+    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 10.#0.
     # logging.info(f"images are {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
