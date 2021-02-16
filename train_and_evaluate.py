@@ -158,7 +158,6 @@ def sample_z(batch_size, generator):
         params: [mu, lambda, beta]
     '''
     return generator.parameters()
-    # return torch.rand(3)
 
 
 def compute_effs_and_gradients(gen_imgs, eng, params):
@@ -173,27 +172,16 @@ def compute_effs_and_gradients(gen_imgs, eng, params):
         effs: N x 1
         gradients: N x C x H
     '''
-    # convert from tensor to numpy array
-    imgs = gen_imgs #.clone().detach()
-    # N = imgs.size(0)
-    img = imgs#.cpu()
-    # wavelength = torch.tensor([params.wavelength] * N)
-    # desired_angle = torch.tensor([params.angle] * N)
-
-    # call matlab function to compute efficiencies and gradients
+    img = gen_imgs
 
     effs_and_gradients, loss = eng.GradientFromSolver_1D_parallel(img)  
     effs = effs_and_gradients[0]          
     gradients = torch.tensor(effs_and_gradients[1:], dtype = torch.float64)
 
-    
-
     return (effs, gradients, loss)
 
 
 def compute_effs(imgs, eng, params):
-    # THIS IS WHERE MOST OF YOUR WORK IS.
-    # what does it generate?
     '''
     Args:
         imgs: N x C x H
@@ -203,19 +191,9 @@ def compute_effs(imgs, eng, params):
     Returns:
         effs: N x 1
     '''
-    # convert from tensor to numpy array
-    # N = imgs.size(0)
-    img = imgs#.data.cpu()#.numpy().tolist()
-    # wavelength = torch.tensor([params.wavelength] * N)
-    # desired_angle = torch.tensor([params.angle] * N)
-    # force = torch.tensor([params.force] * N)
-
-   
-    # call matlab function to compute efficiencies 
+    img = imgs
     effs = eng.Eval_Eff_1D_parallel(img)
     
-    
-    # return Tensor(effs)
     return effs
 
 
@@ -253,7 +231,7 @@ def save_images(imgs, eng, fig_path):
     import numpy as np
 
     # logging.info(f'imgs dims are {imgs.size()}')
-    imgs = imgs[0]#.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
+    # imgs = imgs#.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
