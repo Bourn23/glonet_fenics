@@ -370,7 +370,6 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     binarization, diversity = generator.parameters()
 
     # diversity of generated images
-    logging.info(f'binarization {binarization} and {diversity}')
 
     # plot histogram
     fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
