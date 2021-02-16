@@ -276,7 +276,7 @@ def save_images(imgs, eng, fig_path):
 
     disp = np.linalg.norm(imgs.numpy(), axis=1).T  # the zero index is because of the "N" above!
 
-    x, y, z = varproblem.mesh.coordinates().T
+    x, y, z = eng.model.mesh.coordinates().T
     fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
                                     mode='markers',
                                     marker=dict(
