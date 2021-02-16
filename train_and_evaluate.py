@@ -250,6 +250,40 @@ def save_images(imgs, eng, fig_path):
     #         triangles.append(vertex_indices)
     
     # tris = np.array(triangles)
+
+    triangles = []
+    for cell in cells(eng.model.mesh):
+        for facet in facets(cell):
+            vertex_indices = []
+            for vertex in vertices(facet):
+                vertex_indices.append(vertex.index())
+            vertex_dofs = varproblem.V.dofmap().entity_dofs(varproblem.mesh, 0, vertex_indices)
+            triangles.append(vertex_indices)
+    tris = np.array(triangles)
+
+    x, y, z = varproblem.mesh.coordinates().T
+    i, j, k = tris.T
+    disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
+
+    fig = go.Figure(data=[
+        go.Mesh3d(
+            x=x,
+            y=y,
+            z=z,
+            # Intensity of each vertex, which will be interpolated and color-coded
+            intensity=disp,
+            # i, j and k give the vertices of triangles
+            # here we represent the 4 triangles of the tetrahedron surface
+            i=i,
+            j=j,
+            k=k,
+            name='y',
+            showscale=True
+        )
+    ])
+    fig.update_layout(scene = scene_settings)
+    fig.update_layout(scene_aspectmode = 'cube')
+    # fig.show()
     
     # x, y, z = eng.model.mesh.coordinates().T# (eng.model.mesh.coordinates()).T# + imgs.detach().numpy()).T
     # i, j, k = tris.T
@@ -274,19 +308,19 @@ def save_images(imgs, eng, fig_path):
     # fig.update_layout(scene = scene_settings)
     # fig.write_image(fig_path)
 
-    disp = np.linalg.norm(imgs.numpy(), axis=1).T  # the zero index is because of the "N" above!
+    # disp = np.linalg.norm(imgs.numpy(), axis=1).T  # the zero index is because of the "N" above!
 
-    x, y, z = eng.model.mesh.coordinates().T
-    fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
-                                    mode='markers',
-                                    marker=dict(
-            color=disp,                # set color to an array/list of desired values
-            colorscale='Viridis',   # choose a colorscale
-        )
-                                    )
-    ])
-    fig.update_layout(scene = scene_settings)
-    fig.update_layout(scene_aspectmode = 'cube')
+    # x, y, z = eng.mesh.coordinates().T
+    # fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z,
+    #                                 mode='markers',
+    #                                 marker=dict(
+    #         color=disp,                # set color to an array/list of desired values
+    #         colorscale='Viridis',   # choose a colorscale
+    #     )
+    #                                 )
+    # ])
+    # fig.update_layout(scene = scene_settings)
+    # fig.update_layout(scene_aspectmode = 'cube')
     # fig.show()
     fig.write_image(fig_path)
 
