@@ -1,7 +1,7 @@
 {
     "wavelength": 1,
     "angle": 1.25,
-    "force": 1,
+    "force": .001,
     "noise_dims": 528,
     "noise_amplitude": 1,
     "numIter": 20000.0,
