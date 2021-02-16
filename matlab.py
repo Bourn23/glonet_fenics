@@ -18,16 +18,16 @@ class engine:
         # mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
         # beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
         # force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        mu = img[0]
-        beta = img[1]
-        force = img[2]
+        mu = [img[0] * 10]
+        beta = [img[1] * 10]
+        force = [img[2] * 10]
 
         self.u = self.model(mu, beta, force)
         # loss = torch.nn.MSELoss()
 
         # difference = self.u.flatten()[self.v2d]#.reshape(-1, 3) - self.target_deflection #.repeat(10, 1, 1)
         # output = loss(difference, self.target_deflection)
-        return self.u.detach()#, output)
+        return self.u#, output)
     
     def GradientFromSolver_1D_parallel(self, img):
         effs_and_gradients = []
