@@ -145,7 +145,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
                 # plot current history
                 utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
-                generator.train()
+                # generator.train()
 
             t.update()
 
