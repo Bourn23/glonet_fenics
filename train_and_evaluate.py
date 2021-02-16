@@ -231,9 +231,9 @@ def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
 
-    # logging.info(f'imgs dims are {imgs.size()}')
-    # imgs = imgs[0]
-    imgs = imgs.flatten()[eng.v2d].reshape(-1, 3)# / 10.#0. # normalizing output
+    
+    imgs = imgs[0].flatten()[eng.v2d].reshape(-1, 3)# / 10.#0.
+    # logging.info(f"images are {imgs}")
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
@@ -252,10 +252,10 @@ def save_images(imgs, eng, fig_path):
     
     tris = np.array(triangles)
     
-    x, y, z = (eng.model.mesh.coordinates() + imgs.numpy()).T
+    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
-    disp = np.linalg.norm(imgs.numpy(), axis=1).T
-    # logging.info(f"disp is :{disp.shape}")
+    disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T
+    # logging.info(f"disp is :{disp}")
     fig = go.Figure(data=[
         go.Mesh3d(
             x=x,
