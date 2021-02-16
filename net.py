@@ -22,6 +22,9 @@ class Generator:
     
     def parameters(self):
         return self.params
+
+    def generate(self):
+        return [self.mu, self.beta, self.force]
 # class Generator(nn.Module):
 #     def __init__(self, params):
 #         super().__init__()

@@ -158,7 +158,7 @@ def sample_z(batch_size, generator):
     Returns:
         params: [mu, lambda, beta]
     '''
-    return generator.parameters()
+    return generator.generate()
 
 
 def compute_effs_and_gradients(gen_imgs, eng, params):
