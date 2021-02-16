@@ -157,15 +157,14 @@ def plot_loss_history(loss_history, params):
 
 def plot_histogram(Effs, Iter, fig_path):
     ax = plt.figure()
-    bins = [i*5 for i in range(21)]
-    plt.plot(Effs, Iter, alpha=0.5)
+    plt.plot(Effs, alpha=0.5)
     # plt.xlim(0, 100)
     # plt.ylim(0, 50)
-    plt.yticks([])
-    plt.xticks(fontsize=12)
+    # plt.yticks([])
+    # plt.xticks(fontsize=12)
     #plt.yticks(fontsize=20)
     plt.xlabel('Loss (%)', fontsize=12)
-    plt.title('Iteration {}'.format(Iter), fontsize=16)
+    # plt.title('Iteration {}'.format(Iter), fontsize=16)
     plt.savefig(fig_path, dpi=300)
     plt.close()
 
