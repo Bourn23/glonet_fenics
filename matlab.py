@@ -40,7 +40,6 @@ class engine:
         mu = img[0]
         beta = img[1]
         force = img[2]
-        logging.info(f'type of mu is {mu.requires_grad}')
 
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
