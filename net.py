@@ -16,7 +16,7 @@ class Generator:
         # self.mu = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
         # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
         self.mu = torch.tensor([[1.]], requires_grad = True, dtype = torch.float64)
-        self.beta = torch.tensor([[1.]], requires_grad = True, dtype = torch.float64)
+        self.beta = torch.tensor([[1.25]], requires_grad = True, dtype = torch.float64)
         self.force = torch.tensor([[10.]], requires_grad = True, dtype = torch.float64)
         self.params = [self.mu, self.beta]#, self.force]
     
