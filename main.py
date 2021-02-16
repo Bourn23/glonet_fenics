@@ -67,8 +67,8 @@ if __name__ == '__main__':
     generator = Generator(params)
         
     # Move to gpu if possible
-    if params.cuda:
-        generator.cuda()
+    # if params.cuda:
+    #     generator.cuda()
 
 
     # Define the optimizer
