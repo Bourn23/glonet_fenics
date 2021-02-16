@@ -46,7 +46,7 @@ class engine:
         loss = torch.nn.MSELoss()
         # v1.2
         if self.batch_size == 1:
-            # difference = self.u.flatten()[self.v2d]#.reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
+            difference = self.u#.flatten()[self.v2d]#.reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
             output = loss(self.u, self.target_deflection)
         else: # make sure value assignment works fine.
             difference = torch.zeros((self.batch_size, 176, 3))
@@ -55,7 +55,7 @@ class engine:
                 difference[i, :, :] = diffs 
         
 
-        effs_and_gradients.append(difference)
+        effs_and_gradients.append(difference.detach())
 
         # J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward(retain_graph = True)
 
