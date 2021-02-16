@@ -373,7 +373,7 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
 
     # plot histogram
     fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-    utils.plot_histogram(effs, params.iter, fig_path)
+    utils.plot_histogram(effs_mean, params.iter, fig_path)
 
     
     return effs_mean, binarization, diversity
