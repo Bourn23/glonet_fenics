@@ -64,7 +64,7 @@ class engine:
             logging.info(f"target_def {self.target_deflection.unsqueeze(0).shape}")
             td = self.target_deflection.unsqueeze(0).repeat(self.u.shape[0], 1, 1)
             logging.info(td.shape)
-            output = loss(self.u, )
+            output = loss(self.u, td)
         
 
         # effs_and_gradients.append(difference.detach())
