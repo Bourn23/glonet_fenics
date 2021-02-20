@@ -10,7 +10,7 @@
     "lr": 1e4,
     "beta1": 0.9,
     "beta2": 0.99,
-    "batch_size_start": 10,
+    "batch_size_start": 1,
     "batch_size_end": 1,
     "batch_size_power": 1,
     "binary": 1,
