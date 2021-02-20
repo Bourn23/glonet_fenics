@@ -42,9 +42,10 @@ class engine:
         mu = img[0]
         beta = img[1]
         force = img[2]
-
+        logging.info(mu.shape)
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
+        logging.info(sel.u.shape)
         loss = torch.nn.MSELoss()
         # v1.2
         # if self.batch_size == 1:
