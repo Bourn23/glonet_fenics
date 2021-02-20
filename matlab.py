@@ -45,7 +45,7 @@ class engine:
         logging.info(mu.shape)
         # compute gradients for all!
         self.u = self.model(mu, beta, force)
-        logging.info(sel.u.shape)
+        logging.info(self.u.shape)
         loss = torch.nn.MSELoss()
         # v1.2
         # if self.batch_size == 1:
