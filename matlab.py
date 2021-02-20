@@ -24,8 +24,8 @@ class engine:
             force = torch.tensor([[img[2]]]*self.batch_size)
         else:
             mu = img[0]
-            mu = img[1]
-            mu = img[2]
+            beta = img[1]
+            force = img[2]
         # beta = [img[1] * 10]
         # force = [img[2] * 10]
 
