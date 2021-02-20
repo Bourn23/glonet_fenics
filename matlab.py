@@ -61,7 +61,9 @@ class engine:
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
-            output = loss(self.u, self.target_deflection.unsqueeze(0).repeat(self.u.shape[0], 1, 1))
+            td = self.target_deflection.unsqueeze(0).repeat(self.u.shape[0], 1, 1)
+            logging.info(td.shape)
+            output = loss(self.u, )
         
 
         # effs_and_gradients.append(difference.detach())
