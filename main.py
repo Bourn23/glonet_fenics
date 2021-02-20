@@ -19,8 +19,8 @@ varproblem = HomogeneousBeam()
 parser = argparse.ArgumentParser()
 parser.add_argument('--output_dir', default='results',
                                         help="Results folder")
-parser.add_argument('--wavelength', default=None) # wavelength = mu
-parser.add_argument('--angle', default=None) # angle = lambda
+parser.add_argument('--mu', default=None) # mu = mu
+parser.add_argument('--beta', default=None) # beta = lambda
 parser.add_argument('--restore_from', default=None,
                                         help="Optional, directory or file containing weights to reload before training")
 
@@ -50,12 +50,12 @@ if __name__ == '__main__':
     params.step_size = int(params.step_size)   
     params.force = float(params.force) 
 
-    if args.wavelength is not None:
-        params.wavelength = torch.tensor(args.wavelength, requires_grad = True, dtype = torch.float64)
-    if args.angle is not None:
-        params.angle = torch.tensor(args.angle, requires_grad = True, dtype = torch.float64)
+    if args.mu is not None:
+        params.mu = torch.tensor(args.mu, requires_grad = True, dtype = torch.float64)
+    if args.beta is not None:
+        params.beta = torch.tensor(args.beta, requires_grad = True, dtype = torch.float64)
 
-    eng = engine(varproblem, params.batch_size_start, params.wavelength, params.angle, params.force)
+    eng = engine(varproblem, params.batch_size_start, params.mu, params.beta, params.force)
 
     # make directory
     os.makedirs(args.output_dir + '/outputs', exist_ok = True)

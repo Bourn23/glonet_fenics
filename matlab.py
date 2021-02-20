@@ -47,17 +47,23 @@ class engine:
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
         # v1.2
-        if self.batch_size == 1:
-            difference = self.u#.flatten()[self.v2d]#.reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
+        # if self.batch_size == 1:
+        #     difference = self.u#.flatten()[self.v2d]#.reshape(-1, 3)#.unsqueeze_(0).repeat(self.batch_size, 1, 1)
+        #     output = loss(self.u, self.target_deflection)
+        # else: # make sure value assignment works fine.
+        #     difference = torch.zeros((self.batch_size, 176, 3))
+        #     for i in range(self.batch_size):
+        #         # diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) # what's a more efficient way?
+        #         # difference[i, :, :] = diffs 
+
+        # v1.3
+        if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
-        else: # make sure value assignment works fine.
-            difference = torch.zeros((self.batch_size, 176, 3))
-            for i in range(self.batch_size):
-                diffs = self.u[i].flatten()[self.v2d].reshape(-1, 3).unsqueeze(0) # what's a more efficient way?
-                difference[i, :, :] = diffs 
+        else:
+            output = loss(self.u, self.target_deflection.unsqueeze(0).repeat(self.u.shape[0], 1, 1))
         
 
-        effs_and_gradients.append(difference.detach())
+        # effs_and_gradients.append(difference.detach())
 
         # J = torch.sum(torch.mean(difference, dim=0).view(-1)).backward(retain_graph = True)
 

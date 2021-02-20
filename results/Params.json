@@ -1,6 +1,6 @@
 {
-    "wavelength": 1,
-    "angle": 1.25,
+    "mu": 1,
+    "beta": 1.25,
     "force": 0.001,
     "noise_dims": 528,
     "noise_amplitude": 1,

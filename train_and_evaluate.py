@@ -30,7 +30,7 @@ def evaluate(generator, eng, numImgs, params):
     effs = compute_effs(images, eng, params)
 
     # save images
-    filename = 'imgs_w' + str(params.wavelength) +'_a' + str(params.angle) +'deg.mat'
+    filename = 'imgs_w' + str(params.mu) +'_a' + str(params.beta) +'deg.mat'
     file_path = os.path.join(params.output_dir,'outputs',filename)
     io.savemat(file_path, mdict={'imgs': images.cpu().detach().numpy(), 
                                  'effs': effs.cpu().detach().numpy()})
@@ -240,15 +240,15 @@ def stress_distribution(imgs, eng, fig_path):
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
 
-    triangles = []
+    tribetas = []
     for cell in cells(eng.model.mesh):
         for facet in facets(cell):
             vertex_indices = []
             for vertex in vertices(facet):
                 vertex_indices.append(vertex.index())
             vertex_dofs = eng.model.V.dofmap().entity_dofs(eng.model.mesh, 0, vertex_indices)
-            triangles.append(vertex_indices)
-    tris = np.array(triangles)
+            tribetas.append(vertex_indices)
+    tris = np.array(tribetas)
 
     x, y, z = eng.model.mesh.coordinates().T
     i, j, k = tris.T
@@ -261,8 +261,8 @@ def stress_distribution(imgs, eng, fig_path):
             z=z,
             # Intensity of each vertex, which will be interpolated and color-coded
             intensity=disp,
-            # i, j and k give the vertices of triangles
-            # here we represent the 4 triangles of the tetrahedron surface
+            # i, j and k give the vertices of tribetas
+            # here we represent the 4 tribetas of the tetrahedron surface
             i=i,
             j=j,
             k=k,
@@ -289,14 +289,14 @@ def save_images(imgs, eng, fig_path):
         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
 
 
-    triangles = []
+    tribetas = []
     for cell in cells(eng.model.mesh):
         for facet in facets(cell):
             vertex_indices = []
             for vertex in vertices(facet):
                 vertex_indices.append(vertex.index())
-            triangles.append(vertex_indices)
-    tris = np.array(triangles)
+            tribetas.append(vertex_indices)
+    tris = np.array(tribetas)
 
     x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
     i, j, k = tris.T
@@ -309,8 +309,8 @@ def save_images(imgs, eng, fig_path):
             z=z,
             # Intensity of each vertex, which will be interpolated and color-coded
             intensity=disp,
-            # i, j and k give the vertices of triangles
-            # here we represent the 4 triangles of the tetrahedron surface
+            # i, j and k give the vertices of tribetas
+            # here we represent the 4 tribetas of the tetrahedron surface
             i=i,
             j=j,
             k=k,
@@ -328,8 +328,8 @@ def save_images(imgs, eng, fig_path):
         z=z_,
         # Intensity of each vertex, which will be interpolated and color-coded
         intensity=disp_,
-        # i, j and k give the vertices of triangles
-        # here we represent the 4 triangles of the tetrahedron surface
+        # i, j and k give the vertices of tribetas
+        # here we represent the 4 tribetas of the tetrahedron surface
         i=i,
         j=j,
         k=k,
