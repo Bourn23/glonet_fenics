@@ -3,7 +3,7 @@
     "beta": 1.25,
     "force": 0.001,
     "noise_dims": 528,
-    "generate_samples": 1,
+    "generate_samples_mode": 1,
     "noise_amplitude": 1,
     "numIter": 1000.0,
     "gkernlen": 19.0,

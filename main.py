@@ -50,6 +50,7 @@ if __name__ == '__main__':
     params.step_size = int(params.step_size)   
     params.force = float(params.force) 
 
+    # TODO:must fix this. no longer need it!
     if args.mu is not None:
         params.mu = torch.tensor(args.mu, requires_grad = True, dtype = torch.float64)
     if args.beta is not None:

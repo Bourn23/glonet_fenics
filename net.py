@@ -10,7 +10,7 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 class Generator:
     def __init__(self, params):
-        self.each_epoch = params.generate_samples_modes
+        self.sampling_mode = params.generate_samples_mode
         # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
         self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
         self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
@@ -21,7 +21,7 @@ class Generator:
         return self.params
 
     def generate(self):
-        if self.each_epoch:
+        if self.sampling_mode:
             logging.info('generating new shet')
             self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
             self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
