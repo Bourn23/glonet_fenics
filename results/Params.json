@@ -23,5 +23,5 @@
     "gamma": 0.1,
     "sigma_start": 0.7,
     "sigma_end": 0.7,
-    "plot_iter": 50
+    "plot_iter": 1
 }   
