@@ -104,19 +104,19 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             if it > params.numIter:
                 return 
 
-            # generate new values
-            z = sample_z(params.batch_size, generator)
-
-            # calculate efficiencies and gradients using EM solver
-            effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
-            t.set_description(f"Loss is {g_loss}", refresh=True)
-
-            # compute gradients
             if not params.generate_samples_mode:
+                # generate new values
+                z = sample_z(params.batch_size, generator)
+
+                # calculate efficiencies and gradients using EM solver
+                effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
+                t.set_description(f"Loss is {g_loss}", refresh=True)
+
+                # compute gradients
+
                 g_loss.backward()
                 optimizer.step()
                 optimizer.zero_grad()
-
 
             # evaluate 
             if it % params.plot_iter == 0:
@@ -124,15 +124,16 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 visualize_generated_images(generator, params, eng)
 
                 # evaluate the performance of current generator
-                effs_mean, mu, beta = evaluate_training_generator(generator, eng, params)
+                err, mu, beta = evaluate_training_generator(generator, eng, params)
 
                 # add to history 
-                effs_mean_history.append(effs_mean)
+                err.append(err)
                 mu_history.append(mu)
                 beta_history.append(beta)
+                t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
 
                 # plot current history
-                utils.plot_loss_history((effs_mean_history, beta_history, mu_history), params)
+                utils.plot_loss_history((err, beta_history, mu_history), params)
 
             t.update()
 
@@ -349,16 +350,17 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
 
     # efficiencies of generated images
     effs = compute_effs(z, eng, params)
-    ll = torch.nn.MSELoss()
-    effs_mean = ll(effs.cpu().detach(), eng.target_deflection).numpy()
+    loss = torch.nn.MSELoss()
+    error = loss(effs.cpu().detach(), eng.target_deflection).numpy()
 
     # mu & beta of generated images
     mu, beta = generator.parameters()
 
     # plot histogram
-    fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-    utils.plot_histogram(effs_mean, params.iter, fig_path)
+    #TODO: replace utils.plot_histogram with wes' plotting function
+    # fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
+    # utils.plot_histogram(error, params.iter, fig_path)
 
     
-    return effs_mean, mu, beta
+    return error, mu, beta
 
