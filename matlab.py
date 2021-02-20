@@ -18,9 +18,14 @@ class engine:
         # mu = torch.normal(mean=img[0], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
         # beta = torch.normal(mean=img[1], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
         # force = torch.normal(mean=img[2], std=torch.arange(1, 0, -((1.-0.) / self.batch_size))).type(torch.float64).unsqueeze(1).requires_grad_(True)
-        mu = torch.tensor([[img[0]]]*self.batch_size)
-        beta = torch.tensor([[img[1]]]*self.batch_size)
-        force = torch.tensor([[img[2]]]*self.batch_size)
+        if self.batch_size == 1:
+            mu = torch.tensor([[img[0]]]*self.batch_size)
+            beta = torch.tensor([[img[1]]]*self.batch_size)
+            force = torch.tensor([[img[2]]]*self.batch_size)
+        else:
+            mu = img[0]
+            mu = img[1]
+            mu = img[2]
         # beta = [img[1] * 10]
         # force = [img[2] * 10]
 
