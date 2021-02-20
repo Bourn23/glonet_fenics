@@ -127,13 +127,13 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 err, mu, beta = evaluate_training_generator(generator, eng, params)
 
                 # add to history 
-                err.append(err)
+                effs_mean_history.append(err)
                 mu_history.append(mu)
                 beta_history.append(beta)
                 t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
 
                 # plot current history
-                utils.plot_loss_history((err, beta_history, mu_history), params)
+                utils.plot_loss_history((effs_mean_history, beta_history, mu_history), params)
 
             t.update()
 
