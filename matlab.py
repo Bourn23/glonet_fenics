@@ -61,6 +61,7 @@ class engine:
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
+            logging.info(f"target_def {self.target_deflection.unsqueeze(0).shape}")
             td = self.target_deflection.unsqueeze(0).repeat(self.u.shape[0], 1, 1)
             logging.info(td.shape)
             output = loss(self.u, )
