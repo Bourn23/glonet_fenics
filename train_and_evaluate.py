@@ -49,13 +49,13 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
     # initialization
     if params.restore_from is None:
         effs_mean_history = [] # loss
-        binarization_history = [] # mu
-        diversity_history = [] # beta
+        mu_history = [] # mu
+        beta_history = [] # beta
         iter0 = 0   
     else:
         effs_mean_history = params.checkpoint['effs_mean_history']
-        binarization_history = params.checkpoint['binarization_history']
-        diversity_history = params.checkpoint['diversity_history']
+        mu_history = params.checkpoint['mu_history']
+        beta_history = params.checkpoint['beta_history']
         iter0 = params.checkpoint['iter']
 
     
@@ -78,7 +78,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # learning rate decay
             scheduler.step()
 
-            # binarization amplitude in the tanh function
+            # mu amplitude in the tanh function
             if params.iter < 1000:
                 params.binary_amp = int(params.iter/100) + 1 
             else:
@@ -95,8 +95,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             #                            'optim_state_dict': optimizer.state_dict(),
             #                            'scheduler_state_dict': scheduler.state_dict(),
             #                            'effs_mean_history': effs_mean_history,
-            #                            'binarization_history': binarization_history,
-            #                            'diversity_history': diversity_history
+            #                            'mu_history': mu_history,
+            #                            'beta_history': beta_history
             #                            },
             #                            checkpoint=model_dir)
 
@@ -104,49 +104,35 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             if it > params.numIter:
                 return 
 
-            
-            # sample  z
-            # if it == 0: z = sample_z(params.batch_size, params)
+            # generate new values
             z = sample_z(params.batch_size, generator)
-
-            # generate a batch of iamges; NN's is out of loop
-            # gen_imgs = generator(z, params)
-
 
             # calculate efficiencies and gradients using EM solver
             effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
-
-            # construct the loss function
-            # binary_penalty = params.binary_penalty_start if params.iter < params.binary_step_iter else params.binary_penalty_end
-            # g_loss = global_loss_function(gen_imgs, effs, gradients, params.sigma, binary_penalty)
             t.set_description(f"Loss is {g_loss}", refresh=True)
 
-            # train the generator
-            g_loss.backward()
-            optimizer.step()
-            # free optimizer buffer 
-            optimizer.zero_grad()
+            # compute gradients
+            if not params.generate_samples_mode:
+                g_loss.backward()
+                optimizer.step()
+                optimizer.zero_grad()
 
 
             # evaluate 
             if it % params.plot_iter == 0:
-                # generator.eval()
-
                 # vilualize generated images at various conditions
-                # t.set_description(f"Values are {generator.parameters()}", refresh=True)
                 visualize_generated_images(generator, params, eng)
 
                 # evaluate the performance of current generator
-                effs_mean, binarization, diversity = evaluate_training_generator(generator, eng, params)
+                effs_mean, mu, beta = evaluate_training_generator(generator, eng, params)
 
                 # add to history 
                 effs_mean_history.append(effs_mean)
-                binarization_history.append(binarization)
-                diversity_history.append(diversity)
+                mu_history.append(mu)
+                beta_history.append(beta)
 
                 # plot current history
-                utils.plot_loss_history((effs_mean_history, diversity_history, binarization_history), params)
-                # generator.train()
+                utils.plot_loss_history((effs_mean_history, beta_history, mu_history), params)
 
             t.update()
 
@@ -363,19 +349,16 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
 
     # efficiencies of generated images
     effs = compute_effs(z, eng, params)
-    # effs_mean = torch.mean(effs.view(-1))
     ll = torch.nn.MSELoss()
     effs_mean = ll(effs.cpu().detach(), eng.target_deflection).numpy()
 
-    # binarization of generated images
-    binarization, diversity = generator.parameters()
-
-    # diversity of generated images
+    # mu & beta of generated images
+    mu, beta = generator.parameters()
 
     # plot histogram
     fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
     utils.plot_histogram(effs_mean, params.iter, fig_path)
 
     
-    return effs_mean, binarization, diversity
+    return effs_mean, mu, beta
 

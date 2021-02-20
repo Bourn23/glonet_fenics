@@ -135,13 +135,13 @@ def load_checkpoint(checkpoint, model, optimizer=None, scheduler=None):
 
 
 def plot_loss_history(loss_history, params):
-    effs_mean_history, diversity_history, binarization_history = loss_history
+    effs_mean_history, beta_history, mu_history = loss_history
     iterations = [i*params.plot_iter for i in range(len(effs_mean_history))]
     plt.figure()
     # logging.info(f"iterations is {iterations}")
     plt.plot(iterations, effs_mean_history)
-    plt.plot(iterations, diversity_history)
-    plt.plot(iterations, binarization_history)
+    plt.plot(iterations, beta_history)
+    plt.plot(iterations, mu_history)
     plt.xlabel('iteration')
     plt.legend(('Average Loss', 'mu', 'beta'))
     plt.axis([0, len(effs_mean_history)*params.plot_iter, 0, 1.05])
@@ -149,8 +149,8 @@ def plot_loss_history(loss_history, params):
 
     history_path = os.path.join(params.output_dir,'history.mat')
     io.savemat(history_path, mdict={'effs_mean_history'   :np.asarray(effs_mean_history), 
-                                    'diversity_history'   :np.asarray(diversity_history),
-                                    'binarization_history':np.asarray(binarization_history)})
+                                    'beta_history'   :np.asarray(beta_history),
+                                    'mu_history':np.asarray(mu_history)})
 
     plt.close()
          
