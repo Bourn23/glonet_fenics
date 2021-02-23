@@ -96,7 +96,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 fig_path = params.output_dir +  '/figures/error_history/Iter{}.png'.format(params.iter) 
                 utils.err_distribution(history, params, fig_path)
                 fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
-                GPR(history, fig_path)
+                GPR(history, params, fig_path)
 
                 # add GP here.
 

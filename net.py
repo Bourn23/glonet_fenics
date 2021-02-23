@@ -39,7 +39,7 @@ def gp_ucb(x):
     return -Z + 1e-6*U
 
 
-def GPR(data, fig_path):
+def GPR(data, params, fig_path):
     global gpr
     from sklearn.gaussian_process import GaussianProcessRegressor
     from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
