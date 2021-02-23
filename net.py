@@ -13,7 +13,6 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 class Generator:
     def __init__(self, params):
         self.sampling_mode = params.generate_samples_mode
-        # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
         self.E_0 = params.E_0
         self.nu_0 = params.nu_0
         self.E_r = None
@@ -41,6 +40,7 @@ class Generator:
         return [[self.mu, self.beta, self.force],(self.E_r, self.nu_r)]
 
 def gp_ucb(x):
+    "acquisition function, maximize upper confidence bound (GP-UCB) "
     global gpr
     if len(x.shape) < 2:
         x = [x]
@@ -50,6 +50,7 @@ def gp_ucb(x):
 
 
 def GPR(data, params, fig_path):
+    # next version is a class
     global gpr
     from sklearn.gaussian_process import GaussianProcessRegressor
     from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
@@ -65,9 +66,6 @@ def GPR(data, params, fig_path):
     Z, U = gpr.predict(XY, return_std = True)
 
     from scipy.optimize import minimize
-# from google.colab import output
-
-# acquisition function, maximize upper confidence bound (GP-UCB) 
 
 
     A = gp_ucb(XY)
@@ -81,12 +79,11 @@ def GPR(data, params, fig_path):
 
     next = res.x
 
-    # plotting shit
+
     fig, ax = plt.subplots(1, 3, figsize = (9, 3))
     
     ax[0].set_title('Predicted loss')
     ax[0].contourf(X, Y, Z.reshape(X.shape))
-    # ax[0].plot(E_0, nu_0, 'ws')  # white = true value
     ax[0].plot(params.E_0, params.nu_0, 'ws')  # white = true value
     ax[0].plot(*next, 'rs')  # red = predicted value
 
@@ -99,4 +96,4 @@ def GPR(data, params, fig_path):
     plt.savefig(fig_path, dpi=300)
     plt.close()
 
-# next version is a class
+

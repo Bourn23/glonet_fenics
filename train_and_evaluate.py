@@ -98,22 +98,6 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
                 GPR(history, params, fig_path)
 
-                # add GP here.
-
-            #     pass
-
-                #   logging.info(f"generator values are {generator.parameters()}")
-            #     model_dir = os.path.join(params.output_dir, 'model','iter{}'.format(it+iter0))
-            #     os.makedirs(model_dir, exist_ok = True)
-            #     utils.save_checkpoint({'iter': it + iter0 - 1,
-            #                            'gen_state_dict': generator.state_dict(),
-            #                            'optim_state_dict': optimizer.state_dict(),
-            #                            'scheduler_state_dict': scheduler.state_dict(),
-            #                            'effs_mean_history': effs_mean_history,
-            #                            'mu_history': mu_history,
-            #                            'beta_history': beta_history
-            #                            },
-            #                            checkpoint=model_dir)
 
             # terminate the loop
             if it > params.numIter:
@@ -121,7 +105,6 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # generate new samples
             err, mu, beta = evaluate_training_generator(generator, eng, params)
-            # mu, beta = utils.youngs_poisson(mu, beta)
 
             # add to history 
             history = np.vstack([history, np.array([mu, beta, err])])

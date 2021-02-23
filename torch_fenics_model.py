@@ -89,7 +89,6 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # Solve
         self.u = Function(self.V) # displacement
         solve(self.a == L, self.u, self.bc_l)
-        # plot(self.u)
 
 
         # Return the solution
