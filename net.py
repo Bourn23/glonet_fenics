@@ -14,6 +14,10 @@ class Generator:
     def __init__(self, params):
         self.sampling_mode = params.generate_samples_mode
         # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
+        self.E_0 = params.E_0
+        self.nu_0 = params.nu_0
+        self.E_r = None
+        self.nu_r = None
         self.mu_, self.beta_ = lame(params.E_0, params.nu_0)
         self.force_ = params.force
         self.batch_size_ = params.batch_size_start
@@ -26,9 +30,15 @@ class Generator:
 
     def generate(self):
         if self.sampling_mode:
-            self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
-            self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
-        return [self.mu, self.beta, self.force]
+            # self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
+            # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
+            self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
+            self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
+            self.mu, self.beta = lame(E_r, nu_r)
+            
+            self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
+            self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
+        return [[self.mu, self.beta, self.force],(E_r, nu_r)]
 
 def gp_ucb(x):
     global gpr

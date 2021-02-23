@@ -121,7 +121,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # generate new samples
             err, mu, beta = evaluate_training_generator(generator, eng, params)
-            mu, beta = utils.youngs_poisson(mu, beta)
+            # mu, beta = utils.youngs_poisson(mu, beta)
 
             # add to history 
             history = np.vstack([history, np.array([mu, beta, err])])
@@ -353,14 +353,14 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     # generate images and save
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
-    z = sample_z(n_col * n_row, generator) # generates n_row devices
+    z = sample_z(n_col * n_row, generator)[0] # generates n_row devices
     imgs = eng.Eval_Eff_1D_parallel(z)
     save_images(imgs, eng, fig_path)
     
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # generate images
-    z = sample_z(num_imgs, generator)
+    z, v = sample_z(num_imgs, generator)[0]
 
     # efficiencies of generated images
     effs = eng.Eval_Eff_1D_parallel(z)
@@ -368,7 +368,7 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     error = loss(effs.cpu().detach(), eng.target_deflection)
 
     # get most recent mu and beta values
-    mu, beta = generator.parameters()
+    # mu, beta = generator.parameters()
 
     # plot histogram
     #TODO: replace utils.plot_histogram with wes' plotting function
@@ -376,5 +376,5 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # utils.plot_histogram(error, params.iter, fig_path)
 
     
-    return error.detach(), mu.detach(), beta.detach()
+    return error.detach(), v[0].detach(), v[1].detach()
 
