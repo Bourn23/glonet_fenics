@@ -16,7 +16,11 @@ from dolfin import *; from mshr import *
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
-# def evaluate(generator, eng, numImgs, params):
+def evaluate(generator, eng, numImgs, params):
+    pass
+    # put wes' model here...
+
+    
 #     # generator.eval()
     
 #     # generate images
