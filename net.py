@@ -34,7 +34,7 @@ class Generator:
             # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
             self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
             self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
-            self.mu, self.beta = lame(E_r, nu_r)
+            self.mu, self.beta = lame(self.E_r, self.nu_r)
             
             self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
             self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
