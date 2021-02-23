@@ -378,5 +378,5 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # utils.plot_histogram(error, params.iter, fig_path)
 
     
-    return error.detach(), v[0].detach(), v[1].detach()
+    return error.detach(), v[0], v[1]
 
