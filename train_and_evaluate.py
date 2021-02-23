@@ -130,7 +130,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             if not params.generate_samples_mode:
                 # generate new values
                 # z = sample_z(params.batch_size, generator)
-                z = generator.parameters()
+                z = generator.params_sgd()
 
                 # calculate efficiencies and gradients using EM solver
                 effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
