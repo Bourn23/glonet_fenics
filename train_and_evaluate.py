@@ -136,6 +136,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
                 E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
                                                 z[1][0, 0].detach().numpy())
+                logging.info(f"EF is {E_f} and {E_f.shape}")
+                logging.info(f"EF is {nu_f} and {nu_f.shape}")
                 data = np.vstack([data, [E_f, nu_f]])
 
             # evaluate 
