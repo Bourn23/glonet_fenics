@@ -87,8 +87,11 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # create a model and visualize it
             if it % 500 == 0 or it > params.numIter:
-                fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
+                fig_path = params.output_dir +  '/figures/error_history/Iter{}.png'.format(params.iter) 
                 utils.err_distribution(history, fig_path)
+
+                # add GP here.
+                
             #     pass
 
                 #   logging.info(f"generator values are {generator.parameters()}")
