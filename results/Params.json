@@ -3,7 +3,7 @@
     "nu_0": 0.32,
     "force": 0.001,
     "noise_dims": 528,
-    "generate_samples_mode": 0,
+    "generate_samples_mode": 1,
     "noise_amplitude": 1,
     "numIter": 200.0,
     "gkernlen": 19.0,
