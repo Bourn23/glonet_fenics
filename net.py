@@ -26,7 +26,7 @@ class Generator:
 
     def generate(self):
         if self.sampling_mode:
-            self.mu, self.beta = lame(torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True))
+            self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
             self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
         return [self.mu, self.beta, self.force]
 
