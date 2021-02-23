@@ -1,13 +1,15 @@
 import torch
 import logging
 from dolfin import vertex_to_dof_map
+from utils import lame, youngs_poisson
 
 class engine:
-    def __init__(self, fenics_model, batch_size, mu, beta, force):
+    def __init__(self, fenics_model, batch_size, E_0, nu_0, force):
         #TODO: our [mu, beta, force] itself must differ; something that currently is not happening
         self.model = fenics_model
         self.v2d = vertex_to_dof_map(self.model.V)
         self.batch_size = batch_size
+        mu, beta = lame(E_0, nu_0)
         self.mu = torch.tensor([[mu]], requires_grad=True, dtype=torch.float64)
         self.beta = torch.tensor([[beta]], requires_grad=True, dtype=torch.float64)
         self.force = torch.tensor([[force]], requires_grad=True, dtype=torch.float64)

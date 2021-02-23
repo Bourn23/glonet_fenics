@@ -22,7 +22,7 @@ class Generator:
         self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
     
     def parameters(self):
-        return [self.mu, self.beta]
+        return [self.mu_, self.beta_]
 
     def generate(self):
         if self.sampling_mode:
