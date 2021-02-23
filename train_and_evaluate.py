@@ -148,7 +148,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
 
 
-def sample_z(batch_size, generator = None):
+def sample_z(batch_size, generator):
     '''
     smaple noise vector z
 
@@ -351,7 +351,7 @@ def collect_data(data, new_values):
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # generate images
-    z = sample_z(num_imgs)
+    z = sample_z(num_imgs, generator)
 
     # efficiencies of generated images
     effs = eng.Eval_Eff_1D_parallel(z)
