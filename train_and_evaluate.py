@@ -363,7 +363,7 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # efficiencies of generated images
     effs = eng.Eval_Eff_1D_parallel(z)
     loss = torch.nn.MSELoss()
-    error = loss(effs.cpu().detach(), eng.target_deflection).numpy()
+    error = loss(effs.cpu().detach(), eng.target_deflection)
 
     # get most recent mu and beta values
     mu, beta = generator.parameters()
@@ -374,5 +374,5 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # utils.plot_histogram(error, params.iter, fig_path)
 
     
-    return error, mu, beta
+    return error.detach().numpy(), mu, beta
 
