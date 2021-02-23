@@ -134,7 +134,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 g_loss.backward()
                 optimizer.step()
 
-                E_f, nu_f = youngs_poisson(z[0][0, 0].detach().numpy(),
+                E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
                                                 z[1][0, 0].detach().numpy())
                 data = np.vstack([data, [E_f, nu_f]])
 
