@@ -16,28 +16,28 @@ from dolfin import *; from mshr import *
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
-def evaluate(generator, eng, numImgs, params):
-    # generator.eval()
+# def evaluate(generator, eng, numImgs, params):
+#     # generator.eval()
     
-    # generate images
-    # z = sample_z(numImgs, params)
-    z = sample_z(numImgs, generator)
-    images = generator(z, params)
-    logging.info('Generation is done. \n')
+#     # generate images
+#     # z = sample_z(numImgs, params)
+#     z = sample_z(numImgs, generator)
+#     images = generator(z, params)
+#     logging.info('Generation is done. \n')
 
-    # evaluate efficiencies
-    images = torch.sign(images)
-    effs = compute_effs(images, eng, params)
+#     # evaluate efficiencies
+#     images = torch.sign(images)
+#     effs = compute_effs(images, eng, params)
 
-    # save images
-    filename = 'imgs_w' + str(params.mu) +'_a' + str(params.beta) +'deg.mat'
-    file_path = os.path.join(params.output_dir,'outputs',filename)
-    io.savemat(file_path, mdict={'imgs': images.cpu().detach().numpy(), 
-                                 'effs': effs.cpu().detach().numpy()})
+#     # save images
+#     filename = 'imgs_w' + str(params.mu) +'_a' + str(params.beta) +'deg.mat'
+#     file_path = os.path.join(params.output_dir,'outputs',filename)
+#     io.savemat(file_path, mdict={'imgs': images.cpu().detach().numpy(), 
+#                                  'effs': effs.cpu().detach().numpy()})
 
-    # plot histogram
-    fig_path = params.output_dir + '/figures/Efficiency.png'
-    utils.plot_histogram(effs.data.cpu().numpy().reshape(-1), params.numIter, fig_path)
+#     # plot histogram
+#     fig_path = params.output_dir + '/figures/Efficiency.png'
+#     utils.plot_histogram(effs.data.cpu().numpy().reshape(-1), params.numIter, fig_path)
 
 
 
