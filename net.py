@@ -30,6 +30,9 @@ class Generator:
         self.beta_sgd = torch.tensor([[self.beta_]], requires_grad=True, dtype=torch.float64)
 
     def parameters(self):
+        return [self.mu_sgd, self.beta_sgd]
+
+    def params_sgd(self):
         return [self.mu_sgd, self.beta_sgd, self.force]
 
     def generate(self):

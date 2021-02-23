@@ -103,7 +103,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
                 if not params.generate_samples_mode:
                     # SGD code
-                    z = generator.parameters()
+                    z = generator.params_sgd()
 
                     E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
                                     z[1][0, 0].detach().numpy())
@@ -376,7 +376,7 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # error = loss(effs.cpu().detach(), eng.target_deflection)
 
     # get most recent mu and beta values
-    mu_sgd, beta_sgd, force = generator.parameters()
+    mu_sgd, beta_sgd, force = generator.params_sgd()
 
 
     # plot histogram
