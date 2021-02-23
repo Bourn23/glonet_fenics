@@ -76,7 +76,8 @@ def GPR(data, fig_path):
     
     ax[0].set_title('Predicted loss')
     ax[0].contourf(X, Y, Z.reshape(X.shape))
-    ax[0].plot(E_0, nu_0, 'ws')  # white = true value
+    # ax[0].plot(E_0, nu_0, 'ws')  # white = true value
+    ax[0].plot(params.mu, params.beta, 'ws')  # white = true value
     ax[0].plot(*next, 'rs')  # red = predicted value
 
     ax[1].set_title('Uncertainty')
