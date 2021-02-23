@@ -30,7 +30,8 @@ class Generator:
             self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
         return [self.mu, self.beta, self.force]
 
-def gp_ucb(gpr, x):
+def gp_ucb(x):
+    global gpr
     if len(x.shape) < 2:
         x = [x]
     Z, U = gpr.predict(x, return_std=True)
@@ -38,6 +39,7 @@ def gp_ucb(gpr, x):
 
 
 def GPR(data, fig_path):
+    global gpr
     from sklearn.gaussian_process import GaussianProcessRegressor
     from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
 
@@ -57,7 +59,7 @@ def GPR(data, fig_path):
 # acquisition function, maximize upper confidence bound (GP-UCB) 
 
 
-    A = gp_ucb(gpr, XY)
+    A = gp_ucb(XY)
 
     # find the maximal value in the acquisition function
     best = np.argmax(A)
