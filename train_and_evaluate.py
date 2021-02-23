@@ -17,6 +17,7 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 
 def evaluate(generator, eng, numImgs, params):
+    # GPR()
     pass
     # put wes' model here...
 
@@ -93,6 +94,8 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             if it % 500 == 0 or it > params.numIter:
                 fig_path = params.output_dir +  '/figures/error_history/Iter{}.png'.format(params.iter) 
                 utils.err_distribution(history, params, fig_path)
+                fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
+                GPR(fig_path)
 
                 # add GP here.
 
