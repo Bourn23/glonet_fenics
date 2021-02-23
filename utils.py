@@ -183,10 +183,9 @@ def lame(E, nu):
 
 def err_distribution(data, params, fig_path):
     fig, ax = plt.subplots()
-    logging.info(f'{data[:, 2]}')
     ax.scatter(data[:, 0], data[:, 1], c=np.log(data[:, 2]))
-    E_0, nu_0 = youngs_poisson(params.mu, params.beta)
-    ax.plot(E_0, nu_0, 'kx')
+    # E_0, nu_0 = youngs_poisson(params.beta, params.mu)
+    ax.plot(params.mu, params.beta, 'kx')
 
     plt.savefig(fig_path, dpi = 300)
     plt.close()
