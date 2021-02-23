@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 from metalayers import * 
+import matplotlib.pyplot as plt
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
