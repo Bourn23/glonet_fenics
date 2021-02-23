@@ -58,6 +58,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
         mu_history = [] # mu
         beta_history = [] # beta
         history = np.zeros([0,3])# mu, beta, err
+        data = np.zeros([0,3]) # data for gradient descent
         iter0 = 0   
     else:
         effs_mean_history = params.checkpoint['effs_mean_history']
@@ -95,8 +96,14 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             if it % 50 == 0 or it > params.numIter:
                 fig_path = params.output_dir +  '/figures/error_history/Iter{}.png'.format(params.iter) 
                 utils.err_distribution(history, params, fig_path)
+                
                 fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
                 GPR(history, params, fig_path)
+
+                fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
+                utils.err_distribution_sgd(data, params, fig_path)
+
+
 
 
             # terminate the loop
@@ -107,7 +114,19 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             err, mu, beta = evaluate_training_generator(generator, eng, params)
 
             # add to history 
-            history = np.vstack([history, np.array([mu, beta, err])])
+            history = np.vstack([history, np.array([mu, beta, err.detach()])])
+
+
+            # Gradient Descent
+            optimizer.zero_grad()
+            err = torch.log(err)
+            err.backward(retain_graph=True)
+
+            optimizer.step()
+
+            E_f, nu_f = mu, beta #youngs_poisson(mu[0, 0],
+                                  #      beta[0, 0])
+            data = np.vstack([data, [E_f, nu_f]])
 
             if not params.generate_samples_mode:
                 # generate new values
@@ -350,7 +369,8 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # efficiencies of generated images
     effs = eng.Eval_Eff_1D_parallel(z)
     loss = torch.nn.MSELoss()
-    error = loss(effs.cpu().detach(), eng.target_deflection)
+    error = loss(effs, eng.target_deflection)
+    # error = loss(effs.cpu().detach(), eng.target_deflection)
 
     # get most recent mu and beta values
     # mu, beta = generator.parameters()
@@ -361,5 +381,5 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # utils.plot_histogram(error, params.iter, fig_path)
 
     
-    return error.detach(), v[0], v[1]
+    return error, v[0], v[1]
 

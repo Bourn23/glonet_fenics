@@ -189,3 +189,12 @@ def err_distribution(data, params, fig_path):
     plt.savefig(fig_path, dpi = 300)
     plt.close()
 
+def err_distribution_sgd(data, params, fig_path):
+    fig, ax = plt.subplots()
+
+    ax.contourf(X, Y, Z.reshape(X.shape))
+    ax.plot(data[:, 0], data[:, 1], 'rx')  # values obtained by torch
+    ax.plot(params.E_0, params.nu_0, 'ws')  # white = true value
+
+    plt.savefig(fig_path, dpi = 300)
+    plt.close()
