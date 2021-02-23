@@ -100,15 +100,17 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
                 GPR(history, params, fig_path)
 
-                # SGD code
-                z = generator.parameters()
 
-                E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
-                                z[1][0, 0].detach().numpy())
+                if not params.generate_samples_mode:
+                    # SGD code
+                    z = generator.parameters()
 
-                data = np.vstack([data, [E_f, nu_f]])
-                fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-                utils.err_distribution_sgd(data, params, fig_path)
+                    E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
+                                    z[1][0, 0].detach().numpy())
+
+                    data = np.vstack([data, [E_f, nu_f]])
+                    fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
+                    utils.err_distribution_sgd(data, params, fig_path)
 
 
 
