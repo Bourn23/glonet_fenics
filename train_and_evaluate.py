@@ -51,6 +51,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
         effs_mean_history = [] # loss
         mu_history = [] # mu
         beta_history = [] # beta
+        history = np.zeros([0,3])# mu, beta, err
         iter0 = 0   
     else:
         effs_mean_history = params.checkpoint['effs_mean_history']
@@ -84,9 +85,12 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             else:
                 params.binary_amp = 10
 
-            # save model 
-            # if it % 5000 == 0 or it > params.numIter:
+            # create a model and visualize it
+            if it % 500 == 0 or it > params.numIter:
+                fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
+                err_distribution(history, fig_path)
             #     pass
+
                 #   logging.info(f"generator values are {generator.parameters()}")
             #     model_dir = os.path.join(params.output_dir, 'model','iter{}'.format(it+iter0))
             #     os.makedirs(model_dir, exist_ok = True)
@@ -104,6 +108,12 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             if it > params.numIter:
                 return 
 
+            # generate new samples
+            err, mu, beta = evaluate_training_generator(generator, eng, params)
+
+            # add to history 
+            history = collect_data(history, [err, mu, beta])
+
             if not params.generate_samples_mode:
                 # generate new values
                 z = sample_z(params.batch_size, generator)
@@ -120,26 +130,25 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # evaluate 
             if it % params.plot_iter == 0:
-                # vilualize generated images at various conditions
-                visualize_generated_images(generator, params, eng)
+                pass
+                # visualize generated images at various conditions
+                # visualize_generated_images(generator, params, eng)
 
-                # evaluate the performance of current generator
-                err, mu, beta = evaluate_training_generator(generator, eng, params)
+                # # generate new samples
+                # err, mu, beta = evaluate_training_generator(generator, eng, params)
 
-                # add to history 
-                effs_mean_history.append(err)
-                mu_history.append(mu)
-                beta_history.append(beta)
-                t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
+                # # add to history 
+                # history = collect_data(history, [err, mu, beta])
 
                 # plot current history
-                utils.plot_loss_history((effs_mean_history, beta_history, mu_history), params)
+                # utils.plot_loss_history((effs_mean_history, beta_history, mu_history), params)
+            t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
 
             t.update()
 
 
 
-def sample_z(batch_size, generator):
+def sample_z(batch_size, generator = None):
     '''
     smaple noise vector z
 
@@ -180,8 +189,7 @@ def compute_effs(imgs, eng, params):
     Returns:
         effs: N x 1
     '''
-    img = imgs
-    effs = eng.Eval_Eff_1D_parallel(img)
+    effs = eng.Eval_Eff_1D_parallel(imgs)
     
     return effs
 
@@ -333,27 +341,24 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     # generate images and save
     fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
     
-    # z = sample_z(n_col * n_row, params) # generates n_row devices
     z = sample_z(n_col * n_row, generator) # generates n_row devices
-    # imgs = generator(z, params)
-    # imgs_2D = imgs.cpu().detach()
     imgs = eng.Eval_Eff_1D_parallel(z)
     save_images(imgs, eng, fig_path)
     
-    
-
+def collect_data(data, new_values):
+    data = np.vstack([data, new_values])
+    return data
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # generate images
-    # z = sample_z(num_imgs, params)
-    z = sample_z(num_imgs, generator)
+    z = sample_z(num_imgs)
 
     # efficiencies of generated images
-    effs = compute_effs(z, eng, params)
+    effs = eng.Eval_Eff_1D_parallel(z)
     loss = torch.nn.MSELoss()
     error = loss(effs.cpu().detach(), eng.target_deflection).numpy()
 
-    # mu & beta of generated images
+    # get most recent mu and beta values
     mu, beta = generator.parameters()
 
     # plot histogram

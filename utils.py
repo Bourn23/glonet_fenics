@@ -169,3 +169,21 @@ def plot_histogram(Effs, Iter, fig_path):
     plt.close()
 
 
+# ___ WBR Helper functions ___
+def youngs_poisson(mu, lambda_):
+    youngs = mu * (3 * lambda_ + 2 * mu) / (lambda_ + mu)
+    poisson = lambda_ / (2 * (lambda_ + mu))
+    return youngs, poisson
+
+def lame(E, nu):
+    mu = E / (2*(1+nu))
+    lambda_ = E*nu / ((1+nu)*(1-2*nu))
+    return mu, lambda_
+
+
+def err_distribution(history, params):
+    fig, ax = plt.subplots()
+    ax.scatter(history[:, 0], history[:, 1], c = np.log(data[:, 2]))
+    E_0, nu_0 = youngs_poisson(params.mu, params.beta)
+    ax.plot(E_0, nu_0, 'kx')
+

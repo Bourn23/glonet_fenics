@@ -19,10 +19,9 @@ class Generator:
         self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
         self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
         self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
-        self.params = [self.mu, self.beta]
     
     def parameters(self):
-        return self.params
+        return [self.mu, self.beta]
 
     def generate(self):
         if self.sampling_mode:
@@ -30,3 +29,59 @@ class Generator:
             self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
             self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
         return [self.mu, self.beta, self.force]
+
+def gp_ucb(x):
+    if len(x.shape) < 2:
+        x = [x]
+    Z, U = gpr.predict(x, return_std=True)
+    return -Z + 1e-6*U
+
+def GPR(fig_path):
+    from sklearn.gaussian_process import GaussianProcessRegressor
+    from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
+
+    ls = np.std(data, axis = 0)[:2]
+    kernel = DotProduct() + WhiteKernel() + RBF(ls)
+    gpr = GaussianProcessRegressor(kernel = kernel).fit(data[:, :2], np.log(data[:,2]))
+
+    X, Y = np.meshgrid(np.linspace(data[:, 0].min(), data[:, 0].max(), 11),
+                       np.linspace(data[:, 1].min(), data[:, 1].max(), 11))
+
+    XY = np.hstack([X.reshape(-1, 1), Y.reshape(-1, 1)])
+    Z, U = gpr.predict(XY, return_std = True)
+
+    from scipy.optimize import minimize
+# from google.colab import output
+
+# acquisition function, maximize upper confidence bound (GP-UCB) 
+
+
+    A = gp_ucb(XY)
+
+    # find the maximal value in the acquisition function
+    best = np.argmax(A)
+    x0 = XY[best]
+
+    # find the optimal value from this regressor
+    res = minimize(gp_ucb, x0)
+
+    next = res.x
+
+    # plotting shit
+    fig, ax = plt.subplots(1, 3, figsize = (9, 3))
+    
+    ax[0].set_title('Predicted loss')
+    ax[0].contourf(X, Y, Z.reshape(X.shape))
+    ax[0].plot(E_0, nu_0, 'ws')  # white = true value
+    ax[0].plot(*next, 'rs')  # red = predicted value
+
+    ax[1].set_title('Uncertainty')
+    ax[1].contourf(X, Y, U.reshape(X.shape))
+
+    ax[2].set_title('Acquisition function')
+    ax[2].contourf(X, Y, A.reshape(X.shape))
+
+    plt.savefig(fig_path, dpi=300)
+    plt.close()
+
+# next version is a class
