@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
 
     # Define the optimizer
-    optimizer = torch.optim.Adam(generator.parameters(), lr=params.lr, betas=(params.nu_01, params.nu_02))
+    optimizer = torch.optim.Adam(generator.parameters(), lr=params.lr, betas=(params.beta1, params.beta2))
     
     # Define the scheduler
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=params.step_size, gamma = params.gamma)
