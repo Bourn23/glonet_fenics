@@ -100,6 +100,13 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
                 GPR(history, params, fig_path)
 
+                # SGD code
+                z = generator.parameters()
+
+                E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
+                                z[1][0, 0].detach().numpy())
+
+                data = np.vstack([data, [E_f, nu_f]])
                 fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
                 utils.err_distribution_sgd(data, params, fig_path)
 
@@ -134,11 +141,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 g_loss.backward()
                 optimizer.step()
 
-                E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
-                                                z[1][0, 0].detach().numpy())
-                logging.info(f"EF is {E_f} and {E_f.shape}")
-                logging.info(f"EF is {nu_f} and {nu_f.shape}")
-                data = np.vstack([data, [E_f, nu_f]])
+
 
             # evaluate 
             if it % params.plot_iter == 0:
