@@ -111,36 +111,32 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 return 
 
             # generate new samples
-            err, mu, beta = evaluate_training_generator(generator, eng, params)
+            err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
 
             # add to history 
-            history = np.vstack([history, np.array([mu, beta, err.detach()])])
+            history = np.vstack([history, np.array([mu, beta, err])])
 
 
-            # Gradient Descent
-            optimizer.zero_grad()
-            err = torch.log(err)
-            err.backward(retain_graph=True)
-
-            optimizer.step()
-
-            E_f, nu_f = mu, beta #youngs_poisson(mu[0, 0],
-                                  #      beta[0, 0])
-            data = np.vstack([data, [E_f, nu_f]])
 
             if not params.generate_samples_mode:
                 # generate new values
-                z = sample_z(params.batch_size, generator)
+                # z = sample_z(params.batch_size, generator)
+                z = generator.parameters()
 
                 # calculate efficiencies and gradients using EM solver
                 effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
                 t.set_description(f"Loss is {g_loss}", refresh=True)
 
                 # compute gradients
+                    
 
+                optimizer.zero_grad()
                 g_loss.backward()
                 optimizer.step()
-                optimizer.zero_grad()
+
+                E_f, nu_f = youngs_poisson(z[0][0, 0].detach().numpy(),
+                                                z[1][0, 0].detach().numpy())
+                data = np.vstack([data, [E_f, nu_f]])
 
             # evaluate 
             if it % params.plot_iter == 0:
@@ -373,7 +369,8 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # error = loss(effs.cpu().detach(), eng.target_deflection)
 
     # get most recent mu and beta values
-    # mu, beta = generator.parameters()
+    mu_sgd, beta_sgd, force = generator.parameters()
+
 
     # plot histogram
     #TODO: replace utils.plot_histogram with wes' plotting function
@@ -381,5 +378,5 @@ def evaluate_training_generator(generator, eng, params, num_imgs = 1):
     # utils.plot_histogram(error, params.iter, fig_path)
 
     
-    return error, v[0], v[1]
+    return error.detach(), v[0], v[1], mu_sgd, beta_sgd
 

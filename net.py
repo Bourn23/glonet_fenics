@@ -13,6 +13,7 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 class Generator:
     def __init__(self, params):
         self.sampling_mode = params.generate_samples_mode
+        # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
         self.E_0 = params.E_0
         self.nu_0 = params.nu_0
         self.E_r = None
@@ -23,9 +24,13 @@ class Generator:
         self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True)
         self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
         self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
-    
+
+        
+        self.mu_sgd = torch.tensor([[self.mu_]], requires_grad=True, dtype=torch.float64)
+        self.beta_sgd = torch.tensor([[self.beta_]], requires_grad=True, dtype=torch.float64)
+
     def parameters(self):
-        return [self.mu, self.beta]
+        return [self.mu_sgd, self.beta_sgd, self.force]
 
     def generate(self):
         if self.sampling_mode:
@@ -50,7 +55,7 @@ def gp_ucb(x):
 
 
 def GPR(data, params, fig_path):
-    # next version is a class
+    
     global gpr
     from sklearn.gaussian_process import GaussianProcessRegressor
     from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
