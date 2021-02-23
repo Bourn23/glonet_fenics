@@ -121,7 +121,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             # generate new samples
             err, mu, beta = evaluate_training_generator(generator, eng, params)
-            mu, beta = youngs_poisson(mu, beta)
+            mu, beta = utils.youngs_poisson(mu, beta)
 
             # add to history 
             history = np.vstack([history, np.array([mu, beta, err])])
