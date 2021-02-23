@@ -1,6 +1,6 @@
 {
-    "mu": 1,
-    "beta": 1.25,
+    "E_0": 8500000,
+    "nu_0": 0.32,
     "force": 0.001,
     "noise_dims": 528,
     "generate_samples_mode": 1,

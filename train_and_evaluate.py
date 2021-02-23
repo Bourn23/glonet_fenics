@@ -36,7 +36,7 @@ def evaluate(generator, eng, numImgs, params):
 #     effs = compute_effs(images, eng, params)
 
 #     # save images
-#     filename = 'imgs_w' + str(params.mu) +'_a' + str(params.beta) +'deg.mat'
+#     filename = 'imgs_w' + str(params.E_0) +'_a' + str(params.nu_0) +'deg.mat'
 #     file_path = os.path.join(params.output_dir,'outputs',filename)
 #     io.savemat(file_path, mdict={'imgs': images.cpu().detach().numpy(), 
 #                                  'effs': effs.cpu().detach().numpy()})

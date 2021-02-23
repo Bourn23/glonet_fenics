@@ -6,6 +6,7 @@ import torch.nn.functional as F
 import torch
 from metalayers import * 
 import matplotlib.pyplot as plt
+from utils import lame, youngs_poisson
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
@@ -13,12 +14,11 @@ class Generator:
     def __init__(self, params):
         self.sampling_mode = params.generate_samples_mode
         # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
-        self.mu_ = params.mu
-        self.beta_ = params.beta
+        self.mu_, self.beta_ = lame(params.E_0, params.nu_0)
         self.force_ = params.force
         self.batch_size_ = params.batch_size_start
-        self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
-        self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., params.mu+torch.rand(1)[0]*10).requires_grad_(True)
+        self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True)
+        self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
         self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
     
     def parameters(self):
@@ -26,8 +26,7 @@ class Generator:
 
     def generate(self):
         if self.sampling_mode:
-            self.mu = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True)
-            self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
+            self.mu, self.beta = lame(torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True))
             self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
         return [self.mu, self.beta, self.force]
 
@@ -37,6 +36,7 @@ def gp_ucb(x):
         x = [x]
     Z, U = gpr.predict(x, return_std=True)
     return -Z + 1e-6*U
+
 
 
 def GPR(data, params, fig_path):
@@ -77,7 +77,7 @@ def GPR(data, params, fig_path):
     ax[0].set_title('Predicted loss')
     ax[0].contourf(X, Y, Z.reshape(X.shape))
     # ax[0].plot(E_0, nu_0, 'ws')  # white = true value
-    ax[0].plot(params.mu, params.beta, 'ws')  # white = true value
+    ax[0].plot(params.E_0, params.nu_0, 'ws')  # white = true value
     ax[0].plot(*next, 'rs')  # red = predicted value
 
     ax[1].set_title('Uncertainty')

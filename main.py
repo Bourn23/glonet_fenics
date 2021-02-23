@@ -52,11 +52,11 @@ if __name__ == '__main__':
 
     # TODO:must fix this. no longer need it!
     if args.mu is not None:
-        params.mu = torch.tensor(args.mu, requires_grad = True, dtype = torch.float64)
+        params.E_0 = torch.tensor(args.mu, requires_grad = True, dtype = torch.float64)
     if args.beta is not None:
-        params.beta = torch.tensor(args.beta, requires_grad = True, dtype = torch.float64)
+        params.nu_0 = torch.tensor(args.beta, requires_grad = True, dtype = torch.float64)
 
-    eng = engine(varproblem, params.batch_size_start, params.mu, params.beta, params.force)
+    eng = engine(varproblem, params.batch_size_start, params.E_0, params.nu_0, params.force)
 
     # make directory
     os.makedirs(args.output_dir + '/outputs', exist_ok = True)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
 
     # Define the optimizer
-    optimizer = torch.optim.Adam(generator.parameters(), lr=params.lr, betas=(params.beta1, params.beta2))
+    optimizer = torch.optim.Adam(generator.parameters(), lr=params.lr, betas=(params.nu_01, params.nu_02))
     
     # Define the scheduler
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=params.step_size, gamma = params.gamma)
