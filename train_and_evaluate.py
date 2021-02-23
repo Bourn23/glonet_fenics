@@ -20,7 +20,7 @@ def evaluate(generator, eng, numImgs, params):
     pass
     # put wes' model here...
 
-    
+
 #     # generator.eval()
     
 #     # generate images
@@ -119,7 +119,7 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             err, mu, beta = evaluate_training_generator(generator, eng, params)
 
             # add to history 
-            history = collect_data(history, [err, mu, beta])
+            history = np.vstack([history, np.array([mu, beta, err])])
 
             if not params.generate_samples_mode:
                 # generate new values
