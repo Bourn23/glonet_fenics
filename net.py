@@ -38,7 +38,7 @@ class Generator:
             
             self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
             self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
-        return [[self.mu, self.beta, self.force],(E_r, nu_r)]
+        return [[self.mu, self.beta, self.force],(self.E_r, self.nu_r)]
 
 def gp_ucb(x):
     global gpr
