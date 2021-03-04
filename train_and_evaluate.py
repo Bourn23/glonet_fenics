@@ -18,52 +18,18 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 
 def evaluate(generator, eng, numImgs, params):
-    # GPR()
     pass
-    # put wes' model here...
-
-
-#     # generator.eval()
-    
-#     # generate images
-#     # z = sample_z(numImgs, params)
-#     z = sample_z(numImgs, generator)
-#     images = generator(z, params)
-#     logging.info('Generation is done. \n')
-
-#     # evaluate efficiencies
-#     images = torch.sign(images)
-#     effs = compute_effs(images, eng, params)
-
-#     # save images
-#     filename = 'imgs_w' + str(params.E_0) +'_a' + str(params.nu_0) +'deg.mat'
-#     file_path = os.path.join(params.output_dir,'outputs',filename)
-#     io.savemat(file_path, mdict={'imgs': images.cpu().detach().numpy(), 
-#                                  'effs': effs.cpu().detach().numpy()})
-
-#     # plot histogram
-#     fig_path = params.output_dir + '/figures/Efficiency.png'
-#     utils.plot_histogram(effs.data.cpu().numpy().reshape(-1), params.numIter, fig_path)
-
 
 
 
 def train(generator, optimizer, scheduler, eng, params, pca=None):
 
-    # generator.train()
-
     # initialization
     if params.restore_from is None:
-        effs_mean_history = [] # loss
-        mu_history = [] # mu
-        beta_history = [] # beta
         history = np.zeros([0,3])# mu, beta, err
         data = np.zeros([0,3]) # data for gradient descent
         iter0 = 0   
     else:
-        effs_mean_history = params.checkpoint['effs_mean_history']
-        mu_history = params.checkpoint['mu_history']
-        beta_history = params.checkpoint['beta_history']
         iter0 = params.checkpoint['iter']
 
     
