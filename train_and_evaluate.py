@@ -62,6 +62,7 @@ def train(eng, params, pca=None):
     active_models = []
     for model in params.models:
         #TODO: try to get models' arguments from params.
+        print(type(params))
         if model in params: # checks if we have configuration for this model; type dict
             model_param = params.model
         else: mode_param = None
