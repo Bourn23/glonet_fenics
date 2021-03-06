@@ -112,7 +112,7 @@ def train(eng, params, pca=None):
             for model in active_models:
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
-                exec(f"{model}.train(eng)") #TODO: implement it
+                exec(f"{model}.train({eng})") #TODO: implement it
                 # err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
 
 
