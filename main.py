@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
 
     # Define the models 
-    generator = Generator(params)
+    #generator = Generator(params)
         
     # Move to gpu if possible
     # if params.cuda:
@@ -78,10 +78,10 @@ if __name__ == '__main__':
 
 
     # Define the optimizer
-    optimizer = torch.optim.Adam(generator.parameters(), lr=params.lr, betas=(params.beta1, params.beta2))
+    #optimizer = torch.optim.Adam(generator.parameters(), lr=params.lr, betas=(params.beta1, params.beta2))
     
     # Define the scheduler
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=params.step_size, gamma = params.gamma)
+    #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=params.step_size, gamma = params.gamma)
 
 
     # Load model data
@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     # Generate images and save 
     logging.info('Start generating devices')
-    evaluate(generator, eng, numImgs=1, params=params)
+    evaluate(eng, numImgs=1, params=params)
 
 
 

@@ -41,12 +41,12 @@ from dolfin import *; from mshr import *
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
-def evaluate(generator, eng, numImgs, params):
+def evaluate(eng, numImgs, params):
     pass
 
 
 
-def train(generator, optimizer, scheduler, eng, params, pca=None):
+def train(optimizer, eng, params, pca=None):
 
     # initialization
     #TODO: enable restoring model
@@ -94,9 +94,6 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             # sigma decay
             params.sigma = params.sigma_start + (params.sigma_end - params.sigma_start) * normIter
 
-            # learning rate decay
-            scheduler.step()
-
             # mu amplitude in the tanh function
             if params.iter < 1000:
                 params.binary_amp = int(params.iter/100) + 1 
@@ -127,7 +124,9 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
 
             if not params.generate_samples_mode:
                 # generate new values
-                z = generator.params_sgd()
+                #
+                # 
+                # z = generator.params_sgd()
 
                 # calculate efficiencies and gradients using EM solver
                 effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
