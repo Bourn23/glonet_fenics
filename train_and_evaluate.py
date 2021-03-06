@@ -46,7 +46,7 @@ def evaluate(eng, numImgs, params):
 
 
 
-def train(optimizer, eng, params, pca=None):
+def train(eng, params, pca=None):
 
     # initialization
     #TODO: enable restoring model
@@ -122,22 +122,22 @@ def train(optimizer, eng, params, pca=None):
 
 
 
-            if not params.generate_samples_mode:
-                # generate new values
-                #
-                # 
-                # z = generator.params_sgd()
+            # if not params.generate_samples_mode:
+            #     # generate new values
+            #     #
+            #     # 
+            #     # z = generator.params_sgd()
 
-                # calculate efficiencies and gradients using EM solver
-                effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
-                t.set_description(f"Loss is {g_loss}", refresh=True)
+            #     # calculate efficiencies and gradients using EM solver
+            #     effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
+            #     t.set_description(f"Loss is {g_loss}", refresh=True)
 
-                # compute gradients
+            #     # compute gradients
                     
 
-                optimizer.zero_grad()
-                g_loss.backward()
-                optimizer.step()
+            #     optimizer.zero_grad()
+            #     g_loss.backward()
+            #     optimizer.step()
 
             # evaluate
             if it % 50 == 0 or it > params.numIter:

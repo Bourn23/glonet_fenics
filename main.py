@@ -93,7 +93,7 @@ if __name__ == '__main__':
     # Train the model and save 
     if params.numIter != 0 :
         logging.info('Start training')   
-        train(generator, optimizer, scheduler, eng, params)
+        train(eng, params)
 
     # Generate images and save 
     logging.info('Start generating devices')
