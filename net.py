@@ -100,6 +100,7 @@ class Generator:
 class Model:
     def __init__(self, params):
         # values to store
+        print(params)
         self.generator = Generator(params, params.generate_samples_mode)
         self.init_values = self.generator.parameters()
         self.mu = self.init_values[0]
