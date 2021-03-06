@@ -65,6 +65,7 @@ def train(eng, params, pca=None):
         # if model in params: # checks if we have configuration for this model; type dict
         #     model_param = params.model
         # else: model_param = None
+        model_param = None
 
 
         #import
