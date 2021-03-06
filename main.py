@@ -42,6 +42,8 @@ if __name__ == '__main__':
     params.cuda = torch.cuda.is_available()
     params.restore_from = args.restore_from
     params.numIter = int(params.numIter)
+    params.generate_samples_mode = int(params.generate_samples_mode)
+    print(params.generate_samples_mode)
     
     try:       params.noise_dims = int(params.noise_dims)
     except:    params.noise_dims = list(params.noise_dims)
@@ -55,6 +57,8 @@ if __name__ == '__main__':
         params.E_0 = torch.tensor(args.mu, requires_grad = True, dtype = torch.float64)
     if args.beta is not None:
         params.nu_0 = torch.tensor(args.beta, requires_grad = True, dtype = torch.float64)
+
+
 
     eng = engine(varproblem, params.batch_size_start, params.E_0, params.nu_0, params.force)
 
