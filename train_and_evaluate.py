@@ -37,7 +37,6 @@ import utils
 import scipy.io as io
 import numpy as np
 from dolfin import *; from mshr import *
-from net import GPR
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
