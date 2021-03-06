@@ -73,7 +73,7 @@ def train(eng, params, pca=None):
         exec(f"from net import {name}")
 
         if model_param: exec(f"{model} = {name}({model_params})") #Init with params
-        else:           exec(f"{model} = {name}")
+        else:           exec(f"{model} = {name}()")
         active_models.append(f'{model}')
 
 
@@ -110,6 +110,8 @@ def train(eng, params, pca=None):
 
             # training model:
             for model in active_models:
+                print(model)
+                print(type(model))
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
                 exec(f"{model}.train(eng = {eng})") #TODO: implement it
