@@ -16,28 +16,28 @@ class engine:
         self.target_deflection = self.model(self.mu, self.beta, self.force).detach() # sure?
         
 
-    def Eval_Eff_1D_parallel(self, img):
+    def Eval_Eff_1D_parallel(self, data):
         if self.batch_size == 1:
-            mu = torch.tensor([[img[0]]]*self.batch_size)
-            beta = torch.tensor([[img[1]]]*self.batch_size)
-            force = torch.tensor([[img[2]]]*self.batch_size)
+            mu = torch.tensor([[data['mu']]]*self.batch_size)
+            beta = torch.tensor([[data['beta']]]*self.batch_size)
+            force = torch.tensor([[data['force']]]*self.batch_size)
         else:
-            mu = img[0]
-            beta = img[1]
-            force = img[2]
+            mu = data['mu']
+            beta = data['beta']
+            force = data['force']
 
         self.u = self.model(mu, beta, force)
 
         return self.u#, output)
     
-    def GradientFromSolver_1D_parallel(self, img):
+    def GradientFromSolver_1D_parallel(self, data):
         effs_and_gradients = []
         
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
-        mu = img[0]
-        beta = img[1]
-        force = img[2]
+        mu = data['mu']
+        beta = data['beta']
+        force = data['force']
 
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()

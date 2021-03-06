@@ -65,6 +65,10 @@ if __name__ == '__main__':
     os.makedirs(args.output_dir + '/figures/deviceSamples', exist_ok = True)
     os.makedirs(args.output_dir + '/figures/error_history', exist_ok = True)
 
+    for model in params.models:
+        os.makedirs(args.output_dir + f'/figures/{model}', exist_ok = True)
+
+
     # Define the models 
     generator = Generator(params)
         

@@ -10,42 +10,42 @@ from utils import lame, youngs_poisson
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
-class Generator:
-    def __init__(self, params):
-        self.sampling_mode = params.generate_samples_mode
-        # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
-        self.E_0 = params.E_0
-        self.nu_0 = params.nu_0
-        self.E_r = None
-        self.nu_r = None
-        self.mu_, self.beta_ = lame(params.E_0, params.nu_0)
-        self.force_ = params.force
-        self.batch_size_ = params.batch_size_start
-        self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True)
-        self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
-        self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
+# class Generator:
+#     def __init__(self, params):
+#         self.sampling_mode = params.generate_samples_mode
+#         # self.beta = torch.randn(1, 1, requires_grad = True, dtype = torch.float64)
+#         self.E_0 = params.E_0
+#         self.nu_0 = params.nu_0
+#         self.E_r = None
+#         self.nu_r = None
+#         self.mu_, self.beta_ = lame(params.E_0, params.nu_0)
+#         self.force_ = params.force
+#         self.batch_size_ = params.batch_size_start
+#         self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True)
+#         self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
+#         self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
 
         
-        self.mu_sgd = torch.tensor([[self.mu_]], requires_grad=True, dtype=torch.float64)
-        self.beta_sgd = torch.tensor([[self.beta_]], requires_grad=True, dtype=torch.float64)
+#         self.mu_sgd = torch.tensor([[self.mu_]], requires_grad=True, dtype=torch.float64)
+#         self.beta_sgd = torch.tensor([[self.beta_]], requires_grad=True, dtype=torch.float64)
 
-    def parameters(self):
-        return [self.mu_sgd, self.beta_sgd]
+#     def parameters(self):
+#         return [self.mu_sgd, self.beta_sgd]
 
-    def params_sgd(self):
-        return [self.mu_sgd, self.beta_sgd, self.force]
+#     def params_sgd(self):
+#         return [self.mu_sgd, self.beta_sgd, self.force]
 
-    def generate(self):
-        if self.sampling_mode:
-            # self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
-            # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
-            self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
-            self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
-            self.mu, self.beta = lame(self.E_r, self.nu_r)
+#     def generate(self):
+#         if self.sampling_mode:
+#             # self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
+#             # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
+#             self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
+#             self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
+#             self.mu, self.beta = lame(self.E_r, self.nu_r)
             
-            self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
-            self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
-        return [[self.mu, self.beta, self.force],(self.E_r, self.nu_r)]
+#             self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
+#             self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
+#         return [[self.mu, self.beta, self.force],(self.E_r, self.nu_r)]
 
 
 class Generator:
@@ -56,32 +56,30 @@ class Generator:
         # memory
         self.E_0 = params.E_0
         self.nu_0 = params.nu_0
+        self.E_r, self.nu_r = lame(params.E_0, params.nu_0) # E_r == mu_, nu_r == nu_0
         self.batch_size_ = params.batch_size_start
-        # self.E_r = None
-        # self.nu_r = None
-        self.mu_, self.beta_ = lame(params.E_0, params.nu_0)
         self.force_ = params.force
+        self.first_run = True
 
 
-        # initialization
-        # TODO: Distributed RL for instance. bc what we need a single value...
-        self.mu_fixed = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True)
-        self.beta_fixed = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
-        self.force_fixed = self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
+        # initialization for first time
+        # TODO: Why we have this? This serves as the memory for someting like a Distributed RL training instance. 
+        self.mu_fixed = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.E_r+torch.rand(1)[0]*10).requires_grad_(True)
+        self.beta_fixed = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.nu_r+torch.rand(1)[0]*10).requires_grad_(True)
         
 
-        # for fixed
-        self.mu = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True)
-        self.beta = torch.DoubleTensor(params.batch_size_start, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
-        self.force = torch.DoubleTensor([[params.force]] * params.batch_size_start)#, ruquires_grad = True)
-    
+        # add random noise #TODO: this is for obtaining comparison results for the paper... different noise and standard deviation
+        self.mu = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.E_r+torch.rand(1)[0]*10).requires_grad_(True)
+        self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.nu_r+torch.rand(1)[0]*10).requires_grad_(True)
+        self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)
+        
     def parameters(self):
         return [self.mu, self.beta, self.force]
 
 
     def generate(self):
         #TODO: multi data point generation? (* self.batch_size)
-        if self.sampling_mode:
+        if self.sampling_mode: #or self.first_run:
             # self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
             # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
 
@@ -91,18 +89,77 @@ class Generator:
             
             self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
             self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
+            
+            self.first_run = False
 
             
         # return [[self.mu, self.beta, self.force],(self.E_r, self.nu_r)]
         return {'mu': self.mu, 'beta': self.beta, 'force': self.force, 'E_r': self.E_r, 'nu_r': self.nu_r}
 
 
+class Model:
+    def __init__(self, params):
+        # values to store
+        self.generator = Generator(params, params.generate_samples_mode)
+        self.init_values = self.generator.parameters()
+        self.mu = self.init_values[0]
+        self.beta = self.init_values[1]
+        self.force = self.init_values[2]
+
+        self.history = []
+
+    def train(self, eng):
+        # params: eng; physics engine
+        pass
+        # run the simulation and obtain values
+        # samples = self.generator.generate()
+        # effs = eng.Eval_Eff_1D_parallel(data)
+        # loss = torch.nn.MSELoss()
+        # err = loss(effs, eng.target_deflection)
+
+        # # update local values (mu, beta, history)
+        # # do we need this ?? self.mu, self.beta, _ = generator.parameters()
+        # optimizer.zero_grad()
+        # err = torch.log(loss(s_r, s_0))
+        # err.backward(retain_graph=True)
+        # self.history = np.vstack([self.history, np.array([self.mu, self.beta, self.err])])
+
+    def evaluate(self, eng):
+        # generate images
+        samples = self.generator.generate()
+        
+
+        # efficiencies of generated images
+        effs = eng.Eval_Eff_1D_parallel(data)
+        loss = torch.nn.MSELoss()
+        error = loss(effs, eng.target_deflection)
+        # error = loss(effs.cpu().detach(), eng.target_deflection)
+
+        # get most recent mu and beta values
+        mu_sgd, beta_sgd, force = generator.params_sgd()
+
+
+        # plot histogram
+        #TODO: replace utils.plot_histogram with wes' plotting function
+        # fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
+        # utils.plot_histogram(error, params.iter, fig_path)
+
+        
+        # return error.detach(), v[0], v[1], mu_sgd, beta_sgd
+        return
+
+    def generate_data(self):
+        pass
+
+    def plot(self):
+        pass
 
 
 
-class GPR(Generator):
-    def __init__(self, data, params, sampling_mode = 1):
-        super().__init__(params, sampling_mode)
+
+class GPR(Model):
+    def __init__(self, data, params):
+        super().__init__(params)
         from sklearn.gaussian_process import GaussianProcessRegressor
         from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
 
@@ -143,7 +200,7 @@ class GPR(Generator):
 
 
 
-       self. A = self.gp_ucb(XY)
+        self. A = self.gp_ucb(XY)
 
         # find the maximal value in the acquisition function
         self.best = np.argmax(A)
@@ -179,10 +236,27 @@ class GPR(Generator):
         self.Z, self.U = self.gpr.predict(x, return_std=True)
         return -self.Z + 1e-6*self.U
 
+class SGD(Model):
+    def __init__(self, params):
+        super().__init__(params)
+        self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
+
+    def train(self, eng):
+        data = self.generator.generate()
+        effs = eng.Eval_Eff_1D_parallel(data)
+        loss = torch.nn.MSELoss()
+
+        # update local values (mu, beta, history)
+        # do we need this ?? self.mu, self.beta, _ = generator.parameters()
+        self.optimizer.zero_grad()
+        err = torch.log(loss(effs, eng.target_deflection))
+        err.backward(retain_graph=True)
+        self.history = np.vstack([self.history, np.array([self.mu.detach(), self.beta.detach(), self.err.detach()])])  
+
+
+
 class SGD_Updater:
     def __init__(self, data, params, generator):
-        # super().__init__(params, sampling_mode)
-
         # Define the optimizer
         sellf.optimizer = torch.optim.Adam(self.parameters(), lr=params.lr, betas=(params.beta1, params.beta2))
         

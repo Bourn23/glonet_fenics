@@ -1,3 +1,28 @@
+"""
+TODO next time:
+i am implementing the train and eval functions in the models.
+i am thinking of how the values should be generated/and if they need to be updated? if yes, how?
+
+Archives of codes
+# GOT FROM PLOTTING
+                    # utils.err_distribution(history, params, fig_path)
+                
+                # fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
+                # GPR(history, params, fig_path)
+
+
+
+                # if not params.generate_samples_mode:
+                #     # SGD code
+                #     z = generator.params_sgd()
+
+                #     E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
+                #                     z[1][0, 0].detach().numpy())
+
+                #     data = np.vstack([data, [E_f, nu_f]])
+                #     fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
+                #     utils.err_distribution_sgd(data, params, fig_path)
+"""
 
 import os
 import logging
@@ -25,12 +50,33 @@ def evaluate(generator, eng, numImgs, params):
 def train(generator, optimizer, scheduler, eng, params, pca=None):
 
     # initialization
+    #TODO: enable restoring model
     if params.restore_from is None:
         history = np.zeros([0,3])# mu, beta, err
         data = np.zeros([0,3]) # data for gradient descent
         iter0 = 0   
     else:
         iter0 = params.checkpoint['iter']
+
+    #TODO: params.models = ['gpr_1', 'nn', 'abcd'] or it could be a dictionary of {'model': params, 'model_2': params}
+    # this naming convention allows us to set up different models of a single algorithm. name + _ + number
+    active_models = []
+    for model in params.models:
+        #TODO: try to get models' arguments from params.
+        if model in params: # checks if we have configuration for this model; type dict
+            model_param = params.model
+        else: mode_param = None
+
+
+        #import
+        name = model.split('_')[0]
+        exec(f"from net import {name}")
+
+        if model_param: exec(f"{model} = {name}({model_params})") #Init with params
+        else:           exec(f"{model} = {name}")
+        active_models.append(model)
+
+
 
     
     # training loop
@@ -58,44 +104,30 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
             else:
                 params.binary_amp = 10
 
-            # create a model and visualize it
-            if it % 50 == 0 or it > params.numIter:
-                fig_path = params.output_dir +  '/figures/error_history/Iter{}.png'.format(params.iter) 
-                utils.err_distribution(history, params, fig_path)
-                
-                fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
-                GPR(history, params, fig_path)
-
-
-                if not params.generate_samples_mode:
-                    # SGD code
-                    z = generator.params_sgd()
-
-                    E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
-                                    z[1][0, 0].detach().numpy())
-
-                    data = np.vstack([data, [E_f, nu_f]])
-                    fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-                    utils.err_distribution_sgd(data, params, fig_path)
-
-
-
-
             # terminate the loop
             if it > params.numIter:
                 return 
 
-            # generate new samples
-            err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
 
-            # add to history 
-            history = np.vstack([history, np.array([mu, beta, err])])
+
+
+            # training model:
+            for model in active_models:
+                # generate new samples
+                #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
+                model.train(eng) #TODO: implement it
+                # err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
+
+
+
+
+                # add to history 
+                
 
 
 
             if not params.generate_samples_mode:
                 # generate new values
-                # z = sample_z(params.batch_size, generator)
                 z = generator.params_sgd()
 
                 # calculate efficiencies and gradients using EM solver
@@ -109,22 +141,17 @@ def train(generator, optimizer, scheduler, eng, params, pca=None):
                 g_loss.backward()
                 optimizer.step()
 
-
-
-            # evaluate 
-            if it % params.plot_iter == 0:
+            # evaluate
+            if it % 50 == 0 or it > params.numIter:
                 pass
-                # visualize generated images at various conditions
-                # visualize_generated_images(generator, params, eng)
 
-                # # generate new samples
-                # err, mu, beta = evaluate_training_generator(generator, eng, params)
-
-                # # add to history 
-                # history = collect_data(history, [err, mu, beta])
-
-                # plot current history
-                # utils.plot_loss_history((effs_mean_history, beta_history, mu_history), params)
+            # plot 
+            if it % params.plot_iter == 0:
+                #TODO: a unified structure for each model's plotting function is needed.
+                for model in active_model:
+                    fig_path = params.output_dir +  f'/figures/{model}/Iter{}.png'.format(params.iter) 
+                    model.plot(history, params, fig_path)
+            
             t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
 
             t.update()
@@ -330,26 +357,26 @@ def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
     
 
 def evaluate_training_generator(generator, eng, params, num_imgs = 1):
-    # generate images
-    t = sample_z(num_imgs, generator)
-    z,v = t[0], t[1]
-    
+        # generate images
+        t = sample_z(num_imgs, generator)
+        z,v = t[0], t[1]
+        
 
-    # efficiencies of generated images
-    effs = eng.Eval_Eff_1D_parallel(z)
-    loss = torch.nn.MSELoss()
-    error = loss(effs, eng.target_deflection)
-    # error = loss(effs.cpu().detach(), eng.target_deflection)
+        # efficiencies of generated images
+        effs = eng.Eval_Eff_1D_parallel(z)
+        loss = torch.nn.MSELoss()
+        error = loss(effs, eng.target_deflection)
+        # error = loss(effs.cpu().detach(), eng.target_deflection)
 
-    # get most recent mu and beta values
-    mu_sgd, beta_sgd, force = generator.params_sgd()
+        # get most recent mu and beta values
+        mu_sgd, beta_sgd, force = generator.params_sgd()
 
 
-    # plot histogram
-    #TODO: replace utils.plot_histogram with wes' plotting function
-    # fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-    # utils.plot_histogram(error, params.iter, fig_path)
+        # plot histogram
+        #TODO: replace utils.plot_histogram with wes' plotting function
+        # fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
+        # utils.plot_histogram(error, params.iter, fig_path)
 
-    
-    return error.detach(), v[0], v[1], mu_sgd, beta_sgd
+        
+        return error.detach(), v[0], v[1], mu_sgd, beta_sgd
 
