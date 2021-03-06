@@ -61,11 +61,10 @@ def train(eng, params, pca=None):
     # this naming convention allows us to set up different models of a single algorithm. name + _ + number
     active_models = []
     for model in params.models:
-        #TODO: try to get models' arguments from params.
-        print(type(params))
-        if model in params: # checks if we have configuration for this model; type dict
-            model_param = params.model
-        else: mode_param = None
+        # #TODO: try to get models' arguments from params file. like 'model_1' : {'lr': 1, 'beta' : 2, ...}
+        # if model in params: # checks if we have configuration for this model; type dict
+        #     model_param = params.model
+        # else: model_param = None
 
 
         #import
