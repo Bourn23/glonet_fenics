@@ -85,6 +85,7 @@ def train(eng, params, pca=None):
     
     # training loop
     with tqdm(total=params.numIter) as t:
+    for _ in range(params.numIter):
         it = 0  
         while True:
             it +=1 
@@ -116,7 +117,7 @@ def train(eng, params, pca=None):
             for model in active_models:
                 # generate new samples
                 #TODO: remove exec (for faster execution); is it faster to pass eng in each round or should we keep it in the model's memory?
-                exec(f"{model}.train(eng, t)") #TODO: implement it
+                exec(f"{model}.train(eng)") #TODO: implement it
 
 
 

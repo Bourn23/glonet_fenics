@@ -167,7 +167,7 @@ class SGD(Model):
         self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
         self.loss = torch.nn.MSELoss()
 
-    def train(self, eng, t):
+    def train(self, eng):
         data = self.generator.generate()
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
 
