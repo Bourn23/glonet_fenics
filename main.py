@@ -100,8 +100,8 @@ if __name__ == '__main__':
     for global_optimizer in trange(params.numGenerations):
         if params.numIter != 0 :
             # logging.info('Start training')   
-            train(eng, params)
-        evaluate(eng, params, global_optimizer)
+            train(eng, params, global_optimizer)
+        # evaluate(eng, params, global_optimizer)
     # Generate images and save 
     # logging.info('Start generating devices')
 
