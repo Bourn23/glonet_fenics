@@ -26,7 +26,7 @@ Archives of codes
 
 import os
 import logging
-from tqdm import tqdm
+import tqdm
 from torch.autograd import Variable
 import torch.nn.functional as F
 from torchvision.utils import save_image
