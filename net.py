@@ -58,7 +58,7 @@ class Generator:
         self.nu_0 = params.nu_0
         self.E_r, self.nu_r = lame(params.E_0, params.nu_0) # E_r == mu_, nu_r == nu_0
         self.batch_size_ = params.batch_size_start
-        self.force_ = params.force
+        self.force = self.force_ = params.force
         self.first_run = True
 
 
@@ -71,13 +71,13 @@ class Generator:
         # # add random noise #TODO: this is for obtaining comparison results for the paper... different noise and standard deviation
         # self.mu = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.E_r+torch.rand(1)[0]*10).requires_grad_(True)
         # self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.nu_r+torch.rand(1)[0]*10).requires_grad_(True)
-        # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)
+        self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)
         self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
         self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
         self.mu, self.beta = lame(self.E_r, self.nu_r)
         
-        self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
-        self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
+        self.mu = torch.tensor([[self.mu]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
+        self.beta = torch.tensor([[self.beta]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
         
     def parameters(self):
         return [self.mu, self.beta, self.force]
