@@ -249,7 +249,6 @@ class SGD(Model):
 
     def train(self, eng):
         data = self.generator.generate()
-        print('before updating mu: ',data['mu'])
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
         loss = torch.nn.MSELoss()
 
@@ -259,21 +258,16 @@ class SGD(Model):
         self.optimizer.zero_grad()
         err = torch.log(loss(pred_deflection, eng.target_deflection))
         err.backward()
-        print('after updating mu', self.mu)
-        print('checking dims', self.mu[0][0].size())
-        print('checking dims', err.size())
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
         return err.detach()
 
-    def plot(self, params, fig_path):
+    def plot(self, fig_path):
         fig, ax = plt.subplots()
-        print('checking params',params.E_0)
-        print('checking generator',self.generator.E_0)
 
         # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
         ax.plot(self.history[:, 0], self.history[:, 1], 'rx')  # values obtained by torch
-        ax.plot(params.E_0, params.nu_0, 'ws')  # white = true value
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
