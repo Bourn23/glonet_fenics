@@ -72,8 +72,8 @@ def train(eng, params, pca=None):
         name = model.split('_')[0]
         exec(f"from net import {name}")
 
-        if model_param: exec(f"{model} = {name}(model_params)") #Init with params
-        else:           exec(f"{model} = {name}(params)")
+        if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
+        else:           exec(f"{model} = {name}(params, eng)")
         active_models.append(f'{model}')
 
 

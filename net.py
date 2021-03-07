@@ -242,9 +242,9 @@ class Model:
 #         return -self.Z + 1e-6*self.U
 
 class SGD(Model):
-    def __init__(self, params):
+    def __init__(self, params, eng):
         super().__init__(params)
-        self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
+        self.optimizer = torch.optim.Adam([eng.mu, eng.beta], lr=params.lr, betas=(params.beta1, params.beta2))
         self.loss = torch.nn.MSELoss()
 
     def train(self, eng):
