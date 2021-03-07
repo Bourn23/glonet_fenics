@@ -249,6 +249,7 @@ class SGD(Model):
 
     def train(self, eng):
         data = self.generator.generate()
+        print('before updating mu: ',data['mu'])
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
         loss = torch.nn.MSELoss()
 
@@ -258,6 +259,8 @@ class SGD(Model):
         self.optimizer.zero_grad()
         err = torch.log(loss(pred_deflection, eng.target_deflection))
         err.backward()
+        print('after updating mu', self.mu)
+        print('checking dims', self.mu[0][0])
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
 
