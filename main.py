@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     
     # Train the model and save 
-    for replica in tqdm.tqdm(np.arange(params.generations)):
+    for replica in tqdm.tqdm(np.arange(params.numGenerations)):
         if params.numIter != 0 :
             # logging.info('Start training')   
             train(eng, params)
