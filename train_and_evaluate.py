@@ -149,7 +149,7 @@ def train(eng, params, pca=None):
                 #TODO: a unified structure for each model's plotting function is needed.
                 for model in active_models:
                     fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
-                    model.plot(params, fig_path)
+                    exec(f'{model}.plot(params, fig_path)')
             
             t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
 
