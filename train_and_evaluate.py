@@ -26,7 +26,7 @@ Archives of codes
 
 import os
 import logging
-from tqdm import tqdm
+from tqdm import tnrange
 from torch.autograd import Variable
 import torch.nn.functional as F
 from torchvision.utils import save_image
@@ -84,8 +84,8 @@ def train(eng, params, pca=None):
 
     
     # training loop
-    # with tqdm(total=params.numIter) as t:
-    for _ in range(params.numIter):
+    with tnrange(params.numIter, descp = "sub_optimizers", leave = False) as t:
+    # for _ in range(params.numIter):
         it = 0  
         while True:
             it +=1 
@@ -117,7 +117,7 @@ def train(eng, params, pca=None):
             for model in active_models:
                 # generate new samples
                 #TODO: remove exec (for faster execution); is it faster to pass eng in each round or should we keep it in the model's memory?
-                exec(f"{model}.train(eng)") #TODO: implement it
+                exec(f"{model}.train(eng, t)") #TODO: implement it
 
 
 
@@ -160,7 +160,7 @@ def train(eng, params, pca=None):
                     fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
                     exec(f'{model}.plot(fig_path)')
 
-            # t.update()
+            t.update()
 
 
 
