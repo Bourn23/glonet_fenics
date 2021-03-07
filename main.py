@@ -8,7 +8,7 @@ from train_and_evaluate import evaluate, train
 from net import Generator
 import utils
 import torch
-from tqdm import tqdm_notebook
+from tqdm import tqdm
  
 
 # start matlab engine
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     
     # Train the model and save 
     # for replica in tqdm.tqdm(np.arange(params.numGenerations)):
-    for _ in tqdm_notebook(range(params.numGenerations)):
+    for global_optimizer in tqdm(total=range(params.numGenerations)):
         if params.numIter != 0 :
             # logging.info('Start training')   
             train(eng, params)
