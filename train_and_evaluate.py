@@ -37,6 +37,7 @@ import utils
 import scipy.io as io
 import numpy as np
 from dolfin import *; from mshr import *
+from net import *
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
@@ -73,12 +74,13 @@ def train(eng, params, pca=None):
         #import
 
         name = model.split('_')[0]
-        exec(f"from net import {name}")
+        model = f'{name}'(params, eng)
 
-        if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        else:           exec(f"{model} = {name}(params, eng)")
-        active_models.append(f'{model}')
-    # print(active_models)
+        # if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
+        # else:           exec(f"{model} = {name}(params, eng)")
+        # active_models.append(f'{model}')
+        active_models.append(model)
+    print(active_models)
 
 
     
