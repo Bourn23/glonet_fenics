@@ -43,20 +43,20 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 
 def evaluate(eng, params, global_iter):
-    for model in active_models:
-        #EVAL
-        exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
+    # for model in active_models:
+    #     #EVAL
+    #     exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
 
-        # PLOT
-        fig_path = params.output_dir +  f'/figures/{model}/generation_{global_iter}.png'
-        exec(f'{model}.plot(fig_path)')
+    #     # PLOT
+    #     fig_path = params.output_dir +  f'/figures/{model}/generation_{global_iter}.png'
+    #     exec(f'{model}.plot(fig_path)')
 
     
 
 
 
 
-def train(eng, params, pca=None):
+def train(eng, params, global_count, pca=None):
     global active_models
     # initialization
     #TODO: enable restoring model
@@ -169,9 +169,13 @@ def train(eng, params, pca=None):
             if it % params.plot_iter == 0:
                 pass
                 #TODO: a unified structure for each model's plotting function is needed.
-                # for model in active_models:
-                #     fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
-                #     exec(f'{model}.plot(fig_path)')
+                for model in active_models:
+                    #eval
+                    exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
+
+                    #plot
+                    fig_path = params.output_dir +  f'/figures/{model}/generation_{global_count}_{params.iter}.png'
+                    exec(f'{model}.plot(fig_path)')
 
             # t.update()
 
