@@ -79,7 +79,7 @@ def train(eng, params, pca=None):
         # if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
         # else:           exec(f"{model} = {name}(params, eng)")
         # active_models.append(f'{model}')
-        active_models.append(f'{name}'(params, eng))
+        active_models.append(exec(f'{name}'(params, eng)))
     print(active_models)
 
 
