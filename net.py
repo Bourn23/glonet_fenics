@@ -257,7 +257,8 @@ class SGD(Model):
         self.optimizer.zero_grad()
         err = torch.log(self.loss(pred_deflection, eng.target_deflection))
         err.backward()
-        print('after update', eng.self.mu)
+        print('after update eng', eng.mu)
+        print('after update generator', self.generator.mu)
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
         return err.detach()
