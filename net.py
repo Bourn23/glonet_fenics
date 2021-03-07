@@ -186,7 +186,7 @@ class SGD(Model):
         t.set_description(f"SGD Loss: {err}", refresh=True)
 
     def plot(self, fig_path):
-        fig, ax = plt.subplots(1,2, figsize=(3,6))
+        fig, ax = plt.subplots(1,2, figsize=(6,3))
 
         # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
         ax[0].set_title('history of mu and beta')
