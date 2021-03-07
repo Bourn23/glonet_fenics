@@ -101,8 +101,7 @@ if __name__ == '__main__':
         if params.numIter != 0 :
             # logging.info('Start training')   
             train(eng, params)
-        print(global_optimizer)
-        evaluate(eng, params=params)
+        evaluate(eng, params=params, global_optimizer)
     # Generate images and save 
     # logging.info('Start generating devices')
 
