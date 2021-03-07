@@ -109,6 +109,7 @@ class Model:
         self.generator = Generator(params, params.generate_samples_mode)
 
         self.history = np.zeros([0,3])
+        self.data    = np.zeros([0,3])
 
     def train(self, eng):
         # params: eng; physics engine
@@ -170,27 +171,36 @@ class SGD(Model):
         data = self.generator.generate()
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
 
-        # update local values (mu, beta, history)
-        # do we need this ??         self.mu, self.beta, _ = self.generator.parameters()
-
         self.optimizer.zero_grad()
         err = torch.log(self.loss(pred_deflection, eng.target_deflection))
         err.backward()
         self.optimizer.step()
 
-        self.history = np.vstack([self.history, np.array([data['mu'].detach()[0][0], data['beta'].detach()[0][0], err.detach()])])  
+        self.history = np.vstack([self.history, np.array([data['mu'][0][0].detach(), data['beta'][0][0].detach(), err.detach().numpy()])])  
+        E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
+                            data['mu'].detach().numpy())
+    
+        self.data = np.vstack([self.data, [E_f, nu_f, err.detach().numpy()]])
+
 
         t.set_description(f"SGD Loss: {err}", refresh=True)
 
     def plot(self, fig_path):
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots((1,2))
 
         # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
-        ax.plot(self.history[:, 0], self.history[:, 1], 'rx')  # values obtained by torch
-        ax.plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+        ax[0].plot(self.history[:, 0], self.history[:, 1], 'rx')  # values obtained by torch
+        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+
+
+        # ax.contourf(X, Y, Z.reshape(X.shape))
+        ax[1].plot(self.data[:, 0], self.data[:, 1], 'rx')  # values obtained by torch
+        ax[1].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
+
 
 class SGD_Updater:
     def __init__(self, data, params, generator):
