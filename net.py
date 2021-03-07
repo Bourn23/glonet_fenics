@@ -271,7 +271,7 @@ class SGD(Model):
         print('checking generator',self.generator.E_0)
 
         # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
-        ax.plot(data[:, 0], data[:, 1], 'rx')  # values obtained by torch
+        ax.plot(self.history[:, 0], self.history[:, 1], 'rx')  # values obtained by torch
         ax.plot(params.E_0, params.nu_0, 'ws')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
