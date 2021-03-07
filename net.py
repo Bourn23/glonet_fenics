@@ -186,7 +186,7 @@ class SGD(Model):
         t.set_description(f"SGD Loss: {err}", refresh=True)
 
     def plot(self, fig_path):
-        fig, ax = plt.subplots((1,2))
+        fig, ax = plt.subplots(1,2, figsize=(3,3))
 
         # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
         ax[0].plot(self.history[:, 0], self.history[:, 1], 'rx')  # values obtained by torch
