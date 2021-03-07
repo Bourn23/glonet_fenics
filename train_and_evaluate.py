@@ -84,7 +84,7 @@ def train(eng, params, pca=None):
 
     
     # training loop
-    with tqdm(total=params.numIter) as t:
+    # with tqdm(total=params.numIter) as t:
     for _ in range(params.numIter):
         it = 0  
         while True:
