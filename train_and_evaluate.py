@@ -74,7 +74,7 @@ def train(eng, params, pca=None):
         #import
 
         name = model.split('_')[0]
-        model = f'{name}'(params, eng)
+        f'{model}' = f'{name}'(params, eng)
 
         # if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
         # else:           exec(f"{model} = {name}(params, eng)")
