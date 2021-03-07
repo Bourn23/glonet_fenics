@@ -113,10 +113,8 @@ def train(eng, params, pca=None):
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
                 _locals = locals()
-                exec(f"err_model = {model}.train(eng)", globals(), _locals) #TODO: implement it
-                print(err_model)
-                print(_locals)
-                err += err_model
+                exec(f"err += {model}.train(eng)", globals()) #TODO: implement it
+                
                 # err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
 
 
