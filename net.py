@@ -126,7 +126,6 @@ class Model:
 
     def evaluate(self, eng):
         # generate images
-        print(type(eng))
         samples = self.generator.generate()
         
 
@@ -244,7 +243,7 @@ class SGD(Model):
 
     def train(self, eng):
         data = self.generator.generate()
-        effs = eng.Eval_Eff_1D_parallel(data)
+        effs = eng.GradientFromSolver_1D_parallel(data)
         loss = torch.nn.MSELoss()
 
         # update local values (mu, beta, history)

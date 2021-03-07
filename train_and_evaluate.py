@@ -110,8 +110,6 @@ def train(eng, params, pca=None):
 
             # training model:
             for model in active_models:
-                print(model)
-                print(type(model))
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
                 exec(f"{model}.train(eng)") #TODO: implement it
