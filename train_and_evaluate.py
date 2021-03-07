@@ -43,6 +43,7 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 
 def evaluate(eng, params, global_iter):
+    pass
     # for model in active_models:
     #     #EVAL
     #     exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
