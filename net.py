@@ -183,7 +183,7 @@ class SGD(Model):
         self.data = np.vstack([self.data, [E_f, nu_f, err.detach().numpy()]])
 
 
-        t.set_description(f"SGD Loss: {err}", refresh=True)
+        # t.set_description(f"SGD Loss: {err}", refresh=True)
 
     def plot(self, fig_path):
         fig, ax = plt.subplots(1,2, figsize=(6,3))
