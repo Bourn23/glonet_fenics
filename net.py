@@ -96,6 +96,7 @@ class Generator:
             self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
             
             self.first_run = False
+            print("Sampling mode: ON")
 
             
         # return [[self.mu, self.beta, self.force],(self.E_r, self.nu_r)]
@@ -106,10 +107,6 @@ class Model:
     def __init__(self, params):
         # values to store
         self.generator = Generator(params, params.generate_samples_mode)
-        self.init_values = self.generator.parameters()
-        self.mu = self.init_values[0]
-        self.beta = self.init_values[1]
-        self.force = self.init_values[2]
 
         self.history = np.zeros([0,3])
 
@@ -162,84 +159,6 @@ class Model:
 
 
 
-# class GPR(Model):
-#     def __init__(self, data, params):
-#         super().__init__(params)
-#         from sklearn.gaussian_process import GaussianProcessRegressor
-#         from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
-
-
-#         self.ls = np.std(data, axis = 0)[:2]
-#         self.kernel = DotProduct() + WhiteKernel() + RBF(self.ls)
-#         self.gpr = GaussianProcessRegressor(kernel = self.kernel).fit(data[:, :2], np.log(data[:,2]))
-
-#         self.X, self.Y = np.meshgrid(np.linspace(data[:, 0].min(), data[:, 0].max(), 11),
-#                         np.linspace(data[:, 1].min(), data[:, 1].max(), 11))
-
-#         XY = np.hstack([X.reshape(-1, 1), Y.reshape(-1, 1)])
-#         self.Z, self.U = self.gpr.predict(XY, return_std = True)
-
-
-#         from scipy.optimize import minimize
-#         self. A = self.gp_ucb(XY)
-
-#         # find the maximal value in the acquisition function
-#         self.best = np.argmax(A)
-#         self.x0 = XY[self.best]
-
-#         # find the optimal value from this regressor
-#         self.res = minimize(self.gp_ucb, self.x0)
-
-#         self.next = self.res.x
-
-#     def train(self, data):
-#         self.ls = np.std(data, axis = 0)[:2]
-#         self.kernel = DotProduct() + WhiteKernel() + RBF(self.ls)
-#         self.gpr = GaussianProcessRegressor(kernel = self.kernel).fit(data[:, :2], np.log(data[:,2]))
-
-#         self.X, self.Y = np.meshgrid(np.linspace(data[:, 0].min(), data[:, 0].max(), 11),
-#                         np.linspace(data[:, 1].min(), data[:, 1].max(), 11))
-
-#         XY = np.hstack([X.reshape(-1, 1), Y.reshape(-1, 1)])
-#         self.Z, self.U = self.gpr.predict(XY, return_std = True)
-
-
-
-#         self. A = self.gp_ucb(XY)
-
-#         # find the maximal value in the acquisition function
-#         self.best = np.argmax(A)
-#         self.x0 = XY[self.best]
-
-#         # find the optimal value from this regressor
-#         self.res = minimize(self.gp_ucb, self.x0)
-
-#         self.next = self.res.x
-
-
-#     def plot(self, fig_path):
-#         fig, ax = plt.subplots(1, 3, figsize = (9, 3))
-    
-#         ax[0].set_title('Predicted loss')
-#         ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
-#         ax[0].plot(self.E_0, self.nu_0, 'ws')  # white = true value
-#         ax[0].plot(*self.next, 'rs')  # red = predicted value
-
-#         ax[1].set_title('Uncertainty')
-#         ax[1].contourf(self.X, self.Y, self.U.reshape(self.X.shape))
-
-#         ax[2].set_title('Acquisition function')
-#         ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
-
-#         plt.savefig(fig_path, dpi=300)
-#         plt.close()
-
-#     def gp_ucb(self, x):
-#         "acquisition function, maximize upper confidence bound (GP-UCB) "
-#         if len(x.shape) < 2:
-#             x = [x]
-#         self.Z, self.U = self.gpr.predict(x, return_std=True)
-#         return -self.Z + 1e-6*self.U
 
 class SGD(Model):
     def __init__(self, params, eng):
@@ -249,6 +168,7 @@ class SGD(Model):
 
     def train(self, eng):
         data = self.generator.generate()
+        print('before update', data['mu'])
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
 
         # update local values (mu, beta, history)
@@ -258,6 +178,7 @@ class SGD(Model):
         err = torch.log(self.loss(pred_deflection, eng.target_deflection))
         err.backward()
         self.optimizer.step()
+        print('after update', self.generator.generate())
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
         return err.detach()
