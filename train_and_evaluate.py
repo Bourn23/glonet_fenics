@@ -42,13 +42,13 @@ from net import *
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
-def evaluate(eng, numImgs, params):
+def evaluate(eng, params, global_iter):
     for model in active_models:
         #EVAL
         exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
 
         # PLOT
-        fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
+        fig_path = params.output_dir +  f'/figures/{model}/generation_{global_iter}.png'
         exec(f'{model}.plot(fig_path)')
 
     
