@@ -18,8 +18,8 @@ class engine:
 
     def Eval_Eff_1D_parallel(self, data):
         if self.batch_size == 1:
-            self.mu = torch.tensor([[data['mu']]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
-            self.beta = torch.tensor([[data['beta']]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
+            self.mu = torch.tensor([[data['mu']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+            self.beta = torch.tensor([[data['beta']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
             self.force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
             
         else:
