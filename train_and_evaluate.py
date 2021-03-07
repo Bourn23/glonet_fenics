@@ -60,7 +60,7 @@ def train(eng, params, pca=None):
 
     #TODO: params.models = ['gpr_1', 'nn', 'abcd'] or it could be a dictionary of {'model': params, 'model_2': params}
     # this naming convention allows us to set up different models of a single algorithm. name + _ + number
-    active_models = []
+    active_models = {}
     for model in params.models:
         # #TODO: try to get models' arguments from params file. like 'model_1' : {'lr': 1, 'beta' : 2, ...}
         # if model in params: # checks if we have configuration for this model; type dict
@@ -77,8 +77,8 @@ def train(eng, params, pca=None):
         
 
         if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        else: print('is this running') ;         exec(f"model_ = {name}(params, eng)")
-        active_models.append(model_)
+        else: print('is this running') ;         exec(f"active = {name}(params, eng)")
+        active_models[f'{model}'] = active
     print(active_models)
 
 
