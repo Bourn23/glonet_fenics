@@ -76,9 +76,6 @@ class Generator:
         self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
         self.mu, self.beta = lame(self.E_r, self.nu_r)
         
-        self.mu = torch.tensor([[self.mu]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
-        self.beta = torch.tensor([[self.beta]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
-        
     def parameters(self):
         return [self.mu, self.beta, self.force]
 
@@ -247,10 +244,10 @@ class SGD(Model):
         super().__init__(params)
         self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
         self.loss = torch.nn.MSELoss()
+
     def train(self, eng):
         data = self.generator.generate()
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
-        
 
         # update local values (mu, beta, history)
         # do we need this ?? self.mu, self.beta, _ = generator.parameters()
@@ -258,6 +255,7 @@ class SGD(Model):
         self.optimizer.zero_grad()
         err = torch.log(self.loss(pred_deflection, eng.target_deflection))
         err.backward()
+        print('after update', eng.self.mu)
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
         return err.detach()

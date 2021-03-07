@@ -18,15 +18,14 @@ class engine:
 
     def Eval_Eff_1D_parallel(self, data):
         if self.batch_size == 1:
-            assert type(data['mu']) == torch.Tensor, "input must be of torch.Tensor"
-            mu = data['mu']
-            beta = data['beta']
-            force = data['force']
+            self.mu = torch.tensor([[data['mu']]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
+            self.beta = torch.tensor([[data['beta']]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
+            self.force = data['force']
         else:
             mu = data['mu']
             beta = data['beta']
             force = data['force']
-        print(mu)
+        print('before update', mu)
         self.u = self.model(mu, beta, force)
 
         return self.u
