@@ -150,8 +150,9 @@ def train(eng, params, pca=None):
 
             # evaluate
             if it % 50 == 0 or it > params.numIter:
-                for model in active_models:
-                    exec(f"{model}.evaluate(eng, t)") #TODO: remove exec; implement evaluate
+                pass
+                # for model in active_models:
+                #     exec(f"{model}.evaluate(eng, t)") #TODO: remove exec; implement evaluate
 
             # plot 
             if it % params.plot_iter == 0:
