@@ -18,17 +18,20 @@ class engine:
 
     def Eval_Eff_1D_parallel(self, data):
         if self.batch_size == 1:
-            mu = torch.tensor([[data['mu']]]*self.batch_size)
-            beta = torch.tensor([[data['beta']]]*self.batch_size)
-            force = torch.tensor([[data['force']]]*self.batch_size)
+            if type(data['mu']) != torch.Tensor:
+                mu = torch.tensor([[data['mu']]]*self.batch_size)
+                beta = torch.tensor([[data['beta']]]*self.batch_size)
+                force = torch.tensor([[data['force']]]*self.batch_size)
         else:
             mu = data['mu']
             beta = data['beta']
             force = data['force']
 
+        print(data['mu'])
+        print(mu)
         self.u = self.model(mu, beta, force)
 
-        return self.u#, output)
+        return self.u
     
     def GradientFromSolver_1D_parallel(self, data):
         effs_and_gradients = []

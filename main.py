@@ -43,7 +43,6 @@ if __name__ == '__main__':
     params.restore_from = args.restore_from
     params.numIter = int(params.numIter)
     params.generate_samples_mode = int(params.generate_samples_mode)
-    print(params.generate_samples_mode)
     
     try:       params.noise_dims = int(params.noise_dims)
     except:    params.noise_dims = list(params.noise_dims)
