@@ -260,7 +260,8 @@ class SGD(Model):
         err = torch.log(loss(pred_deflection, eng.target_deflection))
         err.backward()
         print('after updating mu', self.mu)
-        print('checking dims', self.mu[0][0])
+        print('checking dims', self.mu[0][0].size())
+        print('checking dims', err.size())
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
 
