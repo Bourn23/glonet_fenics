@@ -59,21 +59,12 @@ class Generator:
         self.E_r, self.nu_r = lame(params.E_0, params.nu_0) # E_r == mu_, nu_r == nu_0
         self.batch_size_ = params.batch_size_start
         self.force = self.force_ = params.force
-        self.first_run = True
 
-
-        # initialization for first time
-        # TODO: Why we have this? This serves as the memory for someting like a Distributed RL training instance. 
-        # self.mu_fixed = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.E_r+torch.rand(1)[0]*10).requires_grad_(True)
-        # self.beta_fixed = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.nu_r+torch.rand(1)[0]*10).requires_grad_(True)
-        
-
-        # # add random noise #TODO: this is for obtaining comparison results for the paper... different noise and standard deviation
-        # self.mu = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.E_r+torch.rand(1)[0]*10).requires_grad_(True)
-        # self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.nu_r+torch.rand(1)[0]*10).requires_grad_(True)
-        self.force = torch.DoubleTensor([[self.force_]])
+        # perturb initial values
         self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
         self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
+        
+        self.force = torch.DoubleTensor([[self.force_]])
         self.mu, self.beta = lame(self.E_r, self.nu_r)
         self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
         self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)

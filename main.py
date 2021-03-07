@@ -97,11 +97,12 @@ if __name__ == '__main__':
     
     # Train the model and save 
     # for replica in tqdm.tqdm(np.arange(params.numGenerations)):
-    for global_optimizer in trange(params.numGenerations):
+    for global_optimizer in trange(params.numGenerations, desc = "Global Optimization"):
         if params.numIter != 0 :
-            # logging.info('Start training')   
+            logging.info('Starting Sub Optimization')   
             train(eng, params, global_optimizer)
-        # evaluate(eng, params, global_optimizer)
+        logging.info('Evaluate Results and Ensemble Process')   
+        evaluate(eng, params, global_optimizer)
     # Generate images and save 
     # logging.info('Start generating devices')
 

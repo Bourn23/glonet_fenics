@@ -46,7 +46,7 @@ def evaluate(eng, params, global_iter):
     pass
     # for model in active_models:
     #     #EVAL
-    #     exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
+        # exec(f"{model}.evaluate()", dict(), {'':}) #TODO: remove exec; implement evaluate
 
     #     # PLOT
     #     fig_path = params.output_dir +  f'/figures/{model}/generation_{global_iter}.png'
@@ -87,15 +87,16 @@ def train(eng, params, global_count, pca=None):
         
 
         if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        else:           exec(f"{model} = {name}(params, eng)"); active_models[f'{model}'] = model
-        
+        # else:           ldict = dict(); exec(f"{model} = {name}(params, eng)", dict(), ldict)
+        else:           exec(f'active_models["{model}"] = {name}(params, eng)')
+        print(active_models)
         # experiment with having exec insantiate the class; how else I can insantiate?
 
 
     
     # training loop
     # with tqdm(params.numIter, desc = "sub_optimizers", leave = False) as t:
-    for _ in trange(params.numIter, desc = "sub_optimizers", leave = False):
+    for _ in trange(params.numIter, desc = "Sub Optimization", leave = False):
         t=0
 
         it = 0  
@@ -126,57 +127,27 @@ def train(eng, params, global_count, pca=None):
 
 
             # training model:
-            for model in active_models:
+            for model in active_models.values():
                 # generate new samples
                 #TODO: remove exec (for faster execution); is it faster to pass eng in each round or should we keep it in the model's memory?
-                exec(f"{model}.train(eng, t)") #TODO: implement it
+                # exec(f"{model}.train(eng, t)") #TODO: implement it
+                model.train(eng, t)
 
-
-
-                # err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
-
-
-
-
-                # add to history 
-                
-
-
-
-            # if not params.generate_samples_mode:
-            #     # generate new values
-            #     #
-            #     # 
-            #     # z = generator.params_sgd()
-
-            #     # calculate efficiencies and gradients using EM solver
-            #     effs, gradients, g_loss = compute_effs_and_gradients(z, eng, params) # gen_imgs ~ z
-            #     t.set_description(f"Loss is {g_loss}", refresh=True)
-
-            #     # compute gradients
-                    
-
-            #     optimizer.zero_grad()
-            #     g_loss.backward()
-            #     optimizer.step()
 
             # evaluate
-            if it % 50 == 0 or it > params.numIter:
-                pass
-                # for model in active_models:
-                #     exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
+            if it % params.eval_iter == 0 or it > params.numIter:
+                for model in active_models.values():
+                    # exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
+                    model.evaluate()
 
             # plot 
             if it % params.plot_iter == 0:
-                pass
                 #TODO: a unified structure for each model's plotting function is needed.
-                for model in active_models:
-                    #eval
-                    exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
-
+                for model in active_models.values():
                     #plot
                     fig_path = params.output_dir +  f'/figures/{model}/generation_{global_count}_{params.iter}.png'
-                    exec(f'{model}.plot(fig_path)')
+                    # exec(f'{model}.plot(fig_path)')
+                    model.plot(fig_path)
 
             # t.update()
 
