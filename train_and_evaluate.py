@@ -59,7 +59,7 @@ def train(eng, params, pca=None):
 
     #TODO: params.models = ['gpr_1', 'nn', 'abcd'] or it could be a dictionary of {'model': params, 'model_2': params}
     # this naming convention allows us to set up different models of a single algorithm. name + _ + number
-    active_models = []
+    active_models = {}
     for model in params.models:
         # #TODO: try to get models' arguments from params file. like 'model_1' : {'lr': 1, 'beta' : 2, ...}
         # if model in params: # checks if we have configuration for this model; type dict
@@ -67,15 +67,18 @@ def train(eng, params, pca=None):
         # else: model_param = None
         model_param = None
 
-
-        #import
         name = model.split('_')[0]
+        active_models[model] = name
         exec(f"from net import {name}")
+        model_ = active_models[model](params, eng)
+        active_models[model] = model_
+        #import
+        # exec(f"from net import {name}")
 
-        if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        else:           exec(f"{model} = {name}(params, eng)")
-        active_models.append(f'{model}')
-
+        # if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
+        # else:           exec(f"{model} = {name}(params, eng)")
+        # active_models.append(f'{model}')
+    print(active_models)
 
 
     
@@ -112,7 +115,6 @@ def train(eng, params, pca=None):
             for model in active_models:
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
-                print(locals())
                 exec(f"err += {model}.train(eng)", locals()) #TODO: implement it
 
                 # err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
