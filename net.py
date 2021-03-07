@@ -180,7 +180,7 @@ class SGD(Model):
 
         self.history = np.vstack([self.history, np.array([data['mu'].detach()[0][0], data['beta'].detach()[0][0], err.detach()])])  
         print('error is ', err)
-        return err.detach()
+        return err.detach().numpy()[0]
 
     def plot(self, fig_path):
         fig, ax = plt.subplots()
