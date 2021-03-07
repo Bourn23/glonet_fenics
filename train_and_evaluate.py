@@ -43,12 +43,21 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 
 def evaluate(eng, numImgs, params):
-    pass
+    for model in active_models:
+        #EVAL
+        exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
+
+        # PLOT
+        fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
+        exec(f'{model}.plot(fig_path)')
+
+    
+
 
 
 
 def train(eng, params, pca=None):
-
+    global active_models
     # initialization
     #TODO: enable restoring model
     if params.restore_from is None:
@@ -149,15 +158,17 @@ def train(eng, params, pca=None):
 
             # evaluate
             if it % 50 == 0 or it > params.numIter:
-                for model in active_models:
-                    exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
+                pass
+                # for model in active_models:
+                #     exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
 
             # plot 
             if it % params.plot_iter == 0:
+                pass
                 #TODO: a unified structure for each model's plotting function is needed.
-                for model in active_models:
-                    fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
-                    exec(f'{model}.plot(fig_path)')
+                # for model in active_models:
+                #     fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
+                #     exec(f'{model}.plot(fig_path)')
 
             # t.update()
 
