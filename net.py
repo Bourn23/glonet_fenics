@@ -181,7 +181,6 @@ class SGD(Model):
         self.history = np.vstack([self.history, np.array([data['mu'].detach()[0][0], data['beta'].detach()[0][0], err.detach()])])  
 
         t.set_description(f"SGD Loss: {err}", refresh=True)
-        return err.detach()
 
     def plot(self, fig_path):
         fig, ax = plt.subplots()
