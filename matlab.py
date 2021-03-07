@@ -18,10 +18,10 @@ class engine:
 
     def Eval_Eff_1D_parallel(self, data):
         if self.batch_size == 1:
-            if type(data['mu']) != torch.Tensor:
-                mu = torch.tensor([[data['mu']]]*self.batch_size)
-                beta = torch.tensor([[data['beta']]]*self.batch_size)
-                force = torch.tensor([[data['force']]]*self.batch_size)
+            assert type(data['mu']) == torch.Tensor, "input must be of torch.Tensor"
+            mu = data['mu']
+            beta = data['beta']
+            force = data['force']
         else:
             mu = data['mu']
             beta = data['beta']
