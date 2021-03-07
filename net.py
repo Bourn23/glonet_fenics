@@ -168,19 +168,17 @@ class SGD(Model):
 
     def train(self, eng):
         data = self.generator.generate()
-        print('before update', data['mu'])
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
 
         # update local values (mu, beta, history)
-        # do we need this ?? self.mu, self.beta, _ = generator.parameters()
+        # do we need this ??         self.mu, self.beta, _ = self.generator.parameters()
 
         self.optimizer.zero_grad()
         err = torch.log(self.loss(pred_deflection, eng.target_deflection))
         err.backward()
         self.optimizer.step()
-        print('after update', self.generator.generate())
 
-        self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
+        self.history = np.vstack([self.history, np.array([data['mu'].detach()[0][0], data['beta'].detach()[0][0], err.detach()])])  
         return err.detach()
 
     def plot(self, fig_path):
