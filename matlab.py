@@ -26,7 +26,7 @@ class engine:
             mu = data['mu']
             beta = data['beta']
             force = data['force']
-
+        print(mu)
         self.u = self.model(mu, beta, force)
 
         return self.u
