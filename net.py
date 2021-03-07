@@ -264,6 +264,7 @@ class SGD(Model):
         print('checking dims', err.size())
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
+        return err.detach()
 
     def plot(self, params, fig_path):
         fig, ax = plt.subplots()

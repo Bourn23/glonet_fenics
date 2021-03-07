@@ -112,7 +112,7 @@ def train(eng, params, pca=None):
             for model in active_models:
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
-                exec(f"{model}.train(eng)") #TODO: implement it
+                exec(f"err = {model}.train(eng)") #TODO: implement it
                 # err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
 
 
@@ -151,7 +151,7 @@ def train(eng, params, pca=None):
                     fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
                     exec(f'{model}.plot(params, fig_path)')
             
-            t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
+            t.set_description(f"Loss: {err}", refresh=True)
 
             t.update()
 
