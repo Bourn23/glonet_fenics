@@ -112,7 +112,7 @@ class Model:
         self.beta = self.init_values[1]
         self.force = self.init_values[2]
 
-        self.history = []
+        self.history = np.zeros([0,3])
 
     def train(self, eng):
         # params: eng; physics engine
