@@ -8,6 +8,7 @@ from train_and_evaluate import evaluate, train
 from net import Generator
 import utils
 import torch
+import tqdm
  
 
 # start matlab engine
@@ -42,6 +43,7 @@ if __name__ == '__main__':
     params.cuda = torch.cuda.is_available()
     params.restore_from = args.restore_from
     params.numIter = int(params.numIter)
+    params.numGenerations = int(params.numGenerations)
     params.generate_samples_mode = int(params.generate_samples_mode)
     
     try:       params.noise_dims = int(params.noise_dims)
@@ -94,12 +96,13 @@ if __name__ == '__main__':
 
     
     # Train the model and save 
-    if params.numIter != 0 :
-        logging.info('Start training')   
-        train(eng, params)
+    for replica in tqdm.tqdm(np.arange(params.generations)):
+        if params.numIter != 0 :
+            # logging.info('Start training')   
+            train(eng, params)
 
     # Generate images and save 
-    logging.info('Start generating devices')
+    # logging.info('Start generating devices')
     evaluate(eng, numImgs=1, params=params)
 
 

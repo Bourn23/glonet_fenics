@@ -80,7 +80,6 @@ def train(eng, params, pca=None):
         else:           exec(f"{model} = {name}(params, eng)"); active_models[f'{model}'] = model
         
         # experiment with having exec insantiate the class; how else I can insantiate?
-    print(active_models)
 
 
     
