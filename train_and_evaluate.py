@@ -77,8 +77,9 @@ def train(eng, params, pca=None):
         
 
         if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        else: print('is this running') ;         exec(f"active = {name}(params, eng)")
-        active_models[f'{model}'] = active
+        else: print('is this running') ;         exec(f"active = {name}(params, eng)"); active_models[f'{model}'] = active
+        
+        # experiment with having exec insantiate the class; how else I can insantiate?
     print(active_models)
 
 

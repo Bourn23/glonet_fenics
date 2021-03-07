@@ -179,7 +179,8 @@ class SGD(Model):
         self.optimizer.step()
 
         self.history = np.vstack([self.history, np.array([data['mu'].detach()[0][0], data['beta'].detach()[0][0], err.detach()])])  
-        return 1# err.detach()
+
+        return err.detach()
 
     def plot(self, fig_path):
         fig, ax = plt.subplots()
