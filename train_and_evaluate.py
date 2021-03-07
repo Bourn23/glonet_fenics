@@ -85,7 +85,6 @@ def train(eng, params, pca=None):
     
     # training loop
     with tqdm(params.numIter, descp = "sub_optimizers", leave = False) as t:
-    # for _ in range(params.numIter):
         it = 0  
         while True:
             it +=1 
