@@ -20,7 +20,8 @@ class engine:
         if self.batch_size == 1:
             self.mu = torch.tensor([[data['mu']]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
             self.beta = torch.tensor([[data['beta']]] * self.batch_size_, requires_grad=True, dtype=torch.float64)
-            self.force = data['force']
+            self.force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
+            
         else:
             mu = data['mu']
             beta = data['beta']
