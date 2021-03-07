@@ -186,14 +186,16 @@ class SGD(Model):
         t.set_description(f"SGD Loss: {err}", refresh=True)
 
     def plot(self, fig_path):
-        fig, ax = plt.subplots(1,2, figsize=(3,3))
+        fig, ax = plt.subplots(1,2, figsize=(3,6))
 
         # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
+        ax[0].set_title('history of mu and beta')
         ax[0].plot(self.history[:, 0], self.history[:, 1], 'rx')  # values obtained by torch
         ax[0].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
 
 
         # ax.contourf(X, Y, Z.reshape(X.shape))
+        ax[0].set_title('history of E_0 and nu_0')
         ax[1].plot(self.data[:, 0], self.data[:, 1], 'rx')  # values obtained by torch
         ax[1].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
 
