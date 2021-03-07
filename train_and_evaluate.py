@@ -77,7 +77,7 @@ def train(eng, params, pca=None):
         
 
         if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        else: print(f"{model} = {name}(params, eng)") ;         exec(f"{model}_1 = {name}(params, eng)"); active_models[f'{model}'] = model + '_1'
+        else:           exec(f"{model} = {name}(params, eng)"); active_models[f'{model}'] = model
         
         # experiment with having exec insantiate the class; how else I can insantiate?
     print(active_models)
@@ -118,7 +118,7 @@ def train(eng, params, pca=None):
                 # generate new samples
                 #TODO: remove exec (for faster execution); is it faster to pass eng in each round or should we keep it in the model's memory?
                 print(f"{model}.train(eng, t)") #TODO: implement it
-                exec(f"{model}.train(eng = eng, t = t)") #TODO: implement it
+                exec(f"{model}.train(eng, t)") #TODO: implement it
 
 
 
