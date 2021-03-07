@@ -66,19 +66,19 @@ def train(eng, params, pca=None):
         #     model_param = params.model
         # else: model_param = None
         model_param = None
+        # active_models[model] = name
+        # exec(f"from net import {name}")
+        # model_ = exec(f"active_models[model](params, eng)")
+        # active_models[model] = model_
+        #import
 
         name = model.split('_')[0]
-        active_models[model] = name
         exec(f"from net import {name}")
-        model_ = active_models[model](params, eng)
-        active_models[model] = model_
-        #import
-        # exec(f"from net import {name}")
 
-        # if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        # else:           exec(f"{model} = {name}(params, eng)")
-        # active_models.append(f'{model}')
-    print(active_models)
+        if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
+        else:           exec(f"{model} = {name}(params, eng)")
+        active_models.append(f'{model}')
+    # print(active_models)
 
 
     
@@ -115,7 +115,7 @@ def train(eng, params, pca=None):
             for model in active_models:
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
-                exec(f"err += {model}.train(eng)", locals()) #TODO: implement it
+                err += exec(f"{model}.train(eng)") #TODO: implement it
 
                 # err, mu, beta, mu_sgd, beta_sgd = evaluate_training_generator(generator, eng, params)
 
