@@ -268,7 +268,7 @@ class SGD(Model):
     def plot(self, params, fig_path):
         fig, ax = plt.subplots()
         print('checking params',params.E_0)
-        print('checking generator',self.E_0)
+        print('checking generator',self.generator.E_0)
 
         # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
         ax.plot(data[:, 0], data[:, 1], 'rx')  # values obtained by torch
