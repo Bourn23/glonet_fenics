@@ -26,7 +26,7 @@ Archives of codes
 
 import os
 import logging
-import tqdm
+from tqdm import trange
 from torch.autograd import Variable
 import torch.nn.functional as F
 from torchvision.utils import save_image
@@ -94,7 +94,7 @@ def train(eng, params, pca=None):
     
     # training loop
     # with tqdm(params.numIter, desc = "sub_optimizers", leave = False) as t:
-    for _ in tqdm(range(params.numIter), desc = "sub_optimizers", leave = False):
+    for _ in trange(params.numIter, desc = "sub_optimizers", leave = False):
         t=0
 
         it = 0  
