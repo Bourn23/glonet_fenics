@@ -159,7 +159,7 @@ def train(eng, params, pca=None):
                     fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
                     exec(f'{model}.plot(fig_path)')
 
-            t.update()
+            # t.update()
 
 
 
