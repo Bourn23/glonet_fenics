@@ -27,7 +27,7 @@ class engine:
             beta = data['beta']
             force = data['force']
         print('before update', self.mu)
-        self.u = self.model(mu, beta, force)
+        self.u = self.model(self.mu, self.beta, self.force)
 
         return self.u
     
