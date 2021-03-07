@@ -265,7 +265,17 @@ class SGD(Model):
 
         self.history = np.vstack([self.history, np.array([self.mu.detach()[0][0], self.beta.detach()[0][0], err.detach()])])  
 
+    def plot(self, params, fig_path):
+        fig, ax = plt.subplots()
+        print('checking params',params.E_0)
+        print('checking generator',self.E_0)
 
+        # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
+        ax.plot(data[:, 0], data[:, 1], 'rx')  # values obtained by torch
+        ax.plot(params.E_0, params.nu_0, 'ws')  # white = true value
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
 
 class SGD_Updater:
     def __init__(self, data, params, generator):

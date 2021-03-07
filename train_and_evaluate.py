@@ -147,9 +147,9 @@ def train(eng, params, pca=None):
             # plot 
             if it % params.plot_iter == 0:
                 #TODO: a unified structure for each model's plotting function is needed.
-                for model in active_model:
+                for model in active_models:
                     fig_path = params.output_dir +  f'/figures/{model}/Iter{params.iter}.png'
-                    model.plot(history, params, fig_path)
+                    model.plot(params, fig_path)
             
             t.set_description(f"Loss: {err} \t Mu: {mu} \t Beta: {beta}", refresh=True)
 
