@@ -204,13 +204,14 @@ class SGD(Model):
         plt.close()
 
     def evaluate(self):
-        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+        print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
                                 self.generator.beta[0, 0].detach().numpy())
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        print("=================================")
 
 class SGD_Updater:
     def __init__(self, data, params, generator):
