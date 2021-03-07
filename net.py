@@ -243,14 +243,15 @@ class SGD(Model):
 
     def train(self, eng):
         data = self.generator.generate()
-        effs = eng.Eval_Eff_1D_parallel(data)
+        pred_deflection = eng.Eval_Eff_1D_parallel(data)
         loss = torch.nn.MSELoss()
 
         # update local values (mu, beta, history)
         # do we need this ?? self.mu, self.beta, _ = generator.parameters()
+
         self.optimizer.zero_grad()
-        err = torch.log(loss(effs, eng.target_deflection))
-        err.backward(retain_graph=True)
+        err = torch.log(loss(pred_deflection, eng.target_deflection))
+        err.backward()
         self.history = np.vstack([self.history, np.array([self.mu.detach(), self.beta.detach(), self.err.detach()])])  
 
 
