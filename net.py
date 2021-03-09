@@ -136,14 +136,8 @@ class GPR(Model):
             # build internal memory
             self.data = np.vstack([self.data, np.array([self.generator.E_r, self.generator.nu_r, err])])
 
-    @staticmethod
-    def gp_ucb(self, x):
-        # acquisition function, maximize upper confidence bound (GP-UCB) 
-        if len(x.shape) < 2:
-            x = [x]
-        self.Z, self.U = self.gpr.predict(x, return_std=True)
-        return -self.Z + 1e-6*self.U
-
+    # @staticmethod
+    
 
     def train(self, eng, t, global_memory):
         self.init_data(eng, 1)
@@ -157,6 +151,14 @@ class GPR(Model):
 
         self.XY = np.hstack([self.X.reshape(-1, 1), self.Y.reshape(-1, 1)])
         self.Z, self.U = self.gpr.predict(self.XY, return_std=True)
+        
+        # acquisition function, maximize upper confidence bound (GP-UCB) 
+        def gp_ucb(x):
+            if len(x.shape) < 2:
+                x = [x]
+            Z, U = self.gpr.predict(x, return_std=True)
+            return -Z + 1e-6*U
+
         
         self.A = self.gp_ucb(self.XY)
 
