@@ -141,8 +141,8 @@ class GPR(Model):
         # acquisition function, maximize upper confidence bound (GP-UCB) 
         if len(x.shape) < 2:
             x = [x]
-        Z, U = gpr.predict(x, return_std=True)
-        return -Z + 1e-6*U
+        self.Z, self.U = self.gpr.predict(x, return_std=True)
+        return -self.Z + 1e-6*self.U
 
 
     def train(self, eng, t, global_memory):
