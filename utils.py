@@ -138,7 +138,7 @@ def plot_loss_history(active_models, global_memory):
     for name, model in active_models.items():
         name = name.lower()
         loss_history = dict()
-        exec(f'loss_history = global_memory.{name}_data', dict(), loss_history)
+        exec(f'loss_history = global_memory.{name}_data', globals(), loss_history)
         print(loss_history)
         E_history, nu_history, eff_history = loss_history
         iterations = [i*params.plot_iter for i in range(len(eff_history))]
