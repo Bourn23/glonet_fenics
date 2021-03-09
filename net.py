@@ -142,6 +142,28 @@ class GPR(Model):
     def train(self, eng, t, global_memory):
         self.init_data(eng, 1)
 #TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
+
+
+    def plot(self, fig_path, global_memory):
+        fig, ax = plt.subplots(1, 3, figsize=(9, 3))
+
+        ax[0].set_title('Predicted loss')
+        ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
+        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+        ax[0].plot(*self.next, 'rs')  # red = predicted value
+
+        ax[1].set_title('Uncertainty')
+        ax[1].contourf(self.X, self.Y, self.U.reshape(self.X.shape))
+
+        ax[2].set_title('Acquisition function')
+        ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
+
+    def evaluate(self, global_memory):
+        global_memory.gpr_data = self.data
+        #TODO: moved the training process to eval
         ls = np.std(self.data, axis=0)[:2]
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
         self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
@@ -151,6 +173,10 @@ class GPR(Model):
 
         self.XY = np.hstack([self.X.reshape(-1, 1), self.Y.reshape(-1, 1)])
         self.Z, self.U = self.gpr.predict(self.XY, return_std=True)
+
+        global_memory.gpr_X = self.X
+        global_memory.gpr_Y = self.Y
+        global_memory.gpr_Z = self.Z
         
         # acquisition function, maximize upper confidence bound (GP-UCB) 
         def gp_ucb(x):
@@ -170,26 +196,6 @@ class GPR(Model):
         self.res = minimize(gp_ucb, x0)
 
         self.next = self.res.x
-
-    def plot(self, fig_path):
-        fig, ax = plt.subplots(1, 3, figsize=(9, 3))
-
-        ax[0].set_title('Predicted loss')
-        ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
-        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
-        ax[0].plot(*self.next, 'rs')  # red = predicted value
-
-        ax[1].set_title('Uncertainty')
-        ax[1].contourf(self.X, self.Y, self.U.reshape(self.X.shape))
-
-        ax[2].set_title('Acquisition function')
-        ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
-
-        plt.savefig(fig_path, dpi = 300)
-        plt.close()
-
-    def evaluate(self, global_memory):
-        global_memory.gpr_data = self.data
 
 class SGD(Model):
     def __init__(self, params, eng):
@@ -216,16 +222,18 @@ class SGD(Model):
 
         # t.set_description(f"SGD Loss: {err}") #, refresh=True
 
-    def plot(self, fig_path):
+    def plot(self, fig_path, global_memory):
         fig, ax = plt.subplots(1,2, figsize=(6,3))
 
-        # ax.contourf(X, Y, Z.reshape(X.shape)) # these are gaussian models' values
+
+
+        if global_memory.gpr_X: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape)) # these are gaussian models' values
         ax[0].set_title('history of mu and beta')
         ax[0].plot(self.history[:, 0], self.history[:, 1], '-x')  # values obtained by torch
         ax[0].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
 
-        # ax.contourf(X, Y, Z.reshape(X.shape))
+        if global_memory.gpr_X: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         ax[0].set_title('history of E_0 and nu_0')
         ax[1].plot(self.data[:, 0], self.data[:, 1], '-x')  # values obtained by torch
         ax[1].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
