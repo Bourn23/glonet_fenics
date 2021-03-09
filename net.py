@@ -137,7 +137,7 @@ class GPR(Model):
             self.data = np.vstack([self.data, np.array([self.generator.E_r, self.generator.nu_r, err])])
 
     @staticmethod
-    def gp_ucb(x):
+    def gp_ucb(self, x):
         # acquisition function, maximize upper confidence bound (GP-UCB) 
         if len(x.shape) < 2:
             x = [x]
