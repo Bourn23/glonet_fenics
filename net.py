@@ -135,13 +135,12 @@ class GPR(Model):
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
-        # CY = np.hstack([global_memory.gpr_X.reshape(-1, 1), global_memory.gpr_Y.reshape(-1, 1)])
-        # Z = self.gpr.predict(CY, return_std=False)
-        Z = self.gpr.predict(global_memory.gpr_XY, return_std=False)
-        # get max
-        print(Z)
-        mu = np.max(Z)
-        # beta = np.max(Z[:, 2])
+
+        Z = -self.gpr.predict(self.gpr_XY, return_std=False)
+        Z = Z.reshape(self.X.shape)
+
+        mu = np.max(Z[:, 0])
+        beta = np.max(Z[:, 1])
         # plot
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
