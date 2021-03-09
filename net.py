@@ -129,7 +129,7 @@ class GPR(Model):
         from scipy.optimize import minimize
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
-        init_data(100, eng)
+        self.init_data(100, eng)
 
 
     def init_data(self, eng, i  = 200):
