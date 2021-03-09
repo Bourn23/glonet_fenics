@@ -174,7 +174,7 @@ class GPR(Model):
 
     def train(self, eng, t):
         ls = np.std(self.data, axis=0)[:2]
-        kernel = self.DotProduct() + WhiteKernel() + RBF(ls)
+        kernel = DotProduct() + WhiteKernel() + RBF(ls)
         self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
 
         self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
