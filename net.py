@@ -140,7 +140,7 @@ class GPR(Model):
             err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
             
             # build internal memory
-            self.data = np.vstack([self.data, np.array([self.generator.E_r, self.generator.nu_r, self.err])])
+            self.data = np.vstack([self.data, np.array([self.generator.E_r, self.generator.nu_r, err])])
 
     @staticmethod
     def gp_ucb(x):
