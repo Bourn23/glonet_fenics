@@ -149,8 +149,64 @@ class Model:
         pass
 
 
+class GPR(Model):
+    def __init__(self, params, eng):
+        super().__init__(params)
+        from sklearn.gaussian_process import GaussianProcessRegressor
+        from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
+        from scipy.optimize import minimize
+    
+
+    @staticmethod
+    def gp_ucb(x):
+        # acquisition function, maximize upper confidence bound (GP-UCB) 
+        if len(x.shape) < 2:
+            x = [x]
+        Z, U = gpr.predict(x, return_std=True)
+        return -Z + 1e-6*U
 
 
+    def train(self):
+        ls = np.std(self.data, axis=0)[:2]
+        kernel = DotProduct() + WhiteKernel() + RBF(ls)
+        self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
+
+        self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
+                        np.linspace(self.data[:, 1].min(), self.data[:, 1].max(), 11))
+
+        self.XY = np.hstack([X.reshape(-1, 1), Y.reshape(-1, 1)])
+        self.Z, self.U = gpr.predict(self.XY, return_std=True)
+        
+        self.A = gp_ucb(self.XY)
+
+        # find the maximal value in the acquisition function
+        best = np.argmax(self.A)
+        x0 = self.XY[best]
+
+        # find the optimal value from this regressor
+        self.res = minimize(gp_ucb, x0)
+
+        self.next = self.res.x
+
+    def plot(self, fig_path):
+        fig, ax = plt.subplots(1, 3, figsize=(9, 3))
+
+        ax[0].set_title('Predicted loss')
+        ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
+        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+        ax[0].plot(*self.next, 'rs')  # red = predicted value
+
+        ax[1].set_title('Uncertainty')
+        ax[1].contourf(self.X, self.Y, self.U.reshape(self.X.shape))
+
+        ax[2].set_title('Acquisition function')
+        ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
+
+    def evaluate(self):
+        pass
 
 class SGD(Model):
     def __init__(self, params, eng):

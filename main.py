@@ -99,7 +99,6 @@ if __name__ == '__main__':
     # for replica in tqdm.tqdm(np.arange(params.numGenerations)):
     for global_optimizer in trange(params.numGenerations, desc = "Global Optimization"):
         if params.numIter != 0 :
-            logging.info('Starting Sub Optimization')   
             train(eng, params, global_optimizer)
         logging.info('Evaluate Results and Ensemble Process')   
         evaluate(eng, params, global_optimizer)

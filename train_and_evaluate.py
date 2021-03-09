@@ -77,19 +77,11 @@ def train(eng, params, global_count, pca=None):
         #     model_param = params.model
         # else: model_param = None
         model_param = None
-        # active_models[model] = name
-        # exec(f"from net import {name}")
-        # model_ = exec(f"active_models[model](params, eng)")
-        # active_models[model] = model_
-        #import
 
-        name = model.split('_')[0]
-        
+        name = model.split('_')[0]        
 
-        if model_param: exec(f"{model} = {name}(model_params, eng)") #Init with params
-        # else:           ldict = dict(); exec(f"{model} = {name}(params, eng)", dict(), ldict)
+        if model_param: exec(f"active_models["{model}"] = {name}(model_params, eng)") #Init with params
         else:           exec(f'active_models["{model}"] = {name}(params, eng)')
-        print(active_models)
         # experiment with having exec insantiate the class; how else I can insantiate?
 
 
@@ -129,24 +121,20 @@ def train(eng, params, global_count, pca=None):
             # training model:
             for model in active_models.values():
                 # generate new samples
-                #TODO: remove exec (for faster execution); is it faster to pass eng in each round or should we keep it in the model's memory?
-                # exec(f"{model}.train(eng, t)") #TODO: implement it
+                #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
                 model.train(eng, t)
 
 
             # evaluate
             if it % params.eval_iter == 0 or it > params.numIter:
                 for model in active_models.values():
-                    # exec(f"{model}.evaluate()") #TODO: remove exec; implement evaluate
                     model.evaluate()
 
             # plot 
             if it % params.plot_iter == 0:
                 #TODO: a unified structure for each model's plotting function is needed.
-                for model in active_models.values():
-                    #plot
-                    fig_path = params.output_dir +  f'/figures/{model}/generation_{global_count}_{params.iter}.png'
-                    # exec(f'{model}.plot(fig_path)')
+                for name, model in active_models.items():
+                    fig_path = params.output_dir +  f'/figures/{name}/generation_{global_count}_{params.iter}.png'
                     model.plot(fig_path)
 
             # t.update()
