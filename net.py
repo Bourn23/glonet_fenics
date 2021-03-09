@@ -136,7 +136,7 @@ class GPR(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-        Z = -self.gpr.predict(self.gpr_XY, return_std=False)
+        Z = -self.gpr.predict(self.XY, return_std=False)
         Z = Z.reshape(self.X.shape)
 
         mu = np.max(Z[:, 0])
