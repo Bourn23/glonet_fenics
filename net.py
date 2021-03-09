@@ -136,7 +136,7 @@ class GPR(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-        Z = self.gpr.predict(x, return_std=False)
+        Z = self.gpr.predict(global_memory.gpr_X, return_std=False)
         # get max
         mu = np.max(Z[:, 1])
         beta = np.max(Z[:, 2])
@@ -260,3 +260,78 @@ class SGD(Model):
         global_memory.sgd_histry = self.history
         global_memory.sgd_data = self.data
 
+
+
+class GA(Model):
+    def __init__(self, params, eng, global_memory, model_params = None):
+        super().__init__(params)
+        loss = torch.nn.MSELoss()
+
+        self.creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+        self.creator.create("Individual", list, fitness=creator.FitnessMin)
+        IND_SIZE = 10
+
+        self.toolbox = base.Toolbox()
+        self.toolbox.register("attribute", random.random)
+        self.toolbox.register("individual", tools.initRepeat, creator.Individual,
+                        toolbox.attribute, n=IND_SIZE)
+        self.toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        self.stats = tools.Statistics(lambda ind: ind.fitness.values)
+        self.stats.register("avg", np.mean, axis=0)
+        self.stats.register("std", np.std, axis=0)
+        self.stats.register("min", np.min, axis=0)
+        self.stats.register("max", np.max, axis=0)
+        self.stats.register("efficiency", torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum())
+
+    def train(self, eng, t, global_memory):
+        """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
+        data = self.generator.generate()
+        pop = self.toolbox.population(n=MU)
+
+        
+
+        #algo here
+        MU, LAMBDA = 100, 200
+        
+        hof = tools.ParetoFront()
+
+        
+        pop, logbook = algorithms.eaMuPlusLambda(pop, self.toolbox, mu=MU, lambda_=LAMBDA,
+                                                cxpb=0.7, mutpb=0.3, ngen=40, 
+                                                stats=self.stats, halloffame=hof)
+        
+        
+
+        # self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
+        # E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
+        #                     data['mu'].detach().numpy())
+    
+        self.data = np.vstack([self.data, [pop, logbook, hof]])
+
+        # return pop, logbook, hof
+
+    def plot(self, fig_path, global_memory):
+        fig, ax = plt.subplots(figsize=(6,3))
+
+
+        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        except: pass
+
+        ax.set_title('history of E_0 and nu_0')
+        ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
+
+    def evaluate(self, global_memory):
+        print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
+                                self.generator.beta[0, 0].detach().numpy())
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
+                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        print("=================================")
+        global_memory.sgd_histry = self.history
+        global_memory.sgd_data = self.data
