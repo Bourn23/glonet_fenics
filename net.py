@@ -166,7 +166,7 @@ class GPR(Model):
         return -Z + 1e-6*U
 
 
-    def train(self):
+    def train(self, eng, t):
         ls = np.std(self.data, axis=0)[:2]
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
         self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
