@@ -254,7 +254,7 @@ class SGD(Model):
     def evaluate(self, global_memory):
         print("================SGD=================")
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
-
+        print('mu from sgd: ',self.generator.mu[0, 0].detach())
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
                                 self.generator.beta[0, 0].detach().numpy())
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
