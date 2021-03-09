@@ -174,6 +174,7 @@ class GPR(Model):
         self.XY = np.hstack([self.X.reshape(-1, 1), self.Y.reshape(-1, 1)])
         self.Z, self.U = self.gpr.predict(self.XY, return_std=True)
 
+        # adding to global state
         global_memory.gpr_X = self.X
         global_memory.gpr_Y = self.Y
         global_memory.gpr_Z = self.Z
@@ -226,15 +227,16 @@ class SGD(Model):
         fig, ax = plt.subplots(1,2, figsize=(6,3))
 
 
-
-        if global_memory.gpr_X: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape)) # these are gaussian models' values
+        try: ax[0].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape)) # these are gaussian models' values
+        except: pass
         ax[0].set_title('history of mu and beta')
         ax[0].plot(self.history[:, 0], self.history[:, 1], '-x')  # values obtained by torch
         ax[0].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
 
-        if global_memory.gpr_X: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
-        ax[0].set_title('history of E_0 and nu_0')
+        try: global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        except: pass
+        ax[1].set_title('history of E_0 and nu_0')
         ax[1].plot(self.data[:, 0], self.data[:, 1], '-x')  # values obtained by torch
         ax[1].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
