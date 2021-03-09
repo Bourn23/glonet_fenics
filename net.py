@@ -136,6 +136,22 @@ class GPR(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
+        Z = self.gpr.predict(x, return_std=False)
+        # get max
+        mu = np.max(Z[:, 1])
+        beta = np.max(Z[:, 2])
+        # plot
+        print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        E_f, nu_f = youngs_poisson(mu,
+                                beta)
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
+                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        print("=================================")
+        # global_memory.sgd_histry = self.history
+        # global_memory.sgd_data = self.data
+
     def evaluate(self, global_memory):
         global_memory.gpr_data = self.data
         #TODO: moved the training process to eval
