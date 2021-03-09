@@ -78,9 +78,9 @@ class Generator:
         return [self.mu, self.beta, self.force]
 
 
-    def generate(self):
+    def generate(self, sampling_mode = False):
         #TODO: multi data point generation? (* self.batch_size)
-        if self.sampling_mode: #or self.first_run:
+        if self.sampling_mode or sampling_mode: #or self.first_run:
             # self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
             # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
 
@@ -134,13 +134,13 @@ class GPR(Model):
 
     def init_data(self, eng, i  = 200):
         for i in range(i):
-            parameters = self.generator.generate()
+            parameters = self.generator.generate(sampling_mode = True)
 
             pred_deflection = eng.Eval_Eff_1D_parallel(parameters)
             err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
             
             # build internal memory
-            self.data = np.vstack([self.data, np.array([self.E_r, self.nu_r, self.err])])
+            self.data = np.vstack([self.data, np.array([self.generator.E_r, self.generator.nu_r, self.err])])
 
     @staticmethod
     def gp_ucb(x):
