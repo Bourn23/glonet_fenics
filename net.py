@@ -138,8 +138,9 @@ class GPR(Model):
         CY = np.hstack([global_memory.gpr_X.reshape(-1, 1), global_memory.gpr_Y.reshape(-1, 1)])
         Z = self.gpr.predict(CY, return_std=False)
         # get max
-        mu = np.max(Z[:, 1])
-        beta = np.max(Z[:, 2])
+        print(Z.size())
+        mu = np.max(Z)
+        # beta = np.max(Z[:, 2])
         # plot
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
