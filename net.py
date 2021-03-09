@@ -8,6 +8,11 @@ from metalayers import *
 import matplotlib.pyplot as plt
 from utils import lame, youngs_poisson
 
+# GPR
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
+from scipy.optimize import minimize
+
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 # class Generator:
@@ -155,7 +160,6 @@ class GPR(Model):
         from sklearn.gaussian_process import GaussianProcessRegressor
         from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
         from scipy.optimize import minimize
-        self.DotProduct = DotProduct()
 
     
 
