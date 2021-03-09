@@ -48,7 +48,7 @@ class Generator:
         return [self.mu, self.beta, self.force]
 
 
-    def generate(self, sampling_mode = False):
+    def generate(self, sampling = False):
         #TODO: multi data point generation? (* self.batch_size)
         if self.sampling_mode or sampling_mode: #or self.first_run:
             self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
@@ -103,13 +103,13 @@ class GPR(Model):
 
     def init_data(self, eng, i  = 200):
         for i in range(i):
-            parameters = self.generator.generate(sampling_mode = True)
+            parameters = self.generator.generate(sampling = True)
 
             pred_deflection = eng.Eval_Eff_1D_parallel(parameters)
             err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
             
             # build internal memory
-            self.data = np.vstack([self.data, np.array([self.generator.E_r, self.generator.nu_r, err])])
+            self.data = np.vstack([self.data, np.array([parameters['E_r'], parameters['nu_r'], err])])
 
     # @staticmethod
     
@@ -138,8 +138,9 @@ class GPR(Model):
 
         Z = -self.gpr.predict(self.XY, return_std=False)
         Z = Z.reshape(self.X.shape)
-
+        print(Z)
         mu = np.max(Z[:, 0])
+        print('mu is ', mu)
         beta = np.max(Z[:, 1])
         # plot
         print("================GPR=================")
