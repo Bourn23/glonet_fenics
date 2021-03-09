@@ -6,5 +6,5 @@ typing
 tqdm
 matplotlib
 sklearn
-
+deap
 
