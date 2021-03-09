@@ -44,8 +44,8 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 def evaluate(eng, params, global_memory, global_iter, elapsed_time):
     #TODO: compute Confidence Interval and also do statistical testing on the results.
-    print('=====SUMMARY STATISTICS====')
-    print(f'Elapsed Time: {elapsed_time}')
+    print('==========SUMMARY STATISTICS=========')
+    print(f'Elapsed Time: {elapsed_time} (s)')
     print(f'Total Iterations: {params.numIter}')
     
     for model in active_models.values():
