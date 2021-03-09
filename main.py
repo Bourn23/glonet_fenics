@@ -105,7 +105,7 @@ if __name__ == '__main__':
         end_time = time.time()
         elapsed = round(end_time - start_time, 2)
         logging.info('Evaluate Results and Ensemble Process')   
-        evaluate(eng, params, global_memory, global_optimizer, elapsed_time)
+        evaluate(eng, params, global_memory, global_optimizer, elapsed)
     # Generate images and save 
     # logging.info('Start generating devices')
 
