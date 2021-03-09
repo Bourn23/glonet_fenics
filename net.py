@@ -50,7 +50,7 @@ class Generator:
 
     def generate(self, sampling = False):
         #TODO: multi data point generation? (* self.batch_size)
-        if self.sampling_mode or sampling_mode: #or self.first_run:
+        if self.sampling_mode or sampling: #or self.first_run:
             self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
             self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
             self.mu, self.beta = lame(self.E_r, self.nu_r)
