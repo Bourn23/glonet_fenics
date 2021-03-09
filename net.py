@@ -235,12 +235,20 @@ class SGD(Model):
         # ax[0].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
 
-        try: global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
-        except: pass
-        ax[1].set_title('history of E_0 and nu_0')
-        ax[1].plot(self.data[:, 0], self.data[:, 1], '-x')  # values obtained by torch
-        ax[1].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
+        # try: if global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        # except: pass
+        # # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        # ax[1].set_title('history of E_0 and nu_0')
+        # ax[1].plot(self.data[:, 0], self.data[:, 1], '-x')  # values obtained by torch
+        # ax[1].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
+
+        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        except: pass
+        # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        ax.set_title('history of E_0 and nu_0')
+        ax.plot(self.data[:, 0], self.data[:, 1], '-x')  # values obtained by torch
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
