@@ -134,26 +134,29 @@ def load_checkpoint(checkpoint, model, optimizer=None, scheduler=None):
     return checkpoint
 
 
-def plot_loss_history(loss_history, params):
-    effs_mean_history, beta_history, mu_history = loss_history
-    iterations = [i*params.plot_iter for i in range(len(effs_mean_history))]
-    plt.figure()
-    # logging.info(f"iterations is {iterations}")
-    plt.plot(iterations, effs_mean_history)
-    plt.plot(iterations, beta_history)
-    plt.plot(iterations, mu_history)
-    plt.xlabel('iteration')
-    plt.legend(('Average Loss', 'mu', 'beta'))
-    plt.axis([0, len(effs_mean_history)*params.plot_iter, 0, 1.05])
-    plt.savefig(params.output_dir + '/figures/Train_history.png')
+def plot_loss_history(active_models, global_memory):
+    for name, model in active_models.items():
+        exec(f'loss_history = global_memory.f{name}_data'
+        E_history, nu_history, eff_history = loss_history
+        iterations = [i*params.plot_iter for i in range(len(eff_history))]
+        plt.figure()
+        # logging.info(f"iterations is {iterations}")
+        plt.plot(iterations, E_history)
+        plt.plot(iterations, nu_history)
+        plt.plot(iterations, eff_history)
+        plt.xlabel('iteration')
+        plt.legend(('E', 'nu', 'error'))
+        plt.axis([0, len(eff_history)*params.plot_iter, 0, 1.05])
+        plt.savefig(params.output_dir + f'/figures/Train_history_{name}.png')
 
-    history_path = os.path.join(params.output_dir,'history.mat')
-    io.savemat(history_path, mdict={'effs_mean_history'   :np.asarray(effs_mean_history), 
-                                    'beta_history'   :np.asarray(beta_history),
-                                    'mu_history':np.asarray(mu_history)})
+        history_path = os.path.join(params.output_dir,f'history_{name}.mat')
+        io.savemat(history_path, mdict={'effs_mean_history'   :np.asarray(effs_mean_history), 
+                                        'beta_history'   :np.asarray(beta_history),
+                                        'mu_history':np.asarray(mu_history)})
 
-    plt.close()
+        plt.close()
          
+# convergence of the algorithms (error - iteration)
 
 def plot_histogram(Effs, Iter, fig_path):
     ax = plt.figure()

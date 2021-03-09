@@ -43,7 +43,7 @@ Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTen
 
 
 def evaluate(eng, params, global_memory, global_iter):
-    pass
+    plot_loss_history(active_models, global_memory)
     # for model in active_models:
     #     #EVAL
         # exec(f"{model}.evaluate()", dict(), {'':}) #TODO: remove exec; implement evaluate
