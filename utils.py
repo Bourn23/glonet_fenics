@@ -149,9 +149,9 @@ def plot_loss_history(params, active_models, global_memory):
         plt.savefig(params.output_dir + f'/figures/Train_history_{name}.png')
 
         history_path = os.path.join(params.output_dir,f'history_{name}.mat')
-        io.savemat(history_path, mdict={'effs_mean_history'   :np.asarray(effs_mean_history), 
-                                        'beta_history'   :np.asarray(beta_history),
-                                        'mu_history':np.asarray(mu_history)})
+        io.savemat(history_path, mdict={'eff_history'   :np.asarray(eff_history), 
+                                        'E_history'   :np.asarray(E_history),
+                                        'nu_history':np.asarray(nu_history)})
 
         plt.close()
          
