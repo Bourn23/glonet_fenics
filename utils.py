@@ -138,14 +138,23 @@ def plot_loss_history(params, active_models, global_memory):
     for name, model in active_models.items():
         E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
         iterations = [i*params.plot_iter for i in range(len(eff_history))]
-        plt.figure()
+        plt, ax = plt.subplots((1, 3))
         # logging.info(f"iterations is {iterations}")
-        plt.plot(iterations, E_history)
-        plt.plot(iterations, nu_history)
-        plt.plot(iterations, eff_history)
-        plt.xlabel('iteration')
-        plt.legend(('E', 'nu', 'error'))
-        plt.axis([0, len(eff_history)*params.plot_iter, 0, 1.05])
+        ax[0].plot(iterations, E_history)
+        ax[0].xlabel('iteration')
+        ax[0].ylabel('Error History')
+        ax[0].axis([0, len(eff_history)*params.plot_iter, 0, 1.05])
+
+        ax[1].plot(iterations, nu_history)
+        ax[1].xlabel('iteration')
+        ax[1].set_title('Nu History')
+        ax[1].axis([0, len(eff_history)*params.plot_iter, 0, 1.05])
+
+        ax[2].plot(iterations, eff_history)
+        ax[2].xlabel('iteration')
+        ax[2].ylabel('E History')
+        ax[2].axis([0, len(eff_history)*params.plot_iter, 0, 1.05])
+        # plt.legend(('E', 'nu', 'error'))
         plt.savefig(params.output_dir + f'/figures/Train_history_{name}.png')
 
         history_path = os.path.join(params.output_dir,f'history_{name}.mat')
