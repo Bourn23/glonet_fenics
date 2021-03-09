@@ -138,7 +138,7 @@ def plot_loss_history(params, active_models, global_memory):
     for name, model in active_models.items():
         E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
         iterations = [i*params.plot_iter for i in range(len(eff_history))]
-        plt, ax = plt.subplots((1, 3))
+        fig, ax = plt.subplots(1, 3)
         # logging.info(f"iterations is {iterations}")
         ax[0].plot(iterations, E_history)
         ax[0].xlabel('iteration')
