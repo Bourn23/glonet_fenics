@@ -1,5 +1,6 @@
 from torch_fenics_model import *
 from matlab import *
+import time
 import os
 import logging
 import argparse
@@ -98,10 +99,13 @@ if __name__ == '__main__':
     # Train the model and save 
     # for replica in tqdm.tqdm(np.arange(params.numGenerations)):
     for global_optimizer in trange(params.numGenerations, desc = "Global Optimization"):
+        start_time = time.time()
         if params.numIter != 0 :
             train(eng, params, global_memory, global_optimizer)
+        end_time = time.time()
+        elapsed = round(end_time - start_time, 2)
         logging.info('Evaluate Results and Ensemble Process')   
-        evaluate(eng, params, global_memory, global_optimizer)
+        evaluate(eng, params, global_memory, global_optimizer, elapsed_time)
     # Generate images and save 
     # logging.info('Start generating devices')
 

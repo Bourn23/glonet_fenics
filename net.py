@@ -136,6 +136,7 @@ class GPR(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
+    def summary_statistics(self): # TODO: convert this table to a function..
         Z = -self.gpr.predict(self.XY, return_std=False)
         Z = Z.reshape(self.X.shape)
 
@@ -151,8 +152,7 @@ class GPR(Model):
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**5-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
         
-        # global_memory.sgd_histry = self.history
-        # global_memory.sgd_data = self.data
+
 
     def evaluate(self, global_memory):
         global_memory.gpr_data = self.data
@@ -251,6 +251,18 @@ class SGD(Model):
         plt.close()
 
     def evaluate(self, global_memory):
+        # print("================SGD=================")
+        # print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        # E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
+        #                         self.generator.beta[0, 0].detach().numpy())
+        # print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        # print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
+        #                                                 (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        global_memory.sgd_histry = self.history
+        global_memory.sgd_data = self.data
+
+    def summary_statistics(self):
         print("================SGD=================")
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
@@ -259,9 +271,6 @@ class SGD(Model):
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
-        global_memory.sgd_histry = self.history
-        global_memory.sgd_data = self.data
-
 
 
 class GA(Model):

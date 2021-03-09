@@ -42,25 +42,23 @@ from net import *
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
-def evaluate(eng, params, global_memory, global_iter):
-    plot_loss_history(active_models, global_memory)
-    # for model in active_models:
-    #     #EVAL
-        # exec(f"{model}.evaluate()", dict(), {'':}) #TODO: remove exec; implement evaluate
-
-    #     # PLOT
-    #     fig_path = params.output_dir +  f'/figures/{model}/generation_{global_iter}.png'
-    #     exec(f'{model}.plot(fig_path)')
-
+def evaluate(eng, params, global_memory, global_iter, elapsed_time):
+    #TODO: compute Confidence Interval and also do statistical testing on the results.
+    print('=====SUMMARY STATISTICS====')
+    print(f'Elapsed Time: {elapsed_time}')
+    print(f'Total Iterations: {params.numIter}')
     
+    for model in active_models.values():
+        model.summary_statistics()
 
-
-
+    # save data files and plot
+    utils.plot_loss_history(active_models, global_memory)
+    
 
 def train(eng, params, global_memory, global_count, pca=None):
     global active_models
     # initialization
-    #TODO: enable restoring model
+    #TODO: enable restoring model (models are now saved just restore it!)
     if params.restore_from is None:
         data = np.zeros([0,3]) # data for gradient descent
         iter0 = 0   
