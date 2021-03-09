@@ -160,14 +160,14 @@ class GPR(Model):
             return -Z + 1e-6*U
 
         
-        self.A = self.gp_ucb(self.XY)
+        self.A = gp_ucb(self.XY)
 
         # find the maximal value in the acquisition function
         best = np.argmax(self.A)
         x0 = self.XY[best]
 
         # find the optimal value from this regressor
-        self.res = minimize(self.gp_ucb, x0)
+        self.res = minimize(gp_ucb, x0)
 
         self.next = self.res.x
 
