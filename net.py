@@ -143,7 +143,7 @@ class GPR(Model):
         mu = np.max(Z[:, 0])
         beta = np.max(Z[:, 1])
         # plot
-        print("================GPR=================")
+        print("\n================GPR=================")
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(mu,
@@ -263,8 +263,8 @@ class SGD(Model):
         global_memory.sgd_data = self.data
 
     def summary_statistics(self):
-        print("================SGD=================")
-        print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+        print("\n================SGD=================")
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
                                 self.generator.beta[0, 0].detach().numpy())
