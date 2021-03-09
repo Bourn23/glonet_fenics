@@ -149,7 +149,7 @@ class GPR(Model):
                                 beta)
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**5-self.generator.E_0)/self.generator.E_0*100,
-                                                        (nu_f* 10**5-self.generator.nu_0)/self.generator.nu_0*100))
+                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
         
         # global_memory.sgd_histry = self.history
         # global_memory.sgd_data = self.data
