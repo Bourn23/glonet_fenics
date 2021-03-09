@@ -152,7 +152,7 @@ class GPR(Model):
 
 
     def train(self, eng, t, global_memory):
-        init_data(eng, 1)
+        self.init_data(eng, 1)
 #TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
         ls = np.std(self.data, axis=0)[:2]
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
