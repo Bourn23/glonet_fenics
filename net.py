@@ -138,9 +138,8 @@ class GPR(Model):
 
         Z = -self.gpr.predict(self.XY, return_std=False)
         Z = Z.reshape(self.X.shape)
-        print(Z)
+
         mu = np.max(Z[:, 0])
-        print('mu is ', mu)
         beta = np.max(Z[:, 1])
         # plot
         print("================GPR=================")
@@ -149,8 +148,8 @@ class GPR(Model):
         E_f, nu_f = youngs_poisson(mu,
                                 beta)
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
-        print('error:           {:7.2f}% {:7.2f}%'.format((E_f*E5-self.generator.E_0)/self.generator.E_0*100,
-                                                        (nu_f*E5-self.generator.nu_0)/self.generator.nu_0*100))
+        print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**5-self.generator.E_0)/self.generator.E_0*100,
+                                                        (nu_f* 10**5-self.generator.nu_0)/self.generator.nu_0*100))
         
         # global_memory.sgd_histry = self.history
         # global_memory.sgd_data = self.data
