@@ -39,6 +39,9 @@ import numpy as np
 from dolfin import *; from mshr import *
 from net import *
 
+import warnings
+warnings.filterwarnings("ignore", category = UserWarning)
+
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
