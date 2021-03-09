@@ -134,7 +134,7 @@ def train(eng, params, global_memory, global_count, pca=None):
             if it % params.plot_iter == 0:
                 #TODO: a unified structure for each model's plotting function is needed.
                 for name, model in active_models.items():
-                    fig_path = params.output_dir +  f'/figures/{name}/generation_{global_count}_{params.iter}.png'
+                    fig_path = params.output_dir +  f'/figures/{name}/{name}_{global_count}_{params.iter}.png'
                     model.plot(fig_path, global_memory)
 
             # t.update()
