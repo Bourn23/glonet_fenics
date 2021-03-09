@@ -13,6 +13,13 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
 from scipy.optimize import minimize
 
+
+# GA
+from deap import base, creator
+from deap import tools
+import random
+
+
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
@@ -86,7 +93,8 @@ class GPR(Model):
         from scipy.optimize import minimize
         
         # loading from memory:
-        try: if global_memory.gpr_XY: self.data = global_memory.gpr_data
+        try: self.data = global_memory.gpr_data
+        except: pass
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
@@ -108,7 +116,7 @@ class GPR(Model):
 
     def train(self, eng, t, global_memory):
         self.init_data(eng, 1)
-#TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
+    #TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
 
 
     def plot(self, fig_path, global_memory):
@@ -168,6 +176,7 @@ class GPR(Model):
         global_memory.gpr_Z = self.Z
         global_memory.gpr_XY = self.XY
 
+
 class SGD(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
@@ -216,6 +225,78 @@ class SGD(Model):
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
         # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        ax.set_title('history of E_0 and nu_0')
+        ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
+
+    def evaluate(self, global_memory):
+        print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
+                                self.generator.beta[0, 0].detach().numpy())
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
+                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        print("=================================")
+        global_memory.sgd_histry = self.history
+        global_memory.sgd_data = self.data
+
+
+class GA(Model):
+    def __init__(self, params, eng, global_memory, model_params = None):
+        super().__init__(params)
+        self.creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+        self.creator.create("Individual", list, fitness=creator.FitnessMin)
+        IND_SIZE = 10
+
+        self.toolbox = base.Toolbox()
+        self.toolbox.register("attribute", random.random)
+        self.toolbox.register("individual", tools.initRepeat, creator.Individual,
+                        toolbox.attribute, n=IND_SIZE)
+        self.toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
+    def train(self, eng, t, global_memory):
+        """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
+        data = self.generator.generate()
+        pop = toolbox.population(n=MU)
+
+        
+
+        #algo here
+        MU, LAMBDA = 100, 200
+        
+        hof = tools.ParetoFront()
+        stats = tools.Statistics(lambda ind: ind.fitness.values)
+        stats.register("avg", numpy.mean, axis=0)
+        stats.register("std", numpy.std, axis=0)
+        stats.register("min", numpy.min, axis=0)
+        stats.register("max", numpy.max, axis=0)
+        stats.register("efficiency", eng.Eval_Eff_1D_parallel(data)
+        
+        pop, logbook = algorithms.eaMuPlusLambda(pop, toolbox, mu=MU, lambda_=LAMBDA,
+                                                cxpb=0.7, mutpb=0.3, ngen=40, 
+                                                stats=stats, halloffame=hof)
+        
+        
+
+        self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
+        E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
+                            data['mu'].detach().numpy())
+    
+        self.data = np.vstack([self.data, [E_f, nu_f, err.detach().numpy()]])
+
+        return pop, logbook, hof
+
+    def plot(self, fig_path, global_memory):
+        fig, ax = plt.subplots(figsize=(6,3))
+
+
+        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        except: pass
+
         ax.set_title('history of E_0 and nu_0')
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
