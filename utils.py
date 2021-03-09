@@ -134,7 +134,7 @@ def load_checkpoint(checkpoint, model, optimizer=None, scheduler=None):
     return checkpoint
 
 
-def plot_loss_history(active_models, global_memory):
+def plot_loss_history(params, active_models, global_memory):
     for name, model in active_models.items():
         E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
         iterations = [i*params.plot_iter for i in range(len(eff_history))]
