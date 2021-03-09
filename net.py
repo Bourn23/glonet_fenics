@@ -86,7 +86,7 @@ class Model:
 
 
 class GPR(Model):
-    def __init__(self, params, eng, global_memory, model_params):
+    def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
         from sklearn.gaussian_process import GaussianProcessRegressor
         from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
