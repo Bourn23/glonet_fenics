@@ -42,7 +42,7 @@ from net import *
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
-def evaluate(eng, params, global_iter):
+def evaluate(eng, params, global_memory, global_iter):
     pass
     # for model in active_models:
     #     #EVAL
@@ -57,7 +57,7 @@ def evaluate(eng, params, global_iter):
 
 
 
-def train(eng, params, global_count, pca=None):
+def train(eng, params, global_memory, global_count, pca=None):
     global active_models
     # initialization
     #TODO: enable restoring model
@@ -128,7 +128,7 @@ def train(eng, params, global_count, pca=None):
             # evaluate
             if it % params.eval_iter == 0 or it > params.numIter:
                 for model in active_models.values():
-                    model.evaluate()
+                    model.evaluate(global_memory)
 
             # plot 
             if it % params.plot_iter == 0:

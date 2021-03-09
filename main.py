@@ -5,7 +5,7 @@ import logging
 import argparse
 import numpy as np
 from train_and_evaluate import evaluate, train
-from net import Generator
+from net import Model
 import utils
 import torch
 from tqdm import trange
@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
 
     # Define the models 
-    #generator = Generator(params)
+    global_memory = Model(params)
         
     # Move to gpu if possible
     # if params.cuda:
@@ -99,9 +99,9 @@ if __name__ == '__main__':
     # for replica in tqdm.tqdm(np.arange(params.numGenerations)):
     for global_optimizer in trange(params.numGenerations, desc = "Global Optimization"):
         if params.numIter != 0 :
-            train(eng, params, global_optimizer)
+            train(eng, params, global_memory, global_optimizer)
         logging.info('Evaluate Results and Ensemble Process')   
-        evaluate(eng, params, global_optimizer)
+        evaluate(eng, params, global_memory, global_optimizer)
     # Generate images and save 
     # logging.info('Start generating devices')
 

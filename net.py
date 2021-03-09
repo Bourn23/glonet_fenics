@@ -110,42 +110,9 @@ class Model:
     def train(self, eng):
         # params: eng; physics engine
         pass
-        # run the simulation and obtain values
-        # samples = self.generator.generate()
-        # effs = eng.Eval_Eff_1D_parallel(data)
-        # loss = torch.nn.MSELoss()
-        # err = loss(effs, eng.target_deflection)
-
-        # # update local values (mu, beta, history)
-        # # do we need this ?? self.mu, self.beta, _ = generator.parameters()
-        # optimizer.zero_grad()
-        # err = torch.log(loss(s_r, s_0))
-        # err.backward(retain_graph=True)
-        # self.history = np.vstack([self.history, np.array([self.mu, self.beta, self.err])])
 
     def evaluate(self, eng):
-        # generate images
-        samples = self.generator.generate()
-        
-
-        # efficiencies of generated images
-        effs = eng.Eval_Eff_1D_parallel(data)
-        loss = torch.nn.MSELoss()
-        error = loss(effs, eng.target_deflection)
-        # error = loss(effs.cpu().detach(), eng.target_deflection)
-
-        # get most recent mu and beta values
-        mu_sgd, beta_sgd, force = generator.params_sgd()
-
-
-        # plot histogram
-        #TODO: replace utils.plot_histogram with wes' plotting function
-        # fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-        # utils.plot_histogram(error, params.iter, fig_path)
-
-        
-        # return error.detach(), v[0], v[1], mu_sgd, beta_sgd
-        return
+        pass
 
     def generate_data(self):
         pass
@@ -160,8 +127,20 @@ class GPR(Model):
         from sklearn.gaussian_process import GaussianProcessRegressor
         from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
         from scipy.optimize import minimize
+        self.loss = nn.MSELoss()
+        # init_data(params.gpr_init)
+        init_data(100, eng)
 
-    
+
+    def init_data(self, eng, i  = 200):
+        for i in range(i):
+            parameters = self.generator.generate()
+
+            pred_deflection = eng.Eval_Eff_1D_parallel(parameters)
+            err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
+            
+            # build internal memory
+            self.data = np.vstack([self.data, np.array([self.E_r, self.nu_r, self.err])])
 
     @staticmethod
     def gp_ucb(x):
@@ -172,7 +151,9 @@ class GPR(Model):
         return -Z + 1e-6*U
 
 
-    def train(self, eng, t):
+    def train(self, eng, t, global_memory):
+        init_data(eng, 1)
+#TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
         ls = np.std(self.data, axis=0)[:2]
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
         self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
@@ -180,17 +161,17 @@ class GPR(Model):
         self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
                         np.linspace(self.data[:, 1].min(), self.data[:, 1].max(), 11))
 
-        self.XY = np.hstack([X.reshape(-1, 1), Y.reshape(-1, 1)])
-        self.Z, self.U = gpr.predict(self.XY, return_std=True)
+        self.XY = np.hstack([self.X.reshape(-1, 1), self.Y.reshape(-1, 1)])
+        self.Z, self.U = self.gpr.predict(self.XY, return_std=True)
         
-        self.A = gp_ucb(self.XY)
+        self.A = self.gp_ucb(self.XY)
 
         # find the maximal value in the acquisition function
         best = np.argmax(self.A)
         x0 = self.XY[best]
 
         # find the optimal value from this regressor
-        self.res = minimize(gp_ucb, x0)
+        self.res = minimize(self.gp_ucb, x0)
 
         self.next = self.res.x
 
@@ -211,8 +192,8 @@ class GPR(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-    def evaluate(self):
-        pass
+    def evaluate(self, global_memory):
+        global_memory.gpr_data = self.data
 
 class SGD(Model):
     def __init__(self, params, eng):
@@ -220,7 +201,8 @@ class SGD(Model):
         self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
         self.loss = torch.nn.MSELoss()
 
-    def train(self, eng, t):
+    def train(self, eng, t, global_memory):
+        """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
         data = self.generator.generate()
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
 
@@ -256,7 +238,7 @@ class SGD(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-    def evaluate(self):
+    def evaluate(self, global_memory):
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
@@ -265,6 +247,8 @@ class SGD(Model):
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
         print("=================================")
+        global_memory.sgd_histry = self.history
+        global_memory.sgd_data = self.data
 
 class SGD_Updater:
     def __init__(self, data, params, generator):
