@@ -122,7 +122,7 @@ def train(eng, params, global_memory, global_count, pca=None):
             for model in active_models.values():
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
-                model.train(eng, t)
+                model.train(eng, t, global_memory)
 
 
             # evaluate

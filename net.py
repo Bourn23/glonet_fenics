@@ -81,9 +81,6 @@ class Generator:
     def generate(self, sampling_mode = False):
         #TODO: multi data point generation? (* self.batch_size)
         if self.sampling_mode or sampling_mode: #or self.first_run:
-            # self.mu, self.beta = torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.mu_+torch.rand(1)[0]*10).requires_grad_(True), torch.DoubleTensor(self.batch_size_, 1).uniform_(0., self.beta_+torch.rand(1)[0]*10).requires_grad_(True)
-            # self.force = torch.DoubleTensor([[self.force_]] * self.batch_size_)#, ruquires_grad = True)
-
             self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
             self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
             self.mu, self.beta = lame(self.E_r, self.nu_r)
@@ -92,10 +89,7 @@ class Generator:
             self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
             
             self.first_run = False
-            print("Sampling mode: ON")
-
             
-        # return [[self.mu, self.beta, self.force],(self.E_r, self.nu_r)]
         return {'mu': self.mu, 'beta': self.beta, 'force': self.force, 'E_r': self.E_r, 'nu_r': self.nu_r}
 
 
