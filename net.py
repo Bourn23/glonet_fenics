@@ -214,7 +214,7 @@ class SGD(Model):
         err.backward()
         self.optimizer.step()
 
-        self.history = np.vstack([self.history, np.array([data['mu'][0][0].detach(), data['beta'][0][0].detach(), err.detach().numpy()])])  
+        self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
         E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
                             data['mu'].detach().numpy())
     
@@ -224,14 +224,15 @@ class SGD(Model):
         # t.set_description(f"SGD Loss: {err}") #, refresh=True
 
     def plot(self, fig_path, global_memory):
-        fig, ax = plt.subplots(1,2, figsize=(6,3))
+        # fig, ax = plt.subplots(1,2, figsize=(6,3))
+        fig, ax = plt.subplots(figsize=(6,3))
 
 
-        try: ax[0].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape)) # these are gaussian models' values
-        except: pass
-        ax[0].set_title('history of mu and beta')
-        ax[0].plot(self.history[:, 0], self.history[:, 1], '-x')  # values obtained by torch
-        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
+        # try: ax[0].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape)) # these are gaussian models' values
+        # except: pass
+        # ax[0].set_title('history of mu and beta')
+        # ax[0].plot(self.history[:, 0], self.history[:, 1], '-x')  # values obtained by torch
+        # ax[0].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
 
         try: global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
