@@ -135,8 +135,9 @@ class GPR(Model):
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
-        CY = np.hstack([global_memory.gpr_X.reshape(-1, 1), global_memory.gpr_Y.reshape(-1, 1)])
-        Z = self.gpr.predict(CY, return_std=False)
+        # CY = np.hstack([global_memory.gpr_X.reshape(-1, 1), global_memory.gpr_Y.reshape(-1, 1)])
+        # Z = self.gpr.predict(CY, return_std=False)
+        Z = self.gpr.predict(global_memory.gpr_XY, return_std=False)
         # get max
         print(Z)
         mu = np.max(Z)
