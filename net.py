@@ -265,7 +265,7 @@ class SGD(Model):
         global_memory.sgd_histry = self.history
         global_memory.sgd_data = self.data
 
-    def summary_statistics(self):
+    def summary_statistics(self, global_memory):
         print("\n-------------SGD---------------")
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
