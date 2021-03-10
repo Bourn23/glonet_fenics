@@ -138,7 +138,7 @@ def train(eng, params, global_memory, global_count, pca=None):
                     fig_path = params.output_dir +  f'/figures/{name}/{name}_{global_count}_{params.iter}.png'
                     model.plot(fig_path, global_memory)
 
-            t.update()
+            # t.update()
 
 
 
