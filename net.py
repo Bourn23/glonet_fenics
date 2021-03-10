@@ -152,7 +152,7 @@ class GPR(Model):
         relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
         relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
-                                                        relative_nu_error)
+                                                        relative_nu_error))
         
         try:    global_memory.gpr_loss_history = np.vstack([global_memory.gpr_loss_history, [relative_E_error, relative_nu_error]])
         except: global_memory.gpr_loss_history = np.array([relative_E_error, relative_nu_error])
@@ -277,7 +277,7 @@ class SGD(Model):
         # print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
         #                                                 (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
-                                                        relative_nu_error)
+                                                        relative_nu_error))
         
         try:    global_memory.sgd_loss_history = np.vstack([global_memory.sgd_loss_history, [relative_E_error, relative_nu_error]])
         except: global_memory.sgd_loss_history = np.array([relative_E_error, relative_nu_error])
