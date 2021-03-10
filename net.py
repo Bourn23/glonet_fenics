@@ -136,7 +136,7 @@ class GPR(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-    def summary_statistics(self): # TODO: convert this table to a function..
+    def summary_statistics(self, global_memory): # TODO: convert this table to a function..
         Z = -self.gpr.predict(self.XY, return_std=False)
         Z = Z.reshape(self.X.shape)
 
@@ -149,10 +149,13 @@ class GPR(Model):
         E_f, nu_f = youngs_poisson(mu,
                                 beta)
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
-        print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**5-self.generator.E_0)/self.generator.E_0*100,
-                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
+                                                        relative_nu_error)
         
-
+        try:    global_memory.gpr_loss_history = np.vstack([global_memory.gpr_loss_history, [relative_E_error, relative_nu_error]])
+        except: global_memory.gpr_loss_history = np.array([relative_E_error, relative_nu_error])
 
     def evaluate(self, global_memory):
         global_memory.gpr_data = self.data
@@ -269,9 +272,15 @@ class SGD(Model):
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
                                 self.generator.beta[0, 0].detach().numpy())
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
-        print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
-                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
-
+        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+        # print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
+        #                                                 (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
+                                                        relative_nu_error)
+        
+        try:    global_memory.sgd_loss_history = np.vstack([global_memory.gpr_loss_history, [relative_E_error, relative_nu_error]])
+        except: global_memory.sgd_loss_history = np.array([relative_E_error, relative_nu_error])
 
 class GA(Model):
     def __init__(self, params, eng, global_memory, model_params = None):

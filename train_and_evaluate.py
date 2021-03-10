@@ -44,15 +44,23 @@ warnings.filterwarnings("ignore", category = UserWarning)
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
+def summarize(global_memory):
+    #TODO; make it scalble
+    # for name, model in active_models.items():
+    #     print(f"{name} average error: ", np.mean(global_memory.sgd_loss_history))
+        
+    print("SGD average error: ,", np.mean(global_memory.sgd_loss_history))
+    print("GPR average error: ,", np.mean(global_memory.gpr_loss_history))
+
 
 def evaluate(eng, params, global_memory, global_iter, elapsed_time):
     #TODO: compute Confidence Interval and also do statistical testing on the results.
     print('==========SUMMARY STATISTICS=========')
-    print(f'Elapsed Time: {elapsed_time} (s)')
+    print(f'Elapsed Time: {elapsed_time} (s)') # sum up total time.
     print(f'Total Iterations: {params.numIter}')
     
     for model in active_models.values():
-        model.summary_statistics()
+        model.summary_statistics(global_memory)
 
     # save data files and plot
     utils.plot_loss_history(params, active_models, global_memory)

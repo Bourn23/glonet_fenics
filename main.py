@@ -108,7 +108,8 @@ if __name__ == '__main__':
         evaluate(eng, params, global_memory, global_optimizer, elapsed)
     # Generate images and save 
     # logging.info('Start generating devices')
-
+logging.info('Wrapping Up Results')
+summarize(global_memory)
 
 
 
