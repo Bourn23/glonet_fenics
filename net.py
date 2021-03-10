@@ -143,7 +143,7 @@ class GPR(Model):
         mu = np.max(Z[:, 0])
         beta = np.max(Z[:, 1])
         # plot
-        print("\n================GPR=================")
+        print("\n--------------GPR---------------")
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(mu,
@@ -263,7 +263,7 @@ class SGD(Model):
         global_memory.sgd_data = self.data
 
     def summary_statistics(self):
-        print("\n================SGD=================")
+        print("\n-------------SGD---------------")
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
@@ -343,6 +343,6 @@ class GA(Model):
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
-        print("=================================")
+        print("---------------------------------")
         global_memory.sgd_histry = self.history
         global_memory.sgd_data = self.data
