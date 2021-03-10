@@ -279,7 +279,7 @@ class SGD(Model):
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
                                                         relative_nu_error)
         
-        try:    global_memory.sgd_loss_history = np.vstack([global_memory.gpr_loss_history, [relative_E_error, relative_nu_error]])
+        try:    global_memory.sgd_loss_history = np.vstack([global_memory.sgd_loss_history, [relative_E_error, relative_nu_error]])
         except: global_memory.sgd_loss_history = np.array([relative_E_error, relative_nu_error])
 
 class GA(Model):
