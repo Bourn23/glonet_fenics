@@ -90,7 +90,7 @@ def train(eng, params, global_memory, global_count, pca=None):
     # training loop
     # with tqdm(params.numIter, desc = "sub_optimizers", leave = False) as t:
     with trange(params.numIter, desc = "Sub Optimization", leave = False) as t:
-        t=0
+        # t=0
 
         it = 0  
         while True:
