@@ -45,15 +45,40 @@ warnings.filterwarnings("ignore", category = UserWarning)
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 def summarize(global_memory):
+    """
+    :param global_memory: type generator, a shared state of other models' data
+    
+    :return: summary statistics of active_models
+    """
     #TODO; make it scalble
     # for name, model in active_models.items():
+          # cross-model validation:
+        #   for name2, model2 in active_models.items():
+        #       if name2 == name: continue
+              # compute means of each
+
+              # mean loss-model1 and mean loss-model2 -> 
+              # and do summary statistics
+
     #     print(f"{name} average error: ", np.mean(global_memory.sgd_loss_history))
         
-    print("SGD average error: ,", np.mean(global_memory.sgd_loss_history))
-    print("GPR average error: ,", np.mean(global_memory.gpr_loss_history))
+    print("SGD average error: ,", np.mean(global_memory.sgd_loss_history)/len(global_memory.sgd_loss_history))
+    print("GPR average error: ,", np.mean(global_memory.gpr_loss_history)/len(global_memory.gpr_loss_history))
 
 
-def evaluate(eng, params, global_memory, global_iter, elapsed_time):
+def evaluate(eng, params, global_memory, global_count, elapsed_time):
+    """
+    :param eng: type fenics object, compiled fem problem in physics engine
+    :param params: type utils.dictionary, dictionary of user-defined parameters and variables
+    :param global_memory: type generator, a shared state of other models' data
+    :param global_iter: type integer, counter of current step in global optimization
+    :param elapsed_time: type time.time, elapsed time since start of the sub optimization
+    
+
+    :return: summary statistics of active_models
+    :Keywords:
+    models statistics, summary, summary statistics
+    """
     #TODO: compute Confidence Interval and also do statistical testing on the results.
     print('==========SUMMARY STATISTICS=========')
     print(f'Elapsed Time: {elapsed_time} (s)') # sum up total time.
@@ -67,6 +92,21 @@ def evaluate(eng, params, global_memory, global_iter, elapsed_time):
     
 
 def train(eng, params, global_memory, global_count, pca=None):
+    """
+    training the models
+    evaluating them
+    plotting their results
+
+    :param eng: type fenics object, compiled fem problem in physics engine
+    :param params: type utils.dictionary, dictionary of user-defined parameters and variables
+    :param global_memory: type generator, a shared state of other models' data
+    :param global_count: type integer, counter of current step in global optimization
+    :param pca: type time.time, elapsed time since start of the sub optimization
+    
+
+    :Keywords:
+    models statistics, summary, summary statistics
+    """
     global active_models
     # initialization
     #TODO: enable restoring model (models are now saved just restore it!)
@@ -145,8 +185,6 @@ def train(eng, params, global_memory, global_count, pca=None):
                 for name, model in active_models.items():
                     fig_path = params.output_dir +  f'/figures/{name}/{name}_{global_count}_{params.iter}.png'
                     model.plot(fig_path, global_memory)
-
-            # t.update()
 
 
 

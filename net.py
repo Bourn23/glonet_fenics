@@ -65,25 +65,67 @@ class Generator:
 
 class Model:
     def __init__(self, params):
+        """
+        :param params: a list of model related variables
+        
+        :Example:
+        >>> class SGD(Model):
+
+        :Keywords:
+        model, base model
+        """
         # values to store
         self.generator = Generator(params, params.generate_samples_mode)
-
+        
         self.history = np.zeros([0,3])
+        self.loss_history = np.zeros([0])
         self.data    = np.zeros([0,3])
 
     def train(self, eng):
+        """
+        repeated every params.numIter
+        :param eng: API to the compiled problem in physics engine
+        
+        :Keywords:
+        training, model training
+        """
         # params: eng; physics engine
         pass
 
     def evaluate(self, eng):
+        """
+        the evaluation function is called every params.eval_iter
+        :param eng: API to the compiled problem in physics engine
+        
+        :Keywords:
+        evaluation, 
+        """
         pass
 
     def generate_data(self):
+
         pass
 
-    def plot(self):
+    def plot(self, fig_path, global_memory):
+        """
+        the evaluation function is called every params.eval_iter
+        :param fig_path: storage directory
+        :param global_memory: access to other models' shared states and information
+        
+        :Keywords:
+        evaluation, 
+        """
         pass
-
+    
+    def summary(self):
+        """
+        after finishing the entire optimization, is called to provide a statistics of the solver
+        
+        
+        :Keywords:
+        summarization, model statistics
+        """
+        pass
 
 class GPR(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
@@ -136,7 +178,7 @@ class GPR(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-    def summary_statistics(self, global_memory): # TODO: convert this table to a function..
+    def summary(self, global_memory): # TODO: convert this table to a function..
         Z = -self.gpr.predict(self.XY, return_std=False)
         Z = Z.reshape(self.X.shape)
 
@@ -154,8 +196,7 @@ class GPR(Model):
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
                                                         relative_nu_error))
         
-        try:    global_memory.gpr_loss_history = np.vstack([global_memory.gpr_loss_history, [relative_E_error, relative_nu_error]])
-        except: global_memory.gpr_loss_history = np.array([relative_E_error, relative_nu_error])
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
 
     def evaluate(self, global_memory):
         global_memory.gpr_data = self.data
@@ -265,7 +306,7 @@ class SGD(Model):
         global_memory.sgd_histry = self.history
         global_memory.sgd_data = self.data
 
-    def summary_statistics(self, global_memory):
+    def summary(self, global_memory):
         print("\n-------------SGD---------------")
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
@@ -279,8 +320,8 @@ class SGD(Model):
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
                                                         relative_nu_error))
         
-        try:    global_memory.sgd_loss_history = np.vstack([global_memory.sgd_loss_history, [relative_E_error, relative_nu_error]])
-        except: global_memory.sgd_loss_history = np.array([relative_E_error, relative_nu_error])
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
+        
 
 class GA(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
