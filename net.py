@@ -145,7 +145,7 @@ class GPR(Model):
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
-        self.init_data(eng, 100) #TODO: chnage it to 1
+        self.init_data(eng, 200) #TODO: chnage it to 1
 
 
     def init_data(self, eng, i  = 200):
@@ -201,7 +201,7 @@ class GPR(Model):
         # find the optimal value from this regressor
         self.res = minimize(gp_ucb, x0)
         self.next = self.res.x
-        print(f'let\'s go to {self.next} next')
+        # print(f'let\'s go to {self.next} next')
         mu = torch.tensor([[self.next[0]]], requires_grad=True, dtype=torch.float64)
         beta = torch.tensor([[self.next[1]]], requires_grad=True, dtype=torch.float64)
         pred_deflection = eng.Eval_Eff_1D_parallel({'mu': mu, 'beta': beta})
