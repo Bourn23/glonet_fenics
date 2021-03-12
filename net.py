@@ -368,11 +368,11 @@ class GA(Model):
         self.creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
         self.creator.create("Individual", list, fitness=creator.FitnessMin)
         IND_SIZE = 2
-
+        
         self.toolbox = base.Toolbox()
         self.toolbox.register("attribute", random.random) # prior of the population
         self.toolbox.register("individual", tools.initRepeat, creator.Individual,
-                        toolbox.attribute, n=IND_SIZE)
+                        self.toolbox.attribute, n=IND_SIZE)
         self.toolbox.register("population", tools.initRepeat, list, toolbox.individual)
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
         self.stats.register("avg", np.mean, axis=0)
