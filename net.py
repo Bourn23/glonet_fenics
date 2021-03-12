@@ -219,7 +219,7 @@ class GPR(Model):
                 "kernel": [DotProduct() + WhiteKernel(noise_level = sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
             }, {
                 "alpha":  [0, 1],
-                'kernel' : [1.0 * RBF(length_scale=100.0, length_scale_bounds=(1e-2, 1e3)) + WhiteKernel(noise_level=1, noise_level_bounds=(1e-10, 1e+1))]]
+                'kernel' : [1.0 * RBF(length_scale=100.0, length_scale_bounds=(1e-2, 1e3)) + WhiteKernel(noise_level=1, noise_level_bounds=(1e-10, 1e+1))]
             }]
             
             
