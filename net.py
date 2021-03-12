@@ -374,12 +374,13 @@ class GA(Model):
         self.toolbox.register("individual", tools.initRepeat, creator.Individual,
                         self.toolbox.attribute, n=IND_SIZE)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
+        self.toolbox.register("evaluate", efficiency)
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
         self.stats.register("avg", np.mean, axis=0)
         self.stats.register("std", np.std, axis=0)
         self.stats.register("min", np.min, axis=0)
         self.stats.register("max", np.max, axis=0)
-        self.stats.register("evaluate", efficiency)
+        self.stats.register("efficiency", efficiency)
 
     def train(self, eng, t, global_memory):
         """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
