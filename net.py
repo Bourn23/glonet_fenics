@@ -1,4 +1,5 @@
 import sys
+import time
 sys.path.append('../')
 import numpy as np
 import torch.nn as nn
@@ -82,6 +83,9 @@ class Model:
         self.loss_history = np.zeros([0])
         self.data    = np.zeros([0,3])
 
+        self.training_time = 0
+        self.infer_time = 0
+
     def train(self, eng):
         """
         repeated every params.numIter
@@ -145,6 +149,8 @@ class GPR(Model):
 
 
     def init_data(self, eng, i  = 200):
+        start_time = time.time()
+
         for i in range(i):
             parameters = self.generator.generate(sampling = True)
 
@@ -154,6 +160,8 @@ class GPR(Model):
             # build internal memory
             self.data = np.vstack([self.data, np.array([parameters['E_r'], parameters['nu_r'], err])])
 
+        end_time = time.time()
+        self.training_time += end_time - start_time
     # @staticmethod
     
 
@@ -200,6 +208,8 @@ class GPR(Model):
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
 
     def evaluate(self, global_memory):
+        start_time = time.time()
+        
         global_memory.gpr_data = self.data
         #TODO: moved the training process to eval
         ls = np.std(self.data, axis=0)[:2]
@@ -221,7 +231,6 @@ class GPR(Model):
                 "alpha":  [0, 1],
                 'kernel' : [1.0 * RBF(length_scale=100.0, length_scale_bounds=(1e-2, 1e3)) + WhiteKernel(noise_level=1, noise_level_bounds=(1e-10, 1e+1))]
             }]
-            
             
             
         scores = ['explained_variance', 'r2']
@@ -246,7 +255,6 @@ class GPR(Model):
         self.Z, self.U = self.gpr.predict(self.XY, return_std=True)
 
  
-        
         # acquisition function, maximize upper confidence bound (GP-UCB) 
         def gp_ucb(x):
             if len(x.shape) < 2:
@@ -263,8 +271,11 @@ class GPR(Model):
 
         # find the optimal value from this regressor
         self.res = minimize(gp_ucb, x0)
-
         self.next = self.res.x
+
+
+        end_time = time.time()
+        self.training_time += end_time - start_time
 
         # adding to global state
         global_memory.gpr_X = self.X
@@ -279,8 +290,11 @@ class SGD(Model):
         self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
         self.loss = torch.nn.MSELoss()
 
+
     def train(self, eng, t, global_memory):
         """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
+        start_time = time.time()
+
         data = self.generator.generate()
         pred_deflection = eng.Eval_Eff_1D_parallel(data)
 
@@ -295,6 +309,8 @@ class SGD(Model):
     
         self.data = np.vstack([self.data, [E_f, nu_f, err.detach().numpy()]])
 
+        end_time = time.time()
+        self.training_time += end_time - start_time
 
         # t.set_description(f"SGD Loss: {err}") #, refresh=True
 
@@ -337,20 +353,21 @@ class SGD(Model):
         # print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         # print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
         #                                                 (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
-        global_memory.sgd_histry = self.history
+        global_memory.sgd_history = self.history
         global_memory.sgd_data = self.data
 
     def summary(self, global_memory):
-        print("\n-------------SGD---------------")
-        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
-
-        E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
-                                self.generator.beta[0, 0].detach().numpy())
-        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
         relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
-        # print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
-        #                                                 (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
+                                self.generator.beta[0, 0].detach().numpy())
+
+        print("\n-------------SGD---------------")
+        print('elapsed time:    {:.2f} (s)')
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
                                                         relative_nu_error))
         

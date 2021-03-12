@@ -51,7 +51,8 @@ def summarize(global_memory):
     :return: summary statistics of active_models
     """
     #TODO; make it scalble
-    # for name, model in active_models.items():
+    for name, model in active_models.items():
+        print(f"\n{name} average error: ", np.sum(model.loss_history) / len(model.loss_history))
           # cross-model validation:
         #   for name2, model2 in active_models.items():
         #       if name2 == name: continue
@@ -62,8 +63,8 @@ def summarize(global_memory):
 
     #     print(f"{name} average error: ", np.mean(global_memory.sgd_loss_history))
         
-    print("SGD average error: ,", np.mean(global_memory.sgd_loss_history)/len(global_memory.sgd_loss_history))
-    print("GPR average error: ,", np.mean(global_memory.gpr_loss_history)/len(global_memory.gpr_loss_history))
+    # print("SGD average error: ,", np.mean(global_memory.sgd_loss_history)/len(global_memory.sgd_loss_history))
+    # print("GPR average error: ,", np.mean(global_memory.gpr_loss_history)/len(global_memory.gpr_loss_history))
 
 
 def evaluate(eng, params, global_memory, global_count, elapsed_time):
@@ -85,7 +86,7 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
     print(f'Total Iterations: {params.numIter}')
     
     for model in active_models.values():
-        model.summary_statistics(global_memory)
+        model.summary(global_memory)
 
     # save data files and plot
     utils.plot_loss_history(params, active_models, global_memory)
