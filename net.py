@@ -145,7 +145,7 @@ class GPR(Model):
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
-        self.init_data(eng, 3) #TODO: chnage it to 1
+        self.init_data(eng, 100) #TODO: chnage it to 1
 
 
     def init_data(self, eng, i  = 200):
@@ -202,6 +202,11 @@ class GPR(Model):
         self.res = minimize(gp_ucb, x0)
         self.next = self.res.x
         print(f'let\'s go to {self.next} next')
+        pred_deflection = eng.Eval_Eff_1D_parallel({'mu': self.next[0], 'beta': self.next[1]})
+        err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
+        
+        # build internal memory
+        self.data = np.vstack([self.data, np.array([self.next[0], self.next[1], err])])
         self.data = np.vstack([self.data, np.array(self.next[0], self.next[1])])
         print('data is now ', self.data)
 
