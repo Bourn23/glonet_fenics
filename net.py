@@ -364,8 +364,9 @@ class GA(Model):
         def efficiency(data):
             if len(data) > 2: 
                 data = [err[0] for err in data]
-                return sum(data)/len(data),
-            return (torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),)
+                print(sum(data))
+                return sum(data),
+            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
 
         self.creator = creator
         self.creator.create("FitnessMax", base.Fitness, weights=(1.0, 1.0))
