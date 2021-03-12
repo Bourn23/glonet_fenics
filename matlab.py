@@ -18,7 +18,7 @@ class engine:
 
     def Eval_Eff_1D_parallel(self, data):
         # print('data is ', len(data))
-        if type(data) != dict: return data
+        if (type(data) != dict) and (len(data) > 5): return data
         if self.batch_size != 1: # chnged == with !=
             mu = torch.tensor([[data['mu']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
             beta = torch.tensor([[data['beta']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
