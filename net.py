@@ -379,7 +379,7 @@ class GA(Model):
         self.stats.register("std", np.std, axis=0)
         self.stats.register("min", np.min, axis=0)
         self.stats.register("max", np.max, axis=0)
-        self.stats.register("efficiency", efficiency)
+        self.stats.register("evaluate", efficiency)
 
     def train(self, eng, t, global_memory):
         """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
