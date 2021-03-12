@@ -2,26 +2,6 @@
 TODO next time:
 i am implementing the train and eval functions in the models.
 i am thinking of how the values should be generated/and if they need to be updated? if yes, how?
-
-Archives of codes
-# GOT FROM PLOTTING
-                    # utils.err_distribution(history, params, fig_path)
-                
-                # fig_path = params.output_dir +  '/figures/deviceSamples/Iter{}.png'.format(params.iter) 
-                # GPR(history, params, fig_path)
-
-
-
-                # if not params.generate_samples_mode:
-                #     # SGD code
-                #     z = generator.params_sgd()
-
-                #     E_f, nu_f = utils.youngs_poisson(z[0][0, 0].detach().numpy(),
-                #                     z[1][0, 0].detach().numpy())
-
-                #     data = np.vstack([data, [E_f, nu_f]])
-                #     fig_path = params.output_dir +  '/figures/histogram/Iter{}.png'.format(params.iter) 
-                #     utils.err_distribution_sgd(data, params, fig_path)
 """
 
 import os
@@ -52,11 +32,8 @@ def summarize(global_memory):
     """
     #TODO; make it scalble
     for name, model in active_models.items():
-        print("----- E -----")
-        print(f"\n{name} average error: ", np.sum(model.loss_history[:,0]) / len(model.loss_history))
-        print("----- nu -----")
-        print(f"\n{name} average error: ", np.sum(model.loss_history[:,1]) / len(model.loss_history))
-        print("Loss history is ", model.loss_history)
+        print(f"\n{name} average 'E' error: ", np.sum(model.loss_history[:,0]) / len(model.loss_history))
+        print(f"\n{name} average 'nu' error: ", np.sum(model.loss_history[:,1]) / len(model.loss_history))
           # cross-model validation:
         #   for name2, model2 in active_models.items():
         #       if name2 == name: continue
