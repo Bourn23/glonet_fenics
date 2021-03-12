@@ -32,8 +32,8 @@ def summarize(global_memory):
     """
     #TODO; make it scalble
     for name, model in active_models.items():
-        print(f"\n{name} average 'E' error: ", np.sum(model.loss_history[:,0]) / len(model.loss_history))
-        print(f"\n{name} average 'nu' error: ", np.sum(model.loss_history[:,1]) / len(model.loss_history))
+        print(f"\n{name} average 'E' error: ", round(np.sum(model.loss_history[:,0]) / len(model.loss_history), 2), '%')
+        print(f"\n{name} average 'nu' error: ", round(np.sum(model.loss_history[:,1]) / len(model.loss_history), 2), '%')
           # cross-model validation:
         #   for name2, model2 in active_models.items():
         #       if name2 == name: continue
