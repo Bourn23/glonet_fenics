@@ -7,8 +7,6 @@ import torch.nn.functional as F
 import torch
 from metalayers import * 
 import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.rcParams['text.usetex'] = True
 from utils import lame, youngs_poisson
 
 # GPR
@@ -312,8 +310,8 @@ class SGD(Model):
         ax.set_title('history of E_0 and nu_0')
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
-        ax.set_xlabel('\textit{E}', fontsize=10)
-        ax.set_ylabel('\textit{Nu}', fontsize='medium')
+        ax.set_xlabel('$E$', fontsize=10)
+        ax.set_ylabel('$Nu$', fontsize='medium')
         
         plt.savefig(fig_path, dpi = 300)
         plt.close()
