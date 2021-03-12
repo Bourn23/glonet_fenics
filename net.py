@@ -140,8 +140,8 @@ class GPR(Model):
         from scipy.optimize import minimize
         
         # loading from memory:
-        try: self.data = global_memory.gpr_data
-        except: pass
+        # try: self.data = global_memory.gpr_data
+        # except: pass
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
