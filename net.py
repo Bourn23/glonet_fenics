@@ -361,13 +361,15 @@ class GA(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
         loss = torch.nn.MSELoss()
+        def efficiency(data):
+            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum()
 
         self.creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
         self.creator.create("Individual", list, fitness=creator.FitnessMin)
-        IND_SIZE = 10
+        IND_SIZE = 2
 
         self.toolbox = base.Toolbox()
-        self.toolbox.register("attribute", random.random)
+        self.toolbox.register("attribute", random.random) # prior of the population
         self.toolbox.register("individual", tools.initRepeat, creator.Individual,
                         toolbox.attribute, n=IND_SIZE)
         self.toolbox.register("population", tools.initRepeat, list, toolbox.individual)
@@ -376,17 +378,17 @@ class GA(Model):
         self.stats.register("std", np.std, axis=0)
         self.stats.register("min", np.min, axis=0)
         self.stats.register("max", np.max, axis=0)
-        self.stats.register("efficiency", torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum())
+        self.stats.register("efficiency", efficiency)
 
     def train(self, eng, t, global_memory):
         """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
+        MU, LAMBDA = 100, 200
         data = self.generator.generate()
         pop = self.toolbox.population(n=MU)
 
-        
-
         #algo here
-        MU, LAMBDA = 100, 200
+
+        
         
         hof = tools.ParetoFront()
 
