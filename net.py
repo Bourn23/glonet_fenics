@@ -213,40 +213,9 @@ class GPR(Model):
         global_memory.gpr_data = self.data
         #TODO: moved the training process to eval
         ls = np.std(self.data, axis=0)[:2]
-
-        # HyperParam Opt.
-        param_grid = [{
-                "alpha":  [0, 1],
-                "kernel": [RBF(ls)]
-            }, {
-                "alpha":  [0, 1],
-                "kernel": [DotProduct(sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
-            }, {
-                "alpha":  [0, 1],
-                "kernel": [WhiteKernel(noise_level = sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
-            }, {
-                "alpha":  [0, 1],
-                "kernel": [DotProduct() + WhiteKernel(noise_level = sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
-            }, {
-                "alpha":  [0, 1],
-                'kernel' : [1.0 * RBF(length_scale=100.0, length_scale_bounds=(1e-2, 1e3)) + WhiteKernel(noise_level=1, noise_level_bounds=(1e-10, 1e+1))]
-            }]
-            
-            
-        scores = ['explained_variance', 'r2']
         
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
-        self.gpr = GaussianProcessRegressor()
-
-        for score in scores:
-            print("# Tuning hyper-parameters for %s" % score)
-            print()
-
-            clf = GridSearchCV(estimator=self.gpr, param_grid=param_grid, cv=4,
-                            scoring='%s' % score)
-            clf.fit(self.data[:, :2], np.log(self.data[:, 2]))
-            print('best param : ',clf.best_params_)
-
+        self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
 
         self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
                         np.linspace(self.data[:, 1].min(), self.data[:, 1].max(), 11))
