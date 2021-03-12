@@ -368,8 +368,8 @@ class GA(Model):
             return (torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),)
 
         self.creator = creator
-        self.creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-        self.creator.create("Individual", list, fitness=creator.FitnessMin)
+        self.creator.create("FitnessMax", base.Fitness, weights=(-1.0, -1.0))
+        self.creator.create("Individual", list, fitness=creator.FitnessMax)
         IND_SIZE = 2
         
         self.toolbox = base.Toolbox()
@@ -403,6 +403,7 @@ class GA(Model):
 
         # print('count is ', self.count)
         # self.count += 1
+        print('\n')
         pop, logbook = algorithms.eaMuPlusLambda(pop, self.toolbox, mu=MU, lambda_=LAMBDA,
                                                 cxpb=0.7, mutpb=0.3, ngen=40, 
                                                 stats=self.stats, halloffame=hof)

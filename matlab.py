@@ -30,8 +30,8 @@ class engine:
                 beta = data['beta']
                 force = data['force']
             except: # for handling the GA data
-                mu = torch.tensor([[data[0]]] * self.batch_size, requires_grad=True, dtype=torch.float64)
-                beta = torch.tensor([[data[1]]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                mu = torch.tensor([[data[0]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                beta = torch.tensor([[data[1]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
                 force = self.force
 
 
