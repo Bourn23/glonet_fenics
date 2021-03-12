@@ -221,16 +221,16 @@ class GPR(Model):
         scores = ['explained_variance', 'r2']
         
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
-        self.gpr = GaussianProcessRegressor(kernel=kernel)
+        self.gpr = GaussianProcessRegressor()
 
         for score in scores:
             print("# Tuning hyper-parameters for %s" % score)
             print()
 
-            clf = GridSearchCV(estimator=gp, param_grid=param_grid, cv=4,
+            clf = GridSearchCV(estimator=self.rgp, param_grid=param_grid, cv=4,
                             scoring='%s' % score)
             clf.fit(self.data[:, :2], np.log(self.data[:, 2]))
-            print(clf.best_params_)
+            print('best param : ',clf.best_params_)
 
 
         self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
