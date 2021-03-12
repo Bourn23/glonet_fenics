@@ -7,6 +7,7 @@ import torch.nn.functional as F
 import torch
 from metalayers import * 
 import matplotlib.pyplot as plt
+matplotlib.rcParams['text.usetex'] = True
 from utils import lame, youngs_poisson
 
 # GPR
@@ -140,12 +141,12 @@ class GPR(Model):
         from scipy.optimize import minimize
         
         # loading from memory:
-        # try: self.data = global_memory.gpr_data
-        # except: pass
+        try: self.data = global_memory.gpr_data
+        except: pass
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
-        self.init_data(eng, 200)
+        self.init_data(eng, 20)
 
 
     def init_data(self, eng, i  = 200):
@@ -198,7 +199,8 @@ class GPR(Model):
         relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
         relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         print("\n--------------GPR---------------")
-        print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+        print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
@@ -207,9 +209,10 @@ class GPR(Model):
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
 
     def evaluate(self, global_memory):
+        global_memory.gpr_data = self.data
+        
         start_time = time.time()
         
-        global_memory.gpr_data = self.data
         #TODO: moved the training process to eval
         ls = np.std(self.data, axis=0)[:2]
         
@@ -308,7 +311,9 @@ class SGD(Model):
         ax.set_title('history of E_0 and nu_0')
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
-
+        ax.set_xlabel('\textit{E}', fontsize=10)
+        ax.set_ylabel('\textit{Nu}', fontsize='medium')
+        
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
@@ -331,7 +336,7 @@ class SGD(Model):
         relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
 
         print("\n-------------SGD---------------")
-        print('elapsed time:    {:.2f} (s)')
+        print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
@@ -427,5 +432,5 @@ class GA(Model):
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
         print("---------------------------------")
-        global_memory.sgd_histry = self.history
+        global_memory.sgd_history = self.history
         global_memory.sgd_data = self.data
