@@ -362,7 +362,7 @@ class GA(Model):
         super().__init__(params)
         loss = torch.nn.MSELoss()
         def efficiency(data):
-            print(data)
+            # print(data)
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
@@ -374,7 +374,7 @@ class GA(Model):
         IND_SIZE = 2
         
         self.toolbox = base.Toolbox()
-        self.toolbox.register("attribute", random.random) # prior of the population
+        self.toolbox.register("attribute", random.uniform(0.01,1)) # prior of the population
         self.toolbox.register("individual", tools.initRepeat, creator.Individual,
                         self.toolbox.attribute, n=IND_SIZE)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
