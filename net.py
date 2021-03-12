@@ -80,7 +80,7 @@ class Model:
         self.generator = Generator(params, params.generate_samples_mode)
         
         self.history = np.zeros([0,3])
-        self.loss_history = np.zeros([0])
+        self.loss_history = np.zeros([0,2])
         self.data    = np.zeros([0,3])
 
         self.training_time = 0
