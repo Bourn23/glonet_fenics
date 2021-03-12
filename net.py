@@ -373,7 +373,7 @@ class GA(Model):
         self.toolbox.register("attribute", random.random) # prior of the population
         self.toolbox.register("individual", tools.initRepeat, creator.Individual,
                         self.toolbox.attribute, n=IND_SIZE)
-        self.toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
         self.stats.register("avg", np.mean, axis=0)
         self.stats.register("std", np.std, axis=0)
