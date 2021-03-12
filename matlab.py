@@ -28,7 +28,7 @@ class engine:
             try:
                 mu = data['mu']
                 beta = data['beta']
-                force = data['force'] or self.force
+                force = self.force
             except: # for handling the GA data
                 if data[0] < 1e-4: data[0] = 1e-2
                 mu = torch.tensor([[data[0]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
