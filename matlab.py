@@ -17,6 +17,7 @@ class engine:
         
 
     def Eval_Eff_1D_parallel(self, data):
+        print('data is ', type(data))
         if type(data) != list: return data
         print('data is ', data)
         if self.batch_size != 1: # chnged == with !=
