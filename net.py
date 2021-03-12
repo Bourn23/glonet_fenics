@@ -202,13 +202,14 @@ class GPR(Model):
         self.res = minimize(gp_ucb, x0)
         self.next = self.res.x
         print(f'let\'s go to {self.next} next')
-        pred_deflection = eng.Eval_Eff_1D_parallel({'mu': self.next[0], 'beta': self.next[1]})
+        mu = torch.tensor([[self.next[0]]], requires_grad=True, dtype=torch.float64)
+        beta = torch.tensor([[self.next[1]]], requires_grad=True, dtype=torch.float64)
+        pred_deflection = eng.Eval_Eff_1D_parallel({'mu': mu, 'beta': beta})
         err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
         
         # build internal memory
         self.data = np.vstack([self.data, np.array([self.next[0], self.next[1], err])])
-        self.data = np.vstack([self.data, np.array(self.next[0], self.next[1])])
-        print('data is now ', self.data)
+        # print('data is now ', self.data)
 
         end_time = time.time()
         self.training_time += end_time - start_time
