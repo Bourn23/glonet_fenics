@@ -145,7 +145,7 @@ class GPR(Model):
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
-        self.init_data(eng, 20)
+        self.init_data(eng, 3) #TODO: chnage it to 1
 
 
     def init_data(self, eng, i  = 200):
@@ -166,7 +166,54 @@ class GPR(Model):
     
 
     def train(self, eng, t, global_memory):
-        self.init_data(eng, 1)
+        # self.init_data(eng, 1)
+        global_memory.gpr_data = self.data
+        
+        start_time = time.time()
+        
+        #TODO: moved the training process to eval
+        ls = np.std(self.data, axis=0)[:2]
+        
+        kernel = DotProduct() + WhiteKernel() + RBF(ls)
+        self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
+
+        self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
+                        np.linspace(self.data[:, 1].min(), self.data[:, 1].max(), 11))
+
+        self.XY = np.hstack([self.X.reshape(-1, 1), self.Y.reshape(-1, 1)])
+        self.Z, self.U = self.gpr.predict(self.XY, return_std=True)
+
+ 
+        # acquisition function, maximize upper confidence bound (GP-UCB) 
+        def gp_ucb(x):
+            if len(x.shape) < 2:
+                x = [x]
+            Z, U = self.gpr.predict(x, return_std=True)
+            return -Z + 1e-6*U
+
+        
+        self.A = gp_ucb(self.XY)
+
+        # find the maximal value in the acquisition function
+        best = np.argmax(self.A)
+        x0 = self.XY[best]
+
+        # find the optimal value from this regressor
+        self.res = minimize(gp_ucb, x0)
+        self.next = self.res.x
+        print(f'let\'s go to {self.next} next')
+        self.data = np.vstack([self.data, np.array(*self.next)])
+        print('data is now ', self.data)
+
+        end_time = time.time()
+        self.training_time += end_time - start_time
+
+        # adding to global state
+        global_memory.gpr_X = self.X
+        global_memory.gpr_Y = self.Y
+        global_memory.gpr_Z = self.Z
+        global_memory.gpr_XY = self.XY
+
     #TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
 
 
