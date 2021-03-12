@@ -18,7 +18,7 @@ class engine:
 
     def Eval_Eff_1D_parallel(self, data):
         print('data is ', data)
-        if (self.batch_size != 1) or (type(data['mu']) == str): # chnged == with !=
+        if self.batch_size != 1: # chnged == with !=
             mu = torch.tensor([[data['mu']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
             beta = torch.tensor([[data['beta']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
             force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
@@ -26,9 +26,15 @@ class engine:
 
 
         else:  
-            mu = data['mu']
-            beta = data['beta']
-            force = data['force']
+            try:
+                mu = data['mu']
+                beta = data['beta']
+                force = data['force']
+            except: # for handling the GA data
+                mu = torch.tensor([[data[0]]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                beta = torch.tensor([[data[1]]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                force = self.force
+
 
         u = self.model(mu, beta, force)
 
