@@ -227,7 +227,7 @@ class GPR(Model):
             print("# Tuning hyper-parameters for %s" % score)
             print()
 
-            clf = GridSearchCV(estimator=self.rgp, param_grid=param_grid, cv=4,
+            clf = GridSearchCV(estimator=self.gpr, param_grid=param_grid, cv=4,
                             scoring='%s' % score)
             clf.fit(self.data[:, :2], np.log(self.data[:, 2]))
             print('best param : ',clf.best_params_)
