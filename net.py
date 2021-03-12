@@ -206,18 +206,24 @@ class GPR(Model):
 
         # HyperParam Opt.
         param_grid = [{
-                "alpha":  [1e-2, 1e-3],
+                "alpha":  [0, 1],
                 "kernel": [RBF(ls)]
             }, {
-                "alpha":  [1e-2, 1e-3],
+                "alpha":  [0, 1],
                 "kernel": [DotProduct(sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
             }, {
-                "alpha":  [1e-2, 1e-3],
+                "alpha":  [0, 1],
                 "kernel": [WhiteKernel(noise_level = sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
             }, {
-                "alpha":  [1e-2, 1e-3],
+                "alpha":  [0, 1],
                 "kernel": [DotProduct() + WhiteKernel(noise_level = sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
+            }, {
+                "alpha":  [0, 1],
+                'kernel' : [1.0 * RBF(length_scale=100.0, length_scale_bounds=(1e-2, 1e3)) + WhiteKernel(noise_level=1, noise_level_bounds=(1e-10, 1e+1))]]
             }]
+            
+            
+            
         scores = ['explained_variance', 'r2']
         
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
