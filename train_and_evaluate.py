@@ -52,7 +52,11 @@ def summarize(global_memory):
     """
     #TODO; make it scalble
     for name, model in active_models.items():
-        print(f"\n{name} average error: ", np.sum(model.loss_history) / len(model.loss_history))
+        print("----- E -----")
+        print(f"\n{name} average error: ", np.sum(model.loss_history[,0]) / len(model.loss_history))
+        print("----- nu -----")
+        print(f"\n{name} average error: ", np.sum(model.loss_history[,1]) / len(model.loss_history))
+        print("Loss history is ", model.loss_history)
           # cross-model validation:
         #   for name2, model2 in active_models.items():
         #       if name2 == name: continue
@@ -60,11 +64,6 @@ def summarize(global_memory):
 
               # mean loss-model1 and mean loss-model2 -> 
               # and do summary statistics
-
-    #     print(f"{name} average error: ", np.mean(global_memory.sgd_loss_history))
-        
-    # print("SGD average error: ,", np.mean(global_memory.sgd_loss_history)/len(global_memory.sgd_loss_history))
-    # print("GPR average error: ,", np.mean(global_memory.gpr_loss_history)/len(global_memory.gpr_loss_history))
 
 
 def evaluate(eng, params, global_memory, global_count, elapsed_time):
