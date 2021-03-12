@@ -16,7 +16,7 @@ from sklearn.model_selection import GridSearchCV
 
 
 # GA
-from deap import base, creator
+from deap import base, creator, algorithms
 from deap import tools
 import random
 
