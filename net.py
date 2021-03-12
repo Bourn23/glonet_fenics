@@ -149,7 +149,7 @@ class GPR(Model):
 
 
     def init_data(self, eng, i  = 200):
-        start_time = time.time()
+        # start_time = time.time()
 
         for i in range(i):
             parameters = self.generator.generate(sampling = True)
@@ -161,7 +161,7 @@ class GPR(Model):
             self.data = np.vstack([self.data, np.array([parameters['E_r'], parameters['nu_r'], err])])
 
         end_time = time.time()
-        self.training_time += end_time - start_time
+        # self.training_time += end_time - start_time
     # @staticmethod
     
 
@@ -201,15 +201,16 @@ class GPR(Model):
         # find the optimal value from this regressor
         self.res = minimize(gp_ucb, x0)
         self.next = self.res.x
-        # print(f'let\'s go to {self.next} next')
+
+        # calc error for proposed points
         mu = torch.tensor([[self.next[0]]], requires_grad=True, dtype=torch.float64)
         beta = torch.tensor([[self.next[1]]], requires_grad=True, dtype=torch.float64)
         pred_deflection = eng.Eval_Eff_1D_parallel({'mu': mu, 'beta': beta})
         err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
         
-        # build internal memory
+        # adding next point to data
         self.data = np.vstack([self.data, np.array([self.next[0], self.next[1], err])])
-        # print('data is now ', self.data)
+
 
         end_time = time.time()
         self.training_time += end_time - start_time
@@ -257,8 +258,6 @@ class GPR(Model):
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
                                                         relative_nu_error))
-        E_f_next, nu_f_next = self.next
-        print('inverted values of optimized next: {:.2e} {:.2e}'.format(E_f_next, nu_f_next))
         
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
 
