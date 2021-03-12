@@ -382,6 +382,7 @@ class GA(Model):
         self.stats.register("max", np.max, axis=0)
         self.stats.register("efficiency", efficiency)
 
+        self.count = 0
     def train(self, eng, t, global_memory):
         """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
         MU, LAMBDA = 100, 200
@@ -394,7 +395,8 @@ class GA(Model):
         
         hof = tools.ParetoFront()
 
-        
+        print('count is ', self.count)
+        self.count += 1
         pop, logbook = algorithms.eaMuPlusLambda(pop, self.toolbox, mu=MU, lambda_=LAMBDA,
                                                 cxpb=0.7, mutpb=0.3, ngen=40, 
                                                 stats=self.stats, halloffame=hof)
