@@ -362,7 +362,7 @@ class GA(Model):
         super().__init__(params)
         loss = torch.nn.MSELoss()
         def efficiency(data):
-            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist()[0]
+            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist()
 
         self.creator = creator
         self.creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
