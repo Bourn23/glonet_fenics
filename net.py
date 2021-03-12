@@ -7,6 +7,7 @@ import torch.nn.functional as F
 import torch
 from metalayers import * 
 import matplotlib.pyplot as plt
+import matplotlib
 matplotlib.rcParams['text.usetex'] = True
 from utils import lame, youngs_poisson
 
