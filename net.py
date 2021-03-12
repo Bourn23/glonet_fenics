@@ -194,14 +194,13 @@ class GPR(Model):
         mu = np.max(Z[:, 0])
         beta = np.max(Z[:, 1])
         # plot
+        E_f, nu_f = youngs_poisson(mu, beta)
+        relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         print("\n--------------GPR---------------")
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        E_f, nu_f = youngs_poisson(mu,
-                                beta)
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
-        relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
-        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
                                                         relative_nu_error))
         
@@ -326,10 +325,10 @@ class SGD(Model):
         global_memory.sgd_data = self.data
 
     def summary(self, global_memory):
-        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
-        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
                                 self.generator.beta[0, 0].detach().numpy())
+        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
 
         print("\n-------------SGD---------------")
         print('elapsed time:    {:.2f} (s)')
