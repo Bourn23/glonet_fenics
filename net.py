@@ -244,7 +244,7 @@ class GPR(Model):
         # find the optimal value from this regressor
         self.res = minimize(gp_ucb, x0)
         self.next = self.res.x
-
+        print(f'let\'s go to {self.next} next')
 
         end_time = time.time()
         self.training_time += end_time - start_time
