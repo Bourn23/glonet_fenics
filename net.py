@@ -362,10 +362,10 @@ class GA(Model):
         super().__init__(params)
         loss = torch.nn.MSELoss()
         def efficiency(data):
+            print(data)
             if len(data) > 2: 
                 data = [err[0] for err in data]
-                print(sum(data))
-                return sum(data),
+                return sum(data)/len(data),
             return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
 
         self.creator = creator
