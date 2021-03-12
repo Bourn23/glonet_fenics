@@ -204,7 +204,7 @@ class GPR(Model):
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
                                                         relative_nu_error))
-        E_f_next, nu_f_next = *self.next
+        E_f_next, nu_f_next = self.next
         print('inverted values of optimized next: {:.2e} {:.2e}'.format(E_f_next, nu_f_next))
         
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
