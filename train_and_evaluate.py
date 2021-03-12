@@ -152,14 +152,12 @@ def train(eng, params, global_memory, global_count, pca=None):
 
 
             # evaluate
-            if it % params.eval_iter == 0 or it > params.numIter:
-                print('doing eval!')
+            if (it % params.eval_iter == 0) or (it > params.numIter):
                 for model in active_models.values():
                     model.evaluate(global_memory)
 
             # plot 
             if it % params.plot_iter == 0:
-                print('plotting..')
                 #TODO: a unified structure for each model's plotting function is needed.
                 for name, model in active_models.items():
                     fig_path = params.output_dir +  f'/figures/{name}/{name}_{global_count}_{params.iter}.png'
