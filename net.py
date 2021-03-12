@@ -12,6 +12,7 @@ from utils import lame, youngs_poisson
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
 from scipy.optimize import minimize
+from sklearn.model_selection import GridSearchCV
 
 
 # GA
@@ -202,8 +203,35 @@ class GPR(Model):
         global_memory.gpr_data = self.data
         #TODO: moved the training process to eval
         ls = np.std(self.data, axis=0)[:2]
+
+        # HyperParam Opt.
+        param_grid = [{
+                "alpha":  [1e-2, 1e-3],
+                "kernel": [RBF(ls)]
+            }, {
+                "alpha":  [1e-2, 1e-3],
+                "kernel": [DotProduct(sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
+            }, {
+                "alpha":  [1e-2, 1e-3],
+                "kernel": [WhiteKernel(noise_level = sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
+            }, {
+                "alpha":  [1e-2, 1e-3],
+                "kernel": [DotProduct() + WhiteKernel(noise_level = sigma_0) for sigma_0 in np.logspace(-1, 1, 2)]
+            }]
+        scores = ['explained_variance', 'r2']
+        
         kernel = DotProduct() + WhiteKernel() + RBF(ls)
-        self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
+        self.gpr = GaussianProcessRegressor(kernel=kernel)
+
+        for score in scores:
+            print("# Tuning hyper-parameters for %s" % score)
+            print()
+
+            clf = GridSearchCV(estimator=gp, param_grid=param_grid, cv=4,
+                            scoring='%s' % score)
+            clf.fit(self.data[:, :2], np.log(self.data[:, 2]))
+            print(clf.best_params_)
+
 
         self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
                         np.linspace(self.data[:, 1].min(), self.data[:, 1].max(), 11))
