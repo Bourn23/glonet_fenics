@@ -426,14 +426,9 @@ class GA(Model):
                                                 cxpb=0.7, mutpb=0.3, ngen=40, 
                                                 stats=self.stats, halloffame=hof)
         
-        
-
-        # self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
-        # E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
-        #                     data['mu'].detach().numpy())
     
         self.data = np.vstack([self.data, [pop, logbook, hof]])
-
+        print('data is ', self.data)
         # return pop, logbook, hof
 
     def plot(self, fig_path, global_memory):
