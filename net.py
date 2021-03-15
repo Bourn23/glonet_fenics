@@ -522,7 +522,7 @@ class PSO(Model):
         self.stats.register("std", np.std)
         self.stats.register("min", np.min)
         self.stats.register("max", np.max)
-        self.stats.register("efficiency", self.efficiency)
+        self.stats.register("efficiency", efficiency)
 
         self.logbook = tools.Logbook()
         self.logbook.header = ["gen", "evals"] + self.stats.fields
