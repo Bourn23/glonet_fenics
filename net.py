@@ -535,7 +535,7 @@ class PSO(Model):
 
 
     @staticmethod
-    def generate(part, size, pmin, pmax, smin, smax):
+    def generate(size, pmin, pmax, smin, smax):
         part = creator.Particle(random.uniform(pmin, pmax) for _ in range(size)) 
         part.speed = [random.uniform(smin, smax) for _ in range(size)]
         part.smin = smin
