@@ -525,6 +525,7 @@ class PSO(Model):
         self.toolbox.register("particle", self.generate, size=2, pmin=-6, pmax=6, smin=-3, smax=3)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.particle)
         self.toolbox.register("update", self.updateParticle, phi1=2.0, phi2=2.0)
+        self.toolbox.register("evaluate", efficiency)
 
         self.pop = self.toolbox.population(n=5)
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
@@ -532,7 +533,7 @@ class PSO(Model):
         self.stats.register("std", np.std)
         self.stats.register("min", np.min)
         self.stats.register("max", np.max)
-        self.stats.register("evaluate", efficiency)
+        self.stats.register("efficiency", efficiency)
 
         self.logbook = tools.Logbook()
         self.logbook.header = ["gen", "evals"] + self.stats.fields
