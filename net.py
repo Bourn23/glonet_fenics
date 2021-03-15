@@ -574,7 +574,7 @@ class PSO(Model):
         
         #TODO: moved the training process to eval
         # training
-
+        print('\n')
         for g in range(self.update_per_run):
             for part in self.pop:
                 part.fitness.values = self.toolbox.evaluate(part)
@@ -600,7 +600,7 @@ class PSO(Model):
         self.training_time += end_time - start_time
 
         # adding to global state
-        global_memory.pso_X = self.X
+        global_memory.pso_X = self.best
 
 
     def plot(self, fig_path, global_memory, summary = False):
