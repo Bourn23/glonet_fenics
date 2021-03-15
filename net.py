@@ -16,10 +16,12 @@ from scipy.optimize import minimize
 from sklearn.model_selection import GridSearchCV
 
 
-# GA
+# DEAP (GA/PSO)
 from deap import base, creator, algorithms, benchmarks
 from deap import tools
 import random
+import operator
+import math
 
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
