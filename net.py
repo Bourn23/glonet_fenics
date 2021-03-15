@@ -17,7 +17,7 @@ from sklearn.model_selection import GridSearchCV
 
 
 # GA
-from deap import base, creator, algorithms, benchmark
+from deap import base, creator, algorithms, benchmarks
 from deap import tools
 import random
 
@@ -111,7 +111,7 @@ class Model:
 
         pass
 
-    def plot(self, fig_path, global_memory):
+    def plot(self, fig_path, global_memory, summary = False):
         """
         the evaluation function is called every params.eval_iter
         :param fig_path: storage directory
@@ -224,7 +224,7 @@ class GPR(Model):
     #TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
 
 
-    def plot(self, fig_path, global_memory):
+    def plot(self, fig_path, global_memory, summary = False):
         fig, ax = plt.subplots(1, 3, figsize=(9, 3))
 
         ax[0].set_title('Predicted loss')
@@ -237,6 +237,9 @@ class GPR(Model):
 
         ax[2].set_title('Acquisition function')
         ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
+
+        if summary:
+            return ax[0]
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
@@ -339,7 +342,7 @@ class SGD(Model):
 
         # t.set_description(f"SGD Loss: {err}") #, refresh=True
 
-    def plot(self, fig_path, global_memory):
+    def plot(self, fig_path, global_memory, summary = False):
         # fig, ax = plt.subplots(1,2, figsize=(6,3))
         fig, ax = plt.subplots(figsize=(6,3))
 
@@ -367,7 +370,10 @@ class SGD(Model):
         ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
         ax.set_xlabel('$E$', fontsize=10)
         ax.set_ylabel('$Nu$', fontsize='medium')
-        
+
+        if summary:
+            return ax
+            
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
@@ -463,7 +469,7 @@ class GA(Model):
 
         # return pop, logbook, hof
 
-    def plot(self, fig_path, global_memory):
+    def plot(self, fig_path, global_memory, summary = False):
         fig, ax = plt.subplots(figsize=(6,3))
 
 
@@ -588,7 +594,7 @@ class PSO(Model):
         global_memory.pso_X = self.X
 
 
-    def plot(self, fig_path, global_memory):
+    def plot(self, fig_path, global_memory, summary = False):
         fig, ax = plt.subplots(1, 3, figsize=(9, 3))
         # plot
 

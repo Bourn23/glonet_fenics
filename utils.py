@@ -135,8 +135,16 @@ def load_checkpoint(checkpoint, model, optimizer=None, scheduler=None):
 
 
 def plot_loss_history(params, active_models, global_memory):
+    path = params.output_dir + f'/figures/ensemble_of_decision_1.png'
+    fig, ax = plt.subplots(1, len(active_models), figsize = (6, 4))
+    counter = 0
     for name, model in active_models.items():
         E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
+
+        ax[counter] = model.plot(path, global_memory, summary = True)
+
+
+
         # iterations = [i*params.plot_iter for i in range(len(eff_history))]
         # fig, ax = plt.subplots(1, 3, figsize=(6,3))
         # # logging.info(f"iterations is {iterations}")
@@ -155,14 +163,14 @@ def plot_loss_history(params, active_models, global_memory):
         # ax[2].set_title('E History')
         # ax[2].axis([0, len(E_history)*params.plot_iter, 0, 1.05])
         # plt.legend(('E', 'nu', 'error'))
-        plt.savefig(params.output_dir + f'/figures/Train_history_{name}.png')
 
         history_path = os.path.join(params.output_dir,f'history_{name}.mat')
         io.savemat(history_path, mdict={'eff_history'   :np.asarray(eff_history), 
                                         'E_history'   :np.asarray(E_history),
                                         'nu_history':np.asarray(nu_history)})
 
-        plt.close()
+    plt.savefig(path)
+    plt.close()
          
 # convergence of the algorithms (error - iteration)
 
