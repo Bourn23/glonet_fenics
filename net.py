@@ -546,6 +546,7 @@ class PSO(Model):
         part.speed = [random.uniform(smin, smax) for _ in range(size)]
         part.smin = smin
         part.smax = smax
+        part.best = None
         return part
 
 
