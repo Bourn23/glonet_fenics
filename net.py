@@ -17,7 +17,7 @@ from sklearn.model_selection import GridSearchCV
 
 
 # GA
-from deap import base, creator, algorithms
+from deap import base, creator, algorithms, benchmark
 from deap import tools
 import random
 
@@ -488,3 +488,131 @@ class GA(Model):
         print("---------------------------------")
         global_memory.sgd_history = self.history
         global_memory.sgd_data = self.data
+
+
+
+
+class PSO(Model):
+    def __init__(self, params, eng, global_memory, model_params = None):
+        super().__init__(params)
+
+        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        creator.create("Particle", list, fitness=creator.FitnessMax, speed=list)
+        # loading from memory:
+        # try: self.data = global_memory.gpr_data
+        # except: pass
+        self.best = None
+        self.update_per_run = 10
+        self.loss = nn.MSELoss()
+        
+        self.toolbox = base.Toolbox()
+        self.toolbox.register("particle", generate, size=2, pmin=-6, pmax=6, smin=-3, smax=3)
+        self.toolbox.register("population", tools.initRepeat, list, self.toolbox.particle)
+        self.toolbox.register("update", updateParticle, phi1=2.0, phi2=2.0)
+
+        self.pop = self.toolbox.population(n=5)
+        self.stats = tools.Statistics(lambda ind: ind.fitness.values)
+        self.stats.register("avg", np.mean)
+        self.stats.register("std", np.std)
+        self.stats.register("min", np.min)
+        self.stats.register("max", np.max)
+        self.stats.register("efficiency", self.efficiency)
+
+        self.logbook = tools.Logbook()
+        self.logbook.header = ["gen", "evals"] + self.stats.fields
+
+        def efficiency(data):    
+            if len(data) > 2: 
+                data = [err[0] for err in data]
+                return sum(data)/len(data),
+            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
+
+
+    @staticmethod
+    def generate(size, pmin, pmax, smin, smax):
+        self.part = creator.Particle(random.uniform(pmin, pmax) for _ in range(size)) 
+        self.part.speed = [random.uniform(smin, smax) for _ in range(size)]
+        self.part.smin = smin
+        self.part.smax = smax
+        return self.part
+
+
+    @staticmethod
+    def updateParticle(part, best, phi1, phi2):
+        u1 = (random.uniform(0, phi1) for _ in range(len(part)))
+        u2 = (random.uniform(0, phi2) for _ in range(len(part)))
+        v_u1 = map(operator.mul, u1, map(operator.sub, part.best, part))
+        v_u2 = map(operator.mul, u2, map(operator.sub, best, part))
+        part.speed = list(map(operator.add, part.speed, map(operator.add, v_u1, v_u2)))
+        for i, speed in enumerate(part.speed):
+            if abs(speed) < part.smin:
+                part.speed[i] = math.copysign(part.smin, speed)
+            elif abs(speed) > part.smax:
+                part.speed[i] = math.copysign(part.smax, speed)
+        # part[:] = list(map(operator.add, part, part.speed))
+        part[:] = list(map(operator.add, part, part.speed))
+
+    def train(self, eng, t, global_memory):
+        global_memory.pso_data = self.data
+        
+        start_time = time.time()
+        
+        #TODO: moved the training process to eval
+        # training
+
+        for g in range(self.update_per_run):
+            for part in self.pop:
+                part.fitness.values = self.toolbox.evaluate(part)
+                if not part.best or part.best.fitness < part.fitness:
+                    part.best = creator.Particle(part)
+                    part.best.fitness.values = part.fitness.values
+                if not self.best or self.best.fitness < part.fitness:
+                    self.best = creator.Particle(part)
+                    self.best.fitness.values = part.fitness.values
+            for part in self.pop:
+                self.toolbox.update(part, self.best)
+
+            # Gather all the fitnesses in one list and print the stats
+            self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
+            print(self.logbook.stream)
+    
+        
+        # adding next point to data
+        self.data = np.vstack([self.data, np.array([pop, logbook, best])])
+
+
+        end_time = time.time()
+        self.training_time += end_time - start_time
+
+        # adding to global state
+        global_memory.pso_X = self.X
+
+
+    def plot(self, fig_path, global_memory):
+        fig, ax = plt.subplots(1, 3, figsize=(9, 3))
+        # plot
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
+
+    def summary(self, global_memory): # TODO: convert this table to a function..
+        # TODO:predict mu and beta
+        mu = 1e4
+        beta = 3e5
+        # plot
+        E_f, nu_f = youngs_poisson(mu, beta)
+        relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+        print("\n--------------GPR---------------")
+        print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
+                                                        relative_nu_error))
+        
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
+
+    def evaluate(self, global_memory):
+        pass
+ 

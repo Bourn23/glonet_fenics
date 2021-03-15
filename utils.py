@@ -137,23 +137,23 @@ def load_checkpoint(checkpoint, model, optimizer=None, scheduler=None):
 def plot_loss_history(params, active_models, global_memory):
     for name, model in active_models.items():
         E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
-        iterations = [i*params.plot_iter for i in range(len(eff_history))]
-        fig, ax = plt.subplots(1, 3, figsize=(6,3))
-        # logging.info(f"iterations is {iterations}")
-        ax[0].plot(iterations, eff_history)
-        ax[0].set_xlabel('iteration')
-        ax[0].set_title('Error History')
-        ax[0].axis([0, len(eff_history)*params.plot_iter, 0, 1.05])
+        # iterations = [i*params.plot_iter for i in range(len(eff_history))]
+        # fig, ax = plt.subplots(1, 3, figsize=(6,3))
+        # # logging.info(f"iterations is {iterations}")
+        # ax[0].plot(iterations, eff_history)
+        # ax[0].set_xlabel('iteration')
+        # ax[0].set_title('Error History')
+        # ax[0].axis([0, len(eff_history)*params.plot_iter, 0, 1.05])
 
-        ax[1].plot(iterations, nu_history)
-        ax[1].set_xlabel('iteration')
-        ax[1].set_title('Nu History')
-        ax[1].axis([0, len(nu_history)*params.plot_iter, 0, 1.05])
+        # ax[1].plot(iterations, nu_history)
+        # ax[1].set_xlabel('iteration')
+        # ax[1].set_title('Nu History')
+        # ax[1].axis([0, len(nu_history)*params.plot_iter, 0, 1.05])
 
-        ax[2].plot(iterations, E_history)
-        ax[2].set_xlabel('iteration')
-        ax[2].set_title('E History')
-        ax[2].axis([0, len(E_history)*params.plot_iter, 0, 1.05])
+        # ax[2].plot(iterations, E_history)
+        # ax[2].set_xlabel('iteration')
+        # ax[2].set_title('E History')
+        # ax[2].axis([0, len(E_history)*params.plot_iter, 0, 1.05])
         # plt.legend(('E', 'nu', 'error'))
         plt.savefig(params.output_dir + f'/figures/Train_history_{name}.png')
 

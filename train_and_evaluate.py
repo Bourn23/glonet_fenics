@@ -33,8 +33,11 @@ def summarize(global_memory):
     #TODO; make it scalble
     for name, model in active_models.items():
         print(f"\n************{name}************")
-        print(f"{name} average 'E' error: ", round(np.sum(model.loss_history[:,0]) / len(model.loss_history), 2), '%')
-        print(f"{name} average 'nu' error: ", round(np.sum(model.loss_history[:,1]) / len(model.loss_history), 2), '%')
+        print('check if there is any negative loss',  model.loss_history)
+        print(f"{name} average 'E' error: ", round(np.sum(abs(model.loss_history[:,0])) / len(model.loss_history), 2), '%')
+        print(f"{name} average 'nu' error: ", round(np.sum(abs(model.loss_history[:,1])) / len(model.loss_history), 2), '%')
+        #TODO: average time-spent
+        #      Cross-Validation
           # cross-model validation:
         #   for name2, model2 in active_models.items():
         #       if name2 == name: continue
@@ -58,9 +61,9 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
     models statistics, summary, summary statistics
     """
     #TODO: compute Confidence Interval and also do statistical testing on the results.
-    print('==========SUMMARY STATISTICS=========')
-    print(f'Elapsed Time: {elapsed_time} (s)') # sum up total time.
-    print(f'Total Iterations: {params.numIter}')
+    print(f'==========SUMMARY STATISTICS of {global_count} iteration=========')
+    print(f'Total elapsed time: {elapsed_time} (s)') # sum up total time.
+    print(f'Total Sub Iterations: {params.numIter}')
     
     for model in active_models.values():
         model.summary(global_memory)
