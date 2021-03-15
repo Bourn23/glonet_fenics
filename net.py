@@ -593,7 +593,7 @@ class PSO(Model):
     
         
         # adding next point to data
-        self.data = np.vstack([self.data, np.array([pop, logbook, best])])
+        self.data = np.vstack([self.data, np.array([self.pop, self.logbook, self.best])])
 
 
         end_time = time.time()
