@@ -507,9 +507,19 @@ class PSO(Model):
         # loading from memory:
         # try: self.data = global_memory.gpr_data
         # except: pass
+        
+        # params
         self.best = None
         self.update_per_run = 10
+        
+        
+        # loss
         self.loss = nn.MSELoss()
+        def efficiency(data):    
+            if len(data) > 2: 
+                data = [err[0] for err in data]
+                return sum(data)/len(data),
+            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
         
         self.toolbox = base.Toolbox()
         self.toolbox.register("particle", self.generate, size=2, pmin=-6, pmax=6, smin=-3, smax=3)
@@ -527,11 +537,6 @@ class PSO(Model):
         self.logbook = tools.Logbook()
         self.logbook.header = ["gen", "evals"] + self.stats.fields
 
-        def efficiency(data):    
-            if len(data) > 2: 
-                data = [err[0] for err in data]
-                return sum(data)/len(data),
-            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
 
 
     @staticmethod
