@@ -512,9 +512,9 @@ class PSO(Model):
         self.loss = nn.MSELoss()
         
         self.toolbox = base.Toolbox()
-        self.toolbox.register("particle", generate, size=2, pmin=-6, pmax=6, smin=-3, smax=3)
+        self.toolbox.register("particle", self.generate, size=2, pmin=-6, pmax=6, smin=-3, smax=3)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.particle)
-        self.toolbox.register("update", updateParticle, phi1=2.0, phi2=2.0)
+        self.toolbox.register("update", self.updateParticle, phi1=2.0, phi2=2.0)
 
         self.pop = self.toolbox.population(n=5)
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
