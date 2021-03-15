@@ -519,7 +519,7 @@ class PSO(Model):
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
-            return torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
+            return torch.log(self.loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
         
         self.toolbox = base.Toolbox()
         self.toolbox.register("particle", self.generate, size=2, pmin=-6, pmax=6, smin=-3, smax=3)
