@@ -468,6 +468,8 @@ class GA(Model):
         pop, logbook = algorithms.eaMuPlusLambda(pop, self.toolbox, mu=MU, lambda_=LAMBDA,
                                                 cxpb=0.7, mutpb=0.3, ngen=40, 
                                                 stats=self.stats, halloffame=hof)
+        print(logbook)
+        print(pop)
         
         
 
