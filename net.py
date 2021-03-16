@@ -567,7 +567,6 @@ class PSO(Model):
         # part[:] = list(map(operator.add, part, part.speed))
 
         part[:] = list(map(operator.add, part, part.speed))
-        print('list of new locs', part[:])
 
     def train(self, eng, t, global_memory):
         global_memory.pso_data = self.data
@@ -594,7 +593,9 @@ class PSO(Model):
             self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
             print(self.logbook.stream)
     
-        
+        print('pop is', self.pop)
+        print('log books', self.logbook)
+        print('best is ', self.best)    
         # adding next point to data
         self.data = np.vstack([self.data, np.array([self.pop, self.logbook, self.best])])
 
