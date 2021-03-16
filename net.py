@@ -473,7 +473,7 @@ class GA(Model):
         # self.count += 1
         print('\n')
         pop, self.logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
-                                                cxpb=0.7, mutpb=0.3, ngen=40, 
+                                                cxpb=0.7, mutpb=0.3, ngen=10, 
                                                 stats=self.stats, halloffame=hof)
         # print(logbook)
         # print(pop)
