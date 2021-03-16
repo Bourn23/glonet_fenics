@@ -21,7 +21,7 @@
     "binary_penalty_end": 0,
     "binary_penalty_power": 1,
     "binary_step_iter": 200,
-    "step_size": 200,
+    "step_size": 10,
     "gamma": 0.1,
     "sigma_start": 0.7,
     "sigma_end": 0.7,
