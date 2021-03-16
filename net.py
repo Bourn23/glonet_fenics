@@ -227,7 +227,7 @@ class GPR(Model):
 
 
     def plot(self, fig_path, global_memory, summary = False):
-        fig, ax = plt.subplots(1, 3, figsize=(9, 3))
+        fig, ax = plt.subplots(1, 3, figsize=(6, 3))
 
         ax[0].set_title('Predicted loss')
         ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
