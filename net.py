@@ -369,7 +369,7 @@ class SGD(Model):
         # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         ax.set_title('history of E_0 and nu_0')
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
-        ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # red = true value
         ax.set_xlabel('$E$', fontsize=10)
         ax.set_ylabel('$Nu$', fontsize='medium')
 

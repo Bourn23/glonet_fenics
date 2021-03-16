@@ -136,11 +136,12 @@ def load_checkpoint(checkpoint, model, optimizer=None, scheduler=None):
 
 def plot_loss_history(params, active_models, global_memory):
     path = params.output_dir + f'/figures/ensemble_of_decision_1.png'
-    fig, ax = plt.subplots(1, len(active_models)+1, figsize = (6, 4))
+    fig, ax = plt.subplots(1, len(active_models)+1, figsize = (6, 3))
+    print('length is', len(active_models) + 1)
     counter = 0
     for name, model in active_models.items():
         E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
-
+        print('setting value to axis', counter)
         ax[counter] = model.plot(path, global_memory, summary = True)
         counter += 1
 
