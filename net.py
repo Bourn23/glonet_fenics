@@ -448,7 +448,7 @@ class GA(Model):
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
         self.MU, self.LAMBDA = 100, 200
-        self.pop = self.toolbox.population(n=MU)
+        self.pop = self.toolbox.population(n=self.MU)
 
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
         self.stats.register("avg", np.mean, axis=0)
