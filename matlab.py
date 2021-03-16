@@ -26,8 +26,8 @@ class engine:
 
         else:  
             try:
-                print('mu is ', data['mu'])
-                print('beta is ', data['beta'])
+                print('SGDmu is ', data['mu'])
+                print('SGDbeta is ', data['beta'])
                 mu = data['mu']
                 beta = data['beta']
                 force = self.force
