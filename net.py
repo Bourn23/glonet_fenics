@@ -147,7 +147,7 @@ class GPR(Model):
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
-        self.init_data(eng, 120) #TODO: chnage it to 1
+        self.init_data(eng, 50) #TODO: chnage it to 1
 
 
     def init_data(self, eng, i  = 200):
