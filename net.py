@@ -556,8 +556,12 @@ class PSO(Model):
     def updateParticle(part, best, phi1, phi2):
         u1 = (random.uniform(0, phi1) for _ in range(len(part)))
         u2 = (random.uniform(0, phi2) for _ in range(len(part)))
+        print('u1 is', u1)
+        print('u2 is', u2)
         v_u1 = map(operator.mul, u1, map(operator.sub, part.best, part))
         v_u2 = map(operator.mul, u2, map(operator.sub, best, part))
+        print('v_u1 is ', v_u1)
+        print('v_u2 is ', v_u2)
         part.speed = list(map(operator.add, part.speed, map(operator.add, v_u1, v_u2)))
         for i, speed in enumerate(part.speed):
             if abs(speed) < part.smin:
@@ -565,7 +569,9 @@ class PSO(Model):
             elif abs(speed) > part.smax:
                 part.speed[i] = math.copysign(part.smax, speed)
         # part[:] = list(map(operator.add, part, part.speed))
+
         part[:] = list(map(operator.add, part, part.speed))
+        print('list of new locs', part[:])
 
     def train(self, eng, t, global_memory):
         global_memory.pso_data = self.data
