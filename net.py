@@ -476,7 +476,7 @@ class GA(Model):
                                                 cxpb=0.7, mutpb=0.3, ngen=40, 
                                                 stats=self.stats, halloffame=hof)
         # print(logbook)
-        print(pop)
+        # print(pop)
         
         self.pop = pop
 
