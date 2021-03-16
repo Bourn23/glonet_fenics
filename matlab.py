@@ -32,13 +32,13 @@ class engine:
                 beta = data['beta']
                 force = self.force
             except: # for handling the GA data
-                if data[0] < 1e-4: data[0] = 1e-4 #abs(data[0])
-                if data[1] < 1e-4: data[1] = 1e-4 #abs(data[1])
+                # if data[0] < 1e-4: data[0] = 1e-4 #abs(data[0])
+                # if data[1] < 1e-4: data[1] = 1e-4 #abs(data[1])
 
-                print('GA mu is ', data[0])
-                print('GA beta is ', data[1])
-                mu = torch.tensor([[data[0]*1e9]] * self.batch_size, requires_grad=True, dtype=torch.float64)
-                beta = torch.tensor([[data[1]*1e9]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                print('GA mu is ', data[0]*1e7)
+                print('GA beta is ', data[1]*1e8)
+                mu = torch.tensor([[data[0]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                beta = torch.tensor([[data[1]*1e8]] * self.batch_size, requires_grad=True, dtype=torch.float64)
                 force = self.force
 
 
