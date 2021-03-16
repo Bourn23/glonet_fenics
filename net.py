@@ -447,7 +447,7 @@ class GA(Model):
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
-        self.MU, self.LAMBDA = 100, 200
+        self.MU, self.LAMBDA = 10, 200
         self.pop = self.toolbox.population(n=self.MU)
 
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
@@ -472,13 +472,14 @@ class GA(Model):
         # print('count is ', self.count)
         # self.count += 1
         print('\n')
-        pop, self.logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
+        pop, logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
                                                 cxpb=0.7, mutpb=0.3, ngen=10, 
                                                 stats=self.stats, halloffame=hof)
         # print(logbook)
         # print(pop)
         
         self.pop = pop
+        # self.log
 
         # self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
         # E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
