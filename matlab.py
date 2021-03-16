@@ -31,6 +31,7 @@ class engine:
                 force = self.force
             except: # for handling the GA data
                 if data[0] < 1e-4: data[0] = abs(data[0])
+                if data[1] < 1e-4: data[1] = abs(data[1])
                 mu = torch.tensor([[data[0]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
                 beta = torch.tensor([[data[1]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
                 force = self.force
