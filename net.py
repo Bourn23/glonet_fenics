@@ -587,15 +587,15 @@ class PSO(Model):
                     self.best.fitness.values = part.fitness.values
             for part in self.pop:
                 self.toolbox.update(part, self.best)
-                print('best value', self.best)
+                # print('best value', self.best)
 
             # Gather all the fitnesses in one list and print the stats
             self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
             print(self.logbook.stream)
     
-        print('pop is', self.pop)
-        print('log books', self.logbook)
-        print('best is ', self.best)    
+        # print('pop is', self.pop)
+        # print('log books', self.logbook)
+        # print('best is ', self.best)    
         # adding next point to data
         self.data = np.vstack([self.data, np.array([self.pop, self.logbook, self.best])])
 
