@@ -530,7 +530,7 @@ class PSO(Model):
         # loss
         self.loss = nn.MSELoss()
         def efficiency(data):
-            # print(data)
+            print(data)
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
