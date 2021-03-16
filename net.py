@@ -420,9 +420,11 @@ class SGD(Model):
 class GA(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
+
         loss = torch.nn.MSELoss()
         def efficiency(data):
             # print(data)
+            print(eng.Eval_Eff_1D_parallel(data))
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
@@ -444,6 +446,10 @@ class GA(Model):
         self.toolbox.register("mate", tools.cxTwoPoint)
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
+
+        self.MU, self.LAMBDA = 100, 200
+        self.pop = self.toolbox.population(n=MU)
+
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
         self.stats.register("avg", np.mean, axis=0)
         self.stats.register("std", np.std, axis=0)
@@ -454,9 +460,8 @@ class GA(Model):
         # self.count = 0
     def train(self, eng, t, global_memory):
         """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
-        MU, LAMBDA = 100, 200
+
         data = self.generator.generate()
-        pop = self.toolbox.population(n=MU)
 
         #algo here
 
@@ -467,13 +472,13 @@ class GA(Model):
         # print('count is ', self.count)
         # self.count += 1
         print('\n')
-        pop, logbook = algorithms.eaMuPlusLambda(pop, self.toolbox, mu=MU, lambda_=LAMBDA,
+        pop, self.logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
                                                 cxpb=0.7, mutpb=0.3, ngen=40, 
                                                 stats=self.stats, halloffame=hof)
-        print(logbook)
+        # print(logbook)
         print(pop)
         
-        
+        self.pop = pop
 
         # self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
         # E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
