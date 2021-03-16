@@ -26,8 +26,8 @@ class engine:
 
         else:  
             try:
-                print('SGDmu is ', data['mu'])
-                print('SGDbeta is ', data['beta'])
+                # print('SGDmu is ', data['mu'])
+                # print('SGDbeta is ', data['beta'])
                 mu = data['mu']
                 beta = data['beta']
                 force = self.force
@@ -35,8 +35,8 @@ class engine:
                 # if data[0] < 1e-4: data[0] = 1e-4 #abs(data[0])
                 # if data[1] < 1e-4: data[1] = 1e-4 #abs(data[1])
 
-                print('GA mu is ', data[0]*1e7)
-                print('GA beta is ', data[1]*1e8)
+                # print('GA mu is ', data[0]*1e7)
+                # print('GA beta is ', data[1]*1e8)
                 mu = torch.tensor([[data[0]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
                 beta = torch.tensor([[data[1]*1e8]] * self.batch_size, requires_grad=True, dtype=torch.float64)
                 force = self.force

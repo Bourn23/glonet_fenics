@@ -438,7 +438,7 @@ class GA(Model):
         IND_SIZE = 2
         
         self.toolbox = base.Toolbox()
-        self.toolbox.register("attribute", random.uniform, 0.01, 1) # prior of the population
+        self.toolbox.register("attribute", random.uniform, 1e-4, 1) # prior of the population
         self.toolbox.register("individual", tools.initRepeat, creator.Individual,
                         self.toolbox.attribute, n=IND_SIZE)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
@@ -447,14 +447,14 @@ class GA(Model):
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
-        self.MU, self.LAMBDA = 10, 200
+        self.MU, self.LAMBDA = 10, 20
         self.pop = self.toolbox.population(n=self.MU)
 
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
-        self.stats.register("avg", np.mean, axis=0)
-        self.stats.register("std", np.std, axis=0)
-        self.stats.register("min", np.min, axis=0)
-        self.stats.register("max", np.max, axis=0)
+        # self.stats.register("avg", np.mean, axis=0)
+        # self.stats.register("std", np.std, axis=0)
+        # self.stats.register("min", np.min, axis=0)
+        # self.stats.register("max", np.max, axis=0)
         self.stats.register("efficiency", efficiency)
 
         # self.count = 0
