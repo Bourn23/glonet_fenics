@@ -113,7 +113,7 @@ class Model:
 
         pass
 
-    def plot(self, fig_path, global_memory, summary = False):
+    def plot(self, fig_path, global_memory, axis = None):
         """
         the evaluation function is called every params.eval_iter
         :param fig_path: storage directory
@@ -226,7 +226,15 @@ class GPR(Model):
     #TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
 
 
-    def plot(self, fig_path, global_memory, summary = False):
+    def plot(self, fig_path, global_memory, axis = None):
+        if axis:
+            ax = axis
+            ax.set_title('Predicted loss')
+            ax.contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
+            ax.plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+            ax.plot(*self.next, 'rs')  # red = predicted value
+            return ax
+
         fig, ax = plt.subplots(1, 3, figsize=(6, 3))
 
         ax[0].set_title('Predicted loss')
@@ -240,8 +248,6 @@ class GPR(Model):
         ax[2].set_title('Acquisition function')
         ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
 
-        if summary:
-            return ax[0]
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
@@ -344,9 +350,12 @@ class SGD(Model):
 
         # t.set_description(f"SGD Loss: {err}") #, refresh=True
 
-    def plot(self, fig_path, global_memory, summary = False):
+    def plot(self, fig_path, global_memory, axis = None):
         # fig, ax = plt.subplots(1,2, figsize=(6,3))
-        fig, ax = plt.subplots(figsize=(6,3))
+        if axis:
+            ax = axis
+        else:
+            fig, ax = plt.subplots(figsize=(6,3))
 
 
         # try: ax[0].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape)) # these are gaussian models' values
@@ -354,7 +363,6 @@ class SGD(Model):
         # ax[0].set_title('history of mu and beta')
         # ax[0].plot(self.history[:, 0], self.history[:, 1], '-x')  # values obtained by torch
         # ax[0].plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
-
 
         # try: if global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         # except: pass
@@ -373,11 +381,11 @@ class SGD(Model):
         ax.set_xlabel('$E$', fontsize=10)
         ax.set_ylabel('$Nu$', fontsize='medium')
 
-        if summary:
-            return ax
             
         plt.savefig(fig_path, dpi = 300)
         plt.close()
+
+        if axis: return ax
 
     def evaluate(self, global_memory):
         # print("================SGD=================")
@@ -471,7 +479,7 @@ class GA(Model):
 
         # return pop, logbook, hof
 
-    def plot(self, fig_path, global_memory, summary = False):
+    def plot(self, fig_path, global_memory, axis = None):
         fig, ax = plt.subplots(figsize=(6,3))
 
 
@@ -607,7 +615,7 @@ class PSO(Model):
         global_memory.pso_X = self.best
 
 
-    def plot(self, fig_path, global_memory, summary = False):
+    def plot(self, fig_path, global_memory, axis = None):
         fig, ax = plt.subplots(1, 3, figsize=(9, 3))
         # plot
 
