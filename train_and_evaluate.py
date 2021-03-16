@@ -69,7 +69,7 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
         model.summary(global_memory)
 
     # save data files and plot
-    utils.plot_loss_history(params, active_models, global_memory)
+    utils.plot_loss_history(params, active_models, global_memory, global_count)
     
 
 def train(eng, params, global_memory, global_count, pca=None):

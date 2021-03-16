@@ -230,7 +230,7 @@ class GPR(Model):
         if axis:
             axis.set_title('Predicted loss \n GPR')
             axis.contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
-            l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+            l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
             l,  = axis.plot(*self.next, 'ws')  # red = predicted value
             return l
             
