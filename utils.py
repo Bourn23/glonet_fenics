@@ -136,7 +136,7 @@ def load_checkpoint(checkpoint, model, optimizer=None, scheduler=None):
 
 def plot_loss_history(params, active_models, global_memory, global_count):
     path = params.output_dir + f'/figures/ensemble_of_decision_{global_count}.png'
-    fig, ax = plt.subplots(1, len(active_models), figsize = (6, 4))
+    fig, ax = plt.subplots(1, len(active_models), figsize = (9, 4))
     print('length is', len(active_models) + 1)
     counter = 0
     for name, model in active_models.items():
