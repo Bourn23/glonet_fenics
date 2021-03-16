@@ -586,6 +586,7 @@ class PSO(Model):
                     self.best.fitness.values = part.fitness.values
             for part in self.pop:
                 self.toolbox.update(part, self.best)
+                print('best value', self.best)
 
             # Gather all the fitnesses in one list and print the stats
             self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
@@ -618,7 +619,7 @@ class PSO(Model):
         E_f, nu_f = youngs_poisson(mu, beta)
         relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
         relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
-        print("\n--------------GPR---------------")
+        print("\n--------------PSO---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
