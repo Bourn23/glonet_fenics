@@ -228,12 +228,12 @@ class GPR(Model):
 
     def plot(self, fig_path, global_memory, axis = None):
         if axis:
-            ax = axis
-            ax.set_title('Predicted loss')
-            ax.contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
-            ax.plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
-            ax.plot(*self.next, 'rs')  # red = predicted value
-            return ax
+            axis.set_title('Predicted loss')
+            axis.contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
+            l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+            l,  = axis.plot(*self.next, 'rs')  # red = predicted value
+            return l
+            
 
         fig, ax = plt.subplots(1, 3, figsize=(6, 3))
 
@@ -381,11 +381,11 @@ class SGD(Model):
         ax.set_xlabel('$E$', fontsize=10)
         ax.set_ylabel('$Nu$', fontsize='medium')
 
+        if axis: return ax
             
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-        if axis: return ax
 
     def evaluate(self, global_memory):
         # print("================SGD=================")

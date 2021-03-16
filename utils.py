@@ -142,7 +142,8 @@ def plot_loss_history(params, active_models, global_memory):
     for name, model in active_models.items():
         E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
         print('setting value to axis', counter)
-        ax[counter] = model.plot(path, global_memory, axis = ax[counter])
+        # ax[counter] = model.plot(path, global_memory, axis = ax[counter])
+        model.plot(path, global_memory, axis = ax[counter])
         counter += 1
 
 
