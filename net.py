@@ -423,7 +423,7 @@ class GA(Model):
 
         loss = torch.nn.MSELoss()
         def efficiency(data):
-            # print(data)
+            print('GA data is' , data)
             # print('fem output', eng.Eval_Eff_1D_parallel(data))
             if len(data) > 2: 
                 data = [err[0] for err in data]
@@ -449,6 +449,7 @@ class GA(Model):
 
         self.MU, self.LAMBDA = 10, 20
         self.pop = self.toolbox.population(n=self.MU)
+        self.hof = None
 
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
         # self.stats.register("avg", np.mean, axis=0)
@@ -473,7 +474,7 @@ class GA(Model):
 
         ax.set_title('history of E_0 and nu_0')
         print('pop is ', self.pop)
-        ax.plot(self.pop[:, 0], self.pop[:, 1], '-k')  # values obtained by torch
+        ax.plot(self.pop[-1][0], self.pop[-1],[1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
@@ -488,10 +489,12 @@ class GA(Model):
                                                 stats=self.stats, halloffame=hof)
         
         self.pop = pop
+        self.hof = hof
+        print('log book is ', logbook)
 
     
         self.data = np.vstack([self.data, [pop, logbook, hof]])
-
+        print('hof is ', hof)
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(pop[-1][0], pop[-1][1])
