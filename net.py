@@ -436,7 +436,7 @@ class GA(Model):
 
         self.creator = creator
         self.creator.create("FitnessMax", base.Fitness, weights=(1.0, 1.0))
-        self.creator.create("Individual", list, fitness=creator.FitnessMax)
+        self.creator.create("Individual", list, fitness=self.creator.FitnessMax)
         IND_SIZE = 2
         
         self.toolbox = base.Toolbox()
@@ -521,7 +521,8 @@ class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
 
-        self.creator = creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        self.creator = creator
+        self.creator.create("FitnessMax", base.Fitness, weights=(1.0,))
         self.creator.create("Particle", list, fitness=self.creator.FitnessMax, speed=list)
         # loading from memory:
         # try: self.data = global_memory.gpr_data
