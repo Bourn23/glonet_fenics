@@ -230,8 +230,8 @@ class GPR(Model):
         if axis:
             axis.set_title('Predicted loss \n GPR')
             axis.contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
-            l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
-            l,  = axis.plot(*self.next, 'ws')  # red = predicted value
+            l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
+            l,  = axis.plot(*self.next, 'rs')  # red = predicted value
             return l
             
 
@@ -239,7 +239,7 @@ class GPR(Model):
 
         ax[0].set_title('Predicted loss')
         ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
-        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'ws')  # white = true value
+        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
         ax[0].plot(*self.next, 'rs')  # red = predicted value
 
         ax[1].set_title('Uncertainty')
@@ -377,7 +377,7 @@ class SGD(Model):
         # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         ax.set_title('history of $E$ and $Nu$ \n SGD')
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
-        ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # red = true value
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # red = true value
         ax.set_xlabel('$E$', fontsize=10)
         ax.set_ylabel('$Nu$', fontsize='medium')
 
@@ -474,8 +474,8 @@ class GA(Model):
 
         ax.set_title('history of E_0 and nu_0')
         print('pop is ', self.pop)
-        ax.plot(self.hof[0][0], self.hof[0][1], 'ws')  # values obtained by torch
-        ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
+        ax.plot(self.hof[0][0], self.hof[0][1], 'bs')  # values obtained by torch
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
