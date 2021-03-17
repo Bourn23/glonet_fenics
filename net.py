@@ -459,33 +459,8 @@ class GA(Model):
 
         # self.count = 0
     def train(self, eng, t, global_memory):
-        """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
-
-        data = self.generator.generate()
-
-        #algo here
-
-        
-        
-        hof = tools.ParetoFront()
-
-        # print('count is ', self.count)
-        # self.count += 1
-        print('\n')
-        pop, logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
-                                                cxpb=0.7, mutpb=0.3, ngen=2, 
-                                                stats=self.stats, halloffame=hof)
-        # print(logbook)
-        # print(pop)
-        
-        self.pop = pop
-        # self.log
-
-        # self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
-        # E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
-        #                     data['mu'].detach().numpy())
-    
-        self.data = np.vstack([self.data, [pop, logbook, hof]])
+        """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""        
+        pass
 
         # return pop, logbook, hof
 
@@ -497,17 +472,29 @@ class GA(Model):
         except: pass
 
         ax.set_title('history of E_0 and nu_0')
-        ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
+        print('pop is ', self.pop)
+        ax.plot(self.pop[:, 0], self.pop[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
     def evaluate(self, global_memory):
+        hof = tools.ParetoFront()
+
+        print('\n')
+        pop, logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
+                                                cxpb=0.7, mutpb=0.3, ngen=2, 
+                                                stats=self.stats, halloffame=hof)
+        
+        self.pop = pop
+
+    
+        self.data = np.vstack([self.data, [pop, logbook, hof]])
+
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
-                                self.generator.beta[0, 0].detach().numpy())
+        E_f, nu_f = youngs_poisson(pop[0], pop[1])
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
