@@ -617,7 +617,7 @@ class PSO(Model):
     
         # print('pop is', self.pop)
         # print('log books', self.logbook)
-        # print('best is ', self.best)    
+        print('PSO best is ', self.best)    
         # adding next point to data
         self.data = np.vstack([self.data, np.array([self.pop, self.logbook, self.best])])
 
