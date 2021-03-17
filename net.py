@@ -539,8 +539,10 @@ class PSO(Model):
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
+            if (data[0] <= 0) or (data[1] <= 0): 
+                return -10000,
             result =  torch.log(self.loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
-            print('error is ', result)
+            # print('error is ', result)
             return result
 
         self.toolbox = base.Toolbox()
@@ -611,7 +613,7 @@ class PSO(Model):
 
             # Gather all the fitnesses in one list and print the stats
             self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
-            print(self.logbook.stream)
+            # print(self.logbook.stream)
     
         # print('pop is', self.pop)
         # print('log books', self.logbook)
