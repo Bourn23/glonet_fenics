@@ -425,11 +425,11 @@ class GA(Model):
         def efficiency(data):
             print('GA data is' , data)
             # print('fem output', eng.Eval_Eff_1D_parallel(data))
-            if (data[0] <= 0) or (data[1] <= 0): 
-                return -10000,
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
+            if (data[0] <= 0) or (data[1] <= 0): 
+                return -10000,
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
             # print('error is ', result)
             return result
