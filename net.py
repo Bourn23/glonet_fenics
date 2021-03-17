@@ -521,15 +521,15 @@ class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
 
-        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-        creator.create("Particle", list, fitness=creator.FitnessMax, speed=list)
+        self.creator = creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        self.creator.create("Particle", list, fitness=self.creator.FitnessMax, speed=list)
         # loading from memory:
         # try: self.data = global_memory.gpr_data
         # except: pass
         
         # params
         self.best = None
-        self.update_per_run = 1000
+        self.update_per_run = 10
         
         
         # loss
@@ -553,10 +553,10 @@ class PSO(Model):
 
         self.pop = self.toolbox.population(n=5)
         self.stats = tools.Statistics(lambda ind: ind.fitness.values)
-        self.stats.register("avg", np.mean)
-        self.stats.register("std", np.std)
-        self.stats.register("min", np.min)
-        self.stats.register("max", np.max)
+        # self.stats.register("avg", np.mean)
+        # self.stats.register("std", np.std)
+        # self.stats.register("min", np.min)
+        # self.stats.register("max", np.max)
         self.stats.register("efficiency", efficiency)
 
         self.logbook = tools.Logbook()
@@ -592,38 +592,6 @@ class PSO(Model):
 
     def train(self, eng, t, global_memory):
         global_memory.pso_data = self.data
-        
-        start_time = time.time()
-        
-        #TODO: moved the training process to eval
-        # training
-        print('\n')
-        for g in range(self.update_per_run):
-            for part in self.pop:
-                part.fitness.values = self.toolbox.evaluate(part)
-                if not part.best or part.best.fitness < part.fitness:
-                    part.best = creator.Particle(part)
-                    part.best.fitness.values = part.fitness.values
-                if not self.best or self.best.fitness < part.fitness:
-                    self.best = creator.Particle(part)
-                    self.best.fitness.values = part.fitness.values
-            for part in self.pop:
-                self.toolbox.update(part, self.best)
-                # print('best value', self.best)
-
-            # Gather all the fitnesses in one list and print the stats
-            self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
-            # print(self.logbook.stream)
-    
-        # print('pop is', self.pop)
-        # print('log books', self.logbook)
-        print('PSO best is ', self.best)    
-        # adding next point to data
-        self.data = np.vstack([self.data, np.array([self.pop, self.logbook, self.best])])
-
-
-        end_time = time.time()
-        self.training_time += end_time - start_time
 
         # adding to global state
         global_memory.pso_X = self.best
@@ -655,5 +623,37 @@ class PSO(Model):
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
 
     def evaluate(self, global_memory):
-        pass
+        
+        start_time = time.time()
+        
+        #TODO: moved the training process to eval
+        # training
+        print('\n')
+        for g in range(self.update_per_run):
+            for part in self.pop:
+                part.fitness.values = self.toolbox.evaluate(part)
+                if not part.best or part.best.fitness < part.fitness:
+                    part.best = creator.Particle(part)
+                    part.best.fitness.values = part.fitness.values
+                if not self.best or self.best.fitness < part.fitness:
+                    self.best = creator.Particle(part)
+                    self.best.fitness.values = part.fitness.values
+            for part in self.pop:
+                self.toolbox.update(part, self.best)
+                # print('best value', self.best)
+
+            # Gather all the fitnesses in one list and print the stats
+            self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
+            # print(self.logbook.stream)
+    
+        print('pop is', self.pop)
+        print('log books', self.logbook)
+        print('PSO best is ', self.best)    
+        # adding next point to data
+        self.data = np.vstack([self.data, np.array([self.pop, self.logbook, self.best])])
+
+
+        end_time = time.time()
+        self.training_time += end_time - start_time
+
  
