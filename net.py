@@ -492,18 +492,19 @@ class GA(Model):
         
         self.pop = pop
         self.hof = hof # HOF gets replaced not updated, fix it so that the best error is added on top!
-        print('log book is ', logbook)
+        # print('log book is ', logbook)
 
     
         self.data = np.vstack([self.data, [pop, logbook, hof]])
-        print('hof is ', hof)
+        # print('hof is ', hof)
+        print("----------------GA-----------------")
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(self.hof[0][0], self.hof[0][1])
 
         # scale the size
-        E_f_coef = math.floor(math.log(self.generator.E_0, 10) - math.log(E_f, 10))
-        nu_f_coef = math.floor(math.log(self.generator.nu_0, 10) - math.log(nu_f, 10))
+        E_f_coef = math.floor(abs(math.log(self.generator.E_0, 10) - math.log(E_f, 10)))
+        nu_f_coef = math.floor(abs(math.log(self.generator.nu_0, 10) - math.log(nu_f, 10)))
         print('inverted values: {:.2e} {:.2e}'.format(E_f*E_f_coef, nu_f*nu_f_coef))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f*E_f_coef-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f*nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
