@@ -449,7 +449,7 @@ class GA(Model):
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
-        self.MU, self.LAMBDA = 10, 50
+        self.MU, self.LAMBDA = 20, 30
         self.pop = self.toolbox.population(n=self.MU)
         self.hof = None
 
@@ -509,6 +509,7 @@ class GA(Model):
         print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f* 10**nu_f_coef))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**E_f_coef-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f* 10**nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
+        print('population is', pop)
         print("---------------------------------")
         global_memory.sgd_history = self.history
         global_memory.sgd_data = self.data
