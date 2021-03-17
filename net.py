@@ -423,7 +423,7 @@ class GA(Model):
 
         loss = torch.nn.MSELoss()
         def efficiency(data):
-            print('GA data is' , data)
+            # print('GA data is' , data)
             # print('fem output', eng.Eval_Eff_1D_parallel(data))
             if len(data) > 2: 
                 data = [err[0] for err in data]
