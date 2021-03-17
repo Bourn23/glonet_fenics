@@ -494,7 +494,7 @@ class GA(Model):
 
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        E_f, nu_f = youngs_poisson(pop[0], pop[1])
+        E_f, nu_f = youngs_poisson(pop[-1][0], pop[-1][1])
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
