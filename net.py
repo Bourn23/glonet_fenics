@@ -435,7 +435,7 @@ class GA(Model):
             return result
 
         self.creator = creator
-        self.creator.create("FitnessMax", base.Fitness, weights=(1.0, 1.0))
+        self.creator.create("FitnessMax", base.Fitness, weights=(1.0, .7))
         self.creator.create("Individual", list, fitness=self.creator.FitnessMax)
         IND_SIZE = 2
         
