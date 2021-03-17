@@ -502,8 +502,8 @@ class GA(Model):
         E_f, nu_f = youngs_poisson(self.hof[0][0], self.hof[0][1])
 
         # scale the size
-        E_f_coef = torch.floor(torch.log(self.generator.E_0) - torch.log(E_f))
-        nu_f_ceof = torch.floor(torch.log(self.generator.nu_0) - torch.log(nu_f))
+        E_f_coef = math.floor(math.log(self.generator.E_0, 10) - math.log(E_f, 10))
+        nu_f_ceof = math.floor(math.log(self.generator.nu_0, 10) - math.log(nu_f, 10))
         print('inverted values: {:.2e} {:.2e}'.format(E_f*E_f_coef, nu_f*nu_f_ceof))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f*E_f_coef-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f*nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))

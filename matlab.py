@@ -38,8 +38,10 @@ class engine:
 
                 # print('GA mu is ', data[0]*1e7)
                 # print('GA beta is ', data[1]*1e8)
-                mu = torch.tensor([[data[0]*1e7]] * self.batch_size, requires_grad=True, dtype=torch.float64)
-                beta = torch.tensor([[data[1]*1e8]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                mu_coef =  math.floor(math.log(1e7, 10) - math.log(data[0], 10))
+                beta_coef = math.floor(math.log(1e8, 10) - math.log(data[1], 10))
+                mu = torch.tensor([[data[0]*mu_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                beta = torch.tensor([[data[1]*beta_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
                 force = self.force
 
 
