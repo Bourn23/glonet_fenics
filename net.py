@@ -474,7 +474,7 @@ class GA(Model):
 
         ax.set_title('history of E_0 and nu_0')
         print('pop is ', self.pop)
-        ax.plot(self.pop[-1][0], self.pop[-1],[1], '-k')  # values obtained by torch
+        ax.plot(self.hof[0][0], self.hof[0][1], 'ws')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'rs')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
