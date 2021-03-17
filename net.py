@@ -505,6 +505,8 @@ class GA(Model):
         # scale the size
         E_f_coef = math.floor(abs(math.log(self.generator.E_0, 10) - math.log(E_f, 10)))
         nu_f_coef = math.floor(abs(math.log(self.generator.nu_0, 10) - math.log(nu_f, 10)))
+        print('E', E_f_coef)
+        print('nu', nu_f_coef)
         print('inverted values: {:.2e} {:.2e}'.format(E_f*E_f_coef, nu_f*nu_f_coef))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f*E_f_coef-self.generator.E_0)/self.generator.E_0*100,
                                                         (nu_f*nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
