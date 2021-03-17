@@ -449,7 +449,7 @@ class GA(Model):
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
-        self.MU, self.LAMBDA = 10, 20
+        self.MU, self.LAMBDA = 20, 20
         self.pop = self.toolbox.population(n=self.MU)
         self.hof = None
 
@@ -475,7 +475,7 @@ class GA(Model):
         except: pass
 
         ax.set_title('history of E_0 and nu_0')
-        print('pop is ', self.pop)
+        # print('pop is ', self.pop)
         ax.plot(self.hof[0][0], self.hof[0][1], 'rs')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
 
@@ -506,9 +506,9 @@ class GA(Model):
         E_f_coef = math.floor(abs(math.log(self.generator.E_0, 10) - math.log(E_f, 10)))
         nu_f_coef = math.floor(abs(math.log(self.generator.nu_0, 10) - math.log(nu_f, 10)))
 
-        print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f*nu_f_coef))
+        print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f* 10**nu_f_coef))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**E_f_coef-self.generator.E_0)/self.generator.E_0*100,
-                                                        (nu_f*nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
+                                                        (nu_f* 10**nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
         print("---------------------------------")
         global_memory.sgd_history = self.history
         global_memory.sgd_data = self.data
