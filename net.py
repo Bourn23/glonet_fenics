@@ -487,7 +487,7 @@ class GA(Model):
 
         print('\n')
         pop, logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
-                                                cxpb=0.7, mutpb=0.3, ngen=2, 
+                                                cxpb=0.6, mutpb=0.3, ngen=2, 
                                                 stats=self.stats, halloffame=hof)
         
         self.pop = pop
