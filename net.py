@@ -449,7 +449,7 @@ class GA(Model):
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
-        self.MU, self.LAMBDA = 10, 10
+        self.MU, self.LAMBDA = 20, 20
         self.pop = self.toolbox.population(n=self.MU)
         self.hof = None
 
