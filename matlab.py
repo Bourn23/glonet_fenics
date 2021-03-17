@@ -33,7 +33,7 @@ class engine:
                 force = self.force
             except: # for handling the GA data
                 if data[0] < 0: data[0] = abs(data[0])
-                elif data[0] = 0: data[0] = 1e-7
+                elif data[0] == 0: data[0] = 1e-7
                 if data[1] <= 1e-8: data[1] = 1e-8#abs(data[1])
 
                 # print('GA mu is ', data[0]*1e7)
