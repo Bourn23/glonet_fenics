@@ -425,6 +425,8 @@ class GA(Model):
         def efficiency(data):
             print('GA data is' , data)
             # print('fem output', eng.Eval_Eff_1D_parallel(data))
+            if (data[0] <= 0) or (data[1] <= 0): 
+                return -10000,
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
@@ -474,8 +476,8 @@ class GA(Model):
 
         ax.set_title('history of E_0 and nu_0')
         print('pop is ', self.pop)
-        ax.plot(self.hof[0][0], self.hof[0][1], 'bs')  # values obtained by torch
-        ax.plot(self.generator.E_0, self.generator.nu_0, 'gs')  # white = true value
+        ax.plot(self.hof[0][0], self.hof[0][1], 'rs')  # values obtained by torch
+        ax.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
