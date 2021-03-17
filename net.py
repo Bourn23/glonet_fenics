@@ -500,14 +500,19 @@ class GA(Model):
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = youngs_poisson(self.hof[0][0], self.hof[0][1])
-        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
-        print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
-                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+
+        # scale the size
+        E_f_coef = torch.floor(torch.log(self.generator.E_0) - torch.log(E_f))
+        nu_f_ceof = torch.floor(torch.log(self.generator.nu_0) - torch.log(nu_f))
+        print('inverted values: {:.2e} {:.2e}'.format(E_f*E_f_coef, nu_f*nu_f_ceof))
+        print('error:           {:7.2f}% {:7.2f}%'.format((E_f*E_f_coef-self.generator.E_0)/self.generator.E_0*100,
+                                                        (nu_f*nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
         print("---------------------------------")
         global_memory.sgd_history = self.history
         global_memory.sgd_data = self.data
 
-
+    def summary(self, global_memory):
+        pass
 
 
 class PSO(Model):
