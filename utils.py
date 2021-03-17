@@ -140,7 +140,7 @@ def plot_loss_history(params, active_models, global_memory, global_count):
     fig, ax = plt.subplots(1, len(active_models), figsize = (9, 4))
     counter = 0
     for name, model in active_models.items():
-        E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
+       
         # ax[counter] = model.plot(path, global_memory, axis = ax[counter])
         model.plot(path, global_memory, axis = ax[counter])
         counter += 1
@@ -166,10 +166,13 @@ def plot_loss_history(params, active_models, global_memory, global_count):
         # ax[2].axis([0, len(E_history)*params.plot_iter, 0, 1.05])
         # plt.legend(('E', 'nu', 'error'))
 
-        history_path = os.path.join(params.output_dir,f'history_{name}.mat')
-        io.savemat(history_path, mdict={'eff_history'   :np.asarray(eff_history), 
-                                        'E_history'   :np.asarray(E_history),
-                                        'nu_history':np.asarray(nu_history)})
+
+        #TODO: uncomment for enable saving
+        # E_history, nu_history, eff_history = model.data[:, 0], model.data[:, 1], model.data[:, 2]
+        # history_path = os.path.join(params.output_dir,f'history_{name}.mat')
+        # io.savemat(history_path, mdict={'eff_history'   :np.asarray(eff_history), 
+        #                                 'E_history'   :np.asarray(E_history),
+        #                                 'nu_history':np.asarray(nu_history)})
 
     plt.savefig(path)
     plt.close()
