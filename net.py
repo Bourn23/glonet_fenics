@@ -384,6 +384,7 @@ class SGD(Model):
         except: pass
         # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         ax.set_title('history of $E$ and $Nu$ \n SGD')
+        print('data is', self.data)
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # red = true value
         ax.set_xlabel('$E$', fontsize=10)
