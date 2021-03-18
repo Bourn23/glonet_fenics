@@ -6,7 +6,7 @@ import math
 
 class engine:
     def __init__(self, fenics_model, batch_size, E_0, nu_0, force):
-        self.SGD = Tue
+        self.SGD = True
         #TODO: our [mu, beta, force] itself must differ; something that currently is not happening
         self.model = fenics_model
         self.v2d = vertex_to_dof_map(self.model.V)
