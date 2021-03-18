@@ -3,6 +3,7 @@ import logging
 from dolfin import vertex_to_dof_map
 from utils import lame, youngs_poisson
 import math
+import random
 
 class engine:
     def __init__(self, fenics_model, batch_size, E_0, nu_0, force):
