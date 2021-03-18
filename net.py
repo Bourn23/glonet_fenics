@@ -323,7 +323,8 @@ class GPR(Model):
 class SGD(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
-        self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
+        # self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
+        self.optimizer = optim.Adagrad(self.generator.parameters()[:-1], lr = params.lr, weight_decay=0)
         self.loss = torch.nn.MSELoss()
 
 
