@@ -17,6 +17,9 @@ class engine:
         self.beta = torch.tensor([[beta]], requires_grad=True, dtype=torch.float64)
         self.force = torch.tensor([[force]], requires_grad=True, dtype=torch.float64)
         self.target_deflection = self.model(self.mu, self.beta, self.force).detach() # sure?
+
+
+        self.loss = torch.nn.MSELoss()
         
     def Eval_Eff_1D_SGD(self, data):
         # print('data is ', len(data))
