@@ -63,7 +63,7 @@ class engine:
             # v1. note its only one element!
             random_elements = random.randint(0, 175)
             # return u[:, :random_elements]
-            err = torch.log(self.loss(pred_deflection[:, random_elements], self.target_deflection[:, random_elements]))
+            err = torch.log(self.loss(u[:, random_elements], self.target_deflection[:, random_elements]))
             return err
 
         else:
