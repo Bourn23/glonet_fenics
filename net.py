@@ -344,12 +344,12 @@ class SGD(Model):
 
         print(f"old mu: {data['mu'][0][0]} and beta: {data['beta'][0][0]}")
         updated = self.generator.generate()
-        print(f"old mu: {updated['mu'][0][0]} and beta: {updated['beta'][0][0]}")
+        print(f"new mu: {updated['mu'][0][0]} and beta: {updated['beta'][0][0]}")
 
 
         self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
         E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
-                            data['mu'].detach().numpy())
+                            data['beta'].detach().numpy())
     
         self.data = np.vstack([self.data, [E_f, nu_f, err.detach().numpy()]])
 
