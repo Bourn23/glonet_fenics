@@ -52,7 +52,7 @@ class engine:
 
         if self.SGD:
             random_elements = random.randint(0, 176)
-            return u[:][random_elements]
+            return u[:, random_elements]
         else:
             return u
     
