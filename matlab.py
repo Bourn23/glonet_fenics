@@ -6,6 +6,7 @@ import math
 
 class engine:
     def __init__(self, fenics_model, batch_size, E_0, nu_0, force):
+        self.SGD = Tue
         #TODO: our [mu, beta, force] itself must differ; something that currently is not happening
         self.model = fenics_model
         self.v2d = vertex_to_dof_map(self.model.V)
@@ -48,7 +49,11 @@ class engine:
 
         u = self.model(mu, beta, force)
 
-        return u
+        if self.SGD:
+            random_elements = random.randint(0, 528)
+            return u[random_elements]
+        else:
+            return u
     
     def GradientFromSolver_1D_parallel(self, data):
         effs_and_gradients = []
