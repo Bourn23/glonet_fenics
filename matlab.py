@@ -51,8 +51,11 @@ class engine:
         u = self.model(mu, beta, force)
 
         if self.SGD:
+            random_section = random.randint(0, 175)
             random_elements = random.randint(0, 175)
-            return u[:, random_elements]
+            if random_section < random_elements:
+                return u[:, random_section:random_elements]
+            else: return u[:, random_elements:random_section]
         else:
             return u
     
