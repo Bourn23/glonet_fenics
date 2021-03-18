@@ -51,8 +51,8 @@ class engine:
         u = self.model(mu, beta, force)
 
         if self.SGD:
-            random_elements = random.randint(0, 528)
-            return u[0][random_elements]
+            random_elements = random.randint(0, 176)
+            return u[:][random_elements]
         else:
             return u
     
