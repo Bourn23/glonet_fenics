@@ -342,10 +342,6 @@ class SGD(Model):
         err.backward()
         self.optimizer.step()
 
-        print(f"old mu: {data['mu'][0][0]} and beta: {data['beta'][0][0]}")
-        updated = self.generator.generate()
-        print(f"new mu: {updated['mu'][0][0]} and beta: {updated['beta'][0][0]}")
-
 
         self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
         E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
@@ -384,7 +380,6 @@ class SGD(Model):
         except: pass
         # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         ax.set_title('history of $E$ and $Nu$ \n SGD')
-        print('data is', self.data)
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # red = true value
         ax.set_xlabel('$E$', fontsize=10)
