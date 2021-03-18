@@ -18,6 +18,54 @@ class engine:
         self.force = torch.tensor([[force]], requires_grad=True, dtype=torch.float64)
         self.target_deflection = self.model(self.mu, self.beta, self.force).detach() # sure?
         
+    def Eval_Eff_1D_SGD(self, data):
+        # print('data is ', len(data))
+        # if type(data) != dict: return data
+        if self.batch_size != 1: # chnged == with !=
+            mu = torch.tensor([[data['mu']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+            beta = torch.tensor([[data['beta']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+            force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
+
+        else:  
+            try:
+                # print('SGDmu is ', data['mu'])
+                # print('SGDbeta is ', data['beta'])
+                mu = data['mu']
+                beta = data['beta']
+                force = self.force
+            except: # for handling the GA data
+                if data[0] < 0: data[0] = abs(data[0])
+                elif data[0] == 0: data[0] = 1e-7
+                if data[1] <= 1e-8: data[1] = 1e-8#abs(data[1])
+
+                # print('GA mu is ', data[0]*1e7)
+                # print('GA beta is ', data[1]*1e8)
+                mu_coef =  math.floor(math.log(1e7, 10) - math.log(data[0], 10))
+                beta_coef = math.floor(math.log(1e8, 10) - math.log(data[1], 10))
+                mu = torch.tensor([[data[0]* 10**mu_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                beta = torch.tensor([[data[1]* 10**beta_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+                force = self.force
+
+
+        u = self.model(mu, beta, force)
+
+       
+        if self.SGD:
+            # v2.
+            # random_section = random.randint(0, 175)
+            # random_elements = random.randint(0, 175)
+            # if random_section < random_elements:
+            #     return u[:, random_section:random_elements]
+            # else: return u[:, random_elements:random_section]
+            # v1. note its only one element!
+            random_elements = random.randint(0, 175)
+            # return u[:, :random_elements]
+            err = torch.log(self.loss(pred_deflection[:, random_elements], self.target_deflection[:, random_elements]))
+            return err
+
+        else:
+            return u
+
 
     def Eval_Eff_1D_parallel(self, data):
         # print('data is ', len(data))
@@ -51,11 +99,16 @@ class engine:
         u = self.model(mu, beta, force)
 
         if self.SGD:
-            random_section = random.randint(0, 175)
+            # v2.
+            # random_section = random.randint(0, 175)
+            # random_elements = random.randint(0, 175)
+            # if random_section < random_elements:
+            #     return u[:, random_section:random_elements]
+            # else: return u[:, random_elements:random_section]
+            # v1.
             random_elements = random.randint(0, 175)
-            if random_section < random_elements:
-                return u[:, random_section:random_elements]
-            else: return u[:, random_elements:random_section]
+            return u[:, :random_elements]
+
         else:
             return u
     

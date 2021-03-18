@@ -333,10 +333,11 @@ class SGD(Model):
         start_time = time.time()
 
         data = self.generator.generate()
-        pred_deflection = eng.Eval_Eff_1D_parallel(data)
+        err = eng.Eval_Eff_1D_SGD(data)
+        # pred_deflection = eng.Eval_Eff_1D_SGD(data)
 
         self.optimizer.zero_grad()
-        err = torch.log(self.loss(pred_deflection, eng.target_deflection))
+        # err = torch.log(self.loss(pred_deflection, eng.target_deflection))
         err.backward()
         self.optimizer.step()
 
