@@ -5,7 +5,7 @@
     "noise_dims": 528,
     "generate_samples_mode": 0,
     "noise_amplitude": 1,
-    "numIter": 500.0,
+    "numIter": 150.0,
     "numGenerations" : 2.0,
     "gkernlen": 19.0,
     "gkernsig": 6.0,
