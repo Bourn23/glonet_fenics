@@ -7,7 +7,7 @@ import random
 
 class engine:
     def __init__(self, fenics_model, batch_size, E_0, nu_0, force):
-        self.SGD = True
+        self.SGD = False
         #TODO: our [mu, beta, force] itself must differ; something that currently is not happening
         self.model = fenics_model
         self.v2d = vertex_to_dof_map(self.model.V)
@@ -67,7 +67,8 @@ class engine:
             return err
 
         else:
-            return u
+            err = torch.log(self.loss(u, self.target_deflection))
+            return err
 
 
     def Eval_Eff_1D_parallel(self, data):
