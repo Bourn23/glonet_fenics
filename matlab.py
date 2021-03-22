@@ -72,32 +72,36 @@ class engine:
 
 
     def Eval_Eff_1D_parallel(self, data):
-        # print('data is ', len(data))
-        # if type(data) != dict: return data
-        if self.batch_size != 1: # chnged == with !=
-            mu = torch.tensor([[data['mu']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
-            beta = torch.tensor([[data['beta']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
-            force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
+        
+        # if self.batch_size != 1: # chnged == with !=
+        #     mu = torch.tensor([[data['mu']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+        #     beta = torch.tensor([[data['beta']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+        #     force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
 
-        else:  
-            try:
-                # print('SGDmu is ', data['mu'])
-                # print('SGDbeta is ', data['beta'])
-                mu = data['mu']
-                beta = data['beta']
-                force = self.force
-            except: # for handling the GA data
-                if data[0] < 0: data[0] = abs(data[0])
-                elif data[0] == 0: data[0] = 1e-7
-                if data[1] <= 1e-8: data[1] = 1e-8#abs(data[1])
+        # else:  
+        #     try:
+        #         # print('SGDmu is ', data['mu'])
+        #         # print('SGDbeta is ', data['beta'])
+        #         mu = data['mu']
+        #         beta = data['beta']
+        #         force = self.force
+        #     except: # for handling the GA data
+        #         if data[0] < 0: data[0] = abs(data[0])
+        #         elif data[0] == 0: data[0] = 1e-7
+        #         if data[1] <= 1e-8: data[1] = 1e-8#abs(data[1])
 
-                # print('GA mu is ', data[0]*1e7)
-                # print('GA beta is ', data[1]*1e8)
-                mu_coef =  math.floor(math.log(1e7, 10) - math.log(data[0], 10))
-                beta_coef = math.floor(math.log(1e8, 10) - math.log(data[1], 10))
-                mu = torch.tensor([[data[0]* 10**mu_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
-                beta = torch.tensor([[data[1]* 10**beta_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
-                force = self.force
+        #         # print('GA mu is ', data[0]*1e7)
+        #         # print('GA beta is ', data[1]*1e8)
+        #         mu_coef =  math.floor(math.log(1e7, 10) - math.log(data[0], 10))
+        #         beta_coef = math.floor(math.log(1e8, 10) - math.log(data[1], 10))
+        #         mu = torch.tensor([[data[0]* 10**mu_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+        #         beta = torch.tensor([[data[1]* 10**beta_coef]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+        #         force = self.force
+
+        mu = torch.tensor([[data['mu']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+        beta = torch.tensor([[data['beta']]] * self.batch_size, requires_grad=True, dtype=torch.float64)
+        try: force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
+        except: force = self.force
 
 
         u = self.model(mu, beta, force)

@@ -323,8 +323,9 @@ class GPR(Model):
 class SGD(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
-        # self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
-        self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, weight_decay=0)
+
+        self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=params.lr, betas=(params.beta1, params.beta2))
+        # self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, weight_decay=0)
         self.loss = torch.nn.MSELoss()
 
 
@@ -427,13 +428,15 @@ class GA(Model):
 
         loss = torch.nn.MSELoss()
         def efficiency(data):
-            # print('GA data is' , data)
-            # print('fem output', eng.Eval_Eff_1D_parallel(data))
-            if len(data) > 2: 
+
+            if len(data) > 2: # avg error of runs
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
-            if (data[0] <= 0) or (data[1] <= 0): 
+            if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -10000,
+
+            E_f, nu_f = lame(data[1]*1e7, data[2])
+            data = {'mu': E_f, 'nu':nu_f}
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
             # print('error is ', result)
             return result
@@ -541,14 +544,19 @@ class PSO(Model):
         # loss
         self.loss = nn.MSELoss()
         def efficiency(data):
-            # print(data)
+
             if len(data) > 2: 
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
             if (data[0] <= 0) or (data[1] <= 0): 
                 return -10000,
+
+            # conversion
+            E_f, nu_f = lame(data[1]*1e7, data[2])
+            data = {'mu': E_f, 'nu':nu_f}
+
             result =  torch.log(self.loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
-            # print('error is ', result)
+ 
             return result
 
         self.toolbox = base.Toolbox()
