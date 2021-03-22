@@ -508,7 +508,7 @@ class GA(Model):
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         # first convert to big values then go back to original values
-        E_f, nu_f = lame(self.hof[0][0]*1e7, elf.hof[0][1])
+        E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
         # scale the size
