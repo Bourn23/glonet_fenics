@@ -435,7 +435,7 @@ class GA(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -10000,
 
-            E_f, nu_f = lame(data[1]*1e7, data[2])
+            E_f, nu_f = lame(data[0]*1e7, data[1])
             data = {'mu': E_f, 'nu':nu_f}
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
             # print('error is ', result)
