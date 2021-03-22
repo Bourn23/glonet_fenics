@@ -435,8 +435,10 @@ class GA(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -10000,
 
+            print(f'before conversion data is {data}')
             E_f, nu_f = lame(data[0]*1e7, data[1])
             data = {'mu': E_f, 'beta':nu_f}
+            print(f'after conversion data is {data}')
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
             # print('error is ', result)
             return result
@@ -509,9 +511,9 @@ class GA(Model):
 
         # first convert to big values then go back to original values
         E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
-        print(f'before young poisson: E is {E_f}, f is{nu_f}')
+        # print(f'before young poisson: E is {E_f}, f is{nu_f}')
         E_f, nu_f = youngs_poisson(E_f, nu_f)
-        print(f'after young poisson: E is {E_f}, f is{nu_f}')
+        # print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
         # scale the size
         E_f_coef = math.floor(abs(math.log(self.generator.E_0, 10) - math.log(E_f, 10)))
