@@ -436,7 +436,7 @@ class GA(Model):
                 return -10000,
 
             E_f, nu_f = lame(data[0]*1e7, data[1])
-            data = {'mu': E_f, 'nu':nu_f}
+            data = {'mu': E_f, 'beta':nu_f}
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
             # print('error is ', result)
             return result
