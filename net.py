@@ -855,7 +855,7 @@ class PSOL(Model):
         self.is_running = self.is_running and self.iter < self.max_iter
         end_time = time.time()
         self.training_time += end_time - start_time
-        quick_save_fig(self.folder + f'/{self.iter}.png')
+        self.quick_save_fig(self.folder + f'{self.iter}.png')
 
         return self.is_running
 
