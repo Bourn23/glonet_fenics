@@ -1,5 +1,6 @@
 import sys
 import time
+
 sys.path.append('../')
 import numpy as np
 import torch.nn as nn
@@ -735,8 +736,6 @@ class PSO(Model):
 
 
 
-import sys
-import numpy as np
 
 class PSOL(Model):
 
@@ -915,7 +914,8 @@ class PSOL(Model):
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
         X, Y = self.particles.swapaxes(0, 1)
-        X, Y = youngs_poisson(X*1e7, Y)
+        X, Y = lame(X*1e7, Y)
+        X, Y = youngs_poisson(X, Y)
         if self.velocities is not None:
             U, V = self.velocities.swapaxes(0, 1)
             if normalize:
