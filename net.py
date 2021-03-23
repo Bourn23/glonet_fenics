@@ -469,7 +469,7 @@ class GA(Model):
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
-        self.MU, self.LAMBDA = 10, 20
+        self.MU, self.LAMBDA = 20, 20
         self.pop = self.toolbox.population(n=self.MU)
         self.hof = None
 
@@ -507,7 +507,7 @@ class GA(Model):
 
         print('\n')
         pop, logbook = algorithms.eaMuPlusLambda(self.pop, self.toolbox, mu=self.MU, lambda_=self.LAMBDA,
-                                                cxpb=0.6, mutpb=0.3, ngen=10, 
+                                                cxpb=0.6, mutpb=0.3, ngen=5, 
                                                 stats=self.stats, halloffame=hof)
         
         self.pop = pop
