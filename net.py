@@ -562,7 +562,7 @@ class PSO(Model):
         super().__init__(params)
 
         self.creator = creator
-        self.creator.create("FitnessMax", base.Fitness, weights=(1.0, .4))
+        self.creator.create("FitnessMax", base.Fitness, weights=(1.0, .2))
         self.creator.create("Particle", list, fitness=self.creator.FitnessMax, speed=list)
         # loading from memory:
         # try: self.data = global_memory.gpr_data
