@@ -744,6 +744,7 @@ class PSOL(Model):
 
     def __init__(self, params, eng, global_memory, model_params = None, particles = None, velocities = None, fitness_function = None,
                  w=0.8, c_1=1, c_2=1, max_iter=100, auto_coef=True):
+        super().__init__(params)
         n_particles = 100
         self.particles = np.random.uniform(0.1, 5, (n_particles, 2))
         velocities = (np.random.random((n_particles, 2)) - 0.5) / 10
