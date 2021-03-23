@@ -436,7 +436,9 @@ class GA(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -100000,
 
-            E_f, nu_f = lame(data[0]*1e7, data[1])
+            if data[0] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1])
+            else: E_f, nu_f = lame(data[0]*1e7, data[1])
+            
 
             # check dimensions
             # E_coeff = round(math.log(self.generator.E_0, 10) - round(math.log(E_f, 10), 0), 0)
