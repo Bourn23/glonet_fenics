@@ -754,7 +754,8 @@ class PSOL(Model):
             result = []
             for i in data:
                 if i[0] < 0 or i[1] <  0:
-                    return -10000
+                    result.append(-10000)
+                    continue
                 if i[0] > 1:
                     i[0] /= 10
                 if i[1] > 1:
