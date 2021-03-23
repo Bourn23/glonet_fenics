@@ -835,7 +835,7 @@ class PSOL(model):
                     self.g_best = self.particles[i]
 
     def evaluate(self, global_memory):
-        print('p best is ' : self.p_bests)
+        print('p best is ', self.p_bests)
         print(self.g_best)
         print(self.g_best_value)
 
