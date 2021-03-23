@@ -562,7 +562,7 @@ class PSO(Model):
         super().__init__(params)
 
         self.creator = creator
-        self.creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        self.creator.create("FitnessMax", base.Fitness, weights=(1.0, 1.0))
         self.creator.create("Particle", list, fitness=self.creator.FitnessMax, speed=list)
         # loading from memory:
         # try: self.data = global_memory.gpr_data
@@ -722,7 +722,7 @@ class PSO(Model):
             # print(self.logbook.stream)
     
         # print('pop is', self.pop)
-        print('log books', type(self.logbook))
+        # print('log books', self.logbook)
         # print('PSO best is ', self.best)    
         # adding next point to data
         self.data = np.vstack([self.data, np.array([self.best[0], self.best[1], self.logbook])])
