@@ -441,7 +441,7 @@ class GA(Model):
             E_coeff = round(math.log(self.generator.E_0, 10) - math.log(E_f, 10), 0)
             nu_coeff = round(math.log(self.generator.nu_0, 10) - math.log(E_f, 10), 0)
 
-            data = {'mu': E_f*E_coeff, 'beta':nu_f*nu_coeff}
+            data = {'mu': E_f* 10**E_coeff, 'beta':nu_f* 10**nu_coeff}
             print('data is ', data)
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
