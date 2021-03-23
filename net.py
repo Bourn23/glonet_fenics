@@ -752,15 +752,15 @@ class PSOL(Model):
         loss = nn.MSELoss()
         def fitness_function(data):
             result = []
-            for i in range(len(data)):
-                if data[i][0] < 0 or data[i][1] <  0:
+            for i in data:
+                if i[0] < 0 or i[1] <  0:
                     return -10000
-                if data[i][0] > 1:
-                    data[i][0] /= 10
-                if data[i][1] > 1:
-                    data[i][1] /= 10
+                if i[0] > 1:
+                    i[0] /= 10
+                if i[1] > 1:
+                    i[1] /= 10
 
-                data = {'mu': data[i][0], 'beta': data[i][1]}
+                data = {'mu': i[0], 'beta': i[1]}
                 print('data is', data)
                 result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
 
