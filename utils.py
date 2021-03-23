@@ -197,6 +197,11 @@ def plot_histogram(Effs, Iter, fig_path):
 
 
 # ___ WBR Helper functions ___
+def magnitude(num):
+    new_num = str(round(num, 0))
+    count = len(new_num[1:-2])
+    return count
+    
 def youngs_poisson(mu, lambda_):
     youngs = mu * (3 * lambda_ + 2 * mu) / (lambda_ + mu)
     poisson = lambda_ / (2 * (lambda_ + mu))
