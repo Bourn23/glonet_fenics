@@ -570,7 +570,7 @@ class PSO(Model):
         
         # params
         self.best = None
-        self.update_per_run = 10
+        self.update_per_run = 30
         
         
         # loss
