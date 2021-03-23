@@ -608,7 +608,7 @@ class PSO(Model):
 
 
         self.toolbox = base.Toolbox()
-        self.toolbox.register("particle", self.generate, size=2, pmin=-2, pmax=2, smin=-3, smax=3)
+        self.toolbox.register("particle", self.generate, size=2, pmin=1e-1, pmax=1, smin=-3, smax=3)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.particle)
         self.toolbox.register("update", self.updateParticle, phi1=2.0, phi2=2.0)
         self.toolbox.register("evaluate", efficiency)
