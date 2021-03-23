@@ -779,7 +779,7 @@ class PSOL(Model):
         self.p_bests = self.particles
         self.p_bests_values = self.fitness_function(self.particles)
         self.g_best = self.p_bests[0]
-        self.g_best_value = self.p_bests_values#[0]
+        self.g_best_value = self.p_bests_values[0]
         self.update_bests()
 
         self.iter = 0
