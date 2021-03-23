@@ -530,8 +530,11 @@ class GA(Model):
 
         E_f_mag = math.floor(math.log10(E_f))
         print('multiplying Ef by ', E_f_mag)
+        print('Ef is ', E_f)
+
         nu_f_mag = math.floor(math.log10(nu_f))
         print('multiplying nuf by ', nu_f_mag)
+        print('nuf is ', nu_f)
         if (E_f_mag != 6): 
             print('multiplying by ', E_f_mag)
             print('E_f by ', E_f)
