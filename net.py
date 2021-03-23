@@ -752,7 +752,7 @@ class PSOL(Model):
         loss = nn.MSELoss()
         def fitness_function(data):
             data = {'mu': data[0][0], 'beta': data[0][1]}
-            result =  loss(eng.Eval_Eff_1D_parallel(data[0]), eng.target_deflection).sum().detach().tolist(),
+            result =  loss(eng.Eval_Eff_1D_parallel(data[0]), eng.target_deflection).sum().detach().tolist()
 
             return result
 
