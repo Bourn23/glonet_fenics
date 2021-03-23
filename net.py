@@ -436,14 +436,13 @@ class GA(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -100000,
 
-            if data[0] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1])
-            else: E_f, nu_f = lame(data[0]*1e7, data[1])
-            
+            if self.hof[0][0] < 0.01: 
+                if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1]*10)
+                else: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
+            else:
+                if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]*10)
+                else: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
 
-            # check dimensions
-            # E_coeff = round(math.log(self.generator.E_0, 10) - round(math.log(E_f, 10), 0), 0)
-            # nu_coeff = round(math.log(self.generator.nu_0, 10) - round(math.log(E_f, 10), 0), 0)
-            # data = {'mu': E_f* 10**E_coeff, 'beta':nu_f* 10**nu_coeff}
 
             # print('BEFORE is ', data)
             data = {'mu': E_f, 'beta':nu_f}
