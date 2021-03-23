@@ -752,7 +752,7 @@ class PSOL(Model):
         loss = nn.MSELoss()
         def fitness_function(data):
             result = []
-            for i in data:
+            for i in range(len(data)):
                 if data[i][0] < 0 or data[i][1] <  0:
                     return -10000
                 if data[i][0] > 1:
