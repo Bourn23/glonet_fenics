@@ -436,17 +436,19 @@ class GA(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -100000,
 
-            if data[0] < 0.01: 
-                if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1]*10)
-                else: E_f, nu_f = lame(data[0]*1e8, data[1])
-            else:
-                if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e7, data[1]*10)
-                else: E_f, nu_f = lame(data[0]*1e7, data[1])
+            # if data[0] < 0.01: 
+            #     if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1]*10)
+            #     else: E_f, nu_f = lame(data[0]*1e8, data[1])
+            # else:
+            #     if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e7, data[1]*10)
+            #     else: E_f, nu_f = lame(data[0]*1e7, data[1])
 
 
-            # print('BEFORE is ', data)
-            E_f_mag = magnitude(E_f) - 6
-            nu_f_mag = magnitude(nu_f) - 6
+            print('BEFORE is ', data)
+            E_f_mag = math.floor(math.log(data[0], 10))
+            nu_f_mag = math.floor(math.log(data[1], 10))
+            print('mag EF is ', E_f_mag)
+            print('mag nuF is ', nu_f_mag)
             data = {'mu': E_f* 10**E_f_mag, 'beta':nu_f * 10**nu_f_mag}
             print('data is ', data)
 
