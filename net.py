@@ -574,7 +574,7 @@ class PSO(Model):
         
         
         # loss
-        self.loss = nn.MSELoss()
+        loss = nn.MSELoss()
         def efficiency(data):
 
             if len(data) > 2: # avg error of runs
