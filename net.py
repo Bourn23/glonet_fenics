@@ -742,10 +742,10 @@ class PSOL(Model):
 
     # pso_1 = PSO(particles.copy(), velocities.copy(), fitness_function, w=0.1, c_1=4.0, c_2=0.0, auto_coef=False)
 
-    def __init__(self, particles = None, velocities = None, fitness_function = None,
+    def __init__(self, params, eng, global_memory, model_params = None, particles = None, velocities = None, fitness_function = None,
                  w=0.8, c_1=1, c_2=1, max_iter=100, auto_coef=True):
         n_particles = 100
-        self.particles = np.random.uniform(-5, 5, (n_particles, 2))
+        self.particles = np.random.uniform(0.1, 5, (n_particles, 2))
         velocities = (np.random.random((n_particles, 2)) - 0.5) / 10
         self.velocities = velocities
 
