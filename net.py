@@ -446,8 +446,8 @@ class GA(Model):
             E_f, nu_f = lame(data[0]*1e7, data[1])
 
             print('BEFORE is ', data)
-            E_f_mag = math.floor(math.log(data[0], 10))
-            nu_f_mag = math.floor(math.log(data[1], 10))
+            E_f_mag = math.floor(math.log(E_f, 10))
+            nu_f_mag = math.floor(math.log(nu_f, 10))
             print('mag EF is ', E_f_mag)
             print('mag nuF is ', nu_f_mag)
             data = {'mu': E_f* 10**E_f_mag, 'beta':nu_f * 10**nu_f_mag}
