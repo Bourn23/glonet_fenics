@@ -523,11 +523,11 @@ class GA(Model):
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         # first convert to big values then go back to original values
-        if data[0] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1])
-        else: E_f, nu_f = lame(data[0]*1e7, data[1])
-        print(f'before young poisson: E is {E_f}, f is{nu_f}')
+        if self.hof[0][0] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
+        else: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
+        # print(f'before young poisson: E is {E_f}, f is{nu_f}')
         E_f, nu_f = youngs_poisson(E_f, nu_f)
-        print(f'after young poisson: E is {E_f}, f is{nu_f}')
+        # print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
         # scale the size
         a = math.log(self.generator.E_0, 10) - math.log(E_f, 10)
