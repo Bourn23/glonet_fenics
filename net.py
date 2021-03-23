@@ -832,8 +832,8 @@ class PSOL(Model):
     def update_bests(self):
         fits = self.fitness_function(self.particles)
 
-        print(fits)
-        print(self.p_bests_values)
+        print(' fits', fits)
+        print('best values', self.p_bests_values)
         for i in range(len(self.particles)):
             # update best personnal value (cognitive)
             if fits[i] < self.p_bests_values[i]:
