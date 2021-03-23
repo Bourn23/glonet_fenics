@@ -14,6 +14,7 @@ from utils import lame, youngs_poisson, make_gif_from_folder
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
 from scipy.optimize import minimize
+from scipy.stats import norm
 from sklearn.model_selection import GridSearchCV
 
 
@@ -194,6 +195,39 @@ class GPR(Model):
             Z, U = self.gpr.predict(x, return_std=True)
             return -Z + 1e-6*U
 
+        def expected_improvement(X, X_sample, Y_sample, gpr, xi=0.01):
+            '''
+            Computes the EI at points X based on existing samples X_sample
+            and Y_sample using a Gaussian process surrogate model.
+            
+            Args:
+                X: Points at which EI shall be computed (m x d).
+                X_sample: Sample locations (n x d).
+                Y_sample: Sample values (n x 1).
+                gpr: A GaussianProcessRegressor fitted to samples.
+                xi: Exploitation-exploration trade-off parameter.
+            
+            Returns:
+                Expected improvements at points X.
+            '''
+            mu, sigma = gpr.predict(X, return_std=True)
+            mu_sample = gpr.predict(X_sample)
+
+            sigma = sigma.reshape(-1, 1)
+            
+            # Needed for noise-based model,
+            # otherwise use np.max(Y_sample).
+            # See also section 2.4 in [1]
+            mu_sample_opt = np.max(mu_sample)
+
+            with np.errstate(divide='warn'):
+                imp = mu - mu_sample_opt - xi
+                Z = imp / sigma
+                ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
+                ei[sigma == 0.0] = 0.0
+
+            return ei
+
         
         self.A = gp_ucb(self.XY)
 
@@ -319,6 +353,215 @@ class GPR(Model):
         # global_memory.gpr_Y = self.Y
         # global_memory.gpr_Z = self.Z
         # global_memory.gpr_XY = self.XY
+
+
+class GPRL(Model):
+    def __init__(self, params, eng, global_memory, model_params = None):
+        super().__init__(params)
+        from sklearn.gaussian_process import GaussianProcessRegressor
+        from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
+        from scipy.optimize import minimize
+
+
+        self.loss = nn.MSELoss()
+        # init_data(params.gpr_init)
+        self.init_data(eng, 50) #TODO: chnage it to 1
+
+
+    def init_data(self, eng, i  = 200):
+        # start_time = time.time()
+
+        for i in range(i):
+            parameters = self.generator.generate(sampling = True)
+
+            pred_deflection = eng.Eval_Eff_1D_parallel(parameters)
+            err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
+            
+            # build internal memory
+            self.data = np.vstack([self.data, np.array([parameters['E_r'], parameters['nu_r'], err])])
+
+        end_time = time.time()
+        # self.training_time += end_time - start_time
+    # @staticmethod
+    
+
+    def train(self, eng, t, global_memory):
+        # self.init_data(eng, 1)
+        global_memory.gpr_data = self.data
+        
+        start_time = time.time()
+        
+        #TODO: moved the training process to eval
+        ls = np.std(self.data, axis=0)[:2]
+        
+        kernel = DotProduct() + WhiteKernel() + RBF(ls)
+        self.gpr = GaussianProcessRegressor(kernel=kernel).fit(self.data[:, :2], np.log(self.data[:, 2]))
+
+        self.X, self.Y = np.meshgrid(np.linspace(self.data[:, 0].min(), self.data[:, 0].max(), 11),
+                        np.linspace(self.data[:, 1].min(), self.data[:, 1].max(), 11))
+
+        self.XY = np.hstack([self.X.reshape(-1, 1), self.Y.reshape(-1, 1)])
+        self.Z, self.U = self.gpr.predict(self.XY, return_std=True)
+
+ 
+        # acquisition function, maximize upper confidence bound (GP-UCB) 
+        def gp_ucb(x):
+            if len(x.shape) < 2:
+                x = [x]
+            Z, U = self.gpr.predict(x, return_std=True)
+            return -Z + 1e-6*U
+
+        def expected_improvement(X, X_sample, Y_sample, gpr, xi=0.01):
+            '''
+            Computes the EI at points X based on existing samples X_sample
+            and Y_sample using a Gaussian process surrogate model.
+            
+            Args:
+                X: Points at which EI shall be computed (m x d).
+                X_sample: Sample locations (n x d).
+                Y_sample: Sample values (n x 1).
+                gpr: A GaussianProcessRegressor fitted to samples.
+                xi: Exploitation-exploration trade-off parameter.
+            
+            Returns:
+                Expected improvements at points X.
+            '''
+
+            # if len(X).shape < 2:
+            #     X = [X]
+            mu, sigma = gpr.predict(X, return_std=True)
+            mu_sample = gpr.predict(X_sample)
+
+            sigma = sigma.reshape(-1, 1)
+            
+            # Needed for noise-based model,
+            # otherwise use np.max(Y_sample).
+            # See also section 2.4 in [1]
+            mu_sample_opt = np.max(mu_sample)
+
+            with np.errstate(divide='warn'):
+                imp = mu - mu_sample_opt - xi
+                Z = imp / sigma
+                ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
+                ei[sigma == 0.0] = 0.0
+
+            return ei
+
+        def propose_location(acquisition, X_sample, Y_sample, gpr, bounds, n_restarts=25):
+        '''
+        Proposes the next sampling point by optimizing the acquisition function.
+        
+        Args:
+            acquisition: Acquisition function.
+            X_sample: Sample locations (n x d).
+            Y_sample: Sample values (n x 1).
+            gpr: A GaussianProcessRegressor fitted to samples.
+
+        Returns:
+            Location of the acquisition function maximum.
+        '''
+        dim = X_sample.shape[1]
+        min_val = 1
+        min_x = None
+        
+        def min_obj(X):
+            # Minimization objective is the negative acquisition function
+            return -acquisition(X.reshape(-1, dim), X_sample, Y_sample, gpr)
+        
+        # Find the best optimum by starting from n_restart different random points.
+        for x0 in np.random.uniform(bounds[:, 0], bounds[:, 1], size=(n_restarts, dim)):
+            res = minimize(min_obj, x0=x0, bounds=bounds, method='L-BFGS-B')        
+            if res.fun < min_val:
+                min_val = res.fun[0]
+                min_x = res.x           
+                
+        return min_x#.reshape(-1, 1)
+
+        if mode == 'EI':
+            self.A = expected_improvement(self.XY, self.X, self.Y, gpr)
+            bounds = np.array([[self.data[:, 0].min(), self.data[:, 0].max()]])
+            self.next = propose_location(expected_improvement, self.X, self.Y, gpr, bounds, n_restarts=25)
+        else:
+            self.A = gp_ucb(self.XY)
+
+            # find the maximal value in the acquisition function
+            best = np.argmax(self.A)
+            x0 = self.XY[best]
+
+            # find the optimal value from this regressor
+            self.res = minimize(gp_ucb, x0)
+            self.next = self.res.x
+
+        # calc error for proposed points
+        mu = torch.tensor([[self.next[0]]], requires_grad=True, dtype=torch.float64)
+        beta = torch.tensor([[self.next[1]]], requires_grad=True, dtype=torch.float64)
+        pred_deflection = eng.Eval_Eff_1D_parallel({'mu': mu, 'beta': beta})
+        err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
+        
+        # adding next point to data
+        self.data = np.vstack([self.data, np.array([self.next[0], self.next[1], err])])
+
+
+        end_time = time.time()
+        self.training_time += end_time - start_time
+
+        # adding to global state
+        global_memory.gpr_X = self.X
+        global_memory.gpr_Y = self.Y
+        global_memory.gpr_Z = self.Z
+        global_memory.gpr_XY = self.XY
+
+    #TODO: TOTHINK, why  don't we do all these following commands in the evaluate?
+
+
+    def plot(self, fig_path, global_memory, axis = None):
+        if axis:
+            axis.set_title('Predicted loss \n GPR')
+            axis.contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
+            l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
+            l,  = axis.plot(*self.next, 'rs')  # red = predicted value
+            return l
+            
+
+        fig, ax = plt.subplots(1, 3, figsize=(6, 3))
+
+        ax[0].set_title('Predicted loss')
+        ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
+        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
+        ax[0].plot(*self.next, 'rs')  # red = predicted value
+
+        ax[1].set_title('Uncertainty')
+        ax[1].contourf(self.X, self.Y, self.U.reshape(self.X.shape))
+
+        ax[2].set_title('Acquisition function')
+        ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
+
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
+
+    def summary(self, global_memory): # TODO: convert this table to a function..
+        Z = -self.gpr.predict(self.XY, return_std=False)
+        Z = Z.reshape(self.X.shape)
+
+        mu = np.max(Z[:, 0])
+        beta = np.max(Z[:, 1])
+        # plot
+        E_f, nu_f = youngs_poisson(mu, beta)
+        relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+        print("\n--------------GPRL---------------")
+        print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
+                                                        relative_nu_error))
+        
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
+
+    def evaluate(self, global_memory):
+        pass
 
 
 class SGD(Model):
@@ -733,8 +976,6 @@ class PSO(Model):
 
         end_time = time.time()
         self.training_time += end_time - start_time
-
-
 
 
 class PSOL(Model):
