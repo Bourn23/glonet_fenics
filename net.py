@@ -738,7 +738,7 @@ class PSO(Model):
 import sys
 import numpy as np
 
-class PSOL(model):
+class PSOL(Model):
 
     # particles = 
     velocities = (np.random.random((n_particles, 2)) - 0.5) / 10
