@@ -722,9 +722,9 @@ class PSO(Model):
             self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
             # print(self.logbook.stream)
     
-        print('pop is', self.pop)
-        # print('log books', self.logbook)
-        # print('PSO best is ', self.best)    
+        # print('pop is', self.pop)
+        print('log books', self.logbook)
+        print('PSO best is ', self.best)    
         # adding next point to data
         self.data = np.vstack([self.data, np.array([self.best[0], self.best[1], self.logbook])])
 
