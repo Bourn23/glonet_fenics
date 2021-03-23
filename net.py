@@ -412,7 +412,7 @@ class GPRL(Model):
             Z, U = self.gpr.predict(x, return_std=True)
             return -Z + 1e-6*U
 
-        def expected_improvement(X, X_sample, Y_sample, gpr, xi=0.01):
+        def expected_improvement(X, gpr, xi=0.01):
             '''
             Computes the EI at points X based on existing samples X_sample
             and Y_sample using a Gaussian process surrogate model.
@@ -430,8 +430,8 @@ class GPRL(Model):
 
             # if len(X).shape < 2:
             #     X = [X]
-            mu, sigma = gpr.predict(X, return_std=True)
-            mu_sample = gpr.predict(X_sample)
+            mu, sigma = gpr.predict(X[-1], return_std=True)
+            mu_sample = gpr.predict(X)
 
             sigma = sigma.reshape(-1, 1)
             
@@ -479,7 +479,7 @@ class GPRL(Model):
             return min_x#.reshape(-1, 1)
 
         if self.mode == 'EI':
-            self.A = expected_improvement(self.XY, self.X, self.Y, self.gpr)
+            self.A = expected_improvement(self.XY, self.gpr)
             bounds = np.array([[self.data[:, 0].min(), self.data[:, 0].max()]])
             self.next = propose_location(expected_improvement, self.X, self.Y, self.gpr, bounds, n_restarts=25)
         else:
