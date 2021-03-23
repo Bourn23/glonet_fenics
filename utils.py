@@ -242,4 +242,5 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
     img, *imgs = [Image.open(f) for f in sorted(glob.glob(files))]
     img.save(fp=out_file_path, format='GIF', append_images=imgs,
              save_all=True, duration=200, loop=0)
-    shutil.rmtree(folder, ignore_errors=True)
+    if remove_folder:
+        shutil.rmtree(folder, ignore_errors=True)
