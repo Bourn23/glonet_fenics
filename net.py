@@ -530,7 +530,7 @@ class GA(Model):
 
         E_f_mag = math.floor(math.log10(E_f))
         nu_f_mag = math.floor(math.log10(nu_f))
-        if (E_f_mag != 6): E_f = E_f * 10**(6 - E_f_mag)
+        if (E_f_mag != 6): E_f = E_f * 10**(E_f_mag - 6)
         if (nu_f_mag != 6): E_f = E_f * 10**(6 - nu_f_mag)# penalize magnitude
 
 
