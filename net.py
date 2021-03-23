@@ -7,7 +7,7 @@ import torch.nn.functional as F
 import torch
 from metalayers import * 
 import matplotlib.pyplot as plt
-from utils import lame, youngs_poisson
+from utils import lame, youngs_poisson, magnitude
 
 # GPR
 from sklearn.gaussian_process import GaussianProcessRegressor
@@ -445,8 +445,10 @@ class GA(Model):
 
 
             # print('BEFORE is ', data)
-            data = {'mu': E_f, 'beta':nu_f}
-            # print('data is ', data)
+            E_f_mag = magnitude(E_f) - 6
+            nu_f_mag = magnitude(nu_f) - 6
+            data = {'mu': E_f* 10**E_f_mag, 'beta':nu_f * 10**nu_f_mag}
+            print('data is ', data)
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
                 return -100000,
@@ -522,21 +524,23 @@ class GA(Model):
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         # first convert to big values then go back to original values
-        if self.hof[0][0] < 0.01: 
-            if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1]*10)
-            else: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
+
+
+        if data[0] < 0.01: 
+            if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1]*10)
+            else: E_f, nu_f = lame(data[0]*1e8, data[1])
         else:
-            if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]*10)
-            else: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
+            if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e7, data[1]*10)
+            else: E_f, nu_f = lame(data[0]*1e7, data[1])
+
+
         # print(f'before young poisson: E is {E_f}, f is{nu_f}')
         E_f, nu_f = youngs_poisson(E_f, nu_f)
         # print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
         # scale the size
-        a = math.log(self.generator.E_0, 10) - math.log(E_f, 10)
-        E_f_coef = round(a, 0)
-        b = math.log(self.generator.nu_0, 10) - math.log(nu_f, 10)
-        nu_f_coef = round(b, 0)
+        E_f_coef = magnitude(E_f) - 6
+        nu_f_coef = magnitude(nu_f) - 6
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f* 10**nu_f_coef))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**E_f_coef-self.generator.E_0)/self.generator.E_0*100,
