@@ -436,7 +436,13 @@ class GA(Model):
                 return -100000,
 
             E_f, nu_f = lame(data[0]*1e8, data[1])
-            data = {'mu': E_f, 'beta':nu_f}
+
+            # check dimensions
+            E_coeff = round(math.log(self.generator.E_0, 10) - math.log(E_f, 10), 0)
+            nu_coeff = round(math.log(self.generator.nu_0, 10) - math.log(E_f, 10), 0)
+
+            data = {'mu': E_f*E_coeff, 'beta':nu_f*nu_coeff}
+            print('data is ', data)
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
                 return -100000,
