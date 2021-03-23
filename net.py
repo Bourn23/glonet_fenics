@@ -751,8 +751,16 @@ class PSOL(Model):
 
         loss = nn.MSELoss()
         def fitness_function(data):
+            if data[0][0] < 0 or data[0][1] <  0:
+                return -10000
+            if data[0][0] > 1:
+                data[0][0] /= 10
+            if data[0][1] > 1:
+                data[0][1] /= 10
+
             data = {'mu': data[0][0], 'beta': data[0][1]}
-            result =  loss(eng.Eval_Eff_1D_parallel(data[0]), eng.target_deflection).sum().detach().tolist()
+            print('data is', data)
+            result =  loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist()
 
             return result
 
