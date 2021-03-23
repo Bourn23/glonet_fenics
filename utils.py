@@ -237,7 +237,7 @@ def err_distribution_sgd(data, params, fig_path):
     plt.close()
 
 
-def make_gif_from_folder(folder, out_file_path, remove_folder=True):
+def make_gif_from_folder(folder, out_file_path, remove_folder=False):
     files = os.path.join(folder, '*.png')
     img, *imgs = [Image.open(f) for f in sorted(glob.glob(files))]
     img.save(fp=out_file_path, format='GIF', append_images=imgs,
