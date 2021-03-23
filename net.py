@@ -848,7 +848,7 @@ class PSOL(Model):
 
         self.iter += 1
         self.is_running = self.is_running and self.iter < self.max_iter
-                end_time = time.time()
+        end_time = time.time()
         self.training_time += end_time - start_time
 
         return self.is_running
