@@ -103,7 +103,7 @@ class engine:
         try: force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
         except: force = self.force
 
-        print(f'mu is {mu} and beta is {beta}')
+        # print(f'mu is {mu} and beta is {beta}')
 
         u = self.model(mu, beta, force)
 
