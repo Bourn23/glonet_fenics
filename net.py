@@ -539,7 +539,7 @@ class GA(Model):
             print('multiplying by ', E_f_mag)
             print('E_f by ', E_f)
             E_f = E_f * 10**(E_f_mag - 6)
-        if (nu_f_mag != 6): E_f = E_f * 10**(6 - nu_f_mag)# penalize magnitude
+        if (nu_f_mag != 6): nu_f = nu_f * 10**(6 - nu_f_mag)# penalize magnitude
 
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
