@@ -856,11 +856,10 @@ class PSOL(Model):
     def summary(self, global_memory):
         # TODO:predict mu and beta
 
-        print("\n--------------PSO---------------")
+        print("\n--------------PSOL---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        # print('data is ', self.data)
         E_f, nu_f = lame(self.g_best[0]*1e7, self.g_best[1]) 
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
@@ -869,8 +868,6 @@ class PSOL(Model):
         nu_f_mag = math.floor(math.log10(nu_f))
 
         if (E_f_mag != 6): 
-            # print('multiplying by ', E_f_mag)
-            # print('E_f by ', E_f)
             E_f = E_f * 10**(E_f_mag - 6)
 
         relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
@@ -885,9 +882,45 @@ class PSOL(Model):
         global_memory.psol_data = self.data
 
     def plot(self, fig_path, global_memory, axis = None):    
+        normalize = True
 
-        pass
-    
-        # print('p best is ', self.p_bests)
-        # print('g best', self.g_best)
-        # print('g best value', self.g_best_value)
+        if axis:
+            axis.set_title('Predicted loss \n PSOL')
+            try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+            except: pass
+            E_f, nu_f = lame(self.g_best[0]*1e7, self.g_best[1]) 
+            E_f, nu_f = youngs_poisson(E_f, nu_f)
+            l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # blue = true value
+            l,  = axis.plot(E_f, nu_f, 'rs')  # red = predicted value
+            return l
+            
+
+        fig, ax = plt.subplots(1, 2, figsize=(6, 3))
+
+        E_f, nu_f = lame(self.g_best[0]*1e7, self.g_best[1]) 
+        E_f, nu_f = youngs_poisson(E_f, nu_f)
+
+        ax[0].set_title('Predicted loss \nPSOL')
+        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        except: pass
+        ax[0].plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
+        ax[0].plot(E_f, nu_f, 'rs')  # red = predicted value
+
+
+        # plot contour
+        ax[1].set_title('All Particles \nPSOL')
+        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        except: pass
+        X, Y = self.particles.swapaxes(0, 1)
+        if self.velocities is not None:
+            U, V = self.velocities.swapaxes(0, 1)
+            if normalize:
+                N = np.sqrt(U**2+V**2)
+                U, V = U/N, V/N
+        ax[1].scatter(X, Y, color='#000')
+        if self.velocities is not None:
+            ax[1].quiver(X, Y, U, V, color='#000', headwidth=2, headlength=2, width=5e-3)
+
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
