@@ -362,6 +362,7 @@ class GPRL(Model):
         from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel, RBF
         from scipy.optimize import minimize
 
+        self.mode = 'EI'
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
@@ -448,36 +449,36 @@ class GPRL(Model):
             return ei
 
         def propose_location(acquisition, X_sample, Y_sample, gpr, bounds, n_restarts=25):
-        '''
-        Proposes the next sampling point by optimizing the acquisition function.
-        
-        Args:
-            acquisition: Acquisition function.
-            X_sample: Sample locations (n x d).
-            Y_sample: Sample values (n x 1).
-            gpr: A GaussianProcessRegressor fitted to samples.
+            '''
+            Proposes the next sampling point by optimizing the acquisition function.
+            
+            Args:
+                acquisition: Acquisition function.
+                X_sample: Sample locations (n x d).
+                Y_sample: Sample values (n x 1).
+                gpr: A GaussianProcessRegressor fitted to samples.
 
-        Returns:
-            Location of the acquisition function maximum.
-        '''
-        dim = X_sample.shape[1]
-        min_val = 1
-        min_x = None
-        
-        def min_obj(X):
-            # Minimization objective is the negative acquisition function
-            return -acquisition(X.reshape(-1, dim), X_sample, Y_sample, gpr)
-        
-        # Find the best optimum by starting from n_restart different random points.
-        for x0 in np.random.uniform(bounds[:, 0], bounds[:, 1], size=(n_restarts, dim)):
-            res = minimize(min_obj, x0=x0, bounds=bounds, method='L-BFGS-B')        
-            if res.fun < min_val:
-                min_val = res.fun[0]
-                min_x = res.x           
-                
-        return min_x#.reshape(-1, 1)
+            Returns:
+                Location of the acquisition function maximum.
+            '''
+            dim = X_sample.shape[1]
+            min_val = 1
+            min_x = None
+            
+            def min_obj(X):
+                # Minimization objective is the negative acquisition function
+                return -acquisition(X.reshape(-1, dim), X_sample, Y_sample, gpr)
+            
+            # Find the best optimum by starting from n_restart different random points.
+            for x0 in np.random.uniform(bounds[:, 0], bounds[:, 1], size=(n_restarts, dim)):
+                res = minimize(min_obj, x0=x0, bounds=bounds, method='L-BFGS-B')        
+                if res.fun < min_val:
+                    min_val = res.fun[0]
+                    min_x = res.x           
+                    
+            return min_x#.reshape(-1, 1)
 
-        if mode == 'EI':
+        if self.mode == 'EI':
             self.A = expected_improvement(self.XY, self.X, self.Y, gpr)
             bounds = np.array([[self.data[:, 0].min(), self.data[:, 0].max()]])
             self.next = propose_location(expected_improvement, self.X, self.Y, gpr, bounds, n_restarts=25)
