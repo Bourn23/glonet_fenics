@@ -669,14 +669,13 @@ class PSO(Model):
 
     def summary(self, global_memory): # TODO: convert this table to a function..
         # TODO:predict mu and beta
-        mu = 1e4
-        beta = 3e5
 
         print("\n--------------PSO---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]) 
+        
+        E_f, nu_f = lame(self.data[2][0]*1e7, self.data[2][1]) 
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
 
