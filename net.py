@@ -577,19 +577,35 @@ class PSO(Model):
         self.loss = nn.MSELoss()
         def efficiency(data):
 
-            if len(data) > 2: 
+            if len(data) > 2: # avg error of runs
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
-            if (data[0] <= 0) or (data[1] <= 0): 
+            if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
+                return -100000,
+
+
+            E_f, nu_f = lame(data[0]*1e7, data[1])
+            if E_f < 0 or nu_f < 0: # penalize negative numbers
                 return -10000,
+            E_f_mag = math.floor(math.log10(E_f))
+            nu_f_mag = math.floor(math.log10(nu_f))
 
-            # conversion
-            E_f, nu_f = lame(data[1]*1e7, data[2])
-            data = {'mu': E_f, 'nu':nu_f}
+            # if (E_f_mag != 6) or (nu_f_mag != 6): # penalize magnitude
+            #     return -10000,
+            
+            if (E_f_mag != 6): E_f = E_f * 10**(6 - E_f_mag)
+            if (nu_f_mag != 6): nu_f = nu_f * 10**(6 - nu_f_mag)# penalize magnitude
+                
+            data = {'mu': E_f, 'beta':nu_f}
+            # print('data is ', data)
 
-            result =  torch.log(self.loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
- 
+            if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
+                return -100000,
+
+            result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
+
             return result
+
 
         self.toolbox = base.Toolbox()
         self.toolbox.register("particle", self.generate, size=2, pmin=-2, pmax=2, smin=-3, smax=3)
@@ -641,6 +657,7 @@ class PSO(Model):
 
         # adding to global state
         global_memory.pso_X = self.best
+        print(self.best)
 
 
     def plot(self, fig_path, global_memory, axis = None):
@@ -654,20 +671,33 @@ class PSO(Model):
         # TODO:predict mu and beta
         mu = 1e4
         beta = 3e5
-        # plot
-        E_f, nu_f = youngs_poisson(mu, beta)
-        relative_E_error = (E_f* 10**5-self.generator.E_0)/self.generator.E_0*100
-        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+
         print("\n--------------PSO---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
-        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
-                                                        relative_nu_error))
-        
-        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
+        E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]) 
+        E_f, nu_f = youngs_poisson(E_f, nu_f)
 
+
+        E_f_mag = math.floor(math.log10(E_f))
+        nu_f_mag = math.floor(math.log10(nu_f))
+
+        if (E_f_mag != 6): 
+            # print('multiplying by ', E_f_mag)
+            # print('E_f by ', E_f)
+            E_f = E_f * 10**(E_f_mag - 6)
+
+        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+
+
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error, relative_nu_error))
+        print("---------------------------------")
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
+        global_memory.pso_history = self.history
+        global_memory.pso_data = self.data
     def evaluate(self, global_memory):
         
         start_time = time.time()
