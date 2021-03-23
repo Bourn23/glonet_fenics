@@ -746,7 +746,7 @@ class PSOL(Model):
         super().__init__(params)
 
         self.folder = params.output_dir +  f'/figures/PSOL/'
-        self.gif_folder = params.output_dir + f'/figures/deviceSamples/_tmp.gif'
+        self.gif_folder = params.output_dir + f'/figures/deviceSamples/'
 
         n_particles = 100
 
@@ -888,8 +888,8 @@ class PSOL(Model):
         global_memory.psol_data = self.data
 
 
-        
-        make_gif_from_folder(self.folder, self.gif_folder)
+        saving_folder = self.gif_folder + f'/{self.iter}_tmp.gif'
+        make_gif_from_folder(self.folder, saving_folder)
 
 
 
