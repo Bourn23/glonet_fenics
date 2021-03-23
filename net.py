@@ -827,8 +827,6 @@ class PSOL(Model):
     def update_bests(self):
         fits = self.fitness_function(self.particles)
 
-        print(' fits', fits)
-        print('best values', self.p_bests_values)
         for i in range(len(self.particles)):
             # update best personnal value (cognitive)
             if fits[i] < self.p_bests_values[i]:
@@ -863,7 +861,7 @@ class PSOL(Model):
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         # print('data is ', self.data)
-        E_f, nu_f = lame(self.g_best*1e7, self.g_best) 
+        E_f, nu_f = lame(self.g_best[0]*1e7, self.g_best[1]) 
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
 
