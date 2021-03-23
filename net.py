@@ -436,12 +436,12 @@ class GA(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -100000,
 
-            if self.hof[0][0] < 0.01: 
-                if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1]*10)
-                else: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
+            if data[0] < 0.01: 
+                if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1]*10)
+                else: E_f, nu_f = lame(data[0]*1e8, data[1])
             else:
-                if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]*10)
-                else: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
+                if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e7, data[1]*10)
+                else: E_f, nu_f = lame(data[0]*1e7, data[1])
 
 
             # print('BEFORE is ', data)
