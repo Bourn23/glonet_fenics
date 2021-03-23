@@ -513,12 +513,13 @@ class GA(Model):
 
         # first convert to big values then go back to original values
         E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
-        print(f'before young poisson: E is {E_f}, f is{nu_f}')
+        # print(f'before young poisson: E is {E_f}, f is{nu_f}')
         E_f, nu_f = youngs_poisson(E_f, nu_f)
-        print(f'after young poisson: E is {E_f}, f is{nu_f}')
+        # print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
         # scale the size
-        E_f_coef = math.floor(math.log(self.generator.E_0, 10) - math.log(E_f, 10))
+        a = math.log(self.generator.E_0, 10) - math.log(E_f, 10)
+        E_f_coef = math.ceil(a) if  a < 0 else math.floor(a)
         nu_f_coef = math.floor(math.log(self.generator.nu_0, 10) - math.log(nu_f, 10))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f* 10**nu_f_coef))
