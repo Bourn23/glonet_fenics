@@ -759,8 +759,8 @@ class PSOL(Model):
                     i[0] /= 10
                 if i[1] > 1:
                     i[1] /= 10
-
-                data = {'mu': i[0], 'beta': i[1]}
+                E_f, nu_f = lame(i[0]*1e7, i[1])
+                data = {'mu': E_f, 'beta': nu_f}
                 print('data is', data)
                 result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
 
@@ -789,7 +789,7 @@ class PSOL(Model):
     def __str__(self):
         return f'[{self.iter}/{self.max_iter}] $w$:{self.w:.3f} - $c_1$:{self.c_1:.3f} - $c_2$:{self.c_2:.3f}'
 
-    def train(self):
+    def train(self, eng, t, global_memory):
         if self.iter > 0:
             self.move_particles()
             self.update_bests()
