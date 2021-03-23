@@ -722,10 +722,10 @@ class PSO(Model):
             # print(self.logbook.stream)
     
         # print('pop is', self.pop)
-        print('log books', self.logbook)
+        print('log books', type(self.logbook))
         # print('PSO best is ', self.best)    
         # adding next point to data
-        self.data = np.vstack([self.data, np.array([self.best[0], self.best[1], self.logbook['efficiency']])])
+        self.data = np.vstack([self.data, np.array([self.best[0], self.best[1], self.logbook[-1]['efficiency']])])
 
 
         end_time = time.time()
