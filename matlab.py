@@ -51,6 +51,7 @@ class engine:
 
 
         u = self.model(mu, beta, force)
+        print(u)
 
        
         if self.SGD:
