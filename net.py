@@ -430,7 +430,7 @@ class GPRL(Model):
 
             if len(X.shape) < 2:
                 X = [X]
-            mu, sigma = gpr.predict(X[-1].reshape(-1, 1), return_std=True)
+            mu, sigma = gpr.predict([X[-1]].reshape(-1, 1), return_std=True)
             mu_sample = gpr.predict(X)
 
             sigma = sigma.reshape(-1, 1)
