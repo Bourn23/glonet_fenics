@@ -443,6 +443,7 @@ class GA(Model):
             # nu_coeff = round(math.log(self.generator.nu_0, 10) - round(math.log(E_f, 10), 0), 0)
             # data = {'mu': E_f* 10**E_coeff, 'beta':nu_f* 10**nu_coeff}
 
+            print('BEFORE is ', data)
             data = {'mu': E_f, 'beta':nu_f}
             print('data is ', data)
 
