@@ -839,6 +839,8 @@ class PSOL(Model):
                     self.g_best = self.particles[i]
 
     def evaluate(self, global_memory):
+        start_time = time.time()
+
         if self.iter > 0:
             self.move_particles()
             self.update_bests()
@@ -846,6 +848,8 @@ class PSOL(Model):
 
         self.iter += 1
         self.is_running = self.is_running and self.iter < self.max_iter
+                end_time = time.time()
+        self.training_time += end_time - start_time
 
         return self.is_running
 
@@ -883,8 +887,8 @@ class PSOL(Model):
 
     def plot(self, fig_path, global_memory, axis = None):    
 
-
+        pass
     
-        print('p best is ', self.p_bests)
-        print('g best', self.g_best)
-        print('g best value', self.g_best_value)
+        # print('p best is ', self.p_bests)
+        # print('g best', self.g_best)
+        # print('g best value', self.g_best_value)
