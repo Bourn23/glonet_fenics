@@ -448,11 +448,11 @@ class GA(Model):
             print('BEFORE is ', data)
             E_f_mag = math.floor(math.log(E_f, 10))
             nu_f_mag = math.floor(math.log(nu_f, 10))
-            print('mag EF is ', E_f_mag)
-            print('mag nuF is ', nu_f_mag)
+
+            if (E_f_mag != 6) or (nu_f_mag != 6): # penalize magnitude
+                return -10000,
             data = {'mu': E_f, 'beta':nu_f}
             # data = {'mu': E_f* 10**E_f_mag, 'beta':nu_f * 10**nu_f_mag}
-            print('data is ', data)
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
                 return -100000,
@@ -530,21 +530,21 @@ class GA(Model):
         # first convert to big values then go back to original values
 
 
-        if self.hof[0][0] < 0.01: 
-            if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1]*10)
-            else: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
-        else:
-            if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]*10)
-            else: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
+        # if self.hof[0][0] < 0.01: 
+        #     if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1]*10)
+        #     else: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
+        # else:
+        #     if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]*10)
+        #     else: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
 
-
+        E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]) 
         # print(f'before young poisson: E is {E_f}, f is{nu_f}')
         E_f, nu_f = youngs_poisson(E_f, nu_f)
-        # print(f'after young poisson: E is {E_f}, f is{nu_f}')
+        print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
         # scale the size
-        E_f_coef = magnitude(E_f) - 6
-        nu_f_coef = magnitude(nu_f) - 6
+        E_f_coef = math.floor(math.log10(E_f))
+        nu_f_coef = magnitude(math.log10(nu_f))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f* 10**nu_f_coef))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**E_f_coef-self.generator.E_0)/self.generator.E_0*100,
