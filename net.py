@@ -657,7 +657,7 @@ class PSO(Model):
 
         # adding to global state
         global_memory.pso_X = self.best
-        print(self.best)
+        # print(self.best)
 
 
     def plot(self, fig_path, global_memory, axis = None):
