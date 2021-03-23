@@ -1047,21 +1047,7 @@ class PSOL(Model):
         return f'[{self.iter}/{self.max_iter}] $w$:{self.w:.3f} - $c_1$:{self.c_1:.3f} - $c_2$:{self.c_2:.3f}'
 
     def train(self, eng, t, global_memory):
-        start_time = time.time()
-
-        if self.iter > 0:
-            self.move_particles()
-            self.update_bests()
-            self.update_coef()
-
-        self.iter += 1
-        self.is_running = self.is_running and self.iter < self.max_iter
-        
-        end_time = time.time()
-        self.training_time += end_time - start_time
-        self.quick_save_fig(self.folder + f'{self.iter}.png')
-
-        return self.is_running
+        pass
 
     def update_coef(self):
         if self.auto_coef:
@@ -1106,7 +1092,21 @@ class PSOL(Model):
                     self.g_best = self.particles[i]
 
     def evaluate(self, global_memory):
-        pass
+        start_time = time.time()
+
+        if self.iter > 0:
+            self.move_particles()
+            self.update_bests()
+            self.update_coef()
+
+        self.iter += 1
+        self.is_running = self.is_running and self.iter < self.max_iter
+        
+        end_time = time.time()
+        self.training_time += end_time - start_time
+        self.quick_save_fig(self.folder + f'{self.iter}.png')
+
+        return self.is_running
 
 
     def summary(self, global_memory):

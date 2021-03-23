@@ -156,7 +156,7 @@ def train(eng, params, global_memory, global_count, pca=None):
 
 
             # evaluate
-            if (it % params.eval_iter == 0) or (it > params.numIter):
+            if (it % params.eval_iter == 0):# or (it > params.numIter):
                 for model in active_models.values():
                     model.evaluate(global_memory)
 
