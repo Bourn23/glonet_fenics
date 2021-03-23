@@ -1028,7 +1028,11 @@ class PSOL(Model):
 
 
         self.p_bests = self.particles
+        start_time = time.time()
+
         self.p_bests_values = self.fitness_function(self.particles)
+
+        
         self.g_best = self.p_bests[0]
         self.g_best_value = self.p_bests_values[0]
         self.update_bests()
@@ -1036,6 +1040,8 @@ class PSOL(Model):
         self.iter = 0
         self.is_running = True
         self.update_coef()
+        end_time = time.time()
+        self.training_time += end_time - start_time
 
     def __str__(self):
         return f'[{self.iter}/{self.max_iter}] $w$:{self.w:.3f} - $c_1$:{self.c_1:.3f} - $c_2$:{self.c_2:.3f}'
@@ -1095,6 +1101,7 @@ class PSOL(Model):
 
         self.iter += 1
         self.is_running = self.is_running and self.iter < self.max_iter
+        
         end_time = time.time()
         self.training_time += end_time - start_time
         self.quick_save_fig(self.folder + f'{self.iter}.png')
