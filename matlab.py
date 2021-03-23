@@ -106,7 +106,7 @@ class engine:
         # print(f'mu is {mu} and beta is {beta}')
 
         u = self.model(mu, beta, force)
-
+        print(u)
         if self.SGD:
             # v2.
             # random_section = random.randint(0, 175)
