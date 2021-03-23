@@ -1014,7 +1014,7 @@ class PSOL(Model):
                 # print('data is', data)
                 result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
 
-            print(result)
+            # print(result)
             return result
 
         self.fitness_function = fitness_function
