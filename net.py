@@ -467,7 +467,7 @@ class GPRL(Model):
             
             def min_obj(X):
                 # Minimization objective is the negative acquisition function
-                return -acquisition(X.reshape(-1, dim), X_sample, Y_sample, gpr)
+                return -acquisition([X[-1]], X_sample, Y_sample, gpr)
             
             # Find the best optimum by starting from n_restart different random points.
             for x0 in np.random.uniform(bounds[:, 0], bounds[:, 1], size=(n_restarts, dim)):
@@ -481,7 +481,7 @@ class GPRL(Model):
         if self.mode == 'EI':
             self.A = expected_improvement(self.XY, self.gpr)
             bounds = np.array([[self.data[:, 0].min(), self.data[:, 0].max()]])
-            self.next = propose_location(expected_improvement, self.X, self.Y, self.gpr, bounds, n_restarts=25)
+            self.next = propose_location(expected_improvement, self.XY, self.Y, self.gpr, bounds, n_restarts=25)
         else:
             self.A = gp_ucb(self.XY)
 
