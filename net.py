@@ -674,7 +674,7 @@ class PSO(Model):
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        
+
         E_f, nu_f = lame(self.data[2][0]*1e7, self.data[2][1]) 
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
@@ -721,9 +721,9 @@ class PSO(Model):
             self.logbook.record(gen=g, evals=len(self.pop), **self.stats.compile(self.pop))
             # print(self.logbook.stream)
     
-        print('pop is', self.pop)
-        print('log books', self.logbook)
-        print('PSO best is ', self.best)    
+        # print('pop is', self.pop)
+        # print('log books', self.logbook)
+        # print('PSO best is ', self.best)    
         # adding next point to data
         self.data = np.vstack([self.data, np.array([self.pop, self.logbook, self.best])])
 
