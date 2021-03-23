@@ -479,9 +479,9 @@ class GPRL(Model):
             return min_x#.reshape(-1, 1)
 
         if self.mode == 'EI':
-            self.A = expected_improvement(self.XY, self.X, self.Y, gpr)
+            self.A = expected_improvement(self.XY, self.X, self.Y, self.gpr)
             bounds = np.array([[self.data[:, 0].min(), self.data[:, 0].max()]])
-            self.next = propose_location(expected_improvement, self.X, self.Y, gpr, bounds, n_restarts=25)
+            self.next = propose_location(expected_improvement, self.X, self.Y, self.gpr, bounds, n_restarts=25)
         else:
             self.A = gp_ucb(self.XY)
 
