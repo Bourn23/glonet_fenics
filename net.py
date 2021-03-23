@@ -915,6 +915,7 @@ class PSOL(Model):
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
         X, Y = self.particles.swapaxes(0, 1)
+        X, Y = youngs_poisson(X*1e7, Y)
         if self.velocities is not None:
             U, V = self.velocities.swapaxes(0, 1)
             if normalize:
