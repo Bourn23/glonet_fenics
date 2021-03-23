@@ -428,7 +428,7 @@ class GPRL(Model):
                 Expected improvements at points X.
             '''
 
-            if len(X).shape < 2:
+            if len(X.shape) < 2:
                 X = [X]
             mu, sigma = gpr.predict(X[-1], return_std=True)
             mu_sample = gpr.predict(X)
