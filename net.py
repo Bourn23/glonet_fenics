@@ -674,7 +674,7 @@ class PSO(Model):
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-
+        print('data is ', self.data)
         E_f, nu_f = lame(self.data[2][0]*1e7, self.data[2][1]) 
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
