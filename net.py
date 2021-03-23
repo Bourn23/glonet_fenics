@@ -536,17 +536,20 @@ class GA(Model):
             # print('multiplying by ', E_f_mag)
             # print('E_f by ', E_f)
             E_f = E_f * 10**(E_f_mag - 6)
+
+        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         # if (nu_f_mag != 6): nu_f = nu_f * 10**(6 - nu_f_mag)# penalize magnitude
 
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
-        print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
-                                                        (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error, relative_nu_error)
         # print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f* 10**nu_f_coef))
         # print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**E_f_coef-self.generator.E_0)/self.generator.E_0*100,
         #                                                 (nu_f* 10**nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
         print('hof is', hof)
         print("---------------------------------")
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
         global_memory.ga_history = self.history
         global_memory.ga_data = self.data
 
