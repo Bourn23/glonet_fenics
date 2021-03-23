@@ -442,7 +442,8 @@ class GA(Model):
             # else:
             #     if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e7, data[1]*10)
             #     else: E_f, nu_f = lame(data[0]*1e7, data[1])
-
+            
+            E_f, nu_f = lame(data[0]*1e7, data[1])
 
             print('BEFORE is ', data)
             E_f_mag = math.floor(math.log(data[0], 10))
