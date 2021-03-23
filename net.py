@@ -764,7 +764,7 @@ class PSOL(Model):
                 # print('data is', data)
                 result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
 
-            print(result)
+            # print(result)
             return result
 
         self.fitness_function = fitness_function
@@ -832,6 +832,8 @@ class PSOL(Model):
     def update_bests(self):
         fits = self.fitness_function(self.particles)
 
+        print(fits)
+        print(self.p_bests_values)
         for i in range(len(self.particles)):
             # update best personnal value (cognitive)
             if fits[i] < self.p_bests_values[i]:
