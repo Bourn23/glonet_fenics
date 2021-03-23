@@ -851,9 +851,40 @@ class PSOL(Model):
 
 
     def summary(self, global_memory):
-        pass
+        # TODO:predict mu and beta
 
-    def plot(self, fig_path, global_memory, axis = None):           
+        print("\n--------------PSO---------------")
+        print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        # print('data is ', self.data)
+        E_f, nu_f = lame(self.g_best*1e7, self.g_best) 
+        E_f, nu_f = youngs_poisson(E_f, nu_f)
+
+
+        E_f_mag = math.floor(math.log10(E_f))
+        nu_f_mag = math.floor(math.log10(nu_f))
+
+        if (E_f_mag != 6): 
+            # print('multiplying by ', E_f_mag)
+            # print('E_f by ', E_f)
+            E_f = E_f * 10**(E_f_mag - 6)
+
+        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+
+
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error, relative_nu_error))
+        print("---------------------------------")
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
+        global_memory.psol_history = self.history
+        global_memory.psol_data = self.data
+
+    def plot(self, fig_path, global_memory, axis = None):    
+
+
+    
         print('p best is ', self.p_bests)
         print('g best', self.g_best)
         print('g best value', self.g_best_value)
