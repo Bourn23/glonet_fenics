@@ -744,23 +744,25 @@ class PSOL(Model):
 
     def __init__(self, params, eng, global_memory, model_params = None, particles = None, velocities = None, fitness_function = None,
                  w=0.8, c_1=1, c_2=1, max_iter=100, auto_coef=True):
-        n_particles = 1
+        n_particles = 100
         self.particles = np.random.uniform(0.1, 5, (n_particles, 2))
         velocities = (np.random.random((n_particles, 2)) - 0.5) / 10
         self.velocities = velocities
 
         loss = nn.MSELoss()
         def fitness_function(data):
-            if data[0][0] < 0 or data[0][1] <  0:
-                return -10000
-            if data[0][0] > 1:
-                data[0][0] /= 10
-            if data[0][1] > 1:
-                data[0][1] /= 10
+            result = []
+            for i in data:
+                if data[i][0] < 0 or data[i][1] <  0:
+                    return -10000
+                if data[i][0] > 1:
+                    data[i][0] /= 10
+                if data[i][1] > 1:
+                    data[i][1] /= 10
 
-            data = {'mu': data[0][0], 'beta': data[0][1]}
-            print('data is', data)
-            result =  loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist()
+                data = {'mu': data[i][0], 'beta': data[i][1]}
+                print('data is', data)
+                result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
 
             return result
 
