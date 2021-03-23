@@ -675,7 +675,7 @@ class PSO(Model):
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         print('data is ', self.data)
-        E_f, nu_f = lame(self.data[2][0]*1e7, self.data[2][1]) 
+        E_f, nu_f = lame(self.data[-1][0]*1e7, self.data[-1][1]) 
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
 
@@ -725,7 +725,7 @@ class PSO(Model):
         print('log books', type(self.logbook))
         # print('PSO best is ', self.best)    
         # adding next point to data
-        self.data = np.vstack([self.data, np.array([self.best[0], self.best[1], self.logbook[-1]['efficiency']])])
+        self.data = np.vstack([self.data, np.array([self.best[0], self.best[1], self.logbook])])
 
 
         end_time = time.time()
