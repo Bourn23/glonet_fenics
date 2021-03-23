@@ -863,6 +863,9 @@ class PSOL(Model):
     def summary(self, global_memory):
         # TODO:predict mu and beta
 
+        saving_folder = self.gif_folder + f'/{self.iter}_tmp.gif'
+        make_gif_from_folder(self.folder, saving_folder)
+
         print("\n--------------PSOL---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
@@ -889,8 +892,6 @@ class PSOL(Model):
         global_memory.psol_data = self.data
 
 
-        # saving_folder = self.gif_folder + f'/{self.iter}_tmp.gif'
-        # make_gif_from_folder(self.folder, saving_folder)
 
 
 
