@@ -570,7 +570,7 @@ class SGD(Model):
         super().__init__(params)
 
         # self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=1e5, betas=(params.beta1, params.beta2))
-        self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, lr_decay=1e-3)
+        self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, lr_decay=1e-2)
         self.loss = torch.nn.MSELoss()
 
 
