@@ -450,7 +450,8 @@ class GA(Model):
             nu_f_mag = math.floor(math.log(nu_f, 10))
             print('mag EF is ', E_f_mag)
             print('mag nuF is ', nu_f_mag)
-            data = {'mu': E_f* 10**E_f_mag, 'beta':nu_f * 10**nu_f_mag}
+            data = {'mu': E_f, 'beta':nu_f}
+            # data = {'mu': E_f* 10**E_f_mag, 'beta':nu_f * 10**nu_f_mag}
             print('data is ', data)
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
