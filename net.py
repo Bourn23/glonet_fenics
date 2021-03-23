@@ -334,6 +334,7 @@ class SGD(Model):
         start_time = time.time()
 
         data = self.generator.generate()
+        print('sgd data is ', data)
         err = eng.Eval_Eff_1D_SGD(data)
         # pred_deflection = eng.Eval_Eff_1D_SGD(data)
 
