@@ -540,11 +540,11 @@ class GA(Model):
         E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]) 
         # print(f'before young poisson: E is {E_f}, f is{nu_f}')
         E_f, nu_f = youngs_poisson(E_f, nu_f)
-        print(f'after young poisson: E is {E_f}, f is{nu_f}')
+        # print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
         # scale the size
-        E_f_coef = math.floor(math.log10(E_f)) #- 6
-        nu_f_coef = math.floor(math.log10(nu_f))
+        # E_f_coef = math.floor(math.log10(E_f)) #- 6
+        # nu_f_coef = math.floor(math.log10(nu_f))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
