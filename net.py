@@ -444,7 +444,8 @@ class GA(Model):
             #     else: E_f, nu_f = lame(data[0]*1e7, data[1])
             
             E_f, nu_f = lame(data[0]*1e7, data[1])
-
+            if E_f < 0 or nu_f < 0:
+                return -10000,
             E_f_mag = math.floor(math.log10(E_f))
             nu_f_mag = math.floor(math.log10(nu_f))
 
