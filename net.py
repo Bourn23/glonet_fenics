@@ -740,9 +740,6 @@ import numpy as np
 
 class PSOL(Model):
 
-    # particles = 
-    velocities = (np.random.random((n_particles, 2)) - 0.5) / 10
-
     # pso_1 = PSO(particles.copy(), velocities.copy(), fitness_function, w=0.1, c_1=4.0, c_2=0.0, auto_coef=False)
 
     def __init__(self, particles = None, velocities = None, fitness_function = None,
