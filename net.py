@@ -436,15 +436,9 @@ class GA(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -100000,
 
-            # if data[0] < 0.01: 
-            #     if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e8, data[1]*10)
-            #     else: E_f, nu_f = lame(data[0]*1e8, data[1])
-            # else:
-            #     if data[1] < 0.01: E_f, nu_f = lame(data[0]*1e7, data[1]*10)
-            #     else: E_f, nu_f = lame(data[0]*1e7, data[1])
-            
+
             E_f, nu_f = lame(data[0]*1e7, data[1])
-            if E_f < 0 or nu_f < 0:
+            if E_f < 0 or nu_f < 0: # penalize negative numbers
                 return -10000,
             E_f_mag = math.floor(math.log10(E_f))
             nu_f_mag = math.floor(math.log10(nu_f))
@@ -452,13 +446,12 @@ class GA(Model):
             if (E_f_mag != 6) or (nu_f_mag != 6): # penalize magnitude
                 return -10000,
             data = {'mu': E_f, 'beta':nu_f}
-            # data = {'mu': E_f* 10**E_f_mag, 'beta':nu_f * 10**nu_f_mag}
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
                 return -100000,
 
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
-            # print('error is ', result)
+
             return result
 
         self.creator = creator
@@ -476,7 +469,7 @@ class GA(Model):
         self.toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
         self.toolbox.register("select", tools.selTournament, tournsize=3)
 
-        self.MU, self.LAMBDA = 20, 20
+        self.MU, self.LAMBDA = 10, 20
         self.pop = self.toolbox.population(n=self.MU)
         self.hof = None
 
@@ -527,24 +520,9 @@ class GA(Model):
         print("----------------GA-----------------")
         print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
-        # first convert to big values then go back to original values
-
-
-        # if self.hof[0][0] < 0.01: 
-        #     if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1]*10)
-        #     else: E_f, nu_f = lame(self.hof[0][0]*1e8, self.hof[0][1])
-        # else:
-        #     if self.hof[0][1] < 0.01: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]*10)
-        #     else: E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1])
-
         E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]) 
-        # print(f'before young poisson: E is {E_f}, f is{nu_f}')
         E_f, nu_f = youngs_poisson(E_f, nu_f)
-        # print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
-        # scale the size
-        # E_f_coef = math.floor(math.log10(E_f)) #- 6
-        # nu_f_coef = math.floor(math.log10(nu_f))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f-self.generator.E_0)/self.generator.E_0*100,
