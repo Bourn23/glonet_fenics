@@ -761,9 +761,10 @@ class PSOL(Model):
                     i[1] /= 10
                 E_f, nu_f = lame(i[0]*1e7, i[1])
                 data = {'mu': E_f, 'beta': nu_f}
-                print('data is', data)
+                # print('data is', data)
                 result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
 
+            print(result)
             return result
 
         self.fitness_function = fitness_function
