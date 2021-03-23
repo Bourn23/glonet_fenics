@@ -889,8 +889,8 @@ class PSOL(Model):
         global_memory.psol_data = self.data
 
 
-        saving_folder = self.gif_folder + f'/{self.iter}_tmp.gif'
-        make_gif_from_folder(self.folder, saving_folder)
+        # saving_folder = self.gif_folder + f'/{self.iter}_tmp.gif'
+        # make_gif_from_folder(self.folder, saving_folder)
 
 
 

@@ -26,5 +26,5 @@
     "sigma_start": 0.7,
     "sigma_end": 0.7,
     "plot_iter": 100,
-    "eval_iter": 100
+    "eval_iter": 10
 }   
