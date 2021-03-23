@@ -447,7 +447,7 @@ class GA(Model):
             #     return -10000,
             
             if (E_f_mag != 6): E_f = E_f * 10**(6 - E_f_mag)
-            if (nu_f_mag != 6): E_f = E_f * 10**(6 - nu_f_mag)# penalize magnitude
+            if (nu_f_mag != 6): nu_f = nu_f * 10**(6 - nu_f_mag)# penalize magnitude
                 
             data = {'mu': E_f, 'beta':nu_f}
             # print('data is ', data)
@@ -547,8 +547,8 @@ class GA(Model):
         #                                                 (nu_f* 10**nu_f_coef-self.generator.nu_0)/self.generator.nu_0*100))
         print('hof is', hof)
         print("---------------------------------")
-        global_memory.sgd_history = self.history
-        global_memory.sgd_data = self.data
+        global_memory.ga_history = self.history
+        global_memory.ga_data = self.data
 
     def summary(self, global_memory):
         pass
