@@ -583,7 +583,8 @@ class PSO(Model):
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
                 return -100000,
 
-
+            print('mu is ', data[0])
+            print('beta is ', data[1])
             E_f, nu_f = lame(data[0]*1e7, data[1])
             if E_f < 0 or nu_f < 0: # penalize negative numbers
                 return -10000,
