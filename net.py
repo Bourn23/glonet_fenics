@@ -855,6 +855,7 @@ class PSOL(Model):
         self.is_running = self.is_running and self.iter < self.max_iter
         end_time = time.time()
         self.training_time += end_time - start_time
+        quick_save_fig(self.folder + f'/{self.iter}.png')
 
         return self.is_running
 
@@ -918,11 +919,31 @@ class PSOL(Model):
         ax[0].plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
         ax[0].plot(E_f, nu_f, 'rs')  # red = predicted value
 
-
         # plot contour
         ax[1].set_title('All Particles \nPSOL')
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
+        X, Y = self.particles.swapaxes(0, 1)
+        X, Y = lame(X*1e7, Y)
+        X, Y = youngs_poisson(X, Y)
+        if self.velocities is not None:
+            U, V = self.velocities.swapaxes(0, 1)
+            if normalize:
+                N = np.sqrt(U**2+V**2)
+                U, V = U/N, V/N
+        ax[1].scatter(X, Y, color='#000')
+        if self.velocities is not None:
+            ax[1].quiver(X, Y, U, V, color='#000', headwidth=2, headlength=2, width=5e-3)
+
+
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
+
+    def quick_save_fig(self, fig_path):
+        fig, ax = plt.subplots(1, 2, figsize=(6, 3))
+        # plot contour
+        ax[1].set_title('All Particles \nPSOL')
+
         X, Y = self.particles.swapaxes(0, 1)
         X, Y = lame(X*1e7, Y)
         X, Y = youngs_poisson(X, Y)
