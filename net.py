@@ -433,12 +433,14 @@ class GA(Model):
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
-                return -10000,
+                return -100000,
 
-            print(f'before conversion data is {data}')
             E_f, nu_f = lame(data[0]*1e8, data[1])
             data = {'mu': E_f, 'beta':nu_f}
-            print(f'after conversion data is {data}')
+
+            if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
+                return -100000,
+
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
             # print('error is ', result)
             return result
