@@ -201,7 +201,7 @@ def magnitude(num):
     new_num = str(round(num, 0))
     count = len(new_num[1:-2])
     return count
-    
+
 def youngs_poisson(mu, lambda_):
     youngs = mu * (3 * lambda_ + 2 * mu) / (lambda_ + mu)
     poisson = lambda_ / (2 * (lambda_ + mu))
@@ -230,3 +230,11 @@ def err_distribution_sgd(data, params, fig_path):
 
     plt.savefig(fig_path, dpi = 300)
     plt.close()
+
+
+def make_gif_from_folder(folder, out_file_path, remove_folder=True):
+    files = os.path.join(folder, '*.png')
+    img, *imgs = [Image.open(f) for f in sorted(glob.glob(files))]
+    img.save(fp=out_file_path, format='GIF', append_images=imgs,
+             save_all=True, duration=200, loop=0)
+    shutil.rmtree(folder, ignore_errors=True)
