@@ -443,8 +443,12 @@ class GA(Model):
             E_f_mag = math.floor(math.log10(E_f))
             nu_f_mag = math.floor(math.log10(nu_f))
 
-            if (E_f_mag != 6) or (nu_f_mag != 6): # penalize magnitude
-                return -10000,
+            # if (E_f_mag != 6) or (nu_f_mag != 6): # penalize magnitude
+            #     return -10000,
+            
+            if (E_f_mag != 6): E_f = E_f * 10**(6 - E_f_mag)
+            if (nu_f_mag != 6): E_f = E_f * 10**(6 - nu_f_mag)# penalize magnitude
+                
             data = {'mu': E_f, 'beta':nu_f}
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
@@ -522,6 +526,12 @@ class GA(Model):
 
         E_f, nu_f = lame(self.hof[0][0]*1e7, self.hof[0][1]) 
         E_f, nu_f = youngs_poisson(E_f, nu_f)
+
+
+        E_f_mag = math.floor(math.log10(E_f))
+        nu_f_mag = math.floor(math.log10(nu_f))
+        if (E_f_mag != 6): E_f = E_f * 10**(6 - E_f_mag)
+        if (nu_f_mag != 6): E_f = E_f * 10**(6 - nu_f_mag)# penalize magnitude
 
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
