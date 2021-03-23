@@ -743,7 +743,7 @@ class PSOL(Model):
     # pso_1 = PSO(particles.copy(), velocities.copy(), fitness_function, w=0.1, c_1=4.0, c_2=0.0, auto_coef=False)
 
     def __init__(self, params, eng, global_memory, model_params = None, particles = None, velocities = None, fitness_function = None,
-                 w=0.8, c_1=1, c_2=1, max_iter=1, auto_coef=True):
+                 w=0.8, c_1=1, c_2=1, max_iter=100, auto_coef=True):
         n_particles = 100
         self.particles = np.random.uniform(0.1, 5, (n_particles, 2))
         velocities = (np.random.random((n_particles, 2)) - 0.5) / 10
@@ -792,14 +792,7 @@ class PSOL(Model):
         return f'[{self.iter}/{self.max_iter}] $w$:{self.w:.3f} - $c_1$:{self.c_1:.3f} - $c_2$:{self.c_2:.3f}'
 
     def train(self, eng, t, global_memory):
-        if self.iter > 0:
-            self.move_particles()
-            self.update_bests()
-            self.update_coef()
-
-        self.iter += 1
-        self.is_running = self.is_running and self.iter < self.max_iter
-        return self.is_running
+        pass
 
     def update_coef(self):
         if self.auto_coef:
@@ -846,9 +839,21 @@ class PSOL(Model):
                     self.g_best = self.particles[i]
 
     def evaluate(self, global_memory):
-        print('p best is ', self.p_bests)
-        print('g best', self.g_best)
-        print('g best value', self.g_best_value)
+        if self.iter > 0:
+            self.move_particles()
+            self.update_bests()
+            self.update_coef()
+
+        self.iter += 1
+        self.is_running = self.is_running and self.iter < self.max_iter
+
+        return self.is_running
+
 
     def summary(self, global_memory):
         pass
+
+    def plot(self, fig_path, global_memory, axis = None):           
+        print('p best is ', self.p_bests)
+        print('g best', self.g_best)
+        print('g best value', self.g_best_value)
