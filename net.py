@@ -8,7 +8,7 @@ import torch.nn.functional as F
 import torch
 from metalayers import * 
 import matplotlib.pyplot as plt
-from utils import lame, youngs_poisson, magnitude
+from utils import lame, youngs_poisson, make_gif_from_folder
 
 # GPR
 from sklearn.gaussian_process import GaussianProcessRegressor
@@ -744,6 +744,10 @@ class PSOL(Model):
     def __init__(self, params, eng, global_memory, model_params = None, particles = None, velocities = None, fitness_function = None,
                  w=0.8, c_1=1, c_2=1, max_iter=100, auto_coef=True):
         super().__init__(params)
+
+        self.folder = params.output_dir +  f'/figures/PSOL/'
+        self.gif_folder = params.output_dir + f'/figures/deviceSamples/_tmp.gif'
+
         n_particles = 100
 
         # self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
@@ -882,6 +886,12 @@ class PSOL(Model):
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
         global_memory.psol_history = self.history
         global_memory.psol_data = self.data
+
+
+        
+        make_gif_from_folder(self.folder, self.gif_folder)
+
+
 
     def plot(self, fig_path, global_memory, axis = None):    
         normalize = True
