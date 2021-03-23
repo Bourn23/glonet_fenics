@@ -450,7 +450,7 @@ class GA(Model):
             if (nu_f_mag != 6): E_f = E_f * 10**(6 - nu_f_mag)# penalize magnitude
                 
             data = {'mu': E_f, 'beta':nu_f}
-            print('data is ', data)
+            # print('data is ', data)
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
                 return -100000,
