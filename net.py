@@ -940,9 +940,10 @@ class PSOL(Model):
         plt.close()
 
     def quick_save_fig(self, fig_path):
-        fig, ax = plt.subplots(1, 2, figsize=(6, 3))
+        fig, ax = plt.subplots(figsize=(6, 3))
+        normalize = True
         # plot contour
-        ax[1].set_title('All Particles \nPSOL')
+        ax.set_title('All Particles \nPSOL')
 
         X, Y = self.particles.swapaxes(0, 1)
         X, Y = lame(X*1e7, Y)
@@ -952,9 +953,9 @@ class PSOL(Model):
             if normalize:
                 N = np.sqrt(U**2+V**2)
                 U, V = U/N, V/N
-        ax[1].scatter(X, Y, color='#000')
+        ax.scatter(X, Y, color='#000')
         if self.velocities is not None:
-            ax[1].quiver(X, Y, U, V, color='#000', headwidth=2, headlength=2, width=5e-3)
+            ax.quiver(X, Y, U, V, color='#000', headwidth=2, headlength=2, width=5e-3)
 
 
         plt.savefig(fig_path, dpi = 300)
