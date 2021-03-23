@@ -56,13 +56,16 @@ class engine:
        
         if self.SGD:
             # v2.
-            # random_section = random.randint(0, 175)
-            # random_elements = random.randint(0, 175)
-            # if random_section < random_elements:
-            #     return u[:, random_section:random_elements]
-            # else: return u[:, random_elements:random_section]
-            # v1. note its only one element!
+            random_section = random.randint(0, 175)
             random_elements = random.randint(0, 175)
+            if random_section < random_elements:
+                err = torch.log(self.loss(u[0, random_section:random_elements, :], self.target_deflection[0, random_section:random_elements, :]))
+                return err
+            else: 
+                err = torch.log(self.loss(u[0, random_elements:random_section, :], self.target_deflection[0, random_elements:random_section, :]))
+                return err
+            # v1. note its only one element!
+            # random_elements = random.randint(0, 175)
             # return u[:, :random_elements]
             err = torch.log(self.loss(u[:, random_elements], self.target_deflection[:, random_elements]))
             return err
