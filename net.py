@@ -445,9 +445,8 @@ class GA(Model):
             
             E_f, nu_f = lame(data[0]*1e7, data[1])
 
-            print('BEFORE is ', data)
-            E_f_mag = math.floor(math.log(E_f, 10))
-            nu_f_mag = math.floor(math.log(nu_f, 10))
+            E_f_mag = math.floor(math.log10(E_f))
+            nu_f_mag = math.floor(math.log10(nu_f))
 
             if (E_f_mag != 6) or (nu_f_mag != 6): # penalize magnitude
                 return -10000,
@@ -543,8 +542,8 @@ class GA(Model):
         print(f'after young poisson: E is {E_f}, f is{nu_f}')
 
         # scale the size
-        E_f_coef = math.floor(math.log10(E_f))
-        nu_f_coef = magnitude(math.log10(nu_f))
+        E_f_coef = math.floor(math.log10(E_f)) #- 6
+        nu_f_coef = math.floor(math.log10(nu_f))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f* 10**E_f_coef, nu_f* 10**nu_f_coef))
         print('error:           {:7.2f}% {:7.2f}%'.format((E_f* 10**E_f_coef-self.generator.E_0)/self.generator.E_0*100,
