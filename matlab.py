@@ -131,10 +131,8 @@ class engine:
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
         
-        mu = torch.tensor([[data['mu']]], requires_grad=True, dtype=torch.float64)
-        print(mu)
-        print('shape of mu', mu.shape)
-        beta = torch.tensor([[data['beta']]], requires_grad=True, dtype=torch.float64)
+        mu = torch.tensor([data['mu'][0]], requires_grad=True, dtype=torch.float64)
+        beta = torch.tensor([data['beta'][0]], requires_grad=True, dtype=torch.float64)
 
         try: force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
         except: 
