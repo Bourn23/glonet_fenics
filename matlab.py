@@ -132,6 +132,8 @@ class engine:
         # again something like a global optimizer
         
         mu = torch.tensor([[data['mu']]], requires_grad=True, dtype=torch.float64)
+        print(mu)
+        print('shape of mu', mu.shape)
         beta = torch.tensor([[data['beta']]], requires_grad=True, dtype=torch.float64)
 
         try: force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
