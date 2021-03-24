@@ -28,7 +28,7 @@ import math
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
-
+# ___ BASE CLASSES ___
 class Generator:
     def __init__(self, params, generate_sample):
         # if on, every iteration new samples are created
@@ -67,7 +67,6 @@ class Generator:
             self.first_run = False
             
         return {'mu': self.mu, 'beta': self.beta, 'force': self.force, 'E_r': self.E_r, 'nu_r': self.nu_r}
-
 
 class Model:
     def __init__(self, params):
@@ -136,6 +135,9 @@ class Model:
         """
         pass
 
+
+
+# ___ Optimizers ___
 class GPR(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
@@ -146,6 +148,7 @@ class GPR(Model):
         # loading from memory:
         # try: self.data = global_memory.gpr_data
         # except: pass
+        self.PE_CALLS = 0
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
@@ -159,6 +162,7 @@ class GPR(Model):
             parameters = self.generator.generate(sampling = True)
 
             pred_deflection = eng.Eval_Eff_1D_parallel(parameters)
+            self.PE_CALLS += 1
             err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
             
             # build internal memory
@@ -243,6 +247,7 @@ class GPR(Model):
         mu = torch.tensor([[self.next[0]]], requires_grad=True, dtype=torch.float64)
         beta = torch.tensor([[self.next[1]]], requires_grad=True, dtype=torch.float64)
         pred_deflection = eng.Eval_Eff_1D_parallel({'mu': mu, 'beta': beta})
+        self.PE_CALLS += 1
         err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
         
         # adding next point to data
@@ -299,6 +304,7 @@ class GPR(Model):
         relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         print("\n--------------GPR---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('# of Physics-Engine called {}'.format(self.PE_CALLS))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
@@ -354,7 +360,6 @@ class GPR(Model):
         # global_memory.gpr_Z = self.Z
         # global_memory.gpr_XY = self.XY
 
-
 class GPRL(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
@@ -363,6 +368,7 @@ class GPRL(Model):
         from scipy.optimize import minimize
 
         self.mode = 'EI'
+        self.PE_CALLS = 0
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
@@ -376,6 +382,7 @@ class GPRL(Model):
             parameters = self.generator.generate(sampling = True)
 
             pred_deflection = eng.Eval_Eff_1D_parallel(parameters)
+            self.PE_CALLS += 1
             err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
             
             # build internal memory
@@ -412,6 +419,7 @@ class GPRL(Model):
             Z, U = self.gpr.predict(x, return_std=True)
             return -Z + 1e-6*U
 
+        # acquisition function, EI
         def expected_improvement(X, gpr, xi=0.01):
             '''
             Computes the EI at points X based on existing samples X_sample
@@ -497,6 +505,7 @@ class GPRL(Model):
         mu = torch.tensor([[self.next[0]]], requires_grad=True, dtype=torch.float64)
         beta = torch.tensor([[self.next[1]]], requires_grad=True, dtype=torch.float64)
         pred_deflection = eng.Eval_Eff_1D_parallel({'mu': mu, 'beta': beta})
+        self.PE_CALLS += 1
         err = self.loss(pred_deflection, eng.target_deflection).detach().numpy()
         
         # adding next point to data
@@ -553,6 +562,7 @@ class GPRL(Model):
         relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
         print("\n--------------GPRL---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('# of Physics-Engine called {}'.format(self.PE_CALLS))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
@@ -569,6 +579,8 @@ class SGD(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
 
+        self.PE_CALLS = 0
+
         # self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=1e5, betas=(params.beta1, params.beta2))
         self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, lr_decay=1e-2)
         self.loss = torch.nn.MSELoss()
@@ -581,6 +593,7 @@ class SGD(Model):
         data = self.generator.generate()
         # print('sgd data is ', data)
         err = eng.Eval_Eff_1D_SGD(data)
+        self.PE_CALLS += 1
         # pred_deflection = eng.Eval_Eff_1D_SGD(data)
         
         self.optimizer.zero_grad()
@@ -658,6 +671,7 @@ class SGD(Model):
 
         print("\n-------------SGD---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('# of Physics-Engine called {}'.format(self.PE_CALLS))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
@@ -672,6 +686,7 @@ class GA(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
 
+        self.PE_CALLS = 0
         loss = torch.nn.MSELoss()
         def efficiency(data):
 
@@ -701,6 +716,7 @@ class GA(Model):
                 return -100000,
 
             result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
+            self.PE_CALLS += 1
 
             return result
 
@@ -806,6 +822,8 @@ class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
 
+        self.PE_CALLS = 0
+
         self.creator = creator
         self.creator.create("FitnessMax", base.Fitness, weights=(1.0, .2))
         self.creator.create("Particle", list, fitness=self.creator.FitnessMax, speed=list)
@@ -850,6 +868,7 @@ class PSO(Model):
 
             # result =  torch.log(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection)).sum().detach().tolist(),
             result =  loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist(),
+            self.PE_CALLS += 1
 
             return result
 
@@ -919,6 +938,7 @@ class PSO(Model):
 
         print("\n--------------PSO---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('# of Physics-Engine called {}'.format(self.PE_CALLS))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         # print('data is ', self.data)
@@ -987,6 +1007,8 @@ class PSOL(Model):
                  w=0.8, c_1=1, c_2=1, max_iter=100, auto_coef=True):
         super().__init__(params)
 
+        self.PE_CALLS = 0
+
         self.folder = params.output_dir +  f'/figures/PSOL/'
         self.gif_folder = params.output_dir + f'/figures/deviceSamples/'
 
@@ -1013,7 +1035,7 @@ class PSOL(Model):
                 data = {'mu': E_f, 'beta': nu_f}
                 # print('data is', data)
                 result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
-
+                self.PE_CALLS += 1
             # print(result)
             return result
 
@@ -1117,6 +1139,7 @@ class PSOL(Model):
 
         print("\n--------------PSOL---------------")
         print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('# of Physics-Engine called {}'.format(self.PE_CALLS))
         print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
         E_f, nu_f = lame(self.g_best[0]*1e7, self.g_best[1]) 
