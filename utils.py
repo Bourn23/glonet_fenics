@@ -236,7 +236,7 @@ def err_distribution_sgd(data, params, fig_path):
     plt.savefig(fig_path, dpi = 300)
     plt.close()
 
-
+# ___ PLOTTING ___
 def make_gif_from_folder(folder, out_file_path, remove_folder=False):
     files = os.path.join(folder, '*.png')
     img, *imgs = [Image.open(f) for f in sorted(glob.glob(files))]
@@ -244,3 +244,51 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
              save_all=True, duration=200, loop=0)
     if remove_folder:
         shutil.rmtree(folder, ignore_errors=True)
+
+
+def plot_3d(function, particles=None, velocity=None, normalize=True, color='#000', ax=None):
+    X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 21),
+                        np.linspace(0.25, 0.45, 21))
+    Z_grid = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
+    # get coordinates and velocity arrays
+    if particles is not None:
+        X, Y = particles.swapaxes(0, 1)
+        Z = function(X, Y)
+        if velocity is not None:
+            U, V = velocity.swapaxes(0, 1)
+            W = function(X + U, Y + V) - Z
+
+    # create new ax if None
+    if ax is None:
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1, projection='3d')
+
+    # Plot the surface.
+    surf = ax.plot_surface(X_grid, Y_grid, Z_grid, cmap=cmap,
+                           linewidth=0, antialiased=True, alpha=0.7)
+    ax.contour(X_grid, Y_grid, Z_grid, zdir='z', offset=0, levels=30, cmap=cmap)
+    if particles is not None:
+        ax.scatter(X, Y, Z, color=color, depthshade=True)
+        if velocity is not None:
+            ax.quiver(X, Y, Z, U, V, W, color=color, arrow_length_ratio=0., normalize=normalize)
+
+    len_space = 10
+    # Customize the axis
+    max_z = (np.max(Z_grid) // len_space + 1).astype(np.int) * len_space
+    ax.set_xlim3d(np.min(X_grid), np.max(X_grid))
+    ax.set_ylim3d(np.min(Y_grid), np.max(Y_grid))
+    ax.set_zlim3d(0, max_z)
+    ax.zaxis.set_major_locator(LinearLocator(max_z // len_space + 1))
+    ax.zaxis.set_major_formatter(FormatStrFormatter('%.0f'))
+    # Rmove fills and set labels
+    ax.xaxis.pane.fill = False
+    ax.yaxis.pane.fill = False
+    ax.zaxis.pane.fill = False
+    ax.set_xlabel('$E$')
+    ax.set_ylabel('$\Nu$')
+    ax.set_zlabel('$\delta$')
+
+    # Add a color bar which maps values to colors.
+    # fig.colorbar(surf)
+    plt.savefig('./figures/error_history', dpi = 300)
+    plt.close()

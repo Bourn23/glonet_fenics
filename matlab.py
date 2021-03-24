@@ -56,7 +56,7 @@ class engine:
        
         if self.SGD:
             # v2.
-            random_section = random.randint(0, 175)
+            start = random.randint(0, 175) # keep # smples fixed
             random_elements = random.randint(0, 175)
             if random_section < random_elements:
                 err = torch.log(self.loss(u[0, random_section:random_elements, :], self.target_deflection[0, random_section:random_elements, :]))
@@ -67,7 +67,7 @@ class engine:
             # v1. note its only one element!
             # random_elements = random.randint(0, 175)
             # return u[:, :random_elements]
-            err = torch.log(self.loss(u[:, random_elements], self.target_deflection[:, random_elements]))
+            err = torch.log(self.loss(u[:, random_elements, :], self.target_deflection[:, random_elements, :]))
             return err
 
         else:
@@ -126,13 +126,24 @@ class engine:
             return u
     
     def GradientFromSolver_1D_parallel(self, data):
-        effs_and_gradients = []
+        # effs_and_gradients = []
         
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
-        mu = data['mu']
-        beta = data['beta']
-        force = data['force']
+        if len(data['mu']) < 2:
+            # , 'make sure your input is of shape [n, 1]'
+            mu   = [data['mu']]
+            beta = [data['beta']]
+        else:
+            mu   = data['mu']
+            beta = data['beta']
+        
+        try: force = data['force']
+        except: 
+            if mu.shape[0] == 1
+                force = self.force
+            else:
+                force = self.force.expand(mu.shape[0], 1)
 
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
@@ -141,8 +152,11 @@ class engine:
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
-            output = loss(self.u, self.target_deflection.repeat(self.u.shape[0], 1, 1))
+            output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 1, 1))
+            output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
+            print(output)
+            print(output.shape)
         
-        effs_and_gradients.append([1])
+        # effs_and_gradients.append([1])
         
-        return effs_and_gradients, output
+        return output

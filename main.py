@@ -110,6 +110,3 @@ if __name__ == '__main__':
     # logging.info('Start generating devices')
 logging.info('Wrapping Up Results')
 summarize(global_memory)
-
-
-

@@ -45,6 +45,7 @@ def summarize(global_memory):
 
               # mean loss-model1 and mean loss-model2 -> 
               # and do summary statistics
+            
 
 
 def evaluate(eng, params, global_memory, global_count, elapsed_time):
@@ -70,6 +71,9 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
 
     # save data files and plot
     utils.plot_loss_history(params, active_models, global_memory, global_count)
+    utils.plot_3d(eng)
+
+
     
 
 def train(eng, params, global_memory, global_count, pca=None):
