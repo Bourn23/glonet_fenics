@@ -140,7 +140,7 @@ class engine:
         
         try: force = data['force']
         except: 
-            if mu.shape[0] == 1
+            if mu.shape[0] == 1:
                 force = self.force
             else:
                 force = self.force.expand(mu.shape[0], 1)
