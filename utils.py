@@ -285,8 +285,8 @@ def plot_3d(function, particles=None, velocity=None, normalize=True, color='#000
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
     ax.set_xlabel('$E$')
-    ax.set_ylabel('$\Nu$')
-    ax.set_zlabel('$\delta$')
+    ax.set_ylabel('$Nu$')
+    ax.set_zlabel('$delta$')
 
     # Add a color bar which maps values to colors.
     # fig.colorbar(surf)
