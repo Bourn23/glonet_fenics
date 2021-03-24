@@ -130,15 +130,11 @@ class engine:
         
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
-        if len(data['mu']) < 2:
-            # , 'make sure your input is of shape [n, 1]'
-            mu   = [data['mu']]
-            beta = [data['beta']]
-        else:
-            mu   = data['mu']
-            beta = data['beta']
         
-        try: force = data['force']
+        mu = torch.tensor([[data['mu']]], requires_grad=True, dtype=torch.float64)
+        beta = torch.tensor([[data['beta']]], requires_grad=True, dtype=torch.float64)
+
+        try: force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
         except: 
             if mu.shape[0] == 1:
                 force = self.force
