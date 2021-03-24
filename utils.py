@@ -246,17 +246,17 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
         shutil.rmtree(folder, ignore_errors=True)
 
 
-def plot_3d(function, particles=None, velocity=None, normalize=True, color='#000', ax=None):
+def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 21),
                         np.linspace(0.25, 0.45, 21))
     Z_grid = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
     # get coordinates and velocity arrays
     if particles is not None:
         X, Y = particles.swapaxes(0, 1)
-        Z = function(X, Y)
+        Z = eng.GradientFromSolver_1D_parallel(X, Y) # gotta fix if we want to visualize swarm
         if velocity is not None:
             U, V = velocity.swapaxes(0, 1)
-            W = function(X + U, Y + V) - Z
+            W = eng.GradientFromSolver_1D_parallel(X + U, Y + V) - Z # gotta fix if we want to visualize swarm
 
     # create new ax if None
     if ax is None:
