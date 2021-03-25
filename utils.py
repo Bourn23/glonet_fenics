@@ -248,6 +248,8 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     from matplotlib import cm
+    from matplotlib.ticker import LinearLocator, FormatStrFormatter
+    
     cmap = cm.colors.LinearSegmentedColormap.from_list('Custom',
                                                    [(0, '#2f9599'),
                                                     (0.45, '#eee'),
