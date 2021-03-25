@@ -154,13 +154,13 @@ class engine:
             # apply error over function
             #
             for i in range(self.u.shape[0]):       
-                output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).unsqueeze(0)])
+                output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).detach().unsqueeze(0)])
 
             print('output in the loss ', output.shape) # expected 441, 176, 3 -> 441, 1
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
             # output = output.sum(axis = 0) # expected 441, 1
             # print('output after summation size:', output.size())
-            output = output[1:,:].expand(mu.shape[0], 2)
+            output = output[1:,:].expand(mu.shape[0], 2).numpy()
             print('output after expansion', output.size())
 
         # effs_and_gradients.append([1])
