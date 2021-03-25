@@ -143,13 +143,14 @@ class engine:
         print(f'mu shape {mu.shape}, beta {beta.shape}, force {force.shape}')
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
+        print('size of u ', self.u.shape) # 441, 176, 3
 
         # v1.3
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
-            output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 1, 1))
-            output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
+            output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 176, 3))
+            # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
             print('output size: ', output.shape) # expected 441, 176, 3
             output = output.sum(axis = 0) # expected 441, 1
             print('output after summation size:', output.shape)
