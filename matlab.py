@@ -168,7 +168,7 @@ class engine:
             # b = torch.tensor([1,2]).repeat(inds1.shape[0]//2)
             # print('b shape is ', b)
             # _, inds2 = torch.sort(b)
-            synthetic_data = np.hstack([mu, beta, output])
+            synthetic_data = torch.hstack([mu, beta, output])
             print('syntethic data ', synthetic_data.shape) # expected 441 * 3
             output = output[1:,:].view(-1, data['mu'].shape[0]) #flatten().
             # print('final0 flatten shape: ', output)
