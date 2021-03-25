@@ -164,7 +164,8 @@ class engine:
             a_ = torch.tensor([i for i in range(data['mu'].shape[0]) if i % 2 == 0])
             b_ = torch.tensor([i for i in range(data['mu'].shape[0]) if i % 2 == 1])
             inds1 = torch.cat([a_.view(2, -1), b_.view(2, -1)])
-            b = torch.tensor([1,2]).repeat(data['mu'].shape[0]/2)
+            b = torch.tensor([1,2]).repeat(data['mu'].shape[0]//2)
+            print('b shape is ', b.shape)
             _, inds2 = torch.sort(b)
             output = output[1:,:].flatten()[inds1]#
             print('final1 shape: ', output.shape)
