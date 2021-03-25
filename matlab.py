@@ -145,17 +145,23 @@ class engine:
         # print('size of u ', self.u.shape) # 441, 176, 3
 
         # v1.3
+        output = torch.zeros((1, 176, 3))
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
             # target = self.target_deflection.expand(self.u.shape[0], 176, 3) # expected 441, 176, 3
-            output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 176, 3)).detach()
-            print('output in the loss ', output)
+            # declare a loss function
+            # apply error over function
+            #
+            for i in range(self.u.shape[0]):       
+                output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).detach().unsqueeze(0)])
+
+            print('output in the loss ', output.shape) # expected 441, 176, 3
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
-            print('output size: ', output.size()) # expected 441, 176, 3
             output = output.sum(axis = 0) # expected 441, 1
             print('output after summation size:', output.size())
             output = output.expand(mu.shape[0], 2)
+            print('output after expansion', output.size())
 
         # effs_and_gradients.append([1])
         
