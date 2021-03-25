@@ -249,7 +249,7 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     from matplotlib import cm
     from matplotlib.ticker import LinearLocator, FormatStrFormatter
-    
+
     cmap = cm.colors.LinearSegmentedColormap.from_list('Custom',
                                                    [(0, '#2f9599'),
                                                     (0.45, '#eee'),
@@ -300,5 +300,5 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
 
     # Add a color bar which maps values to colors.
     # fig.colorbar(surf)
-    plt.savefig('./figures/error_history/3d_plot.png', dpi = 300)
+    plt.savefig('./results/figures/error_history/3d_plot.png', dpi = 300)
     plt.close()
