@@ -145,7 +145,7 @@ class engine:
         # print('size of u ', self.u.shape) # 441, 176, 3
 
         # v1.3
-        output = torch.zeros((1, 176, 3))
+        output = torch.zeros((1, 1))
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
@@ -154,12 +154,12 @@ class engine:
             # apply error over function
             #
             for i in range(self.u.shape[0]):       
-                output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).detach().unsqueeze(0)])
+                output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).unsqueeze(0)])
 
-            print('output in the loss ', output.shape) # expected 441, 176, 3
+            print('output in the loss ', output.shape) # expected 441, 176, 3 -> 441, 1
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
-            output = output.sum(axis = 0) # expected 441, 1
-            print('output after summation size:', output.size())
+            # output = output.sum(axis = 0) # expected 441, 1
+            # print('output after summation size:', output.size())
             output = output.expand(mu.shape[0], 2)
             print('output after expansion', output.size())
 
