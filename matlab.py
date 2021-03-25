@@ -149,11 +149,11 @@ class engine:
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
-            output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 176, 3))
+            output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 176, 3)).detach()
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
-            print('output size: ', output.shape) # expected 441, 176, 3
+            print('output size: ', output.size()) # expected 441, 176, 3
             output = output.sum(axis = 0) # expected 441, 1
-            print('output after summation size:', output.shape)
+            print('output after summation size:', output.size())
 
         # effs_and_gradients.append([1])
         
