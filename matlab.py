@@ -166,7 +166,7 @@ class engine:
             inds1 = torch.cat([a_.view(2, -1), b_.view(2, -1)])
             b = torch.tensor([1,2]).repeat(mu.shape[0]//2)
             _, inds2 = torch.sort(b)
-            output = output[1:,:].flatten()[inds1][idns2].numpy() # 441,1
+            output = output[1:,:].flatten()[inds1][inds2].numpy() # 441,1
             print('final shape: ', output.shape)
 
             
