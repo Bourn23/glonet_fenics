@@ -149,6 +149,8 @@ class engine:
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
+            target = self.target_deflection.expand(self.u.shape[0], 176, 3)
+            print('shape of the target', target.shape)
             output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 176, 3)).detach()
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
             print('output size: ', output.size()) # expected 441, 176, 3
