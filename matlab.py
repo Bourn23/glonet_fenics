@@ -172,7 +172,7 @@ class engine:
             print('final0 flatten shape: ', output)
             output = output[inds1]#
             print('final1 inds1 shape: ', output.shape)
-            output = output[inds2].numpy() # 441,1
+            output = output[inds2].view(data['mu'].shape[0], -1).numpy() # 441,1
             print('final2 inds2 shape: ', output.shape)
 
             
