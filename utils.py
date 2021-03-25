@@ -256,6 +256,8 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                                  np.linspace(0.25, 0.45, 21))
     # does it make a difference? how to make it more efficient?
     Z_grid = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
+    print('Z_Grids is', Z_grid)
+    print('Z_Grids size  is', Z_grid.size())
     # get coordinates and velocity arrays
     if particles is not None:
         X, Y = particles.swapaxes(0, 1)
