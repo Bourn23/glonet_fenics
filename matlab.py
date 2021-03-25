@@ -161,8 +161,8 @@ class engine:
             # output = output.sum(axis = 0) # expected 441, 1
             # print('output after summation size:', output.size())
             # output = output[1:,:].expand(mu.shape[0], 2).numpy()
-            a_ = torch.tensor([i for i in range(data['mu'].shape[0]) if i % 2 == 0])
-            b_ = torch.tensor([i for i in range(data['mu'].shape[0]) if i % 2 == 1])
+            a_ = torch.tensor([i for i in range(mu.shape[0]) if i % 2 == 0])
+            b_ = torch.tensor([i for i in range(mu.shape[0]) if i % 2 == 1])
             inds1 = torch.vstack([a_.view(-1, 2), b_.view(-1, 2)])
             print('inds1 are ', inds1)
             b = torch.tensor([1,2]).repeat(data['mu'].shape[0]//2)
