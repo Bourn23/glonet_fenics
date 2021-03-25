@@ -164,13 +164,16 @@ class engine:
             a_ = torch.tensor([i for i in range(data['mu'].shape[0]) if i % 2 == 0])
             b_ = torch.tensor([i for i in range(data['mu'].shape[0]) if i % 2 == 1])
             inds1 = torch.vstack([a_.view(2, -1), b_.view(2, -1)])
+            print('inds1 are ', inds1)
             b = torch.tensor([1,2]).repeat(data['mu'].shape[0]//2)
             print('b shape is ', b.shape)
             _, inds2 = torch.sort(b)
+            output = output[1:,:].flatten()
+            print('final0 flatten shape: ', output.shape)
             output = output[1:,:].flatten()[inds1]#
-            print('final1 shape: ', output.shape)
+            print('final1 inds1 shape: ', output.shape)
             output = output[inds2].numpy() # 441,1
-            print('final2 shape: ', output.shape)
+            print('final2 inds2 shape: ', output.shape)
 
             
             # .view(data['mu'].shape[0], -1).numpy()
