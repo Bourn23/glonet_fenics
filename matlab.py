@@ -126,7 +126,6 @@ class engine:
             return u
     
     def GradientFromSolver_1D_parallel(self, data):
-        # effs_and_gradients = []
         
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
@@ -140,18 +139,18 @@ class engine:
                 force = self.force
             else:
                 force = self.force.expand(mu.shape[0], 1)
-        print(f'mu shape {mu.shape}, beta {beta.shape}, force {force.shape}')
+        # print(f'mu shape {mu.shape}, beta {beta.shape}, force {force.shape}')
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
-        print('size of u ', self.u.shape) # 441, 176, 3
+        # print('size of u ', self.u.shape) # 441, 176, 3
 
         # v1.3
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
-            target = self.target_deflection.expand(self.u.shape[0], 176, 3)
-            print('shape of the target', target.shape)
+            # target = self.target_deflection.expand(self.u.shape[0], 176, 3) # expected 441, 176, 3
             output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 176, 3)).detach()
+            print('output in the loss ', output)
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
             print('output size: ', output.size()) # expected 441, 176, 3
             output = output.sum(axis = 0) # expected 441, 1
