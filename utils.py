@@ -248,7 +248,8 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 21),
-                        np.linspace(0.25, 0.45, 21))
+                                 np.linspace(0.25, 0.45, 21))
+    # does it make a difference? how to make it more efficient?
     Z_grid = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
     # get coordinates and velocity arrays
     if particles is not None:

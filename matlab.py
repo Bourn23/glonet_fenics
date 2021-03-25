@@ -131,15 +131,15 @@ class engine:
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
         
-        mu = torch.tensor([data['mu'][0]], requires_grad=True, dtype=torch.float64)
-        beta = torch.tensor([data['beta'][0]], requires_grad=True, dtype=torch.float64)
+        mu = torch.tensor(data['mu'], requires_grad=True, dtype=torch.float64).view(1, -1)
+        beta = torch.tensor(data['beta'], requires_grad=True, dtype=torch.float64).view(1, -1)
 
         try: force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
         except: 
             if mu.shape[0] == 1:
                 force = self.force
             else:
-                force = self.force.expand(mu.shape[0], 1)
+                force = self.force.expand(1, mu.shape[1])
 
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
@@ -150,9 +150,10 @@ class engine:
         else:
             output = loss(self.u, self.target_deflection.expand(self.u.shape[0], 1, 1))
             output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
-            print(output)
-            print(output.shape)
-        
+            print('output size: ', output.shape) # expected 441, 176, 3
+            output = output.sum(axis = 0) # expected 441, 1
+            print('output after summation size:', output.shape)
+            
         # effs_and_gradients.append([1])
         
         return output
