@@ -131,15 +131,15 @@ class engine:
         # why do you want to keep it this way? based on the existing values, it generates multiple variants of it so can we use those values for faster convergence?
         # again something like a global optimizer
         
-        mu = torch.tensor(data['mu'], requires_grad=True, dtype=torch.float64).view(1, -1)
-        beta = torch.tensor(data['beta'], requires_grad=True, dtype=torch.float64).view(1, -1)
+        mu = torch.tensor(data['mu'], requires_grad=True, dtype=torch.float64).view(-1, 1)
+        beta = torch.tensor(data['beta'], requires_grad=True, dtype=torch.float64).view(-1, 1)
 
         try: force = torch.tensor([[data['force']]], requires_grad=True, dtype=torch.float64)
         except: 
             if mu.shape[0] == 1:
                 force = self.force
             else:
-                force = self.force.expand(1, mu.shape[1])
+                force = self.force.expand(mu.shape[0], 1)
         print(f'mu shape {mu.shape}, beta {beta.shape}, force {force.shape}')
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
