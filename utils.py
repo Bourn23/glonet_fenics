@@ -247,6 +247,11 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 
 
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
+    from matplotlib import cm
+    cmap = cm.colors.LinearSegmentedColormap.from_list('Custom',
+                                                   [(0, '#2f9599'),
+                                                    (0.45, '#eee'),
+                                                    (1, '#8800ff')], N=256)
     X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 21),
                                  np.linspace(0.25, 0.45, 21))
     # does it make a difference? how to make it more efficient?
