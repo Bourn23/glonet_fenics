@@ -140,7 +140,7 @@ class engine:
                 force = self.force
             else:
                 force = self.force.expand(1, mu.shape[1])
-
+        print(f'mu shape {mu.shape}, beta {beta.shape}, force {force.shape}')
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
 
@@ -153,7 +153,7 @@ class engine:
             print('output size: ', output.shape) # expected 441, 176, 3
             output = output.sum(axis = 0) # expected 441, 1
             print('output after summation size:', output.shape)
-            
+
         # effs_and_gradients.append([1])
         
         return output
