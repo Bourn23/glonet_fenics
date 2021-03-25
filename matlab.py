@@ -170,7 +170,7 @@ class engine:
             # _, inds2 = torch.sort(b)
             output = output[1:,:] #flatten().
             synthetic_data = torch.hstack([mu, beta, output])
-            output = output.view(-1, data['mu'].shape[0]) #flatten().
+            output = output.view(-1, data['mu'].shape[0]).numpy() #flatten().
             print('syntethic data ', synthetic_data.shape) # expected 441 * 3
             # print('final0 flatten shape: ', output)
             # output = output[inds1]#
@@ -184,4 +184,4 @@ class engine:
 
         # effs_and_gradients.append([1])
         
-        return output
+        return output, synthetic_data
