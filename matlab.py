@@ -149,12 +149,12 @@ class engine:
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
+            for i in range(self.u.shape[0]):       
+                output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).detach().unsqueeze(0)])
             # target = self.target_deflection.expand(self.u.shape[0], 176, 3) # expected 441, 176, 3
             # declare a loss function
             # apply error over function
             #
-            for i in range(self.u.shape[0]):       
-                output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).detach().unsqueeze(0)])
 
             # print('output in the loss ', output.shape) # expected 441, 176, 3 -> 441, 1
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
@@ -168,6 +168,8 @@ class engine:
             # b = torch.tensor([1,2]).repeat(inds1.shape[0]//2)
             # print('b shape is ', b)
             # _, inds2 = torch.sort(b)
+            synthetic_data = np.hstack([mu, beta, output])
+            print('syntethic data ', synthetic_data.shape) # expected 441 * 3
             output = output[1:,:].view(-1, data['mu'].shape[0]) #flatten().
             # print('final0 flatten shape: ', output)
             # output = output[inds1]#
