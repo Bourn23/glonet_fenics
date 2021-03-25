@@ -161,7 +161,7 @@ class engine:
             # output = output.sum(axis = 0) # expected 441, 1
             # print('output after summation size:', output.size())
             output = output[1:,:].expand(mu.shape[0], 2).numpy()
-            print('output after expansion', output.size())
+            # print('output after expansion', output.size())
 
         # effs_and_gradients.append([1])
         
