@@ -160,7 +160,7 @@ class engine:
             # output = torch.mean(torch.mean(output, dim=2), dim=1).detach()#.sum()
             # output = output.sum(axis = 0) # expected 441, 1
             # print('output after summation size:', output.size())
-            output = output.expand(mu.shape[0], 2)[1:,:]
+            output = output[1:,:].expand(mu.shape[0], 2)
             print('output after expansion', output.size())
 
         # effs_and_gradients.append([1])
