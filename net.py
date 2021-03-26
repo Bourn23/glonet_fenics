@@ -584,7 +584,7 @@ class SGD(Model):
         self.PE_CALLS = 0
 
         # self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=1e5, betas=(params.beta1, params.beta2))
-        self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, lr_decay=1e-2)
+        self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, lr_decay=1e-1)
         self.loss = torch.nn.MSELoss()
 
 
@@ -671,7 +671,7 @@ class SGD(Model):
         #                                                 (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
         # global_memory.sgd_history = self.history
         # global_memory.sgd_data = self.data
-        print('sgds data: ', self.data)
+        # print('sgds data: ', self.data)
 
     def summary(self, global_memory):
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
