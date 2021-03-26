@@ -16,6 +16,7 @@ import torch.fft
 import utils
 import scipy.io as io
 import numpy as np
+import pandas as pd
 from dolfin import *; from mshr import *
 from net import *
 
@@ -36,6 +37,21 @@ def summarize(global_memory):
         # a = f'global_memory.{name.lower()}_loss'
         # exec(f"loss = {a}")
         print(f'check if there is any negative loss {global_memory.sgd_data}')
+
+        M = len(global_memory.sgd_data)
+        N = 10#00
+        # boot strapping 2nd column: Nu
+
+        df = pd.DataFrame(columns=('E', 'nu'))
+        for i in range(N):
+            E = np.random.choice(global_memory.sgd_data[:, 0], replace = True, size = M)
+            nu = np.random.choice(global_memory.sgd_data[:, 1], replace = True, size = M)
+            df.loc[i] = [E, nu]
+        print('df is ', df)
+            # sample 1 from each and create a pair of E and Us
+            # 400, 400
+        print("E 95%  CI", np.quantile(df['E'], np.array(0.025, 0.975)))
+        print("NU 95% CI", np.quantile(df['nu'], np.array(0.025, 0.975)))
         
         # global_memory.{name}_data
 
