@@ -665,7 +665,7 @@ class SGD(Model):
         #                                                 (nu_f-self.generator.nu_0)/self.generator.nu_0*100))
         # global_memory.sgd_history = self.history
         # global_memory.sgd_data = self.data
-        # print('sgds data: ', global_memory.sgd_data)
+        print('sgds data: ', self.data)
 
     def summary(self, global_memory):
         E_f, nu_f = youngs_poisson(self.generator.mu[0, 0].detach().numpy(),
