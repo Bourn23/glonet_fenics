@@ -17,6 +17,7 @@ import utils
 import scipy.io as io
 import numpy as np
 import pandas as pd
+import scipy.stats as st
 from dolfin import *; from mshr import *
 from net import *
 
@@ -51,8 +52,10 @@ def summarize(global_memory):
         print('df is ', df)
             # sample 1 from each and create a pair of E and Us
             # 400, 400
-        print("E 95%  CI", np.quantile(df['E'], np.array(0.025, 0.975)))
-        print("NU 95% CI", np.quantile(df['nu'], np.array(0.025, 0.975)))
+        print("E 95%  CI", np.quantile(df['E'], [0.025, 0.975]))
+        print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E']))
+        print("NU 95% CI", np.quantile(df['nu'], [0.025, 0.975]))
+        print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu']))
         
         # global_memory.{name}_data
 
