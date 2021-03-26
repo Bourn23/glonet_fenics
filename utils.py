@@ -254,10 +254,12 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                                                    [(0, '#2f9599'),
                                                     (0.45, '#eee'),
                                                     (1, '#8800ff')], N=256)
-    X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 20),
+    X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 20), # seq(start, stop, #)
                                  np.linspace(0.25, 0.45, 20))
     # does it make a difference? how to make it more efficient?
-    Z_grid = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
+    Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
+
+    # 400 synthetic U
     # print('Z_Grids is', Z_grid)
     
     # get coordinates and velocity arrays
@@ -302,3 +304,5 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     # fig.colorbar(surf)
     plt.savefig('./results/figures/error_history/3d_plot.png', dpi = 300)
     plt.close()
+
+    return syn_data

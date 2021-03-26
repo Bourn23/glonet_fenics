@@ -135,6 +135,8 @@ class Model:
         """
         pass
 
+    # np.argmax(np.max(a, axis = 1)) --> best values among all predictions
+
 
 
 # ___ Optimizers ___
@@ -682,8 +684,8 @@ class SGD(Model):
                                                         relative_nu_error))
         
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
-        try: global_memory.sgd_data = np.vstack([global_memory.sgd_data, self.data]); print('adding to existing history')
-        except: global_memory.sgd_data = self.data
+        try: global_memory.sgd_data = np.vstack([global_memory.sgd_data, self.data[np.argmax(np.max(a, axis = 1))]]); print('adding to existing history')
+        except: global_memory.sgd_data = self.data[np.argmax(np.max(a, axis = 1))]
         
         try:        global_memory.sgd_loss = np.vstack([global_memory.sgd_loss, self.loss_history]); print('adding to existing history')
         except:     global_memory.sgd_loss = self.loss_history
