@@ -33,7 +33,8 @@ def summarize(global_memory):
     #TODO; make it scalble
     for name, model in active_models.items():
         print(f"\n************{name}************")
-        print(f'check if there is any negative loss {global_memory.{name.lower()}_loss}')
+        a = f'global_memory.{name.lower()}_loss'
+        print(f'check if there is any negative loss {a}')
         
         # global_memory.{name}_data
 
