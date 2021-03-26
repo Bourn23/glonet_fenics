@@ -40,7 +40,7 @@ def summarize(global_memory):
         print(f'check if there is any negative loss {global_memory.sgd_data}')
 
         M = len(global_memory.sgd_data)
-        N = 10#00
+        N = 1000
         # boot strapping 2nd column: Nu
 
         df = pd.DataFrame(columns=('E', 'nu'))
@@ -49,12 +49,13 @@ def summarize(global_memory):
             nu = np.random.choice(global_memory.sgd_data[:, 1], replace = True, size = M)
             for j in range(M):
                 df.loc[i+j] = [E[j][0][0], nu[j][0][0]]
-        print('df is ', df)
-            # sample 1 from each and create a pair of E and Us
-            # 400, 400
+        # print('df is ', df)
+        df.to_csv('./results/E_nu_table.csv')
+
         print("E 95%  CI", np.quantile(df['E'], [0.025, 0.975]))
-        print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
         print("NU 95% CI", np.quantile(df['nu'], [0.025, 0.975]))
+        print("======STATS======")
+        print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
         print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu'])))
         
         # global_memory.{name}_data
