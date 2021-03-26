@@ -6,7 +6,7 @@
     "generate_samples_mode": 0,
     "noise_amplitude": 1,
     "numIter": 60.0,
-    "numGenerations" : 1.0,
+    "numGenerations" : 2.0,
     "gkernlen": 19.0,
     "gkernsig": 6.0,
     "lr": 1e4,
