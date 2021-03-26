@@ -644,6 +644,12 @@ class SGD(Model):
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # red = true value
         ax.plot(self.data[-1, 0], self.data[-1, 1], 'g.')  # red = true value
+
+        
+        ax.plot(self.data[np.argmax(np.min(self.data, axis = 1))][0], self.data[np.argmax(np.min(self.data, axis = 1))][1], 'bx')  # blue cross = taken out
+        ax.plot(self.data[np.argmax(np.max(self.data, axis = 1))][0], self.data[np.argmax(np.max(self.data, axis = 1))][1], 'rx')  # blue cross = taken out
+        ax.plot(self.data[np.argmin(np.min(self.data, axis = 1))][0], self.data[np.argmin(np.min(self.data, axis = 1))][1], 'gx')  # blue cross = taken out
+
         ax.set_xlabel('$E$', fontsize=10)
         ax.set_ylabel('$Nu$', fontsize='medium')
 
