@@ -46,7 +46,8 @@ def summarize(global_memory):
         for i in range(N):
             E = np.random.choice(global_memory.sgd_data[:, 0], replace = True, size = M)
             nu = np.random.choice(global_memory.sgd_data[:, 1], replace = True, size = M)
-            df.loc[i] = [E, nu]
+            for j in range(M):
+                df.loc[i+j] = [E[j], nu[j]]
         print('df is ', df)
             # sample 1 from each and create a pair of E and Us
             # 400, 400
