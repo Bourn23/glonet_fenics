@@ -33,9 +33,15 @@ def summarize(global_memory):
     #TODO; make it scalble
     for name, model in active_models.items():
         print(f"\n************{name}************")
-        print('check if there is any negative loss',  model.loss_history)
-        print(f"{name} average 'E' error: ", round(np.sum(abs(model.loss_history[:,0])) / len(model.loss_history), 2), '%')
-        print(f"{name} average 'nu' error: ", round(np.sum(abs(model.loss_history[:,1])) / len(model.loss_history), 2), '%')
+        print(f'check if there is any negative loss {f"global_memory.{name}_loss"}')
+        
+        # global_memory.{name}_data
+
+        # print(f"{name} average 'E' error: ", round(np.sum(abs(model.loss_history[:,0])) / len(model.loss_history), 2), '%')
+        # print(f"{name} average 'nu' error: ", round(np.sum(abs(model.loss_history[:,1])) / len(model.loss_history), 2), '%')
+        # print('sgds data: ', model.data)
+
+        
         #TODO: average time-spent
         #      Cross-Validation
           # cross-model validation:
@@ -71,7 +77,30 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
 
     # save data files and plot
     utils.plot_loss_history(params, active_models, global_memory, global_count)
-    utils.plot_3d(eng)
+    # syn_data = utils.plot_3d(eng)
+
+    # # E, nu, U --> # of obs, 3 400, 3
+    # # U = f(E, nu)
+    # print('syn_data is' , syn_data)
+
+    # M = 400
+    # N = 1000
+    # for i in range(N):
+    #                                 # 10 U's
+    #     samples = np.random.choice(syn_data[:, 2], replace = True, size = 400)  
+    #     # sample 1 from each and create a pair of E and Us
+    #     E, u = f_1(samples)
+    #     # 400, 400
+    #     np.quantile(E, np.array(0.025, 0.975))
+    #     np.quantile(U, np.array(0.025, 0.975))
+
+
+# 400 * 1000
+# 1000 E, U
+
+
+
+
 
 
     
