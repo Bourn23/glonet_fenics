@@ -7,4 +7,5 @@ tqdm
 matplotlib
 sklearn
 deap
+pandas
 
