@@ -262,7 +262,12 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
     fig.update_layout(title='Mt Bruno Elevation', autosize=False,
                     width=500, height=500,
-                    margin=dict(l=65, r=50, b=65, t=90))
+                    margin=dict(l=65, r=50, b=65, t=90),    
+                    xaxis_title="Young's Modulus",
+                    yaxis_title="Poisson's Ratio",
+                    zaxis_title="Displacement")
+    fig.update_traces(contours_z=dict(show=True, usecolormap=True,
+                    highlightcolor="limegreen", project_z=True))
     # scene_settings = dict(
     #         xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
     #         yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
