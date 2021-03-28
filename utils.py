@@ -256,7 +256,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     # does it make a difference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
 
-    z = Z_grid * 1e5
+    z = Z_grid * 1e4
     sh_0, sh_1 = z.shape
     x, y = X_grid, Y_grid
     fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
