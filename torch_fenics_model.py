@@ -74,7 +74,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         a0 = Constant(0.01) # corroded
         a1 = Constant(1.)   # healthy
         
-        dx = Measure('dx', domain=mesh, subdomain_data=domains)
+        dx = Measure('dx', domain=self.mesh, subdomain_data=self.domains)
     
 
 
