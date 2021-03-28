@@ -255,26 +255,34 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                                  np.linspace(0.25, 0.45, 2))
     # does it make a difference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
-    scene_settings = dict(
-            xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
-            yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
-            zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
+
+    z = Z_grid
+    sh_0, sh_1 = z.shape
+    x, y = X_grid, Y_grid
+    fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
+    fig.update_layout(title='Mt Bruno Elevation', autosize=False,
+                    width=500, height=500,
+                    margin=dict(l=65, r=50, b=65, t=90))
+    # scene_settings = dict(
+    #         xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
+    #         yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
+    #         zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
 
 
-    x, y, z = (X_grid, Y_grid, Z_grid)
+    # x, y, z = (X_grid, Y_grid, Z_grid)
 
-    disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
+    # disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
 
-    fig = go.Figure(data=[
-        go.Mesh3d(
-            x=x, y=y, z=z,
-            # Intensity of each vertex, which will be interpolated and color-coded
-            intensity=disp,
-            name='y', showscale=True
-        )
-    ])
-    fig.update_layout(scene = scene_settings)
-    fig.update_layout(scene_aspectmode = 'cube')
+    # fig = go.Figure(data=[
+    #     go.Mesh3d(
+    #         x=x, y=y, z=z,
+    #         # Intensity of each vertex, which will be interpolated and color-coded
+    #         intensity=disp,
+    #         name='y', showscale=True
+    #     )
+    # ])
+    # fig.update_layout(scene = scene_settings)
+    # fig.update_layout(scene_aspectmode = 'cube')
     fig.write_image('./results/figures/error_history/3d_plot.png')
 
     return syn_data
