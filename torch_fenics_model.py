@@ -18,6 +18,21 @@ class Healthy(SubDomain):
         tol = 1E-14
         return on_boundary and (between(x[0], (0., 0.5)) or between(x[0], (0.7, 1.)))
 
+
+class K(Expression):
+    # material
+    def __init__(self, materials, k_0, k_1, **kwargs):
+        self.materials = materials
+        self.k_0 = k_0
+        self.k_1 = k_1
+
+    def eval_cell(self, values, x, cell):
+        if self.materials[cell.index] == 0:
+            values[0] = self.k_0
+        else:
+            values[0] = self.k_1
+
+
 class HomogeneousBeam(torch_fenics.FEniCSModule):
     # Construct variables which can be reused in the constructor
     def __init__(self):
@@ -38,6 +53,18 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # Create function space                                        # of cells in x-y-z
         self.mesh = BoxMesh(Point(0, 0, 0), Point(self.L, self.W, self.W), 10, 3, 3)
         self.V = VectorFunctionSpace(self.mesh, 'P', 1)
+
+
+        # Inhomogeneity
+        self.materials = CellFunction('size_t', self.mesh)
+        subdomain_0 = CompiledSubDomain('x[0] <= 0.5 + tol || x[0] >= 0.7 - tol', tol=self.tol) # healthy
+        subdomain_1 = CompiledSubDomain('x[0] >= 0.5 - tol && x[0] <= 0.7 + tol', tol=self.tol) # corroded
+        subdomain_0.mark(materials, 0)
+        subdomain_1.mark(materials, 1)
+
+        self.k_0 = 0
+        self.K_1 = 1
+        self.kappa = K(self.materials, self.k_0, self.k_1, degree=0)
 
         # Create trial and test functions
         self.v = TestFunction(self.V)
@@ -79,7 +106,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         self.a = inner(self.sigma(self.u), self.epsilon(self.v))*dx
 
         
-        L = dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
+        L = self.kappa* dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
 
         # Construct boundary condition
         self.bc_l = DirichletBC(self.V, Constant((0, 0, 0)), self.clamped_boundary_left)
