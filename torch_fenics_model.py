@@ -125,9 +125,9 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         #dx = Measure('dx', domain=self.mesh, subdomain_data=self.sub_domains)
 
         # L = self.kappa* dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
-        # L = dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
+        L = dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
         # L =  (inner(a0*grad(u), grad(v))*dx(0) + inner(a1*grad(u), grad(v))*dx(1)
-        L = 0.01 * dot(self.f, self.v)*dx(0) + 1.0 * dot(self.f, self.v)*dx(1) + dot(self.T, self.v)*ds
+        # L = 0.01 * dot(self.f, self.v)*dx(0) + 1.0 * dot(self.f, self.v)*dx(1) + dot(self.T, self.v)*ds
 
         # Construct boundary condition
         self.bc_l = DirichletBC(self.V, Constant((0, 0, 0)), self.clamped_boundary_left)
