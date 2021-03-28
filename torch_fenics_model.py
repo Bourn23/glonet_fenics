@@ -66,6 +66,11 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # subdomain_0.mark(materials, 0)
         # subdomain_1.mark(materials, 1)
 
+        # self.k_0 = 0
+        # self.k_1 = 1
+        # self.kappa = K(self.sub_domains, self.k_0, self.k_1, degree=0)
+
+        # try2: 
         # self.corroded = Corroded()
         # self.domains = MeshFunction("size_t", self.mesh, self.mesh.topology().dim())
         # self.domains.set_all(1)
@@ -76,12 +81,6 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         
         # dx = Measure('dx', domain=self.mesh, subdomain_data=self.domains)
     
-
-
-        # self.k_0 = 0
-        # self.k_1 = 1
-        # self.kappa = K(self.sub_domains, self.k_0, self.k_1, degree=0)
-        
 
         # Create trial and test functions
         self.v = TestFunction(self.V)
@@ -122,10 +121,13 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         self.d = self.u.geometric_dimension()  # space dimension
         self.a = inner(self.sigma(self.u), self.epsilon(self.v))*dx
 
-        #dx = Measure('dx', domain=self.mesh, subdomain_data=self.sub_domains)
 
-        # L = self.kappa* dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
         L = dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
+
+        #try1:
+        # L = self.kappa* dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
+
+        # try2:
         # L =  (inner(a0*grad(u), grad(v))*dx(0) + inner(a1*grad(u), grad(v))*dx(1)
         # L = 0.01 * dot(self.f, self.v)*dx(0) + 1.0 * dot(self.f, self.v)*dx(1) + dot(self.T, self.v)*ds
 
