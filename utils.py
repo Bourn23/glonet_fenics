@@ -249,65 +249,96 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 
 
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
-    from matplotlib import cm
-    from matplotlib.ticker import LinearLocator, FormatStrFormatter
-
-    cmap = cm.colors.LinearSegmentedColormap.from_list('Custom',
-                                                   [(0, '#2f9599'),
-                                                    (0.45, '#eee'),
-                                                    (1, '#8800ff')], N=256)
+    import plotly.graph_objects as go
+    import numpy as np
     X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 2), # seq(start, stop, #)
                                  np.linspace(0.25, 0.45, 2))
     # does it make a difference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
+    scene_settings = dict(
+            xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
+            yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
+            zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
 
-    # 400 synthetic U
-    # print('Z_Grids is', Z_grid)
-    
-    # get coordinates and velocity arrays
-    if particles is not None:
-        X, Y = particles.swapaxes(0, 1)
-        Z = eng.GradientFromSolver_1D_parallel(X, Y) # gotta fix if we want to visualize swarm
-        if velocity is not None:
-            U, V = velocity.swapaxes(0, 1)
-            W = eng.GradientFromSolver_1D_parallel(X + U, Y + V) - Z # gotta fix if we want to visualize swarm
 
-    # create new ax if None
-    if ax is None:
-        fig = plt.figure()
-        ax = fig.add_subplot(1, 1, 1, projection='3d')
+    x, y, z = (X_grid, Y_grid, Z_grid).T
 
-    # Plot the surface.
-    surf = ax.plot_surface(X_grid, Y_grid, Z_grid, cmap=cmap,
-                           linewidth=0, antialiased=True, alpha=0.7)
-    ax.contour(X_grid, Y_grid, Z_grid, zdir='z', offset=0, levels=30, cmap=cmap)
-    if particles is not None:
-        ax.scatter(X, Y, Z, color=color, depthshade=True)
-        if velocity is not None:
-            ax.quiver(X, Y, Z, U, V, W, color=color, arrow_length_ratio=0., normalize=normalize)
+    disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
 
-    len_space = 10
-    # Customize the axis
-    max_z = (np.max(Z_grid) // len_space + 1).astype(np.int) * len_space
-    ax.set_xlim3d(np.min(X_grid), np.max(X_grid))
-    ax.set_ylim3d(np.min(Y_grid), np.max(Y_grid))
-    ax.set_zlim3d(0, max_z)
-    ax.zaxis.set_major_locator(LinearLocator(max_z // len_space + 1))
-    ax.zaxis.set_major_formatter(FormatStrFormatter('%.0f'))
-    # Rmove fills and set labels
-    ax.xaxis.pane.fill = False
-    ax.yaxis.pane.fill = False
-    ax.zaxis.pane.fill = False
-    ax.set_xlabel('$E$')
-    ax.set_ylabel('$Nu$')
-    ax.set_zlabel('$delta$')
-
-    # Add a color bar which maps values to colors.
-    # fig.colorbar(surf)
-    plt.savefig('./results/figures/error_history/3d_plot.png', dpi = 300)
-    plt.close()
+    fig = go.Figure(data=[
+        go.Mesh3d(
+            x=x, y=y, z=z,
+            # Intensity of each vertex, which will be interpolated and color-coded
+            intensity=disp,
+            name='y', showscale=True
+        )
+    ])
+    fig.update_layout(scene = scene_settings)
+    fig.update_layout(scene_aspectmode = 'cube')
+    fig.write_image('./results/figures/error_history/3d_plot.png')
 
     return syn_data
+
+# def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
+#     from matplotlib import cm
+#     from matplotlib.ticker import LinearLocator, FormatStrFormatter
+
+#     cmap = cm.colors.LinearSegmentedColormap.from_list('Custom',
+#                                                    [(0, '#2f9599'),
+#                                                     (0.45, '#eee'),
+#                                                     (1, '#8800ff')], N=256)
+#     X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 2), # seq(start, stop, #)
+#                                  np.linspace(0.25, 0.45, 2))
+#     # does it make a difference? how to make it more efficient?
+#     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
+
+#     # 400 synthetic U
+#     # print('Z_Grids is', Z_grid)
+    
+#     # get coordinates and velocity arrays
+#     if particles is not None:
+#         X, Y = particles.swapaxes(0, 1)
+#         Z = eng.GradientFromSolver_1D_parallel(X, Y) # gotta fix if we want to visualize swarm
+#         if velocity is not None:
+#             U, V = velocity.swapaxes(0, 1)
+#             W = eng.GradientFromSolver_1D_parallel(X + U, Y + V) - Z # gotta fix if we want to visualize swarm
+
+#     # create new ax if None
+#     if ax is None:
+#         fig = plt.figure()
+#         ax = fig.add_subplot(1, 1, 1, projection='3d')
+
+#     # Plot the surface.
+#     surf = ax.plot_surface(X_grid, Y_grid, Z_grid, cmap=cmap,
+#                            linewidth=0, antialiased=True, alpha=0.7)
+#     ax.contour(X_grid, Y_grid, Z_grid, zdir='z', offset=0, levels=30, cmap=cmap)
+#     if particles is not None:
+#         ax.scatter(X, Y, Z, color=color, depthshade=True)
+#         if velocity is not None:
+#             ax.quiver(X, Y, Z, U, V, W, color=color, arrow_length_ratio=0., normalize=normalize)
+
+#     len_space = 10
+#     # Customize the axis
+#     max_z = (np.max(Z_grid) // len_space + 1).astype(np.int) * len_space
+#     ax.set_xlim3d(np.min(X_grid), np.max(X_grid))
+#     ax.set_ylim3d(np.min(Y_grid), np.max(Y_grid))
+#     ax.set_zlim3d(0, max_z)
+#     ax.zaxis.set_major_locator(LinearLocator(max_z // len_space + 1))
+#     ax.zaxis.set_major_formatter(FormatStrFormatter('%.0f'))
+#     # Rmove fills and set labels
+#     ax.xaxis.pane.fill = False
+#     ax.yaxis.pane.fill = False
+#     ax.zaxis.pane.fill = False
+#     ax.set_xlabel('$E$')
+#     ax.set_ylabel('$Nu$')
+#     ax.set_zlabel('$delta$')
+
+#     # Add a color bar which maps values to colors.
+#     # fig.colorbar(surf)
+#     plt.savefig('./results/figures/error_history/3d_plot.png', dpi = 300)
+#     plt.close()
+
+#     return syn_data
 
 
 
