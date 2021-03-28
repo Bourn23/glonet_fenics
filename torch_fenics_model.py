@@ -66,13 +66,13 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # subdomain_0.mark(materials, 0)
         # subdomain_1.mark(materials, 1)
 
-        self.corroded = Corroded()
-        self.domains = MeshFunction("size_t", self.mesh, self.mesh.topology().dim())
-        self.domains.set_all(1)
-        self.corroded.mark(self.domains, 0)
+        # self.corroded = Corroded()
+        # self.domains = MeshFunction("size_t", self.mesh, self.mesh.topology().dim())
+        # self.domains.set_all(1)
+        # self.corroded.mark(self.domains, 0)
 
-        self.a0 = Constant(0.01) # corroded
-        self.a1 = Constant(1.)   # healthy
+        # self.a0 = Constant(0.01) # corroded
+        # self.a1 = Constant(1.)   # healthy
         
         # dx = Measure('dx', domain=self.mesh, subdomain_data=self.domains)
     
