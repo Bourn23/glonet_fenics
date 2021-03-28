@@ -11,7 +11,9 @@ import logging
 class Corroded(SubDomain):
     def inside(self, x, on_boundary):
         tol = 1E-14
-        return on_boundary and (between(x[0], (0.5, 0.7)) )
+        # return on_boundary and (between(x[0], (0.5, 0.7)) )
+                        #y                          #x
+        return (between(x[1], (0, 0.2)) and between(x[0], (0.5, 0.7)))
 
 
 class Healthy(SubDomain):
@@ -63,16 +65,19 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # subdomain_1 = CompiledSubDomain('x[0] >= 0.5 - tol && x[0] <= 0.7 + tol', tol=self.tol) # corroded
         # subdomain_0.mark(materials, 0)
         # subdomain_1.mark(materials, 1)
-        self.sub_domains = MeshFunction("size_t", self.mesh, self.mesh.topology().dim() - 1)
-        self.sub_domains.set_all(1) # all are healthy
+
         self.corroded = Corroded()
-        self.corroded.mark(self.sub_domains, 0) # these are unhealthy!
+        self.domains = MeshFunction("size_t", mesh, mesh.topology().dim())
+        self.domains.set_all(0)
+        self.corroded.mark(self.domains, 1)
+        dx = Measure('dx', domain=mesh, subdomain_data=domains)
+        
+    
 
 
-
-        self.k_0 = 0
-        self.k_1 = 1
-        self.kappa = K(self.sub_domains, self.k_0, self.k_1, degree=0)
+        # self.k_0 = 0
+        # self.k_1 = 1
+        # self.kappa = K(self.sub_domains, self.k_0, self.k_1, degree=0)
         
 
         # Create trial and test functions
