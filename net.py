@@ -362,6 +362,7 @@ class GPR(Model):
         # global_memory.gpr_Z = self.Z
         # global_memory.gpr_XY = self.XY
 
+
 class GPRL(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)

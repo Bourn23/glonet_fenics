@@ -119,8 +119,8 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
 
         self.u = TrialFunction(self.V)
         self.d = self.u.geometric_dimension()  # space dimension
-        # self.a = inner(self.sigma(self.u), self.epsilon(self.v))*dx
-        self.a = inner(self.a0 * self.sigma(self.u), self.epsilon(self.v))*dx(0) +  inner(self.a1 * self.sigma(self.u), self.epsilon(self.v))*dx(1)
+        self.a = inner(self.sigma(self.u), self.epsilon(self.v))*dx
+        # self.a = inner(self.a0 * self.sigma(self.u), self.epsilon(self.v))*dx(0) +  inner(self.a1 * self.sigma(self.u), self.epsilon(self.v))*dx(1)
 
 
         # L = dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
