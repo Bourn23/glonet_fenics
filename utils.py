@@ -312,6 +312,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
 def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
+    from dolfin import *; from mshr import *
     v2d = vertex_to_dof_map(eng.model.V)
 
     imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
