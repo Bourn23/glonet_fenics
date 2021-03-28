@@ -17,6 +17,7 @@ class engine:
         self.beta = torch.tensor([[beta]], requires_grad=True, dtype=torch.float64)
         self.force = torch.tensor([[force]], requires_grad=True, dtype=torch.float64)
         self.target_deflection = self.model(self.mu, self.beta, self.force).detach() # sure?
+        print('target deflection ',self.target_deflection)
 
 
         self.loss = torch.nn.MSELoss()
