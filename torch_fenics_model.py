@@ -71,7 +71,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
 
 
         self.k_0 = 0
-        self.K_1 = 1
+        self.k_1 = 1
         self.kappa = K(self.sub_domains, self.k_0, self.k_1, degree=0)
         
 
