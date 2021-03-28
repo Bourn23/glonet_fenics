@@ -261,7 +261,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
 
 
-    x, y, z = (X_grid, Y_grid, Z_grid).T
+    x, y, z = (X_grid, Y_grid, Z_grid)
 
     disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
 
