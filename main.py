@@ -74,7 +74,7 @@ if __name__ == '__main__':
     for model in params.models:
         os.makedirs(args.output_dir + f'/figures/{model}', exist_ok = True)
 
-
+    utils.save_images(eng.target_deflection, eng, './results/figures/error_history/3d_plot_real_column.png')
     # Define the models 
     global_memory = Model(params)
         
@@ -108,5 +108,5 @@ if __name__ == '__main__':
         evaluate(eng, params, global_memory, global_optimizer, elapsed)
     # Generate images and save 
     # logging.info('Start generating devices')
-logging.info('Wrapping Up Results')
-summarize(global_memory)
+    logging.info('Wrapping Up Results')
+    summarize(global_memory)
