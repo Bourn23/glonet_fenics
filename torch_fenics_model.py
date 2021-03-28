@@ -79,7 +79,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         self.a0 = Constant(0.01) # corroded
         self.a1 = Constant(1.)   # healthy
         
-        dx = Measure('dx', domain=self.mesh, subdomain_data=self.domains)
+        self.dx = Measure('dx', domain=self.mesh, subdomain_data=self.domains)
     
 
         # Create trial and test functions
@@ -129,7 +129,8 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
 
         # try2:
         # L =  (inner(a0*grad(u), grad(v))*dx(0) + inner(a1*grad(u), grad(v))*dx(1)
-        L = self.a0 * dot(self.f, self.v)*dx(0) + self.a1 * dot(self.f, self.v)*dx(1) + dot(self.T, self.v)*ds
+        L = self.a0 * dot(self.f, self.v)*self.dx(0) + self.a1 * dot(self.f, self.v)*self.dx(1) + dot(self.T, self.v)*ds
+        # L = self.a0 * dot(self.f, self.v)*dx(0) + self.a1 * dot(self.f, self.v)*dx(1) + dot(self.T, self.v)*ds
 
         # Construct boundary condition
         self.bc_l = DirichletBC(self.V, Constant((0, 0, 0)), self.clamped_boundary_left)
@@ -140,7 +141,7 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         self.u = Function(self.V) # displacement
         solve(self.a == L, self.u, self.bc_l)
 
-
+        # print(self.u)
         # Return the solution
         return self.u
 
