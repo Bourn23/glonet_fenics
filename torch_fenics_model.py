@@ -3,6 +3,7 @@ import torch_fenics
 
 from fenics import *
 from fenics_adjoint import *
+from dolfin import *
 from ufl import nabla_div
 
 import logging
