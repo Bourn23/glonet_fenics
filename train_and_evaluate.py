@@ -100,7 +100,7 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
 
     # save data files and plot
     utils.plot_loss_history(params, active_models, global_memory, global_count)
-    # syn_data = utils.plot_3d(eng)
+    syn_data = utils.plot_3d(eng)
 
     # # E, nu, U --> # of obs, 3 400, 3
     # # U = f(E, nu)
