@@ -9,9 +9,9 @@ from ufl import nabla_div
 import logging
 
 class Corroded(SubDomain):
-  def inside(self, x, on_boundary):
-    tol = 1E-14
-    return on_boundary and (between(x[0], (0.5, 0.7)) )
+    def inside(self, x, on_boundary):
+        tol = 1E-14
+        return on_boundary and (between(x[0], (0.5, 0.7)) )
 
 
 class Healthy(SubDomain):
@@ -57,15 +57,23 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
 
 
         # Inhomogeneity
-        self.materials = CellFunction('size_t', self.mesh)
-        subdomain_0 = CompiledSubDomain('x[0] <= 0.5 + tol || x[0] >= 0.7 - tol', tol=self.tol) # healthy
-        subdomain_1 = CompiledSubDomain('x[0] >= 0.5 - tol && x[0] <= 0.7 + tol', tol=self.tol) # corroded
-        subdomain_0.mark(materials, 0)
-        subdomain_1.mark(materials, 1)
+        # try1: CellFunction is not imported!
+        # self.materials = CellFunction('size_t', self.mesh)
+        # subdomain_0 = CompiledSubDomain('x[0] <= 0.5 + tol || x[0] >= 0.7 - tol', tol=self.tol) # healthy
+        # subdomain_1 = CompiledSubDomain('x[0] >= 0.5 - tol && x[0] <= 0.7 + tol', tol=self.tol) # corroded
+        # subdomain_0.mark(materials, 0)
+        # subdomain_1.mark(materials, 1)
+        self.sub_domains = MeshFunction("size_t", self.mesh, self.mesh.topology().dim() - 1)
+        self.sub_domains.set_all(1) # all are healthy
+        self.corroded = Corroded()
+        self.corroded.mark(self.sub_domains, 0) # these are unhealthy!
+
+
 
         self.k_0 = 0
         self.K_1 = 1
-        self.kappa = K(self.materials, self.k_0, self.k_1, degree=0)
+        self.kappa = K(self.sub_domains, self.k_0, self.k_1, degree=0)
+        
 
         # Create trial and test functions
         self.v = TestFunction(self.V)
@@ -106,7 +114,8 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         self.d = self.u.geometric_dimension()  # space dimension
         self.a = inner(self.sigma(self.u), self.epsilon(self.v))*dx
 
-        
+        #dx = Measure('dx', domain=self.mesh, subdomain_data=self.sub_domains)
+
         L = self.kappa* dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
 
         # Construct boundary condition
