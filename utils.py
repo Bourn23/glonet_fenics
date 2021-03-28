@@ -265,12 +265,12 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                      xaxis = dict(nticks=5, range=[X_grid.min(),X_grid.max()],),
                      yaxis = dict(nticks=6, range=[Y_grid.min(),Y_grid.max()],),
                      zaxis = dict(nticks=5, range=[Z_grid.min(),Z_grid.max()*1e4 + 0.1],),
-                     zaxis_title = "Displacement",
+                     zaxis_title = "Displacement (1E4)",
                      xaxis_title="Young's Modulus",
                      yaxis_title="Poisson's Ratio",),
                      title='Displacement Field of E, nu', autosize=True,   
                     width=500, height=500,
-                    margin=dict(l=65, r=50, b=65, t=90),    
+                    margin=dict(l=2, r=50, b=65, t=90),    
 )
     fig.update_traces(contours_z=dict(show=True, usecolormap=True,
                     highlightcolor="limegreen", project_z=True))
