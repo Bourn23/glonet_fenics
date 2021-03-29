@@ -71,15 +71,15 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # self.kappa = K(self.sub_domains, self.k_0, self.k_1, degree=0)
 
         # try2: 
-        self.corroded = Corroded()
-        self.domains = MeshFunction("size_t", self.mesh, self.mesh.topology().dim())
-        self.domains.set_all(1)
-        self.corroded.mark(self.domains, 0)
+        # self.corroded = Corroded()
+        # self.domains = MeshFunction("size_t", self.mesh, self.mesh.topology().dim())
+        # self.domains.set_all(1)
+        # self.corroded.mark(self.domains, 0)
 
-        self.a0 = Constant(0.01) # corroded
-        self.a1 = Constant(1.)   # healthy
+        # self.a0 = Constant(0.01) # corroded
+        # self.a1 = Constant(1.)   # healthy
         
-        self.dx = Measure('dx', domain=self.mesh, subdomain_data=self.domains)
+        # self.dx = Measure('dx', domain=self.mesh, subdomain_data=self.domains)
     
 
         # Create trial and test functions
@@ -123,14 +123,14 @@ class HomogeneousBeam(torch_fenics.FEniCSModule):
         # self.a = inner(self.a0 * self.sigma(self.u), self.epsilon(self.v))*dx(0) +  inner(self.a1 * self.sigma(self.u), self.epsilon(self.v))*dx(1)
 
 
-        # L = dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
+        L = dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
 
         #try1:
         # L = self.kappa* dot(self.f, self.v)*dx + dot(self.T, self.v)*ds
 
         # try2:
+        # L = self.a0 * dot(self.f, self.v)*self.dx(0) + self.a1 * dot(self.f, self.v)*self.dx(1) + dot(self.T, self.v)*ds
         # L =  (inner(a0*grad(u), grad(v))*dx(0) + inner(a1*grad(u), grad(v))*dx(1)
-        L = self.a0 * dot(self.f, self.v)*self.dx(0) + self.a1 * dot(self.f, self.v)*self.dx(1) + dot(self.T, self.v)*ds
         # L = self.a0 * dot(self.f, self.v)*dx(0) + self.a1 * dot(self.f, self.v)*dx(1) + dot(self.T, self.v)*ds
 
         # Construct boundary condition
