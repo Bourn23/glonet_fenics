@@ -427,7 +427,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
 #     fig.update_layout(scene_aspectmode = 'cube')
 #     fig.write_image(fig_path)
 
-def save_image(imgs, eng, fig_path):
+def save_images(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
 
