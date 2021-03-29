@@ -367,8 +367,8 @@ def save_images(imgs, eng, fig_path):
     
     v2d = vertex_to_dof_map(eng.model.V)
 
-    imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
-    org_imgs = eng.target_deflection.flatten()[v2d].reshape(-1, 3)
+    # imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
+    imgs = eng.target_deflection.flatten()[v2d].reshape(-1, 3) # orig_imgs => imgs
 
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
@@ -406,22 +406,22 @@ def save_images(imgs, eng, fig_path):
         )
     ])
 
-    # add the second graph
-    x_, y_, z_ = (eng.model.mesh.coordinates() + org_imgs.detach().numpy()).T
-    disp_ = np.linalg.norm(org_imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
-    fig.add_trace(go.Mesh3d(
-        x=x_,
-        y=y_,
-        z=z_,
-        # Intensity of each vertex, which will be interpolated and color-coded
-        intensity=disp_,
-        # i, j and k give the vertices of tribetas
-        # here we represent the 4 tribetas of the tetrahedron surface
-        i=i,
-        j=j,
-        k=k,
-        colorscale = 'teal'
-    ))
+    # add the second graph - TRUE VALUE
+    # x_, y_, z_ = (eng.model.mesh.coordinates() + org_imgs.detach().numpy()).T
+    # disp_ = np.linalg.norm(org_imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
+    # fig.add_trace(go.Mesh3d(
+    #     x=x_,
+    #     y=y_,
+    #     z=z_,
+    #     # Intensity of each vertex, which will be interpolated and color-coded
+    #     intensity=disp_,
+    #     # i, j and k give the vertices of tribetas
+    #     # here we represent the 4 tribetas of the tetrahedron surface
+    #     i=i,
+    #     j=j,
+    #     k=k,
+    #     colorscale = 'teal'
+    # ))
 
     fig.update_layout(scene = scene_settings)
     fig.update_layout(scene_aspectmode = 'cube')
