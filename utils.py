@@ -361,20 +361,83 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
 
 
 
-def save_images(imgs, eng, fig_path):
+# def save_images(imgs, eng, fig_path):
+#     import plotly.graph_objects as go
+#     import numpy as np
+    
+#     v2d = vertex_to_dof_map(eng.model.V)
+
+#     # imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
+#     imgs = eng.target_deflection.flatten()[v2d].reshape(-1, 3) # orig_imgs => imgs
+
+#     scene_settings = dict(
+#         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
+#         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
+#         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
+
+
+#     tribetas = []
+#     for cell in cells(eng.model.mesh):
+#         for facet in facets(cell):
+#             vertex_indices = []
+#             for vertex in vertices(facet):
+#                 vertex_indices.append(vertex.index())
+#             tribetas.append(vertex_indices)
+#     tris = np.array(tribetas)
+
+#     x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
+#     i, j, k = tris.T
+#     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
+
+#     fig = go.Figure(data=[
+#         go.Mesh3d(
+#             x=x,
+#             y=y,
+#             z=z,
+#             # Intensity of each vertex, which will be interpolated and color-coded
+#             intensity=disp,
+#             # i, j and k give the vertices of tribetas
+#             # here we represent the 4 tribetas of the tetrahedron surface
+#             i=i,
+#             j=j,
+#             k=k,
+#             name='y',
+#             showscale=True
+#         )
+#     ])
+
+#     # add the second graph - TRUE VALUE
+#     # x_, y_, z_ = (eng.model.mesh.coordinates() + org_imgs.detach().numpy()).T
+#     # disp_ = np.linalg.norm(org_imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
+#     # fig.add_trace(go.Mesh3d(
+#     #     x=x_,
+#     #     y=y_,
+#     #     z=z_,
+#     #     # Intensity of each vertex, which will be interpolated and color-coded
+#     #     intensity=disp_,
+#     #     # i, j and k give the vertices of tribetas
+#     #     # here we represent the 4 tribetas of the tetrahedron surface
+#     #     i=i,
+#     #     j=j,
+#     #     k=k,
+#     #     colorscale = 'teal'
+#     # ))
+
+#     fig.update_layout(scene = scene_settings)
+#     fig.update_layout(scene_aspectmode = 'cube')
+#     fig.write_image(fig_path)
+
+def save_image(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np
-    
+
     v2d = vertex_to_dof_map(eng.model.V)
-
-    # imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
-    imgs = eng.target_deflection.flatten()[v2d].reshape(-1, 3) # orig_imgs => imgs
-
+    imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
+    
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
         yaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"),
         zaxis = dict(range=[-1, 1], showbackground=False, zerolinecolor="black"))
-
 
     tribetas = []
     for cell in cells(eng.model.mesh):
@@ -382,10 +445,11 @@ def save_images(imgs, eng, fig_path):
             vertex_indices = []
             for vertex in vertices(facet):
                 vertex_indices.append(vertex.index())
+            vertex_dofs = eng.model.V.dofmap().entity_dofs(eng.model.mesh, 0, vertex_indices)
             tribetas.append(vertex_indices)
     tris = np.array(tribetas)
 
-    x, y, z = (eng.model.mesh.coordinates() + imgs.detach().numpy()).T
+    x, y, z = eng.model.mesh.coordinates().T
     i, j, k = tris.T
     disp = np.linalg.norm(imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
 
@@ -405,24 +469,7 @@ def save_images(imgs, eng, fig_path):
             showscale=True
         )
     ])
-
-    # add the second graph - TRUE VALUE
-    # x_, y_, z_ = (eng.model.mesh.coordinates() + org_imgs.detach().numpy()).T
-    # disp_ = np.linalg.norm(org_imgs.detach().numpy(), axis=1).T  # the zero index is because of the "N" above!
-    # fig.add_trace(go.Mesh3d(
-    #     x=x_,
-    #     y=y_,
-    #     z=z_,
-    #     # Intensity of each vertex, which will be interpolated and color-coded
-    #     intensity=disp_,
-    #     # i, j and k give the vertices of tribetas
-    #     # here we represent the 4 tribetas of the tetrahedron surface
-    #     i=i,
-    #     j=j,
-    #     k=k,
-    #     colorscale = 'teal'
-    # ))
-
     fig.update_layout(scene = scene_settings)
     fig.update_layout(scene_aspectmode = 'cube')
+    
     fig.write_image(fig_path)
