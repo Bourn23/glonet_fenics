@@ -368,7 +368,7 @@ def save_images(imgs, eng, fig_path):
     v2d = vertex_to_dof_map(eng.model.V)
 
     # imgs = imgs[0].flatten()[v2d].reshape(-1, 3)# / 10.#0.
-    imgs = eng.target_deflection.flatten()[v2d].reshape(-1, 3) * 1e4 # orig_imgs => imgs
+    imgs = eng.target_deflection.flatten()[v2d].reshape(-1, 3) * 1e5 # orig_imgs => imgs
 
     scene_settings = dict(
         xaxis = dict(range=[-1.2, 1.2], showbackground=False, zerolinecolor="black"),
