@@ -1,4 +1,5 @@
 import numpy
+from utils import lame
 import torch.nn as nn
 
 # def cal_pop_fitness(equation_inputs, pop):
