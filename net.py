@@ -940,7 +940,7 @@ class GAL(Model):
         # Defining the population size.
         pop_size = (sol_per_pop,num_weights) # The population will have sol_per_pop chromosome where each chromosome has num_weights genes.
         #Creating the initial population.
-        new_population = numpy.random.uniform(low=-.1, high=1.0, size=pop_size)
+        new_population = np.random.uniform(low=-.1, high=1.0, size=pop_size)
         print(new_population)
 
         num_generations = 5
@@ -965,7 +965,7 @@ class GAL(Model):
             new_population[parents.shape[0]:, :] = offspring_mutation
 
             # The best result in the current iteration.
-            print("Best result : ", numpy.max(numpy.sum(new_population*equation_inputs, axis=1)))
+            print("Best result : ", np.max(np.sum(new_population*equation_inputs, axis=1)))
             
 
 
@@ -974,7 +974,7 @@ class GAL(Model):
         fitness, PE = ga.cal_pop_fitness(equation_inputs, new_population)
         self.PE_CALLS += PE # PE counter
         # Then return the index of that solution corresponding to the best fitness.
-        best_match_idx = numpy.where(fitness == numpy.max(fitness))
+        best_match_idx = np.where(fitness == np.max(fitness))
 
         print("Best solution : ", new_population[best_match_idx, :])
         print("Best solution fitness : ", fitness[best_match_idx])
