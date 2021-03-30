@@ -315,6 +315,12 @@ class GPR(Model):
         
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
 
+        try: global_memory.gpr_data = np.vstack([global_memory.gpr_data, self.data[np.argmin(np.min(self.data, axis = 1))]]); print('adding to existing history')
+        except: global_memory.gpr_data = self.data[np.argmin(np.min(self.data, axis = 1))]
+        
+        try:        global_memory.gpr_loss = np.vstack([global_memory.gpr_loss, self.loss_history]); print('adding to existing history')
+        except:     global_memory.gpr_loss = self.loss_history
+
     def evaluate(self, global_memory):
         pass
         # global_memory.gpr_data = self.data

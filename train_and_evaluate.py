@@ -37,16 +37,16 @@ def summarize(global_memory):
         print(f"\n************{name}************")
         # a = f'global_memory.{name.lower()}_loss'
         # exec(f"loss = {a}")
-        print(f'check if there is any negative loss {global_memory.sgd_data}')
+        print(f'check if there is any negative loss {global_memory.gpr_data}')
 
-        M = len(global_memory.sgd_data)
+        M = len(global_memory.gpr_data)
         N = 1000
         # boot strapping 2nd column: Nu
 
         df = pd.DataFrame(columns=('E', 'nu'))
         for i in range(N):
-            E = np.random.choice(global_memory.sgd_data[:, 0], replace = True, size = M)
-            nu = np.random.choice(global_memory.sgd_data[:, 1], replace = True, size = M)
+            E = np.random.choice(global_memory.gpr_data[:, 0], replace = True, size = M)
+            nu = np.random.choice(global_memory.gpr_data[:, 1], replace = True, size = M)
             for j in range(M):
                 df.loc[i+j] = [E[j][0][0], nu[j][0][0]]
         # print('df is ', df)
@@ -57,7 +57,10 @@ def summarize(global_memory):
         print("======STATS======")
         print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
         print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu'])))
-        
+        print("======SD======")
+        # print('loss history is', global_memory.gpr_loss)
+        print("E STD", np.std(global_memory.gpr_loss[:, 0]))
+        print("NU STD", np.std(global_memory.gpr_loss[:, 1]))
         # global_memory.{name}_data
 
         # print(f"{name} average 'E' error: ", round(np.sum(abs(model.loss_history[:,0])) / len(model.loss_history), 2), '%')
@@ -100,7 +103,9 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
 
     # save data files and plot
     utils.plot_loss_history(params, active_models, global_memory, global_count)
-    syn_data = utils.plot_3d(eng)
+    
+    # plot the 3d surface
+    # syn_data = utils.plot_3d(eng)
 
     # # E, nu, U --> # of obs, 3 400, 3
     # # U = f(E, nu)
