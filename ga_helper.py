@@ -11,11 +11,11 @@ def cal_pop_fitness(eng, data):
     PE_CALLS = 0
     result = []
     loss = nn.MSELoss()
-    print('GA data is (ga_helper)', data)
+    print('GA data is (ga_helpAer)', data)
     for i in data:
-        if len(data) > 2: # avg error of runs
-            data = [err[0] for err in data]
-            return sum(data)/len(data),
+        # if len(data) > 2: # avg error of runs
+        #     data = [err[0] for err in data]
+        #     return sum(data)/len(data),
         if i[0] < 0 or i[1] <  0:
             result.append(-10000)
             continue
