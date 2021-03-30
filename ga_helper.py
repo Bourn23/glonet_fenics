@@ -13,8 +13,11 @@ def cal_pop_fitness(eng, data):
     PE_CALLS = 0
     print('GA data is (ga_helper)', data)
     for i in data:
+        if len(data) > 2: # avg error of runs
+            data = [err[0] for err in data]
+            return sum(data)/len(data),
         if i[0] < 0 or i[1] <  0:
-            result.append(10000)
+            result.append(-10000)
             continue
         if i[0] > 1:
             i[0] /= 10
@@ -23,6 +26,7 @@ def cal_pop_fitness(eng, data):
         E_f, nu_f = lame(i[0]*1e7, i[1])
         data = {'mu': E_f, 'beta': nu_f}
         # print('data is', data)
+        print('eng in ga_helper is', eng)
         result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
         PE_CALLS += 1
     # print(result)
