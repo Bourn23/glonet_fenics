@@ -2,7 +2,7 @@ import numpy
 import torch.nn as nn
 
 # def cal_pop_fitness(equation_inputs, pop):
-def cal_pop_fitness(eng, pop):
+def cal_pop_fitness(eng, data):
     # Calculating the fitness value of each solution in the current population.
     # The fitness function calulates the sum of products between each input and its corresponding weight.
     # fitness = numpy.sum(pop*equation_inputs, axis=1)
