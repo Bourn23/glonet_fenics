@@ -37,30 +37,7 @@ def summarize(global_memory):
         print(f"\n************{name}************")
         # a = f'global_memory.{name.lower()}_loss'
         # exec(f"loss = {a}")
-        print(f'check if there is any negative loss {global_memory.gpr_data}')
-
-        M = len(global_memory.gpr_data)
-        N = 1000
-        # boot strapping 2nd column: Nu
-
-        df = pd.DataFrame(columns=('E', 'nu'))
-        for i in range(N):
-            E = np.random.choice(global_memory.gpr_data[:, 0], replace = True, size = M)
-            nu = np.random.choice(global_memory.gpr_data[:, 1], replace = True, size = M)
-            for j in range(M):
-                df.loc[i+j] = [E[j][0][0], nu[j][0][0]]
-        # print('df is ', df)
-        df.to_csv('./results/E_nu_table.csv')
-
-        print("E 95%  CI", np.quantile(df['E'], [0.025, 0.975]))
-        print("NU 95% CI", np.quantile(df['nu'], [0.025, 0.975]))
-        print("======STATS======")
-        print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
-        print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu'])))
-        print("======SD======")
-        # print('loss history is', global_memory.gpr_loss)
-        print("E STD", np.std(global_memory.gpr_loss[:, 0]))
-        print("NU STD", np.std(global_memory.gpr_loss[:, 1]))
+        model.error_summary(global_memory)
         # global_memory.{name}_data
 
         # print(f"{name} average 'E' error: ", round(np.sum(abs(model.loss_history[:,0])) / len(model.loss_history), 2), '%')

@@ -368,7 +368,36 @@ class GPR(Model):
         # global_memory.gpr_Z = self.Z
         # global_memory.gpr_XY = self.XY
 
+    def error_summary(self, global_memory):
+        print(f'check if there is any negative loss {global_memory.gpr_data}')
 
+        M = len(global_memory.gpr_data)
+        N = 1000
+        # boot strapping 2nd column: Nu
+
+        df = pd.DataFrame(columns=('E', 'nu'))
+        for i in range(N):
+            E = np.random.choice(global_memory.gpr_data[:, 0], replace = True, size = M)
+            nu = np.random.choice(global_memory.gpr_data[:, 1], replace = True, size = M)
+            for j in range(M):
+                df.loc[i+j] = [E[j], nu[j]] # for sgd
+                # df.loc[i+j] = [E[j][0][0], nu[j][0][0]] # for sgd
+                
+        # print('df is ', df)
+        df.to_csv('./results/E_nu_table.csv')
+
+        print("E 95%  CI", np.quantile(df['E'], [0.025, 0.975]))
+        print("NU 95% CI", np.quantile(df['nu'], [0.025, 0.975]))
+        print("======STATS======")
+        print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
+        print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu'])))
+        print("======SD======")
+        # print('loss history is', global_memory.gpr_loss)
+        print("E STD", np.std(global_memory.gpr_loss[:, 0]))
+        print("NU STD", np.std(global_memory.gpr_loss[:, 1]))
+        print(f" average 'E' error: ", round(np.sum(abs(self.loss_history[:,0])) / len(self.loss_history), 2), '%')
+        print(f" average 'nu' error: ", round(np.sum(abs(self.loss_history[:,1])) / len(self.loss_history), 2), '%')
+        # print('sgds data: ', model.data)
 class GPRL(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
@@ -703,7 +732,34 @@ class SGD(Model):
         try:        global_memory.sgd_loss = np.vstack([global_memory.sgd_loss, self.loss_history]); print('adding to existing history')
         except:     global_memory.sgd_loss = self.loss_history
         
+    def error_summary(self, global_memory):
+        print(f'check if there is any negative loss {global_memory.sgd_data}')
 
+        M = len(global_memory.sgd_data)
+        N = 1000
+        # boot strapping 2nd column: Nu
+
+        df = pd.DataFrame(columns=('E', 'nu'))
+        for i in range(N):
+            E = np.random.choice(global_memory.sgd_data[:, 0], replace = True, size = M)
+            nu = np.random.choice(global_memory.sgd_data[:, 1], replace = True, size = M)
+            for j in range(M):
+                df.loc[i+j] = [E[j][0][0], nu[j][0][0]] # for sgd
+                
+        # print('df is ', df)
+        df.to_csv('./results/E_nu_table.csv')
+
+        print("E 95%  CI", np.quantile(df['E'], [0.025, 0.975]))
+        print("NU 95% CI", np.quantile(df['nu'], [0.025, 0.975]))
+        print("======STATS======")
+        print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
+        print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu'])))
+        print("======SD======")
+        # print('loss history is', global_memory.gpr_loss)
+        print("E STD", np.std(global_memory.sgd_loss[:, 0]))
+        print("NU STD", np.std(global_memory.sgd_loss[:, 1]))
+        print(f" average 'E' error: ", round(np.sum(abs(self.loss_history[:,0])) / len(self.loss_history), 2), '%')
+        print(f" average 'nu' error: ", round(np.sum(abs(self.loss_history[:,1])) / len(self.loss_history), 2), '%')
 class GA(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
