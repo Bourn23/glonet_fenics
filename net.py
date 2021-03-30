@@ -978,6 +978,8 @@ class GAL(Model):
         best_match_idx = np.where(fitness == np.max(fitness))
 
         print("Best solution : ", new_population[best_match_idx, :])
+        print('best_match_indx is ', best_match_idx)
+        print('fitness in NET.py is ', fitness)
         print("Best solution fitness : ", fitness[best_match_idx])
 
 class PSO(Model):

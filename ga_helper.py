@@ -11,7 +11,7 @@ def cal_pop_fitness(eng, data):
     PE_CALLS = 0
     result = []
     loss = nn.MSELoss()
-    print('GA data is (ga_helpAer)', data)
+    
     for i in data:
         # if len(data) > 2: # avg error of runs
         #     data = [err[0] for err in data]
@@ -26,11 +26,11 @@ def cal_pop_fitness(eng, data):
         E_f, nu_f = lame(i[0]*1e7, i[1])
         data = {'mu': E_f, 'beta': nu_f}
         # print('data is', data)
-        print('eng in ga_helper is', eng)
+        
         result.append(loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist())
         PE_CALLS += 1
     # print(result)
-    print(f'result is {result} and calsl are {PE_CALLS}')
+    
     return result, PE_CALLS
 
 def select_mating_pool(pop, fitness, num_parents):
