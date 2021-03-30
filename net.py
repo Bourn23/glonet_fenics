@@ -975,11 +975,11 @@ class GAL(Model):
         fitness, PE = ga.cal_pop_fitness(eng, new_population)
         self.PE_CALLS += PE # PE counter
         # Then return the index of that solution corresponding to the best fitness.
-        best_match_idx = np.where(fitness == np.max(fitness))
+        best_match_idx = np.where(fitness == np.min(fitness))[0][0]
 
         print("Best solution : ", new_population[best_match_idx, :])
-        print('best_match_indx is ', best_match_idx)
-        print('fitness in NET.py is ', fitness)
+        # print('best_match_indx is ', best_match_idx)
+        # print('fitness in NET.py is ', fitness)
         print("Best solution fitness : ", fitness[best_match_idx])
 
 class PSO(Model):
