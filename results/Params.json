@@ -16,7 +16,7 @@
     "batch_size_end": 1,
     "batch_size_power": 1,
     "binary": 1,
-    "models": ["GPR"],
+    "models": ["GAL"],
     "binary_penalty_start": 0,
     "binary_penalty_end": 0,
     "binary_penalty_power": 1,
