@@ -947,8 +947,9 @@ class GAL(Model):
         for generation in range(num_generations):
             print("Generation : ", generation)
             # Measing the fitness of each chromosome in the population.
-            fitness = ga.cal_pop_fitness(eng, new_population)
-
+            fitness, PE = ga.cal_pop_fitness(eng, new_population)
+            print('fitness in net.py', fitness)
+            self.PE_CALLS += PE
             # Selecting the best parents in the population for mating.
             parents = ga.select_mating_pool(new_population, fitness, 
                                             num_parents_mating)
