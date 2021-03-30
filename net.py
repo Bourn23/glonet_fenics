@@ -972,7 +972,7 @@ class GAL(Model):
 
         # Getting the best solution after iterating finishing all generations.
         #At first, the fitness is calculated for each solution in the final generation.
-        fitness, PE = ga.cal_pop_fitness(equation_inputs, new_population)
+        fitness, PE = ga.cal_pop_fitness(eng, new_population)
         self.PE_CALLS += PE # PE counter
         # Then return the index of that solution corresponding to the best fitness.
         best_match_idx = np.where(fitness == np.max(fitness))
