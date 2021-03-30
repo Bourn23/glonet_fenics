@@ -903,9 +903,31 @@ class GAL(Model):
         super().__init__(params)
 
         self.PE_CALLS = 0
+        self.best     = None
 
     def summary(self, global_memory):
-        pass
+        print("\n--------------GAL---------------")
+        print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('# of Physics-Engine called {}'.format(self.PE_CALLS))
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
+
+        E_f, nu_f = lame(self.best[0]*1e7, self.best[1]) 
+        E_f, nu_f = youngs_poisson(E_f, nu_f)
+
+
+        E_f_mag = math.floor(math.log10(E_f))
+        nu_f_mag = math.floor(math.log10(nu_f))
+
+        if (E_f_mag != 6): 
+            E_f = E_f * 10**(E_f_mag - 6)
+
+        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
+
+
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error, relative_nu_error))
+        print("---------------------------------")
 
     def evaluate(self, global_memory):
         pass
@@ -941,14 +963,14 @@ class GAL(Model):
         pop_size = (sol_per_pop,num_weights) # The population will have sol_per_pop chromosome where each chromosome has num_weights genes.
         #Creating the initial population.
         new_population = np.random.uniform(low=-.1, high=1.0, size=pop_size)
-        print(new_population)
+        # print(new_population)
 
         num_generations = 5
         for generation in range(num_generations):
-            print("Generation : ", generation)
+            # print("Generation : ", generation)
             # Measing the fitness of each chromosome in the population.
             fitness, PE = ga.cal_pop_fitness(eng, new_population)
-            print('fitness in net.py', fitness)
+            # print('fitness in net.py', fitness)
             self.PE_CALLS += PE
             # Selecting the best parents in the population for mating.
             parents = ga.select_mating_pool(new_population, fitness, 
@@ -966,7 +988,7 @@ class GAL(Model):
             new_population[parents.shape[0]:, :] = offspring_mutation
 
             # The best result in the current iteration.
-            print("Best result : ", np.max(np.sum(new_population*equation_inputs, axis=1)))
+            # print("Best result : ", np.max(np.sum(new_population*equation_inputs, axis=1)))
             
 
 
@@ -977,10 +999,11 @@ class GAL(Model):
         # Then return the index of that solution corresponding to the best fitness.
         best_match_idx = np.where(fitness == np.min(fitness))[0][0]
 
-        print("Best solution : ", new_population[best_match_idx, :])
+        # print("Best solution : ", new_population[best_match_idx, :])
         # print('best_match_indx is ', best_match_idx)
         # print('fitness in NET.py is ', fitness)
-        print("Best solution fitness : ", fitness[best_match_idx])
+        # print("Best solution fitness : ", fitness[best_match_idx])
+        self.best = new_population[best_match_idx, :]
 
 class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
