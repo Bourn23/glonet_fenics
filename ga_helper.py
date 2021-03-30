@@ -8,9 +8,9 @@ def cal_pop_fitness(eng, data):
     # The fitness function calulates the sum of products between each input and its corresponding weight.
     # fitness = numpy.sum(pop*equation_inputs, axis=1)
     # return fitness
-    loss = nn.MSELoss()
-    result = []
     PE_CALLS = 0
+    result = []
+    loss = nn.MSELoss()
     print('GA data is (ga_helper)', data)
     for i in data:
         if len(data) > 2: # avg error of runs
