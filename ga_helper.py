@@ -34,7 +34,7 @@ def cal_pop_fitness(eng, data):
     return result, PE_CALLS
 
 def select_mating_pool(pop, fitness, num_parents):
-    print('fitness in select_mating_poo', fitness)
+    # print('fitness in select_mating_poo', fitness)
     # Selecting the best individuals in the current generation as parents for producing the offspring of the next generation.
     parents = numpy.empty((num_parents, pop.shape[1]))
     for parent_num in range(num_parents):
