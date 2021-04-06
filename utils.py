@@ -258,7 +258,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     # does it make a difference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
 
-    z = Z_grid * 1e4
+    z = Z_grid * 1e14
     sh_0, sh_1 = z.shape
     fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
     print('z min', z.min())
@@ -266,7 +266,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     fig.update_layout(scene = dict(
                      xaxis = dict(nticks=5, range=[x.min(),x.max()],),
                      yaxis = dict(nticks=6, range=[y.min(),y.max()],),
-                     zaxis = dict(nticks=5, range=[Z_grid.min(),Z_grid.max()*1e4 + 0.1],),
+                     zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
                      zaxis_title = "Displacement (1E4)",
                      xaxis_title="Young's Modulus",
                      yaxis_title="Poisson's Ratio",),
