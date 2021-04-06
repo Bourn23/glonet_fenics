@@ -1033,13 +1033,13 @@ class GAP(Model):
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
             if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
-                return 100000,
+                return -100000,
 
             if data[0] > 1: data[0] = data[0] / 10
             if data[1] > 1: data[1] = data[1] / 10
             E_f, nu_f = lame(data[0]*1e7, data[1])
             if E_f < 0 or nu_f < 0: # penalize negative numbers
-                return 10000,
+                return -10000,
             E_f_mag = math.floor(math.log10(E_f))
             nu_f_mag = math.floor(math.log10(nu_f))
 
@@ -1052,7 +1052,7 @@ class GAP(Model):
             data = {'mu': E_f, 'beta':nu_f}
 
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
-                return 100000,
+                return -100000,
 
             
             result =  loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist(),
