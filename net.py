@@ -1050,8 +1050,7 @@ class GAP(Model):
             if (nu_f_mag != 6): nu_f = nu_f * 10**(6 - nu_f_mag)# penalize magnitude
                 
             data = {'mu': E_f, 'beta':nu_f}
-            # print('data is ', data)
-            print('transformed data is', data)
+
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
                 return -100000,
 
@@ -1128,7 +1127,10 @@ class GAP(Model):
         # run the GA instance
         self.ga_instance.run()
 
+    def summary(self, global_memory):
+        pass
 
+    
 class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
