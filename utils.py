@@ -282,7 +282,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                 xaxis = dict(nticks=5, range=[x.min(),x.max()],),
                 yaxis = dict(nticks=6, range=[y.max(),y.min()],),
                 zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
-                zaxis_title = "Displacement (1E4)",
+                zaxis_title = "Displacement (1E14)",
                 xaxis_title="Young's Modulus",
                 yaxis_title="Poisson's Ratio",),
                 title='Displacement Field of E, nu', autosize=True,   
