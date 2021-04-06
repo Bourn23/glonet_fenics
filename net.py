@@ -1104,7 +1104,8 @@ class GAP(Model):
     def plot(self, fig_path, global_memory, axis = None):
         # self.ga_instance.plot_result()
         if axis is None:
-            fig = plt.figure()
+            # fig = plt.figure()
+            fig, ax = plt.subplots(figsize=(9, 3))
         else:
             ax = axis
         plt.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
