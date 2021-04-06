@@ -268,7 +268,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
         fig = None
         print('i is ', i)
         if i == 0:
-            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y), go.Scatter3d(z = z.min(), x = x_min[0], y = y_min[0])])
+            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
             fig.update_layout(scene = dict(
                 xaxis = dict(nticks=5, range=[x.min(),x.max()],),
                 yaxis = dict(nticks=6, range=[y.min(),y.max()],),
