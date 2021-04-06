@@ -82,7 +82,7 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
     utils.plot_loss_history(params, active_models, global_memory, global_count)
     
     # plot the 3d surface
-    # syn_data = utils.plot_3d(eng)
+    syn_data = utils.plot_3d(eng)
 
     # # E, nu, U --> # of obs, 3 400, 3
     # # U = f(E, nu)
@@ -327,7 +327,7 @@ def stress_distribution(imgs, eng, fig_path):
     fig.update_layout(scene = scene_settings)
     fig.update_layout(scene_aspectmode = 'cube')
     camera = dict(
-    eye=dict(x=2, y=2, z=0.8)
+    eye=dict(x=2, y=2, z=0.5)
     )
     fig.update_layout(scene_camera=camera)
     fig.write_image(fig_path)
