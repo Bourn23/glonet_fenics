@@ -265,22 +265,44 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
         print('i is ', i)
         if i == 0:
             fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
+            fig.update_layout(scene = dict(
+                xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+                yaxis = dict(nticks=6, range=[y.min(),y.max()],),
+                zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
+                zaxis_title = "Displacement (1E4)",
+                xaxis_title="Young's Modulus",
+                yaxis_title="Poisson's Ratio",),
+                title='Displacement Field of E, nu', autosize=True,   
+                width=500, height=500,
+                margin=dict(l=2, r=50, b=65, t=90),    
+            )
         if i == 1:
             fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1])])
+            fig.update_layout(scene = dict(
+                xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+                yaxis = dict(nticks=6, range=[y.max(),y.min()],),
+                zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
+                zaxis_title = "Displacement (1E4)",
+                xaxis_title="Young's Modulus",
+                yaxis_title="Poisson's Ratio",),
+                title='Displacement Field of E, nu', autosize=True,   
+                width=500, height=500,
+                margin=dict(l=2, r=50, b=65, t=90),    
+            )
         if i == 2:
-            fig = go.Figure(data=[go.Surface(z=z[::-1,::-1], x=x, y=y[::-1,::-1])])
-        fig.update_layout(scene = dict(
-                        xaxis = dict(nticks=5, range=[x.min(),x.max()],),
-                        yaxis = dict(nticks=6, range=[y.min(),y.max()],),
-                        zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
-                        zaxis_title = "Displacement (1E4)",
-                        xaxis_title="Young's Modulus",
-                        yaxis_title="Poisson's Ratio",),
-                        title='Displacement Field of E, nu', autosize=True,   
-                        width=500, height=500,
-                        margin=dict(l=2, r=50, b=65, t=90),    
-    )
-        fig.update_xaxes(autorange="reversed")
+            fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[::-1,::-1])])
+            fig.update_layout(scene = dict(
+                            xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+                            yaxis = dict(nticks=6, range=[y.max(),y.min()],),
+                            zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
+                            zaxis_title = "Displacement (1E4)",
+                            xaxis_title="Young's Modulus",
+                            yaxis_title="Poisson's Ratio",),
+                            title='Displacement Field of E, nu', autosize=True,   
+                            width=500, height=500,
+                            margin=dict(l=2, r=50, b=65, t=90),    
+            )
+
         fig.update_traces(contours_z=dict(show=True, usecolormap=True,
                         highlightcolor="limegreen", project_z=True))
         fig.write_image(f'./results/figures/error_history/3d_plot_{i}.png')
