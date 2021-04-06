@@ -1122,18 +1122,19 @@ class GAP(Model):
         plt.close()
 
     def evaluate(self, eng, global_memory):
+        pass
         # Returning the details of the best solution.
-        solution, solution_fitness, solution_idx = self.ga_instance.best_solution()
-        print("Parameters of the best solution : {solution}".format(solution=solution))
-        print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
-        print("Index of the best solution : {solution_idx}".format(solution_idx=solution_idx))
+        # solution, solution_fitness, solution_idx = self.ga_instance.best_solution()
+        # print("Parameters of the best solution : {solution}".format(solution=solution))
+        # print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
+        # print("Index of the best solution : {solution_idx}".format(solution_idx=solution_idx))
 
         
-        E_f, nu_f = lame(solution[0]*1e7, solution[1])
-        data = {'mu': E_f, 'beta': nu_f}
-        prediction = eng.Eval_Eff_1D_parallel(data)
-        print("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
-
+        # E_f, nu_f = lame(solution[0]*1e7, solution[1])
+        # data = {'mu': E_f, 'beta': nu_f}
+        # prediction = eng.Eval_Eff_1D_parallel(data)
+        # print("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
+        
         if ga_instance.best_solution_generation != -1:
             print("Best fitness value reached after {best_solution_generation} generations.".format(best_solution_generation=ga_instance.best_solution_generation))
 
