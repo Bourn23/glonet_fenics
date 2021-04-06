@@ -1107,10 +1107,10 @@ class GAP(Model):
             fig = plt.figure()
         else:
             ax = axis
-        plt.plot(self.ga_instance.best_solutions_fitness, linewidth=linewidth)
-        plt.title(title)
-        plt.xlabel(xlabel)
-        plt.ylabel(ylabel)
+        plt.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
+        plt.title('GA - Iteration vs. Fitness')
+        plt.xlabel('Generation')
+        plt.ylabel('Fitness')
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
