@@ -1102,7 +1102,17 @@ class GAP(Model):
         pass
 
     def plot(self, fig_path, global_memory, axis = None):
-        self.ga_instance.plot_result()
+        # self.ga_instance.plot_result()
+        if axis is None:
+            fig = plt.figure()
+        else:
+            ax = axis
+        plt.plot(self.best_solutions_fitness, linewidth=linewidth)
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.savefig(fig_path, dpi = 300)
+        plt.close()
 
     def evaluate(self, eng, global_memory):
         # Returning the details of the best solution.
