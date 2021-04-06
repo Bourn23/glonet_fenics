@@ -291,7 +291,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             y = y[:,::-1]
             z = z[:,::-1]
             fig = go.Figure(data=[go.Surface(z=z, x=x, y=y),
-                go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]], mode='markers', marker=dict(size=25))])
+                go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]], mode='markers', marker=dict(size=25, color=z, colorscale='reds'), opacity = 1)])
             # fig.add_scatter(, mode = 'marker')
             # fig.add_traces([
             #         color=z,                # set color to an array/list of desired values
@@ -313,7 +313,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             )
 
             camera = dict(
-                eye=dict(x=1, y=2, z=0.5)
+                eye=dict(x=2, y=2, z=0.64)
             )
             fig.update_layout(scene_camera=camera)
         if i == 2:
