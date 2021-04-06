@@ -1144,11 +1144,11 @@ class GAP(Model):
 
     def train(self, eng, t, global_memory):
         # run the GA instance
-        start = time.now()
+        start = time.time()
 
         self.ga_instance.run()
 
-        end = time.now()
+        end = time.time()
         self.training_time = end - start
     def summary(self, global_memory):
         solution, solution_fitness, solution_idx = self.ga_instance.best_solution()
