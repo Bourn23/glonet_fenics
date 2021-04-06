@@ -1109,11 +1109,10 @@ class GAP(Model):
         else:
             ax = axis
 
-        ax.set_title('Predicted loss \nPSOL')
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
         ax.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
-        ax.title('GA - Iteration vs. Fitness')
+        ax.set_title('GA - Iteration vs. Fitness')
         ax.xlabel('Generation')
         ax.ylabel('Fitness')
         plt.savefig(fig_path, dpi = 300)
