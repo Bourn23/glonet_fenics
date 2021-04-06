@@ -1093,7 +1093,7 @@ class GAP(Model):
            
         self.ga_instance = pygad.GA(num_generations=num_generations,
                        num_parents_mating=num_parents_mating, 
-                       fitness_func=fitness_function,
+                       fitness_func=fitnessfunction,
                        initial_population = init_params,
                        num_genes=num_genes,
                        parent_selection_type=parent_selection_type,
