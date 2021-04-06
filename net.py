@@ -1102,7 +1102,7 @@ class GAP(Model):
         pass
 
     def plot(self, fig_path, global_memory, axis = None):
-        self.ga_instance.plot()
+        self.ga_instance.plot_result()
 
     def evaluate(self, eng, global_memory):
         # Returning the details of the best solution.
@@ -1130,7 +1130,7 @@ class GAP(Model):
     def summary(self, global_memory):
         pass
 
-    
+
 class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
