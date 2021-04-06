@@ -307,7 +307,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             camera = dict(
                 eye=dict(x=2, y=2, z=0.1)
             )
-            fig.update_layout(scene_camera=camera, title=name)
+            fig.update_layout(scene_camera=camera)
         if i == 2:
             fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[::-1,::-1])])
             fig.update_layout(scene = dict(
