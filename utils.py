@@ -263,8 +263,8 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
         
     fig.update_layout(scene = dict(
-                     xaxis = dict(nticks=5, range=[X_grid.min(),X_grid.max()],),
-                     yaxis = dict(nticks=6, range=[Y_grid.min(),Y_grid.max()],),
+                     xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+                     yaxis = dict(nticks=6, range=[y.min(),y.max()],),
                      zaxis = dict(nticks=5, range=[Z_grid.min(),Z_grid.max()*1e4 + 0.1],),
                      zaxis_title = "Displacement (1E4)",
                      xaxis_title="Young's Modulus",
