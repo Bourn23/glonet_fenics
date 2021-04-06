@@ -291,9 +291,9 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             y = y[:,::-1]
             z = z[:,::-1]
             fig = go.Figure(data=[go.Surface(z=z, x=x, y=y),
-            go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]],
+                go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]],
                 mode='markers',
-                marker=dict(size=25)])
+                marker=dict(size=25))])
             # fig.add_scatter(, mode = 'marker')
             # fig.add_traces([
             #         color=z,                # set color to an array/list of desired values
