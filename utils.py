@@ -292,14 +292,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             z = z[:,::-1]
             fig = go.Figure(data=[go.Surface(z=z, x=x, y=y),
                 go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]], mode='markers', marker=dict(size=25, color=z, colorscale='reds'), opacity = 1)])
-            # fig.add_scatter(, mode = 'marker')
-            # fig.add_traces([
-            #         color=z,                # set color to an array/list of desired values
-            #         colorscale='reds',   # choose a colorscale
-            #         opacity=1
-            # ))]) 
-            # , go.Scatter3d(z = , x = , y = )])
-            # fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1]), go.Scatter3d(z = z.min(), x = x[x_min], y = y[y_min])])
+            
             fig.update_layout(scene = dict(
                 xaxis = dict(nticks=5, range=[x.min(),x.max()],),
                 yaxis = dict(nticks=6, range=[y.max(),y.min()],),
