@@ -1082,7 +1082,6 @@ class GAP(Model):
         self.last_fitness = 0
 
         def callback_generation(ga_instance):
-            global self.last_fitness
             print("Generation = {generation}".format(generation=ga_instance.generations_completed))
             print("Fitness    = {fitness}".format(fitness=ga_instance.best_solution()[1]))
             print("Change     = {change}".format(change=ga_instance.best_solution()[1] - self.last_fitness))
