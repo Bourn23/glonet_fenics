@@ -259,7 +259,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
 
     z = Z_grid * 1e4
     sh_0, sh_1 = z.shape
-    x, y = X_grid, Y_grid
+    x, y = youngs_poisson(X_grid, Y_grid)
     fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
         
     fig.update_layout(scene = dict(
