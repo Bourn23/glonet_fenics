@@ -292,7 +292,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             z = z[:,::-1]
 
             # https://stackoverflow.com/questions/58532310/how-to-style-format-point-markers-in-plotly-3d-scatterplot
-            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y, colorscale = 'Rainbow', colorbar_z = 0),
+            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y, colorscale = 'Rainbow', colorbar_x = 0),
                 go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]], mode='markers', marker=dict(size=25, color=z, colorscale='reds'), opacity = 1)])
             
             fig.update_layout(scene = dict(
