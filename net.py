@@ -1113,8 +1113,8 @@ class GAP(Model):
         except: pass
         ax.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
         ax.set_title('GA - Iteration vs. Fitness')
-        ax.xlabel('Generation')
-        ax.ylabel('Fitness')
+        ax.set_xlabel('Generation')
+        ax.set_ylabel('Fitness')
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
