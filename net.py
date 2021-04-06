@@ -957,8 +957,8 @@ class GAL(Model):
             Mating pool size
             Population size
         """
-        sol_per_pop = 8
-        num_parents_mating = 4
+        sol_per_pop = 50
+        num_parents_mating = 7
 
         # Defining the population size.
         pop_size = (sol_per_pop,num_weights) # The population will have sol_per_pop chromosome where each chromosome has num_weights genes.
@@ -966,7 +966,7 @@ class GAL(Model):
         new_population = np.random.uniform(low=-.1, high=1.0, size=pop_size)
         # print(new_population)
 
-        num_generations = 5
+        num_generations = 100
         for generation in range(num_generations):
             # print("Generation : ", generation)
             # Measing the fitness of each chromosome in the population.
@@ -1005,10 +1005,9 @@ class GAL(Model):
         # print('fitness in NET.py is ', fitness)
         # print("Best solution fitness : ", fitness[best_match_idx])
         self.best = new_population[best_match_idx, :]
-        
         end_time = time.time()
         self.training_time += end_time - start_time
-
+        
 class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
