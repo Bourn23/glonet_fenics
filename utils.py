@@ -260,7 +260,8 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
 
     z = Z_grid * 1e14
     print('min z', z.min())
-    print('z is', z)
+    print('location of min,z is', z.argmin())
+    print('the 2dlocation is', np.where(z == z.min()))
     sh_0, sh_1 = z.shape
     for i in range(3):
         fig = None
