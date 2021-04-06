@@ -1116,6 +1116,7 @@ class GAP(Model):
         ax.set_xlabel('Generation')
         ax.set_ylabel('Fitness')
         plt.savefig(fig_path, dpi = 300)
+        print(f'saving plot to {fig_path}')
         plt.close()
 
     def evaluate(self, eng, global_memory):
