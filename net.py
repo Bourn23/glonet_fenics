@@ -1069,7 +1069,7 @@ class GAP(Model):
         num_parents_mating = 7 # Number of solutions to be selected as parents in the mating pool.
 
         num_generations = 10
-        init_params = np.random.uniform(0.1, 1, (num_generations/2))
+        init_params = np.random.uniform(0.1, 1, (num_generations, 2))
 
         num_genes = 2 # num of values to be estimated, here E,nu
 
