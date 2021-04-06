@@ -253,13 +253,13 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     import numpy as np                      #8.5 # .32
     X_grid, Y_grid = np.meshgrid(np.linspace(8*1e6, 9*1e6, 25), # seq(start, stop, #)
                                  np.linspace(0.25, 0.45, 25))
+    x, y = X_grid, Y_grid
     X_grid, Y_grid = lame(X_grid, Y_grid)
     # does it make a difference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
 
     z = Z_grid * 1e4
     sh_0, sh_1 = z.shape
-    x, y = youngs_poisson(X_grid, Y_grid)
     fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
         
     fig.update_layout(scene = dict(
