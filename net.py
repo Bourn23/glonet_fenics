@@ -1063,7 +1063,7 @@ class GAP(Model):
 
             return result
 
-        self.fitnessfunction = efficiency
+        fitnessfunction = efficiency
 
         num_generations = 100 # Number of generations.
         num_parents_mating = 7 # Number of solutions to be selected as parents in the mating pool.
