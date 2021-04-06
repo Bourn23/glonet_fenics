@@ -1111,6 +1111,7 @@ class GAP(Model):
 
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
+        print('ga best solutions', self.ga_instance.best_solutions_fitness)
         ax.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
         ax.set_title('GA - Iteration vs. Fitness')
         ax.set_xlabel('Generation')
