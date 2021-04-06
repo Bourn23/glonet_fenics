@@ -1103,22 +1103,29 @@ class GAP(Model):
 
     def plot(self, fig_path, global_memory, axis = None):
         # self.ga_instance.plot_result()
-        if axis is None:
-            # fig = plt.figure()
-            fig, ax = plt.subplots(figsize=(9, 3))
-        else:
+        if axis:
             ax = axis
+        else:
+            fig, ax = plt.subplots(figsize=(6,3))
 
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
-        print('ga best solutions', self.ga_instance.best_solutions_fitness)
-        ax.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
+        # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+
         ax.set_title('GA - Iteration vs. Fitness')
         ax.set_xlabel('Generation')
         ax.set_ylabel('Fitness')
-        plt.savefig(fig_path, dpi = 300)
+        
+        ax.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
+        
         print(f'saving plot to {fig_path}')
+        
+        
+        if axis: return ax
+            
+        plt.savefig(fig_path, dpi = 300)
         plt.close()
+
 
     def evaluate(self, eng, global_memory):
         # Returning the details of the best solution.
