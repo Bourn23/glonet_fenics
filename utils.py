@@ -259,6 +259,8 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
 
     z = Z_grid * 1e14
+    print('min z', z.min())
+    print('z is', z)
     sh_0, sh_1 = z.shape
     for i in range(3):
         fig = None
