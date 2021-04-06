@@ -1143,12 +1143,48 @@ class GAP(Model):
 
     def train(self, eng, t, global_memory):
         # run the GA instance
+        start = time.now()
+
         self.ga_instance.run()
 
+        end = time.now()
+        self.training_time = end - start
     def summary(self, global_memory):
-        pass
+        solution, solution_fitness, solution_idx = self.ga_instance.best_solution()
+        E_f, nu_f = lame(solution[0]*1e7, solution[1])
+        E_f, nu_f = youngs_poisson(E_f, nu_f)
+        relative_E_error = (E_f-self.generator.E_0)/self.generator.E_0*100
+        relative_nu_error = (nu_f-self.generator.nu_0)/self.generator.nu_0*100
 
+        print("\n-------------GA-PYGAD---------------")
+        print('elapsed time:    {:.2f} (s)'.format(self.training_time))
+        print('# of Physics-Engine called {}'.format(self.PE_CALLS))
+        print('ground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
+        print('inverted values: {:.2e} {:.2e}'.format(E_f, nu_f))
+
+        print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error,
+                                                        relative_nu_error))
+        
+        self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
+        
+        # try: global_memory.sgd_data = np.vstack([global_memory.sgd_data, self.data[np.argmin(np.min(self.data, axis = 1))]]); print('adding to existing history')
+        # except: global_memory.sgd_data = self.data[np.argmin(np.min(self.data, axis = 1))]
+        
+        # try:        global_memory.sgd_loss = np.vstack([global_memory.sgd_loss, self.loss_history]); print('adding to existing history')
+        # except:     global_memory.sgd_loss = self.loss_history
+
+        
+        data = {'mu': E_f, 'beta': nu_f}
+        prediction = eng.Eval_Eff_1D_parallel(data)
+        print("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
+
+        if ga_instance.best_solution_generation != -1:
+            print("Best fitness value reached after {best_solution_generation} generations.".format(best_solution_generation=ga_instance.best_solution_generation))
+
+        # Saving the GA instance.
+        filename = 'genetic' # The filename to which the instance is saved. The name is without extension.
+        ga_instance.save(filename=filename)
 class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
