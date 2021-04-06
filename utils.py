@@ -305,7 +305,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             )
 
             camera = dict(
-                eye=dict(x=2, y=2, z=0.1)
+                eye=dict(x=2, y=2, z=0.5)
             )
             fig.update_layout(scene_camera=camera)
         if i == 2:
