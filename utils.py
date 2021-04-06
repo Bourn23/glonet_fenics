@@ -251,7 +251,7 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     import plotly.graph_objects as go
     import numpy as np                      #8.5 # .32
-    X_grid, Y_grid = np.meshgrid(np.linspace(8*1e6, 9*1e6, 25), # seq(start, stop, #)
+    X_grid, Y_grid = np.meshgrid(np.linspace(9*1e6, 8*1e6, 25), # seq(start, stop, #)
                                  np.linspace(0.25, 0.45, 25))
     x, y = X_grid, Y_grid
     X_grid, Y_grid = lame(X_grid, Y_grid)
