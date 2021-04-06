@@ -696,6 +696,15 @@ class SGD(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
+        # Error - Iter
+        fig, ax = plt.subplots(figsize=(6,3))
+        ax.plot(len(self.data), self.data[:,2])
+        ax.set_xlabel('Iteration', fontsize=10)
+        ax.set_ylabel('Error', fontsize='medium')
+        plt.savefig(fig_path + 'error_diagram.png', dpi = 300)
+        plt.close()
+
+
 
     def evaluate(self, global_memory):
         pass
@@ -957,7 +966,7 @@ class GAL(Model):
             Mating pool size
             Population size
         """
-        sol_per_pop = 50
+        sol_per_pop = 9
         num_parents_mating = 7
 
         # Defining the population size.
@@ -966,7 +975,7 @@ class GAL(Model):
         new_population = np.random.uniform(low=-.1, high=1.0, size=pop_size)
         # print(new_population)
 
-        num_generations = 100
+        num_generations = 30
         for generation in range(num_generations):
             # print("Generation : ", generation)
             # Measing the fitness of each chromosome in the population.
