@@ -262,6 +262,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     sh_0, sh_1 = z.shape
     for i in range(3):
         fig = None
+        print('i is ', i)
         if i == 0:
             fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
         if i == 1:
