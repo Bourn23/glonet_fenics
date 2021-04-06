@@ -305,7 +305,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             fig.update_layout(scene = dict(
                 xaxis = dict(nticks=5, range=[x.min(),x.max()],),
                 yaxis = dict(nticks=6, range=[y.max(),y.min()],),
-                zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
+                zaxis = dict(nticks=5, range=[z.min() - 1,z.max() + 0.5],),
                 zaxis_title = "Displacement (1E14)",
                 xaxis_title="Young's Modulus",
                 yaxis_title="Poisson's Ratio",),
@@ -315,7 +315,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             )
 
             camera = dict(
-                eye=dict(x=2, y=2, z=0.5)
+                eye=dict(x=1, y=2, z=0.5)
             )
             fig.update_layout(scene_camera=camera)
         if i == 2:
