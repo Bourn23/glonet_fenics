@@ -1102,7 +1102,6 @@ class GAP(Model):
         pass
 
     def plot(self, fig_path, global_memory, axis = None):
-        # self.ga_instance.plot_result()
         if axis:
             ax = axis
         else:
@@ -1110,22 +1109,17 @@ class GAP(Model):
 
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
-        # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
 
         ax.set_title('GA - Iteration vs. Fitness')
         ax.set_xlabel('Generation')
         ax.set_ylabel('Fitness')
         
-        ax.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
-        
-        print(f'saving plot to {fig_path}')
-        
+        ax.plot(torch.log(self.ga_instance.best_solutions_fitness), linewidth=3)
         
         if axis: return ax
             
         plt.savefig(fig_path, dpi = 300)
         plt.close()
-
 
     def evaluate(self, eng, global_memory):
         # Returning the details of the best solution.
