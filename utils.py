@@ -290,7 +290,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
 
             y = y[:,::-1]
             z = z[:,::-1]
-            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y), go.Scatter3d(z = z.min(), x = x[x_min], y = y[y_min])])
+            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y), go.Scatter3d(z = [z.min()], x = [x[x_min]], y = [y[y_min]])])
             # fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1]), go.Scatter3d(z = z.min(), x = x[x_min], y = y[y_min])])
             fig.update_layout(scene = dict(
                 xaxis = dict(nticks=5, range=[x.min(),x.max()],),
