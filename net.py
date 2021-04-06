@@ -1135,12 +1135,12 @@ class GAP(Model):
         # prediction = eng.Eval_Eff_1D_parallel(data)
         # print("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
         
-        if ga_instance.best_solution_generation != -1:
-            print("Best fitness value reached after {best_solution_generation} generations.".format(best_solution_generation=ga_instance.best_solution_generation))
+        # if self.ga_instance.best_solution_generation != -1:
+        #     print("Best fitness value reached after {best_solution_generation} generations.".format(best_solution_generation=ga_instance.best_solution_generation))
 
         # Saving the GA instance.
-        filename = 'genetic' # The filename to which the instance is saved. The name is without extension.
-        ga_instance.save(filename=filename)
+        # filename = 'genetic' # The filename to which the instance is saved. The name is without extension.
+        # self.ga_instance.save(filename=filename)
 
     def train(self, eng, t, global_memory):
         # run the GA instance
