@@ -170,6 +170,9 @@ class engine:
             # print('b shape is ', b)
             # _, inds2 = torch.sort(b)
             output = output[1:,:] #flatten().
+            synthetic_data = torch.hstack([mu, beta, output)])
+            print('syntethic data ', synthetic_data.shape) # expected 441 * 3
+            
             output = output.view(-1, data['mu'].shape[0]).numpy() #flatten().
             # print('final0 flatten shape: ', output)
             # output = output[inds1]#
@@ -177,8 +180,6 @@ class engine:
             # output = output[inds2].view(data['mu'].shape[0], -1).numpy() # 441,1
             print('final2 inds2 shape: ', output.shape)
 
-            synthetic_data = torch.hstack([mu, beta, output])
-            print('syntethic data ', synthetic_data.shape) # expected 441 * 3
             
             # .view(data['mu'].shape[0], -1).numpy()
             # print('output after expansion', output.shape)
