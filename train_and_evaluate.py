@@ -191,13 +191,13 @@ def train(eng, params, global_memory, global_count, pca=None):
             for model in active_models.values():
                 # generate new samples
                 #TODO: is it faster to pass eng in each round or should we keep it in the model's memory?
-                ic(model.train(eng, t, global_memory))
+                model.train(eng, t, global_memory)
 
 
             # evaluate
             if (it % params.eval_iter == 0):# or (it > params.numIter):
                 for model in active_models.values():
-                    ic(model.evaluate(eng, global_memory))
+                    model.evaluate(eng, global_memory)
 
             # plot 
             if it % params.plot_iter == 0:
