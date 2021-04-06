@@ -274,6 +274,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                     width=500, height=500,
                     margin=dict(l=2, r=50, b=65, t=90),    
 )
+    fig.update_xaxes(autorange="reversed")
     fig.update_traces(contours_z=dict(show=True, usecolormap=True,
                     highlightcolor="limegreen", project_z=True))
     # scene_settings = dict(
