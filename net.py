@@ -1114,7 +1114,7 @@ class GAP(Model):
         ax.set_xlabel('Generation')
         ax.set_ylabel('Fitness')
         
-        ax.plot(torch.log(self.ga_instance.best_solutions_fitness), linewidth=3)
+        ax.plot(np.log(self.ga_instance.best_solutions_fitness), linewidth=3)
         
         if axis: return ax
             
