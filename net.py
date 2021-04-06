@@ -26,6 +26,7 @@ import random
 import operator
 import math
 import ga_helper as ga
+import pygad
 
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
@@ -323,7 +324,7 @@ class GPR(Model):
         try:        global_memory.gpr_loss = np.vstack([global_memory.gpr_loss, self.loss_history]); print('adding to existing history')
         except:     global_memory.gpr_loss = self.loss_history
 
-    def evaluate(self, global_memory):
+    def evaluate(self, eng, global_memory):
         pass
         # global_memory.gpr_data = self.data
         
@@ -611,7 +612,7 @@ class GPRL(Model):
         
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
 
-    def evaluate(self, global_memory):
+    def evaluate(self, eng, global_memory):
         pass
 
 
@@ -706,7 +707,7 @@ class SGD(Model):
 
 
 
-    def evaluate(self, global_memory):
+    def evaluate(self, eng, global_memory):
         pass
         # print("================SGD=================")
         # print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
@@ -857,7 +858,7 @@ class GA(Model):
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-    def evaluate(self, global_memory):
+    def evaluate(self, eng, global_memory):
         hof = tools.ParetoFront()
 
         print('\n')
@@ -938,7 +939,7 @@ class GAL(Model):
         print('error:           {:7.2f}% {:7.2f}%'.format(relative_E_error, relative_nu_error))
         print("---------------------------------")
 
-    def evaluate(self, global_memory):
+    def evaluate(self, eng, global_memory):
         pass
 
     def plot(self, fig_path, global_memory, axis = None):
@@ -1016,7 +1017,121 @@ class GAL(Model):
         self.best = new_population[best_match_idx, :]
         end_time = time.time()
         self.training_time += end_time - start_time
+
+
+class GAP(Model):
+
+    def __init__(self, params, eng, global_memory, model_params = None):
+        super().__init__(params)
         
+        self.PE_CALLS = 0
+
+        loss = nn.MSELoss()
+        def efficiency(data, data_idx):
+
+            print('data GAP is ', data)
+
+            if len(data) > 2: # avg error of runs
+                data = [err[0] for err in data]
+                return sum(data)/len(data),
+            if (data[0] <= 0) or (data[1] <= 0): # penalize invalid values
+                return -100000,
+
+            if data[0] > 1: data[0] = data[0] / 10
+            if data[1] > 1: data[1] = data[1] / 10
+            E_f, nu_f = lame(data[0]*1e7, data[1])
+            if E_f < 0 or nu_f < 0: # penalize negative numbers
+                return -10000,
+            E_f_mag = math.floor(math.log10(E_f))
+            nu_f_mag = math.floor(math.log10(nu_f))
+
+            # if (E_f_mag != 6) or (nu_f_mag != 6): # penalize magnitude
+            #     return -10000,
+            
+            if (E_f_mag != 6): E_f = E_f * 10**(6 - E_f_mag)
+            if (nu_f_mag != 6): nu_f = nu_f * 10**(6 - nu_f_mag)# penalize magnitude
+                
+            data = {'mu': E_f, 'beta':nu_f}
+            # print('data is ', data)
+
+            if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
+                return -100000,
+
+            
+            result =  loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist(),
+            self.PE_CALLS += 1
+
+            return result
+
+        self.fitnessfunction = efficiency
+
+        num_generations = 100 # Number of generations.
+        num_parents_mating = 7 # Number of solutions to be selected as parents in the mating pool.
+
+        num_generations = 10
+        init_params = np.random.uniform(0.1, 1, (num_generations/2))
+
+        num_genes = 2 # num of values to be estimated, here E,nu
+
+        parent_selection_type = "sss"
+        keep_parents = 7
+
+        crossover_type = "single_point"
+
+        mutation_type = "random"
+        mutation_percent_genes = 10
+
+        self.last_fitness = 0
+
+        def callback_generation(ga_instance):
+            global last_fitness
+            print("Generation = {generation}".format(generation=ga_instance.generations_completed))
+            print("Fitness    = {fitness}".format(fitness=ga_instance.best_solution()[1]))
+            print("Change     = {change}".format(change=ga_instance.best_solution()[1] - last_fitness))
+            self.last_fitness = ga_instance.best_solution()[1]   
+
+           
+        self.ga_instance = pygad.GA(num_generations=num_generations,
+                       num_parents_mating=num_parents_mating, 
+                       fitness_func=fitness_function,
+                       initial_population = init_params,
+                       num_genes=num_genes,
+                       parent_selection_type=parent_selection_type,
+                       keep_parents=keep_parents,
+                       crossover_type=crossover_type,
+                       mutation_type=mutation_type,
+                       mutation_percent_genes=mutation_percent_genes,
+                       on_generation=callback_generation)
+    def error_summary(self, global_memory):
+        pass
+
+    def plot(self, fig_path, global_memory, axis = None):
+        self.ga_instance.plot()
+
+    def evaluate(self, eng, global_memory):
+        # Returning the details of the best solution.
+        solution, solution_fitness, solution_idx = self.ga_instance.best_solution()
+        print("Parameters of the best solution : {solution}".format(solution=solution))
+        print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
+        print("Index of the best solution : {solution_idx}".format(solution_idx=solution_idx))
+
+        
+        solution = lame(solution[0], solution[1])
+        prediction = eng.Eval_Eff_1D_parallel(solution)
+        print("Predicted output based on the best solution : {prediction}".format(prediction=prediction))
+
+        if ga_instance.best_solution_generation != -1:
+            print("Best fitness value reached after {best_solution_generation} generations.".format(best_solution_generation=ga_instance.best_solution_generation))
+
+        # Saving the GA instance.
+        filename = 'genetic' # The filename to which the instance is saved. The name is without extension.
+        ga_instance.save(filename=filename)
+
+    def train(self, eng, t, global_memory):
+        # run the GA instance
+        self.ga_instance.run()
+
+
 class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
@@ -1163,7 +1278,7 @@ class PSO(Model):
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
         global_memory.pso_history = self.history
         global_memory.pso_data = self.data
-    def evaluate(self, global_memory):
+    def evaluate(self, eng, global_memory):
         
         start_time = time.time()
         
@@ -1312,7 +1427,7 @@ class PSOL(Model):
                     self.g_best_value = fits[i]
                     self.g_best = self.particles[i]
 
-    def evaluate(self, global_memory):
+    def evaluate(self, eng, global_memory):
         start_time = time.time()
 
         if self.iter > 0:
