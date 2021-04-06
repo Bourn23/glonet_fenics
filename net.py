@@ -1107,7 +1107,7 @@ class GAP(Model):
             fig = plt.figure()
         else:
             ax = axis
-        plt.plot(self.best_solutions_fitness, linewidth=linewidth)
+        plt.plot(self.ga_instance.best_solutions_fitness, linewidth=linewidth)
         plt.title(title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
