@@ -262,12 +262,13 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
     print('min z', z.min())
     print('location of min,z is', z.argmin())
     print('the 2dlocation is', np.where(z == z.min()))
+    x_min, y_min = np.where(z == z.min())
     sh_0, sh_1 = z.shape
     for i in range(3):
         fig = None
         print('i is ', i)
         if i == 0:
-            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
+            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y), go.Scatter3d(z = z.min(), x = x_min[0], y = y_min[0])])
             fig.update_layout(scene = dict(
                 xaxis = dict(nticks=5, range=[x.min(),x.max()],),
                 yaxis = dict(nticks=6, range=[y.min(),y.max()],),
@@ -281,6 +282,16 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
             )
         if i == 1:
             fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1])])
+
+            # indices of minimum
+            x_min, y_min = np.where(z[:,::-1] == z[:,::-1].min())
+            x_min, y_min = x_min[0], y_min[0]
+            y_min = np.where(y[:,::-1] == y[x_min, y_min])
+
+            y = y[:,::-1]
+            z = z[:,::-1]
+            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y), go.Scatter3d(z = z.min(), x = x[x_min], y = y[y_min])])
+            # fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1]), go.Scatter3d(z = z.min(), x = x[x_min], y = y[y_min])])
             fig.update_layout(scene = dict(
                 xaxis = dict(nticks=5, range=[x.min(),x.max()],),
                 yaxis = dict(nticks=6, range=[y.max(),y.min()],),
@@ -292,6 +303,7 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                 width=500, height=500,
                 margin=dict(l=2, r=50, b=65, t=90),    
             )
+            fig.
         if i == 2:
             fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[::-1,::-1])])
             fig.update_layout(scene = dict(
