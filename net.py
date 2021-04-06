@@ -1108,10 +1108,14 @@ class GAP(Model):
             fig, ax = plt.subplots(figsize=(9, 3))
         else:
             ax = axis
-        plt.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
-        plt.title('GA - Iteration vs. Fitness')
-        plt.xlabel('Generation')
-        plt.ylabel('Fitness')
+
+        ax.set_title('Predicted loss \nPSOL')
+        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        except: pass
+        ax.plot(self.ga_instance.best_solutions_fitness, linewidth=3)
+        ax.title('GA - Iteration vs. Fitness')
+        ax.xlabel('Generation')
+        ax.ylabel('Fitness')
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
@@ -1486,9 +1490,6 @@ class PSOL(Model):
         self.loss_history = np.vstack([self.loss_history, [relative_E_error, relative_nu_error]])
         global_memory.psol_history = self.history
         global_memory.psol_data = self.data
-
-
-
 
 
     def plot(self, fig_path, global_memory, axis = None):    
