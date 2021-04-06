@@ -303,7 +303,11 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                 width=500, height=500,
                 margin=dict(l=2, r=50, b=65, t=90),    
             )
-            fig.
+
+            camera = dict(
+                eye=dict(x=2, y=2, z=0.1)
+            )
+            fig.update_layout(scene_camera=camera, title=name)
         if i == 2:
             fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[::-1,::-1])])
             fig.update_layout(scene = dict(
@@ -318,8 +322,8 @@ def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax
                             margin=dict(l=2, r=50, b=65, t=90),    
             )
 
-        fig.update_traces(contours_z=dict(show=True, usecolormap=True,
-                        highlightcolor="limegreen", project_z=True))
+        # fig.update_traces(contours_z=dict(show=True, usecolormap=True,
+        #                 highlightcolor="limegreen", project_z=True))
         fig.write_image(f'./results/figures/error_history/3d_plot_{i}.png')
         # scene_settings = dict(
         #         xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
