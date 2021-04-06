@@ -250,9 +250,10 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     import plotly.graph_objects as go
-    import numpy as np
-    X_grid, Y_grid = np.meshgrid(np.linspace(8, 9, 20), # seq(start, stop, #)
-                                 np.linspace(0.25, 0.45, 20))
+    import numpy as np                      #8.5 # .32
+    X_grid, Y_grid = np.meshgrid(np.linspace(8*1e6, 9*1e6, 5), # seq(start, stop, #)
+                                 np.linspace(0.25, 0.45, 5))
+    X_grid, Y_grid = lame(X_grid, Y_grid)
     # does it make a difference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
 

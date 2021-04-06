@@ -143,14 +143,14 @@ class engine:
         # print(f'mu shape {mu.shape}, beta {beta.shape}, force {force.shape}')
         self.u = self.model(mu, beta, force)
         loss = torch.nn.MSELoss()
-        # print('size of u ', self.u.shape) # 441, 176, 3
+        # print('size of u ', self.u.shape) # 25, 176, 3
 
         # v1.3
         output = torch.zeros((1, 1))
         if self.u.shape[0] == 1:
             output = loss(self.u, self.target_deflection)
         else:
-            for i in range(self.u.shape[0]):       
+            for i in range(self.u.shape[0]):       #528                 #528
                 output = torch.vstack([output, loss(self.u[i, :, :], self.target_deflection).detach().unsqueeze(0)])
             # target = self.target_deflection.expand(self.u.shape[0], 176, 3) # expected 441, 176, 3
             # declare a loss function
@@ -170,7 +170,6 @@ class engine:
             # print('b shape is ', b)
             # _, inds2 = torch.sort(b)
             output = output[1:,:] #flatten().
-            synthetic_data = torch.hstack([mu, beta, output])
             output = output.view(-1, data['mu'].shape[0]).numpy() #flatten().
             print('syntethic data ', synthetic_data.shape) # expected 441 * 3
             # print('final0 flatten shape: ', output)
@@ -179,6 +178,7 @@ class engine:
             # output = output[inds2].view(data['mu'].shape[0], -1).numpy() # 441,1
             print('final2 inds2 shape: ', output.shape)
 
+            synthetic_data = torch.hstack([mu, beta, output])
             
             # .view(data['mu'].shape[0], -1).numpy()
             # print('output after expansion', output.shape)

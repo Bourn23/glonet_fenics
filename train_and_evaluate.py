@@ -82,7 +82,7 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
     utils.plot_loss_history(params, active_models, global_memory, global_count)
     
     # plot the 3d surface
-    # syn_data = utils.plot_3d(eng)
+    syn_data = utils.plot_3d(eng)
 
     # # E, nu, U --> # of obs, 3 400, 3
     # # U = f(E, nu)
