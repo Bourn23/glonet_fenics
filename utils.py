@@ -251,53 +251,58 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     import plotly.graph_objects as go
     import numpy as np                      #8.5 # .32
-    X_grid, Y_grid = np.meshgrid(np.linspace(9*1e6, 8*1e6, 25), # seq(start, stop, #)
+    X_grid, Y_grid = np.meshgrid(np.linspace(8*1e6, 9*1e6, 25), # seq(start, stop, #)
                                  np.linspace(0.25, 0.45, 25))
     x, y = X_grid, Y_grid
     X_grid, Y_grid = lame(X_grid, Y_grid)
-    # does it make a difference? how to make it more efficient?
+    # does it make a disfference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
 
     z = Z_grid * 1e14
     sh_0, sh_1 = z.shape
-    fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
-    print('z min', z.min())
-    print('z max', z.max())
-    fig.update_layout(scene = dict(
-                     xaxis = dict(nticks=5, range=[x.min(),x.max()],),
-                     yaxis = dict(nticks=6, range=[y.min(),y.max()],),
-                     zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
-                     zaxis_title = "Displacement (1E4)",
-                     xaxis_title="Young's Modulus",
-                     yaxis_title="Poisson's Ratio",),
-                     title='Displacement Field of E, nu', autosize=True,   
-                    width=500, height=500,
-                    margin=dict(l=2, r=50, b=65, t=90),    
-)
-    fig.update_xaxes(autorange="reversed")
-    fig.update_traces(contours_z=dict(show=True, usecolormap=True,
-                    highlightcolor="limegreen", project_z=True))
-    # scene_settings = dict(
-    #         xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
-    #         yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
-    #         zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
+    for i in range(3):
+        if i == 0:
+            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
+        if i == 1:
+            fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1])])
+        if i == 2:
+            fig = go.Figure(data=[go.Surface(z=z[::-1,::-1], x=x, y=y[::-1,::-1])])
+        fig.update_layout(scene = dict(
+                        xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+                        yaxis = dict(nticks=6, range=[y.min(),y.max()],),
+                        zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
+                        zaxis_title = "Displacement (1E4)",
+                        xaxis_title="Young's Modulus",
+                        yaxis_title="Poisson's Ratio",),
+                        title='Displacement Field of E, nu', autosize=True,   
+                        width=500, height=500,
+                        margin=dict(l=2, r=50, b=65, t=90),    
+    )
+        fig.update_xaxes(autorange="reversed")
+        fig.update_traces(contours_z=dict(show=True, usecolormap=True,
+                        highlightcolor="limegreen", project_z=True))
+        fig.write_image(f'./results/figures/error_history/3d_plot_{i}.png')
+        # scene_settings = dict(
+        #         xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
+        #         yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
+        #         zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
 
 
-    # x, y, z = (X_grid, Y_grid, Z_grid)
+        # x, y, z = (X_grid, Y_grid, Z_grid)
 
-    # disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
+        # disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
 
-    # fig = go.Figure(data=[
-    #     go.Mesh3d(
-    #         x=x, y=y, z=z,
-    #         # Intensity of each vertex, which will be interpolated and color-coded
-    #         intensity=disp,
-    #         name='y', showscale=True
-    #     )
-    # ])
-    # fig.update_layout(scene = scene_settings)
-    # fig.update_layout(scene_aspectmode = 'cube')
-    fig.write_image('./results/figures/error_history/3d_plot.png')
+        # fig = go.Figure(data=[
+        #     go.Mesh3d(
+        #         x=x, y=y, z=z,
+        #         # Intensity of each vertex, which will be interpolated and color-coded
+        #         intensity=disp,
+        #         name='y', showscale=True
+        #     )
+        # ])
+        # fig.update_layout(scene = scene_settings)
+        # fig.update_layout(scene_aspectmode = 'cube')
+
 
     return syn_data
 
