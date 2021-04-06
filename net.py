@@ -1029,8 +1029,6 @@ class GAP(Model):
         loss = nn.MSELoss()
         def efficiency(data, data_idx):
 
-            print('data GAP is ', data)
-
             if len(data) > 2: # avg error of runs
                 data = [err[0] for err in data]
                 return sum(data)/len(data),
@@ -1053,7 +1051,7 @@ class GAP(Model):
                 
             data = {'mu': E_f, 'beta':nu_f}
             # print('data is ', data)
-
+            print('transformed data is', data)
             if (data['mu'] <= 0) or (data['beta'] <= 0): # penalize invalid values
                 return -100000,
 
@@ -1084,10 +1082,10 @@ class GAP(Model):
         self.last_fitness = 0
 
         def callback_generation(ga_instance):
-            global last_fitness
+            global self.last_fitness
             print("Generation = {generation}".format(generation=ga_instance.generations_completed))
             print("Fitness    = {fitness}".format(fitness=ga_instance.best_solution()[1]))
-            print("Change     = {change}".format(change=ga_instance.best_solution()[1] - last_fitness))
+            print("Change     = {change}".format(change=ga_instance.best_solution()[1] - self.last_fitness))
             self.last_fitness = ga_instance.best_solution()[1]   
 
            
