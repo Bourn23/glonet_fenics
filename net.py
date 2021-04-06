@@ -944,7 +944,8 @@ class GAL(Model):
             What are the best values for the 6 weights w1 to w6?
             We are going to use the genetic algorithm for the best possible values after a number of generations.
         """
-
+        start_time = time.time()
+        
         # Inputs of the equation.
         equation_inputs = [4,-2]
 
@@ -1004,6 +1005,9 @@ class GAL(Model):
         # print('fitness in NET.py is ', fitness)
         # print("Best solution fitness : ", fitness[best_match_idx])
         self.best = new_population[best_match_idx, :]
+        
+        end_time = time.time()
+        self.training_time += end_time - start_time
 
 class PSO(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
