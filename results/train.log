@@ -1,0 +1,3016 @@
+2021-04-08 00:48:35,172:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:36,541:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:37,964:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:39,368:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:40,725:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:42,122:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:43,528:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:44,824:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:46,112:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:47,592:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:48:47,725:INFO: Wrapping Up Results
+2021-04-08 00:49:52,034:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:52,247:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:52,366:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:52,468:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:52,579:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:52,689:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:52,801:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:52,909:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:53,021:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:53,132:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:49:53,261:INFO: Wrapping Up Results
+2021-04-08 00:52:21,729:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:52:27,432:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:52:33,177:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:52:38,869:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:52:44,594:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:52:50,321:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:52:56,396:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:53:02,138:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:53:08,083:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:53:13,869:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:53:13,941:INFO: Wrapping Up Results
+2021-04-08 00:55:25,892:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:55:31,488:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:55:37,123:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:55:42,818:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:55:48,487:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:55:54,095:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:55:59,792:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:56:05,391:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:56:11,013:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:56:16,683:INFO: Evaluate Results and Ensemble Process
+2021-04-08 00:56:16,761:INFO: Wrapping Up Results
+2021-04-08 01:09:50,860:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:09:56,124:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:01,351:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:06,530:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:11,713:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:16,860:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:22,043:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:27,369:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:32,579:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:37,751:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:10:37,807:INFO: Wrapping Up Results
+2021-04-08 01:27:48,843:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:27:48,843:INFO: Compiling form ffc_form_2c03bf93ce125d62a271774cf8dc210a1a3b4748
+
+2021-04-08 01:27:48,843:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 01:27:48,843:INFO: -----------------------------------
+2021-04-08 01:27:48,843:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,857:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:48,859:INFO:   
+2021-04-08 01:27:48,859:INFO:   Geometric dimension:                 3
+  Number of cell subdomains:           0
+  Number of exterior_facet subdomains: 0
+  Rank:                                1
+  Arguments:                           '(v_0)'
+  Number of coefficients:              2
+  Coefficients:                        '[f_5, f_12]'
+  Unique elements:                     'Vector<3 x CG1(?,?)>, Vector<3 x R0(?,?)>'
+  Unique sub elements:                 'Vector<3 x CG1(?,?)>, Vector<3 x R0(?,?)>, C
+                                       G1(?,?), R0(?,?)'
+  
+2021-04-08 01:27:48,860:INFO:   representation:    auto --> uflacs
+2021-04-08 01:27:48,860:INFO:   quadrature_rule:   auto --> default
+2021-04-08 01:27:48,860:INFO:   quadrature_degree: auto --> 1
+2021-04-08 01:27:48,860:INFO:   quadrature_degree: 1
+2021-04-08 01:27:48,860:INFO:   representation:    auto --> uflacs
+2021-04-08 01:27:48,860:INFO:   quadrature_rule:   auto --> default
+2021-04-08 01:27:48,860:INFO:   quadrature_degree: auto --> 1
+2021-04-08 01:27:48,860:INFO:   quadrature_degree: 1
+2021-04-08 01:27:48,860:INFO:   
+2021-04-08 01:27:48,860:INFO: Compiler stage 1 finished in 0.0173085 seconds.
+
+2021-04-08 01:27:48,860:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:27:48,860:INFO: -------------------------------------------------------
+2021-04-08 01:27:48,861:INFO:   Computing representation of 0 elements
+2021-04-08 01:27:48,861:INFO:   Computing representation of 0 dofmaps
+2021-04-08 01:27:48,861:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:27:48,861:INFO:   Computing representation of integrals
+2021-04-08 01:27:48,861:INFO:   Computing uflacs representation
+2021-04-08 01:27:48,861:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,862:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,862:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,862:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,862:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,862:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,862:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,874:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,874:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,875:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,875:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,876:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,876:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,876:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,876:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,877:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,877:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,878:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,878:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,879:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,879:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,879:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,880:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,880:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,881:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,881:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,882:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,892:DEBUG: Blocks of each mode: 
+
+2021-04-08 01:27:48,892:INFO:   Computing uflacs representation
+2021-04-08 01:27:48,892:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,892:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,892:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,892:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,892:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,892:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,898:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,899:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,900:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,902:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,904:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,905:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,906:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,908:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,909:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,910:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,912:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,915:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,917:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,918:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,920:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,922:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,924:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,925:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,928:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,930:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,944:DEBUG: Blocks of each mode: 
+
+2021-04-08 01:27:48,944:INFO:   Computing representation of forms
+2021-04-08 01:27:48,944:INFO:   
+2021-04-08 01:27:48,944:INFO: Compiler stage 2 finished in 0.0841262 seconds.
+
+2021-04-08 01:27:48,944:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:27:48,944:INFO: --------------------------------------------------------
+2021-04-08 01:27:48,945:INFO:   Optimizing uflacs representation
+2021-04-08 01:27:48,945:INFO:   Optimizing uflacs representation
+2021-04-08 01:27:48,945:INFO:   
+2021-04-08 01:27:48,945:INFO: Compiler stage 3 finished in 0.000184059 seconds.
+
+2021-04-08 01:27:48,945:INFO: Compiler stage 4: Generating code
+2021-04-08 01:27:48,945:INFO: ---------------------------------
+2021-04-08 01:27:48,945:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 01:27:48,945:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 01:27:48,945:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:27:48,945:INFO:   Generating code for integrals
+2021-04-08 01:27:48,945:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 01:27:48,954:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 01:27:48,956:INFO:   Generating code for forms
+2021-04-08 01:27:48,957:INFO:   
+2021-04-08 01:27:48,957:INFO: Compiler stage 4 finished in 0.0123594 seconds.
+
+2021-04-08 01:27:48,957:INFO: Compiler stage 4.1 finished in 2.14577e-06 seconds.
+
+2021-04-08 01:27:48,957:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:27:48,957:INFO: ---------------------------------
+2021-04-08 01:27:48,957:INFO:   
+2021-04-08 01:27:48,957:INFO: Compiler stage 5 finished in 0.000243902 seconds.
+
+2021-04-08 01:27:48,957:INFO: [1;37;32mFFC finished in 0.11452 seconds.[0m
+2021-04-08 01:27:48,958:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:27:48,958:INFO: Compiling element ffc_element_c4232ff8046c6971046ba18b62202f92e6fbe5ef
+
+2021-04-08 01:27:48,958:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 01:27:48,958:INFO: --------------------------------------
+2021-04-08 01:27:48,958:INFO:   
+2021-04-08 01:27:48,958:INFO: Compiler stage 1 finished in 0.000121832 seconds.
+
+2021-04-08 01:27:48,958:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:27:48,958:INFO: -------------------------------------------------------
+2021-04-08 01:27:48,958:INFO:   Computing representation of 1 elements
+2021-04-08 01:27:48,958:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,958:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,958:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,959:INFO:   Computing representation of 1 dofmaps
+2021-04-08 01:27:48,959:DEBUG:   Reusing element from cache
+2021-04-08 01:27:48,959:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:27:48,959:INFO:   Computing representation of integrals
+2021-04-08 01:27:48,959:INFO:   Computing representation of forms
+2021-04-08 01:27:48,959:INFO:   
+2021-04-08 01:27:48,959:INFO: Compiler stage 2 finished in 0.000890017 seconds.
+
+2021-04-08 01:27:48,959:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:27:48,959:INFO: --------------------------------------------------------
+2021-04-08 01:27:48,959:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 01:27:48,959:INFO:   
+2021-04-08 01:27:48,959:INFO: Compiler stage 3 finished in 0.000130653 seconds.
+
+2021-04-08 01:27:48,959:INFO: Compiler stage 4: Generating code
+2021-04-08 01:27:48,959:INFO: ---------------------------------
+2021-04-08 01:27:48,959:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 01:27:48,962:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 01:27:48,963:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:27:48,963:INFO:   Generating code for integrals
+2021-04-08 01:27:48,963:INFO:   Generating code for forms
+2021-04-08 01:27:48,963:INFO:   
+2021-04-08 01:27:48,963:INFO: Compiler stage 4 finished in 0.00375247 seconds.
+
+2021-04-08 01:27:48,963:INFO: Compiler stage 4.1 finished in 9.53674e-07 seconds.
+
+2021-04-08 01:27:48,963:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:27:48,963:INFO: ---------------------------------
+2021-04-08 01:27:48,963:INFO:   
+2021-04-08 01:27:48,963:INFO: Compiler stage 5 finished in 0.000235558 seconds.
+
+2021-04-08 01:27:48,963:INFO: [1;37;32mFFC finished in 0.00535774 seconds.[0m
+2021-04-08 01:27:49,247:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:27:49,247:INFO: Compiling element ffc_element_1bdccb936a9e119df081bfce3eb9539dda6e83f6
+
+2021-04-08 01:27:49,247:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 01:27:49,247:INFO: --------------------------------------
+2021-04-08 01:27:49,247:INFO:   
+2021-04-08 01:27:49,247:INFO: Compiler stage 1 finished in 0.000170708 seconds.
+
+2021-04-08 01:27:49,247:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:27:49,248:INFO: -------------------------------------------------------
+2021-04-08 01:27:49,248:INFO:   Computing representation of 1 elements
+2021-04-08 01:27:49,248:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,248:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,248:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,249:INFO:   Computing representation of 1 dofmaps
+2021-04-08 01:27:49,249:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,249:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:27:49,249:INFO:   Computing representation of integrals
+2021-04-08 01:27:49,249:INFO:   Computing representation of forms
+2021-04-08 01:27:49,249:INFO:   
+2021-04-08 01:27:49,249:INFO: Compiler stage 2 finished in 0.00158715 seconds.
+
+2021-04-08 01:27:49,249:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:27:49,249:INFO: --------------------------------------------------------
+2021-04-08 01:27:49,249:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 01:27:49,249:INFO:   
+2021-04-08 01:27:49,249:INFO: Compiler stage 3 finished in 0.000136137 seconds.
+
+2021-04-08 01:27:49,249:INFO: Compiler stage 4: Generating code
+2021-04-08 01:27:49,249:INFO: ---------------------------------
+2021-04-08 01:27:49,249:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 01:27:49,256:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 01:27:49,257:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:27:49,257:INFO:   Generating code for integrals
+2021-04-08 01:27:49,257:INFO:   Generating code for forms
+2021-04-08 01:27:49,257:INFO:   
+2021-04-08 01:27:49,257:INFO: Compiler stage 4 finished in 0.00752783 seconds.
+
+2021-04-08 01:27:49,257:INFO: Compiler stage 4.1 finished in 3.8147e-06 seconds.
+
+2021-04-08 01:27:49,257:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:27:49,257:INFO: ---------------------------------
+2021-04-08 01:27:49,257:INFO:   
+2021-04-08 01:27:49,257:INFO: Compiler stage 5 finished in 0.00028944 seconds.
+
+2021-04-08 01:27:49,257:INFO: [1;37;32mFFC finished in 0.00994349 seconds.[0m
+2021-04-08 01:27:49,560:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:27:49,560:INFO: Compiling element ffc_element_92c34084bae85306a279e32926529ef8f81b3393
+
+2021-04-08 01:27:49,560:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 01:27:49,560:INFO: --------------------------------------
+2021-04-08 01:27:49,560:INFO:   
+2021-04-08 01:27:49,560:INFO: Compiler stage 1 finished in 0.000146866 seconds.
+
+2021-04-08 01:27:49,560:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:27:49,560:INFO: -------------------------------------------------------
+2021-04-08 01:27:49,560:INFO:   Computing representation of 1 elements
+2021-04-08 01:27:49,560:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,560:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,561:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,561:INFO:   Computing representation of 1 dofmaps
+2021-04-08 01:27:49,561:DEBUG:   Reusing element from cache
+2021-04-08 01:27:49,561:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:27:49,561:INFO:   Computing representation of integrals
+2021-04-08 01:27:49,561:INFO:   Computing representation of forms
+2021-04-08 01:27:49,561:INFO:   
+2021-04-08 01:27:49,561:INFO: Compiler stage 2 finished in 0.00131702 seconds.
+
+2021-04-08 01:27:49,561:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:27:49,561:INFO: --------------------------------------------------------
+2021-04-08 01:27:49,561:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 01:27:49,562:INFO:   
+2021-04-08 01:27:49,562:INFO: Compiler stage 3 finished in 0.000202417 seconds.
+
+2021-04-08 01:27:49,562:INFO: Compiler stage 4: Generating code
+2021-04-08 01:27:49,562:INFO: ---------------------------------
+2021-04-08 01:27:49,562:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 01:27:49,578:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 01:27:49,579:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:27:49,580:INFO:   Generating code for integrals
+2021-04-08 01:27:49,580:INFO:   Generating code for forms
+2021-04-08 01:27:49,580:INFO:   
+2021-04-08 01:27:49,580:INFO: Compiler stage 4 finished in 0.0180509 seconds.
+
+2021-04-08 01:27:49,580:INFO: Compiler stage 4.1 finished in 4.05312e-06 seconds.
+
+2021-04-08 01:27:49,580:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:27:49,580:INFO: ---------------------------------
+2021-04-08 01:27:49,580:INFO:   
+2021-04-08 01:27:49,580:INFO: Compiler stage 5 finished in 0.000267267 seconds.
+
+2021-04-08 01:27:49,580:INFO: [1;37;32mFFC finished in 0.0202239 seconds.[0m
+2021-04-08 01:27:50,065:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:27:50,066:INFO: Compiling element ffc_element_09812eab0b2a436d37f94c15b417a21cd15caac8
+
+2021-04-08 01:27:50,066:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 01:27:50,066:INFO: --------------------------------------
+2021-04-08 01:27:50,066:INFO:   
+2021-04-08 01:27:50,066:INFO: Compiler stage 1 finished in 0.000320196 seconds.
+
+2021-04-08 01:27:50,066:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:27:50,066:INFO: -------------------------------------------------------
+2021-04-08 01:27:50,066:INFO:   Computing representation of 1 elements
+2021-04-08 01:27:50,067:DEBUG:   Reusing element from cache
+2021-04-08 01:27:50,067:DEBUG:   Reusing element from cache
+2021-04-08 01:27:50,067:DEBUG:   Reusing element from cache
+2021-04-08 01:27:50,068:INFO:   Computing representation of 1 dofmaps
+2021-04-08 01:27:50,068:DEBUG:   Reusing element from cache
+2021-04-08 01:27:50,068:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:27:50,068:INFO:   Computing representation of integrals
+2021-04-08 01:27:50,068:INFO:   Computing representation of forms
+2021-04-08 01:27:50,068:INFO:   
+2021-04-08 01:27:50,068:INFO: Compiler stage 2 finished in 0.00214934 seconds.
+
+2021-04-08 01:27:50,068:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:27:50,068:INFO: --------------------------------------------------------
+2021-04-08 01:27:50,068:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 01:27:50,068:INFO:   
+2021-04-08 01:27:50,068:INFO: Compiler stage 3 finished in 0.000133991 seconds.
+
+2021-04-08 01:27:50,068:INFO: Compiler stage 4: Generating code
+2021-04-08 01:27:50,069:INFO: ---------------------------------
+2021-04-08 01:27:50,069:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 01:27:50,107:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 01:27:50,109:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:27:50,110:INFO:   Generating code for integrals
+2021-04-08 01:27:50,110:INFO:   Generating code for forms
+2021-04-08 01:27:50,110:INFO:   
+2021-04-08 01:27:50,110:INFO: Compiler stage 4 finished in 0.0412788 seconds.
+
+2021-04-08 01:27:50,110:INFO: Compiler stage 4.1 finished in 3.8147e-06 seconds.
+
+2021-04-08 01:27:50,110:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:27:50,110:INFO: ---------------------------------
+2021-04-08 01:27:50,110:INFO:   
+2021-04-08 01:27:50,110:INFO: Compiler stage 5 finished in 0.000352383 seconds.
+
+2021-04-08 01:27:50,110:INFO: [1;37;32mFFC finished in 0.0445964 seconds.[0m
+2021-04-08 01:27:50,943:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:27:50,943:INFO: Compiling coordinate_mapping ffc_coordinate_mapping_5a3a50e65939320b027abab3ab63d8d0f0f8e3d3
+
+2021-04-08 01:27:50,943:INFO: Compiler stage 1: Analyzing coordinate_mapping(s)
+2021-04-08 01:27:50,943:INFO: -------------------------------------------------
+2021-04-08 01:27:50,943:INFO:   
+2021-04-08 01:27:50,943:INFO: Compiler stage 1 finished in 0.000173569 seconds.
+
+2021-04-08 01:27:50,943:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:27:50,943:INFO: -------------------------------------------------------
+2021-04-08 01:27:50,943:INFO:   Computing representation of 0 elements
+2021-04-08 01:27:50,944:INFO:   Computing representation of 0 dofmaps
+2021-04-08 01:27:50,944:INFO:   Computing representation of 1 coordinate mappings
+2021-04-08 01:27:50,944:DEBUG:   Reusing element from cache
+2021-04-08 01:27:50,944:INFO:   Computing representation of integrals
+2021-04-08 01:27:50,944:INFO:   Computing representation of forms
+2021-04-08 01:27:50,944:INFO:   
+2021-04-08 01:27:50,944:INFO: Compiler stage 2 finished in 0.000928402 seconds.
+
+2021-04-08 01:27:50,944:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:27:50,944:INFO: --------------------------------------------------------
+2021-04-08 01:27:50,944:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 01:27:50,944:INFO:   
+2021-04-08 01:27:50,944:INFO: Compiler stage 3 finished in 0.000142336 seconds.
+
+2021-04-08 01:27:50,944:INFO: Compiler stage 4: Generating code
+2021-04-08 01:27:50,944:INFO: ---------------------------------
+2021-04-08 01:27:50,944:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 01:27:50,944:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 01:27:50,944:INFO:   Generating code for 1 coordinate_mapping(s)
+2021-04-08 01:27:50,948:INFO:   Generating code for integrals
+2021-04-08 01:27:50,948:INFO:   Generating code for forms
+2021-04-08 01:27:50,948:INFO:   
+2021-04-08 01:27:50,948:INFO: Compiler stage 4 finished in 0.0037632 seconds.
+
+2021-04-08 01:27:50,948:INFO: Compiler stage 4.1 finished in 4.52995e-06 seconds.
+
+2021-04-08 01:27:50,948:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:27:50,948:INFO: ---------------------------------
+2021-04-08 01:27:50,948:INFO:   
+2021-04-08 01:27:50,948:INFO: Compiler stage 5 finished in 0.00023675 seconds.
+
+2021-04-08 01:27:50,948:INFO: [1;37;32mFFC finished in 0.00548458 seconds.[0m
+2021-04-08 01:27:51,537:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:27:51,537:INFO: Compiling form ffc_form_6751d33f704eb1b35872d13e48d2ff24da928062
+
+2021-04-08 01:27:51,537:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 01:27:51,537:INFO: -----------------------------------
+2021-04-08 01:27:51,538:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 01:27:51,552:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:51,553:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:27:51,553:INFO:   
+2021-04-08 01:27:51,554:INFO:   Geometric dimension:       3
+  Number of cell subdomains: 0
+  Rank:                      2
+  Arguments:                 '(v_0, v_1)'
+  Number of coefficients:    2
+  Coefficients:              '[f_9, f_10]'
+  Unique elements:           'Vector<3 x CG1(?,?)>, R0(?,?)'
+  Unique sub elements:       'Vector<3 x CG1(?,?)>, R0(?,?), CG1(?,?)'
+  
+2021-04-08 01:27:51,554:INFO:   representation:    auto --> uflacs
+2021-04-08 01:27:51,554:INFO:   quadrature_rule:   auto --> default
+2021-04-08 01:27:51,554:INFO:   quadrature_degree: auto --> 0
+2021-04-08 01:27:51,554:INFO:   quadrature_degree: 0
+2021-04-08 01:27:51,554:INFO:   
+2021-04-08 01:27:51,554:INFO: Compiler stage 1 finished in 0.016968 seconds.
+
+2021-04-08 01:27:51,554:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:27:51,554:INFO: -------------------------------------------------------
+2021-04-08 01:27:51,555:INFO:   Computing representation of 0 elements
+2021-04-08 01:27:51,555:INFO:   Computing representation of 0 dofmaps
+2021-04-08 01:27:51,555:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:27:51,555:INFO:   Computing representation of integrals
+2021-04-08 01:27:51,555:INFO:   Computing uflacs representation
+2021-04-08 01:27:51,555:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,555:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,555:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,555:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,555:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,567:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,567:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,568:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,568:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,569:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,569:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,570:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,570:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,571:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,571:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,571:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,572:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,573:DEBUG:   Reusing element from cache
+2021-04-08 01:27:51,609:DEBUG: Blocks of each mode: 
+
+2021-04-08 01:27:51,610:INFO:   Computing representation of forms
+2021-04-08 01:27:51,610:INFO:   
+2021-04-08 01:27:51,610:INFO: Compiler stage 2 finished in 0.055572 seconds.
+
+2021-04-08 01:27:51,610:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:27:51,610:INFO: --------------------------------------------------------
+2021-04-08 01:27:51,610:INFO:   Optimizing uflacs representation
+2021-04-08 01:27:51,610:INFO:   
+2021-04-08 01:27:51,610:INFO: Compiler stage 3 finished in 0.000253916 seconds.
+
+2021-04-08 01:27:51,610:INFO: Compiler stage 4: Generating code
+2021-04-08 01:27:51,610:INFO: ---------------------------------
+2021-04-08 01:27:51,610:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 01:27:51,610:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 01:27:51,610:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:27:51,610:INFO:   Generating code for integrals
+2021-04-08 01:27:51,610:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 01:27:51,627:INFO:   Generating code for forms
+2021-04-08 01:27:51,628:INFO:   
+2021-04-08 01:27:51,628:INFO: Compiler stage 4 finished in 0.0175512 seconds.
+
+2021-04-08 01:27:51,628:INFO: Compiler stage 4.1 finished in 2.86102e-06 seconds.
+
+2021-04-08 01:27:51,628:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:27:51,628:INFO: ---------------------------------
+2021-04-08 01:27:51,628:INFO:   
+2021-04-08 01:27:51,628:INFO: Compiler stage 5 finished in 0.000305414 seconds.
+
+2021-04-08 01:27:51,628:INFO: [1;37;32mFFC finished in 0.0909455 seconds.[0m
+2021-04-08 01:28:47,769:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:28:47,769:INFO: Compiling form ffc_form_06e2cb26f2fbaf61435b5ae9689ad52571d0f95f
+
+2021-04-08 01:28:47,769:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 01:28:47,769:INFO: -----------------------------------
+2021-04-08 01:28:47,769:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 01:28:47,802:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:28:47,802:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:28:47,806:INFO:   
+2021-04-08 01:28:47,807:INFO:   Geometric dimension:       3
+  Number of cell subdomains: 0
+  Rank:                      2
+  Arguments:                 '(v_0, v_1)'
+  Number of coefficients:    2
+  Coefficients:              '[f_50, f_51]'
+  Unique elements:           'Vector<3 x CG1(?,?)>, R0(?,?)'
+  Unique sub elements:       'Vector<3 x CG1(?,?)>, R0(?,?), CG1(?,?)'
+  
+2021-04-08 01:28:47,807:INFO:   representation:    auto --> uflacs
+2021-04-08 01:28:47,807:INFO:   quadrature_rule:   auto --> default
+2021-04-08 01:28:47,807:INFO:   quadrature_degree: auto --> 0
+2021-04-08 01:28:47,807:INFO:   quadrature_degree: 0
+2021-04-08 01:28:47,807:INFO:   
+2021-04-08 01:28:47,807:INFO: Compiler stage 1 finished in 0.0383303 seconds.
+
+2021-04-08 01:28:47,807:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:28:47,807:INFO: -------------------------------------------------------
+2021-04-08 01:28:47,808:INFO:   Computing representation of 0 elements
+2021-04-08 01:28:47,808:INFO:   Computing representation of 0 dofmaps
+2021-04-08 01:28:47,808:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:28:47,808:INFO:   Computing representation of integrals
+2021-04-08 01:28:47,808:INFO:   Computing uflacs representation
+2021-04-08 01:28:47,877:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,877:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,878:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,878:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,878:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,895:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,896:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,896:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,897:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,897:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,897:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,898:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,898:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,899:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,899:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,900:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,900:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,901:DEBUG:   Reusing element from cache
+2021-04-08 01:28:47,937:DEBUG: Blocks of each mode: 
+
+2021-04-08 01:28:47,938:INFO:   Computing representation of forms
+2021-04-08 01:28:47,938:INFO:   
+2021-04-08 01:28:47,938:INFO: Compiler stage 2 finished in 0.13044 seconds.
+
+2021-04-08 01:28:47,938:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:28:47,938:INFO: --------------------------------------------------------
+2021-04-08 01:28:47,938:INFO:   Optimizing uflacs representation
+2021-04-08 01:28:47,938:INFO:   
+2021-04-08 01:28:47,938:INFO: Compiler stage 3 finished in 0.000202656 seconds.
+
+2021-04-08 01:28:47,938:INFO: Compiler stage 4: Generating code
+2021-04-08 01:28:47,938:INFO: ---------------------------------
+2021-04-08 01:28:47,938:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 01:28:47,938:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 01:28:47,938:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:28:47,938:INFO:   Generating code for integrals
+2021-04-08 01:28:47,938:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 01:28:47,963:INFO:   Generating code for forms
+2021-04-08 01:28:47,964:INFO:   
+2021-04-08 01:28:47,964:INFO: Compiler stage 4 finished in 0.0258982 seconds.
+
+2021-04-08 01:28:47,964:INFO: Compiler stage 4.1 finished in 2.14577e-06 seconds.
+
+2021-04-08 01:28:47,964:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:28:47,964:INFO: ---------------------------------
+2021-04-08 01:28:47,964:INFO:   
+2021-04-08 01:28:47,964:INFO: Compiler stage 5 finished in 0.000259161 seconds.
+
+2021-04-08 01:28:47,964:INFO: [1;37;32mFFC finished in 0.195527 seconds.[0m
+2021-04-08 01:28:48,378:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:28:48,378:INFO: Compiling form ffc_form_d015967f3a80e078d1f5770dd05571e4e0fe9e42
+
+2021-04-08 01:28:48,378:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 01:28:48,378:INFO: -----------------------------------
+2021-04-08 01:28:48,379:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 01:28:48,393:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:28:48,393:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 01:28:48,394:INFO:   
+2021-04-08 01:28:48,395:INFO:   Geometric dimension:       3
+  Number of cell subdomains: 0
+  Rank:                      1
+  Arguments:                 '(v_0)'
+  Number of coefficients:    3
+  Coefficients:              '[f_50, f_51, f_81]'
+  Unique elements:           'Vector<3 x CG1(?,?)>, R0(?,?)'
+  Unique sub elements:       'Vector<3 x CG1(?,?)>, R0(?,?), CG1(?,?)'
+  
+2021-04-08 01:28:48,395:INFO:   representation:    auto --> uflacs
+2021-04-08 01:28:48,395:INFO:   quadrature_rule:   auto --> default
+2021-04-08 01:28:48,395:INFO:   quadrature_degree: auto --> 0
+2021-04-08 01:28:48,395:INFO:   quadrature_degree: 0
+2021-04-08 01:28:48,396:INFO:   
+2021-04-08 01:28:48,396:INFO: Compiler stage 1 finished in 0.0172637 seconds.
+
+2021-04-08 01:28:48,396:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:28:48,396:INFO: -------------------------------------------------------
+2021-04-08 01:28:48,396:INFO:   Computing representation of 0 elements
+2021-04-08 01:28:48,396:INFO:   Computing representation of 0 dofmaps
+2021-04-08 01:28:48,397:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:28:48,397:INFO:   Computing representation of integrals
+2021-04-08 01:28:48,397:INFO:   Computing uflacs representation
+2021-04-08 01:28:48,397:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,397:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,397:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,397:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,397:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,436:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,436:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,437:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,438:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,439:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,439:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,440:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,441:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,441:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,442:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,443:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,443:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,445:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,485:DEBUG: Blocks of each mode: 
+
+2021-04-08 01:28:48,485:INFO:   Computing representation of forms
+2021-04-08 01:28:48,485:INFO:   
+2021-04-08 01:28:48,485:INFO: Compiler stage 2 finished in 0.0896008 seconds.
+
+2021-04-08 01:28:48,485:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:28:48,485:INFO: --------------------------------------------------------
+2021-04-08 01:28:48,485:INFO:   Optimizing uflacs representation
+2021-04-08 01:28:48,485:INFO:   
+2021-04-08 01:28:48,486:INFO: Compiler stage 3 finished in 0.000176668 seconds.
+
+2021-04-08 01:28:48,486:INFO: Compiler stage 4: Generating code
+2021-04-08 01:28:48,486:INFO: ---------------------------------
+2021-04-08 01:28:48,486:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 01:28:48,486:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 01:28:48,486:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:28:48,486:INFO:   Generating code for integrals
+2021-04-08 01:28:48,486:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 01:28:48,492:INFO:   Generating code for forms
+2021-04-08 01:28:48,493:INFO:   
+2021-04-08 01:28:48,493:INFO: Compiler stage 4 finished in 0.00707889 seconds.
+
+2021-04-08 01:28:48,493:INFO: Compiler stage 4.1 finished in 1.90735e-06 seconds.
+
+2021-04-08 01:28:48,493:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:28:48,493:INFO: ---------------------------------
+2021-04-08 01:28:48,493:INFO:   
+2021-04-08 01:28:48,493:INFO: Compiler stage 5 finished in 0.000248671 seconds.
+
+2021-04-08 01:28:48,493:INFO: [1;37;32mFFC finished in 0.114651 seconds.[0m
+2021-04-08 01:28:48,809:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:28:48,809:INFO: Compiling element ffc_element_b603d0970c085a5aad2cef947f3115a289154e8f
+
+2021-04-08 01:28:48,809:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 01:28:48,809:INFO: --------------------------------------
+2021-04-08 01:28:48,810:INFO:   
+2021-04-08 01:28:48,810:INFO: Compiler stage 1 finished in 0.000226974 seconds.
+
+2021-04-08 01:28:48,810:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:28:48,810:INFO: -------------------------------------------------------
+2021-04-08 01:28:48,810:INFO:   Computing representation of 1 elements
+2021-04-08 01:28:48,810:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,810:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,810:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,811:INFO:   Computing representation of 1 dofmaps
+2021-04-08 01:28:48,811:DEBUG:   Reusing element from cache
+2021-04-08 01:28:48,811:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:28:48,811:INFO:   Computing representation of integrals
+2021-04-08 01:28:48,811:INFO:   Computing representation of forms
+2021-04-08 01:28:48,811:INFO:   
+2021-04-08 01:28:48,811:INFO: Compiler stage 2 finished in 0.00121498 seconds.
+
+2021-04-08 01:28:48,811:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:28:48,811:INFO: --------------------------------------------------------
+2021-04-08 01:28:48,811:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 01:28:48,811:INFO:   
+2021-04-08 01:28:48,811:INFO: Compiler stage 3 finished in 0.000260115 seconds.
+
+2021-04-08 01:28:48,811:INFO: Compiler stage 4: Generating code
+2021-04-08 01:28:48,811:INFO: ---------------------------------
+2021-04-08 01:28:48,811:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 01:28:48,814:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 01:28:48,815:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:28:48,815:INFO:   Generating code for integrals
+2021-04-08 01:28:48,815:INFO:   Generating code for forms
+2021-04-08 01:28:48,815:INFO:   
+2021-04-08 01:28:48,815:INFO: Compiler stage 4 finished in 0.0041678 seconds.
+
+2021-04-08 01:28:48,815:INFO: Compiler stage 4.1 finished in 2.86102e-06 seconds.
+
+2021-04-08 01:28:48,815:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:28:48,816:INFO: ---------------------------------
+2021-04-08 01:28:48,816:INFO:   
+2021-04-08 01:28:48,816:INFO: Compiler stage 5 finished in 0.000251293 seconds.
+
+2021-04-08 01:28:48,816:INFO: [1;37;32mFFC finished in 0.00637889 seconds.[0m
+2021-04-08 01:28:49,108:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:28:49,108:INFO: Compiling form ffc_form_d97c93276b0d5b42cf679f16e48c6613dbf4fe77
+
+2021-04-08 01:28:49,108:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 01:28:49,108:INFO: -----------------------------------
+2021-04-08 01:28:49,109:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 01:28:49,118:INFO:   
+2021-04-08 01:28:49,119:INFO:   Geometric dimension:       3
+  Number of cell subdomains: 0
+  Rank:                      1
+  Arguments:                 '(v_0)'
+  Number of coefficients:    2
+  Coefficients:              '[f_65, f_81]'
+  Unique elements:           'R0(?,?), Vector<3 x CG1(?,?)>'
+  Unique sub elements:       'R0(?,?), Vector<3 x CG1(?,?)>, CG1(?,?)'
+  
+2021-04-08 01:28:49,119:INFO:   representation:    auto --> uflacs
+2021-04-08 01:28:49,119:INFO:   quadrature_rule:   auto --> default
+2021-04-08 01:28:49,119:INFO:   quadrature_degree: auto --> 0
+2021-04-08 01:28:49,119:INFO:   quadrature_degree: 0
+2021-04-08 01:28:49,119:INFO:   
+2021-04-08 01:28:49,119:INFO: Compiler stage 1 finished in 0.0107279 seconds.
+
+2021-04-08 01:28:49,119:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:28:49,119:INFO: -------------------------------------------------------
+2021-04-08 01:28:49,120:INFO:   Computing representation of 0 elements
+2021-04-08 01:28:49,120:INFO:   Computing representation of 0 dofmaps
+2021-04-08 01:28:49,120:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:28:49,120:INFO:   Computing representation of integrals
+2021-04-08 01:28:49,120:INFO:   Computing uflacs representation
+2021-04-08 01:28:49,120:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,120:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,120:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,120:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,120:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,132:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,132:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,133:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,133:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,134:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,134:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,134:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,135:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,136:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,136:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,136:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,137:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,138:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,158:DEBUG: Blocks of each mode: 
+
+2021-04-08 01:28:49,159:INFO:   Computing representation of forms
+2021-04-08 01:28:49,159:INFO:   
+2021-04-08 01:28:49,159:INFO: Compiler stage 2 finished in 0.0395515 seconds.
+
+2021-04-08 01:28:49,159:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:28:49,159:INFO: --------------------------------------------------------
+2021-04-08 01:28:49,159:INFO:   Optimizing uflacs representation
+2021-04-08 01:28:49,159:INFO:   
+2021-04-08 01:28:49,159:INFO: Compiler stage 3 finished in 0.00026679 seconds.
+
+2021-04-08 01:28:49,159:INFO: Compiler stage 4: Generating code
+2021-04-08 01:28:49,159:INFO: ---------------------------------
+2021-04-08 01:28:49,159:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 01:28:49,159:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 01:28:49,159:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:28:49,159:INFO:   Generating code for integrals
+2021-04-08 01:28:49,159:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 01:28:49,164:INFO:   Generating code for forms
+2021-04-08 01:28:49,165:INFO:   
+2021-04-08 01:28:49,165:INFO: Compiler stage 4 finished in 0.00579357 seconds.
+
+2021-04-08 01:28:49,165:INFO: Compiler stage 4.1 finished in 1.90735e-06 seconds.
+
+2021-04-08 01:28:49,165:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:28:49,165:INFO: ---------------------------------
+2021-04-08 01:28:49,165:INFO:   
+2021-04-08 01:28:49,165:INFO: Compiler stage 5 finished in 0.000254631 seconds.
+
+2021-04-08 01:28:49,165:INFO: [1;37;32mFFC finished in 0.0569508 seconds.[0m
+2021-04-08 01:28:49,470:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 01:28:49,470:INFO: Compiling form ffc_form_d1dcbfd50d0f7decc236e79315c93196d779401b
+
+2021-04-08 01:28:49,470:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 01:28:49,470:INFO: -----------------------------------
+2021-04-08 01:28:49,470:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 01:28:49,479:INFO:   
+2021-04-08 01:28:49,479:INFO:   Geometric dimension:       3
+  Number of cell subdomains: 0
+  Rank:                      1
+  Arguments:                 '(v_0)'
+  Number of coefficients:    2
+  Coefficients:              '[f_65, f_81]'
+  Unique elements:           'R0(?,?), Vector<3 x CG1(?,?)>'
+  Unique sub elements:       'R0(?,?), Vector<3 x CG1(?,?)>, CG1(?,?)'
+  
+2021-04-08 01:28:49,479:INFO:   representation:    auto --> uflacs
+2021-04-08 01:28:49,479:INFO:   quadrature_rule:   auto --> default
+2021-04-08 01:28:49,479:INFO:   quadrature_degree: auto --> 0
+2021-04-08 01:28:49,479:INFO:   quadrature_degree: 0
+2021-04-08 01:28:49,480:INFO:   
+2021-04-08 01:28:49,480:INFO: Compiler stage 1 finished in 0.00927711 seconds.
+
+2021-04-08 01:28:49,480:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 01:28:49,480:INFO: -------------------------------------------------------
+2021-04-08 01:28:49,480:INFO:   Computing representation of 0 elements
+2021-04-08 01:28:49,480:INFO:   Computing representation of 0 dofmaps
+2021-04-08 01:28:49,480:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 01:28:49,480:INFO:   Computing representation of integrals
+2021-04-08 01:28:49,480:INFO:   Computing uflacs representation
+2021-04-08 01:28:49,480:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,480:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,480:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,480:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,481:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,491:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,491:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,492:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,492:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,493:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,493:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,494:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,494:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,495:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,495:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,495:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,496:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,497:DEBUG:   Reusing element from cache
+2021-04-08 01:28:49,511:DEBUG: Blocks of each mode: 
+
+2021-04-08 01:28:49,511:INFO:   Computing representation of forms
+2021-04-08 01:28:49,511:INFO:   
+2021-04-08 01:28:49,511:INFO: Compiler stage 2 finished in 0.0318847 seconds.
+
+2021-04-08 01:28:49,512:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 01:28:49,512:INFO: --------------------------------------------------------
+2021-04-08 01:28:49,512:INFO:   Optimizing uflacs representation
+2021-04-08 01:28:49,512:INFO:   
+2021-04-08 01:28:49,512:INFO: Compiler stage 3 finished in 0.000156164 seconds.
+
+2021-04-08 01:28:49,512:INFO: Compiler stage 4: Generating code
+2021-04-08 01:28:49,512:INFO: ---------------------------------
+2021-04-08 01:28:49,512:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 01:28:49,512:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 01:28:49,512:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 01:28:49,512:INFO:   Generating code for integrals
+2021-04-08 01:28:49,512:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 01:28:49,516:INFO:   Generating code for forms
+2021-04-08 01:28:49,517:INFO:   
+2021-04-08 01:28:49,517:INFO: Compiler stage 4 finished in 0.00536895 seconds.
+
+2021-04-08 01:28:49,517:INFO: Compiler stage 4.1 finished in 1.83582e-05 seconds.
+
+2021-04-08 01:28:49,517:INFO: Compiler stage 5: Formatting code
+2021-04-08 01:28:49,517:INFO: ---------------------------------
+2021-04-08 01:28:49,518:INFO:   
+2021-04-08 01:28:49,518:INFO: Compiler stage 5 finished in 0.000389814 seconds.
+
+2021-04-08 01:28:49,518:INFO: [1;37;32mFFC finished in 0.0474164 seconds.[0m
+2021-04-08 01:28:59,004:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:29:08,152:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:29:18,210:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:29:27,565:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:29:37,565:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:29:47,921:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:29:58,732:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:30:10,345:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:30:23,044:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:30:34,026:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:30:34,200:INFO: Wrapping Up Results
+2021-04-08 01:30:54,371:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:31:03,871:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:31:15,307:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:31:25,012:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:31:35,358:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:31:46,177:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:31:57,116:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:32:08,281:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:32:19,514:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:32:30,321:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:32:30,436:INFO: Wrapping Up Results
+2021-04-08 01:45:03,038:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:45:12,178:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:45:21,613:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:45:30,996:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:45:41,466:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:45:52,304:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:46:02,604:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:46:13,915:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:46:24,545:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:46:35,429:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:46:35,551:INFO: Wrapping Up Results
+2021-04-08 01:47:08,689:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:47:18,128:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:47:28,525:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:47:39,855:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:47:49,495:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:48:00,453:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:48:12,255:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:48:23,357:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:48:35,819:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:48:48,699:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:48:48,866:INFO: 
+Wrapping Up Results
+2021-04-08 01:51:14,447:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:51:24,116:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:51:34,503:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:51:45,333:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:51:56,053:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:52:07,552:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:52:18,987:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:52:29,419:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:52:40,299:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:52:51,072:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:52:51,192:INFO: 
+Wrapping Up Results
+2021-04-08 01:54:22,635:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:54:31,828:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:54:41,733:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:54:52,573:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:55:02,425:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:55:12,867:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:55:23,826:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:55:34,540:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:55:45,496:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:55:56,274:INFO: Evaluate Results and Ensemble Process
+2021-04-08 01:55:56,394:INFO: 
+Wrapping Up Results
+2021-04-08 02:38:30,633:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:38:33,504:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:38:36,333:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:38:39,042:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:39:40,056:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:39:43,028:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:39:45,905:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:39:48,802:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:39:51,684:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:39:54,599:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:39:57,518:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:40:00,394:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:40:03,713:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:40:06,797:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:40:06,896:INFO: 
+Wrapping Up Results
+2021-04-08 02:40:51,110:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:40:54,070:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:40:57,002:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:40:59,851:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:02,795:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:05,699:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:08,685:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:12,124:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:15,420:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:18,639:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:18,756:INFO: 
+Wrapping Up Results
+2021-04-08 02:41:24,871:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:28,752:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:32,649:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:36,401:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:40,419:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:44,935:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:49,320:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:53,561:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:41:58,117:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:02,475:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:02,585:INFO: 
+Wrapping Up Results
+2021-04-08 02:42:12,911:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:19,190:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:25,391:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:32,752:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:40,523:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:47,603:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:42:54,703:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:43:01,730:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:43:09,065:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:43:16,725:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:43:16,808:INFO: 
+Wrapping Up Results
+2021-04-08 02:43:26,869:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:43:34,749:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:43:43,271:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:43:51,961:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:00,651:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:09,580:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:18,513:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:26,247:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:34,154:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:42,691:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:42,814:INFO: 
+Wrapping Up Results
+2021-04-08 02:44:48,372:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:51,621:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:54,873:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:44:58,285:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:01,712:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:05,250:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:08,778:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:12,394:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:15,957:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:19,412:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:19,579:INFO: 
+Wrapping Up Results
+2021-04-08 02:45:26,109:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:29,839:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:33,708:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:37,544:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:41,740:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:46,038:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:50,242:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:54,489:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:45:58,741:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:03,032:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:03,150:INFO: 
+Wrapping Up Results
+2021-04-08 02:46:12,016:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:18,795:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:25,994:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:32,826:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:39,779:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:46,816:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:46:53,946:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:00,908:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:08,055:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:14,895:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:14,984:INFO: 
+Wrapping Up Results
+2021-04-08 02:47:24,976:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:32,941:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:41,514:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:50,357:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:47:58,783:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:07,566:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:16,229:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:24,991:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:34,055:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:41,892:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:42,009:INFO: 
+Wrapping Up Results
+2021-04-08 02:48:47,528:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:50,796:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:54,597:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:48:58,181:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:01,780:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:05,587:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:09,150:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:12,527:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:16,165:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:19,653:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:19,766:INFO: 
+Wrapping Up Results
+2021-04-08 02:49:26,222:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:29,992:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:33,854:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:37,807:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:41,930:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:46,112:INFO: Evaluate Results and Ensemble Process
+2021-04-08 02:49:50,268:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:00:33,549:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:00:36,550:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:00:54,752:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:00:57,836:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:00,744:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:03,890:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:06,839:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:10,005:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:13,183:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:17,159:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:20,298:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:23,556:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:23,676:INFO: 
+Wrapping Up Results
+2021-04-08 03:01:30,022:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:34,152:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:38,151:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:42,350:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:46,705:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:50,771:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:54,967:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:01:58,962:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:03,195:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:07,333:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:07,445:INFO: 
+Wrapping Up Results
+2021-04-08 03:02:16,360:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:23,234:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:30,577:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:38,144:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:45,378:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:02:53,325:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:03:00,890:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:03:12,378:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:03:34,996:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:05,096:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:09,359:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:12,625:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:16,570:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:21,325:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:25,571:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:30,109:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:33,658:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:37,410:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:42,068:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:42,178:INFO: 
+Wrapping Up Results
+2021-04-08 03:06:55,319:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:06:59,446:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:04,386:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:09,317:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:15,304:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:24,110:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:30,098:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:35,267:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:41,072:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:46,538:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:07:46,671:INFO: 
+Wrapping Up Results
+2021-04-08 03:08:03,123:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:08:10,943:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:08:20,822:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:08:31,426:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:08:39,448:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:08:48,954:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:08:56,796:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:09:06,976:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:09:14,575:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:09:24,661:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:09:24,824:INFO: 
+Wrapping Up Results
+2021-04-08 03:09:45,552:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:09:56,091:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:10:04,844:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:10:13,897:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:10:23,123:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:10:32,388:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:10:43,226:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:10:52,340:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:11:03,478:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:11:14,494:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:11:14,612:INFO: 
+Wrapping Up Results
+2021-04-08 03:13:31,961:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:15:36,991:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:17:37,347:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:19:41,185:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:21:44,327:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:23:46,377:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:25:49,863:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:27:52,415:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:29:54,870:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:32:02,807:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:32:03,040:INFO: 
+Wrapping Up Results
+2021-04-08 03:33:56,454:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:34:12,021:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:34:26,989:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:34:42,600:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:34:59,448:INFO: Evaluate Results and Ensemble Process
+2021-04-08 03:35:15,608:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:54:31,789:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:54:45,859:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:55:00,851:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:55:15,829:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:55:30,900:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:55:46,080:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:56:01,905:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:56:17,223:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:56:32,612:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:56:48,224:INFO: Evaluate Results and Ensemble Process
+2021-04-08 12:56:50,379:INFO: 
+Wrapping Up Results
+2021-04-08 13:08:36,844:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 13:08:36,845:INFO: Compiling form ffc_form_b2000f6c7b1358766cc98bbf11c49f8afdc4381b
+
+2021-04-08 13:08:36,845:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 13:08:36,845:INFO: -----------------------------------
+2021-04-08 13:08:36,845:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,859:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:36,861:INFO:   
+2021-04-08 13:08:36,861:INFO:   Geometric dimension:                 3
+  Number of cell subdomains:           0
+  Number of exterior_facet subdomains: 0
+  Rank:                                1
+  Arguments:                           '(v_0)'
+  Number of coefficients:              2
+  Coefficients:                        '[f_5, f_12]'
+  Unique elements:                     'Vector<3 x CG1(?,?)>, Vector<3 x R0(?,?)>'
+  Unique sub elements:                 'Vector<3 x CG1(?,?)>, Vector<3 x R0(?,?)>, C
+                                       G1(?,?), R0(?,?)'
+  
+2021-04-08 13:08:36,862:INFO:   representation:    auto --> uflacs
+2021-04-08 13:08:36,862:INFO:   quadrature_rule:   auto --> default
+2021-04-08 13:08:36,862:INFO:   quadrature_degree: auto --> 1
+2021-04-08 13:08:36,862:INFO:   quadrature_degree: 1
+2021-04-08 13:08:36,862:INFO:   representation:    auto --> uflacs
+2021-04-08 13:08:36,862:INFO:   quadrature_rule:   auto --> default
+2021-04-08 13:08:36,862:INFO:   quadrature_degree: auto --> 1
+2021-04-08 13:08:36,862:INFO:   quadrature_degree: 1
+2021-04-08 13:08:36,862:INFO:   
+2021-04-08 13:08:36,862:INFO: Compiler stage 1 finished in 0.0174208 seconds.
+
+2021-04-08 13:08:36,862:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 13:08:36,862:INFO: -------------------------------------------------------
+2021-04-08 13:08:36,863:INFO:   Computing representation of 0 elements
+2021-04-08 13:08:36,863:INFO:   Computing representation of 0 dofmaps
+2021-04-08 13:08:36,863:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 13:08:36,863:INFO:   Computing representation of integrals
+2021-04-08 13:08:36,863:INFO:   Computing uflacs representation
+2021-04-08 13:08:36,863:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,864:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,864:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,864:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,864:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,864:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,864:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,876:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,876:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,876:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,877:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,877:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,877:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,877:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,878:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,878:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,878:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,879:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,879:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,880:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,880:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,880:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,881:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,881:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,882:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,882:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,883:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,893:DEBUG: Blocks of each mode: 
+
+2021-04-08 13:08:36,893:INFO:   Computing uflacs representation
+2021-04-08 13:08:36,893:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,893:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,893:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,893:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,893:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,893:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,898:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,899:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,901:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,903:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,905:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,906:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,907:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,908:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,910:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,911:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,913:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,915:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,917:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,918:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,920:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,923:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,925:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,926:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,928:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,930:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,944:DEBUG: Blocks of each mode: 
+
+2021-04-08 13:08:36,944:INFO:   Computing representation of forms
+2021-04-08 13:08:36,944:INFO:   
+2021-04-08 13:08:36,944:INFO: Compiler stage 2 finished in 0.0822477 seconds.
+
+2021-04-08 13:08:36,944:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 13:08:36,944:INFO: --------------------------------------------------------
+2021-04-08 13:08:36,944:INFO:   Optimizing uflacs representation
+2021-04-08 13:08:36,945:INFO:   Optimizing uflacs representation
+2021-04-08 13:08:36,945:INFO:   
+2021-04-08 13:08:36,945:INFO: Compiler stage 3 finished in 0.000174046 seconds.
+
+2021-04-08 13:08:36,945:INFO: Compiler stage 4: Generating code
+2021-04-08 13:08:36,945:INFO: ---------------------------------
+2021-04-08 13:08:36,945:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 13:08:36,945:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 13:08:36,945:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 13:08:36,945:INFO:   Generating code for integrals
+2021-04-08 13:08:36,945:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 13:08:36,954:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 13:08:36,957:INFO:   Generating code for forms
+2021-04-08 13:08:36,957:INFO:   
+2021-04-08 13:08:36,957:INFO: Compiler stage 4 finished in 0.0126815 seconds.
+
+2021-04-08 13:08:36,957:INFO: Compiler stage 4.1 finished in 4.76837e-07 seconds.
+
+2021-04-08 13:08:36,957:INFO: Compiler stage 5: Formatting code
+2021-04-08 13:08:36,957:INFO: ---------------------------------
+2021-04-08 13:08:36,958:INFO:   
+2021-04-08 13:08:36,958:INFO: Compiler stage 5 finished in 0.0003016 seconds.
+
+2021-04-08 13:08:36,958:INFO: FFC finished in 0.113054 seconds.
+2021-04-08 13:08:36,958:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 13:08:36,958:INFO: Compiling element ffc_element_fd7c66f34aaa65de1eba02d8429cc76e798c9e2b
+
+2021-04-08 13:08:36,958:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 13:08:36,958:INFO: --------------------------------------
+2021-04-08 13:08:36,958:INFO:   
+2021-04-08 13:08:36,958:INFO: Compiler stage 1 finished in 0.000123024 seconds.
+
+2021-04-08 13:08:36,958:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 13:08:36,958:INFO: -------------------------------------------------------
+2021-04-08 13:08:36,959:INFO:   Computing representation of 1 elements
+2021-04-08 13:08:36,959:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,959:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,959:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,959:INFO:   Computing representation of 1 dofmaps
+2021-04-08 13:08:36,959:DEBUG:   Reusing element from cache
+2021-04-08 13:08:36,959:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 13:08:36,959:INFO:   Computing representation of integrals
+2021-04-08 13:08:36,959:INFO:   Computing representation of forms
+2021-04-08 13:08:36,959:INFO:   
+2021-04-08 13:08:36,959:INFO: Compiler stage 2 finished in 0.000948668 seconds.
+
+2021-04-08 13:08:36,959:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 13:08:36,959:INFO: --------------------------------------------------------
+2021-04-08 13:08:36,959:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 13:08:36,959:INFO:   
+2021-04-08 13:08:36,959:INFO: Compiler stage 3 finished in 0.000126839 seconds.
+
+2021-04-08 13:08:36,960:INFO: Compiler stage 4: Generating code
+2021-04-08 13:08:36,960:INFO: ---------------------------------
+2021-04-08 13:08:36,960:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 13:08:36,963:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 13:08:36,963:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 13:08:36,963:INFO:   Generating code for integrals
+2021-04-08 13:08:36,963:INFO:   Generating code for forms
+2021-04-08 13:08:36,963:INFO:   
+2021-04-08 13:08:36,963:INFO: Compiler stage 4 finished in 0.00384283 seconds.
+
+2021-04-08 13:08:36,963:INFO: Compiler stage 4.1 finished in 7.15256e-07 seconds.
+
+2021-04-08 13:08:36,963:INFO: Compiler stage 5: Formatting code
+2021-04-08 13:08:36,963:INFO: ---------------------------------
+2021-04-08 13:08:36,964:INFO:   
+2021-04-08 13:08:36,964:INFO: Compiler stage 5 finished in 0.000234365 seconds.
+
+2021-04-08 13:08:36,964:INFO: FFC finished in 0.00548983 seconds.
+2021-04-08 13:08:37,300:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 13:08:37,301:INFO: Compiling element ffc_element_f6960e0482d258ef1c4b804dd097b1475ec87efc
+
+2021-04-08 13:08:37,301:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 13:08:37,301:INFO: --------------------------------------
+2021-04-08 13:08:37,301:INFO:   
+2021-04-08 13:08:37,301:INFO: Compiler stage 1 finished in 0.000164509 seconds.
+
+2021-04-08 13:08:37,301:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 13:08:37,301:INFO: -------------------------------------------------------
+2021-04-08 13:08:37,301:INFO:   Computing representation of 1 elements
+2021-04-08 13:08:37,301:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,301:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,302:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,302:INFO:   Computing representation of 1 dofmaps
+2021-04-08 13:08:37,302:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,302:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 13:08:37,302:INFO:   Computing representation of integrals
+2021-04-08 13:08:37,302:INFO:   Computing representation of forms
+2021-04-08 13:08:37,302:INFO:   
+2021-04-08 13:08:37,302:INFO: Compiler stage 2 finished in 0.00168204 seconds.
+
+2021-04-08 13:08:37,302:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 13:08:37,302:INFO: --------------------------------------------------------
+2021-04-08 13:08:37,303:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 13:08:37,303:INFO:   
+2021-04-08 13:08:37,303:INFO: Compiler stage 3 finished in 0.000131607 seconds.
+
+2021-04-08 13:08:37,303:INFO: Compiler stage 4: Generating code
+2021-04-08 13:08:37,303:INFO: ---------------------------------
+2021-04-08 13:08:37,303:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 13:08:37,309:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 13:08:37,310:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 13:08:37,310:INFO:   Generating code for integrals
+2021-04-08 13:08:37,310:INFO:   Generating code for forms
+2021-04-08 13:08:37,310:INFO:   
+2021-04-08 13:08:37,310:INFO: Compiler stage 4 finished in 0.00766158 seconds.
+
+2021-04-08 13:08:37,310:INFO: Compiler stage 4.1 finished in 1.90735e-06 seconds.
+
+2021-04-08 13:08:37,310:INFO: Compiler stage 5: Formatting code
+2021-04-08 13:08:37,310:INFO: ---------------------------------
+2021-04-08 13:08:37,311:INFO:   
+2021-04-08 13:08:37,311:INFO: Compiler stage 5 finished in 0.000251055 seconds.
+
+2021-04-08 13:08:37,311:INFO: FFC finished in 0.010103 seconds.
+2021-04-08 13:08:37,656:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 13:08:37,656:INFO: Compiling element ffc_element_686c3ed8d420b70ae3ad3ea8c9b161f5a9f21832
+
+2021-04-08 13:08:37,656:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 13:08:37,656:INFO: --------------------------------------
+2021-04-08 13:08:37,656:INFO:   
+2021-04-08 13:08:37,656:INFO: Compiler stage 1 finished in 0.000140429 seconds.
+
+2021-04-08 13:08:37,656:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 13:08:37,656:INFO: -------------------------------------------------------
+2021-04-08 13:08:37,656:INFO:   Computing representation of 1 elements
+2021-04-08 13:08:37,656:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,656:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,657:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,657:INFO:   Computing representation of 1 dofmaps
+2021-04-08 13:08:37,657:DEBUG:   Reusing element from cache
+2021-04-08 13:08:37,657:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 13:08:37,657:INFO:   Computing representation of integrals
+2021-04-08 13:08:37,657:INFO:   Computing representation of forms
+2021-04-08 13:08:37,657:INFO:   
+2021-04-08 13:08:37,657:INFO: Compiler stage 2 finished in 0.00127459 seconds.
+
+2021-04-08 13:08:37,657:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 13:08:37,657:INFO: --------------------------------------------------------
+2021-04-08 13:08:37,657:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 13:08:37,657:INFO:   
+2021-04-08 13:08:37,657:INFO: Compiler stage 3 finished in 0.000127077 seconds.
+
+2021-04-08 13:08:37,657:INFO: Compiler stage 4: Generating code
+2021-04-08 13:08:37,657:INFO: ---------------------------------
+2021-04-08 13:08:37,657:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 13:08:37,673:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 13:08:37,675:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 13:08:37,675:INFO:   Generating code for integrals
+2021-04-08 13:08:37,675:INFO:   Generating code for forms
+2021-04-08 13:08:37,675:INFO:   
+2021-04-08 13:08:37,675:INFO: Compiler stage 4 finished in 0.0173984 seconds.
+
+2021-04-08 13:08:37,675:INFO: Compiler stage 4.1 finished in 1.90735e-06 seconds.
+
+2021-04-08 13:08:37,675:INFO: Compiler stage 5: Formatting code
+2021-04-08 13:08:37,675:INFO: ---------------------------------
+2021-04-08 13:08:37,675:INFO:   
+2021-04-08 13:08:37,675:INFO: Compiler stage 5 finished in 0.000260353 seconds.
+
+2021-04-08 13:08:37,675:INFO: FFC finished in 0.0194128 seconds.
+2021-04-08 13:08:38,216:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 13:08:38,216:INFO: Compiling element ffc_element_eb58409b71e5669e9e323c576fd473eaf8543d80
+
+2021-04-08 13:08:38,216:INFO: Compiler stage 1: Analyzing element(s)
+2021-04-08 13:08:38,216:INFO: --------------------------------------
+2021-04-08 13:08:38,216:INFO:   
+2021-04-08 13:08:38,216:INFO: Compiler stage 1 finished in 0.000167131 seconds.
+
+2021-04-08 13:08:38,216:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 13:08:38,216:INFO: -------------------------------------------------------
+2021-04-08 13:08:38,216:INFO:   Computing representation of 1 elements
+2021-04-08 13:08:38,216:DEBUG:   Reusing element from cache
+2021-04-08 13:08:38,216:DEBUG:   Reusing element from cache
+2021-04-08 13:08:38,217:DEBUG:   Reusing element from cache
+2021-04-08 13:08:38,218:INFO:   Computing representation of 1 dofmaps
+2021-04-08 13:08:38,218:DEBUG:   Reusing element from cache
+2021-04-08 13:08:38,218:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 13:08:38,218:INFO:   Computing representation of integrals
+2021-04-08 13:08:38,218:INFO:   Computing representation of forms
+2021-04-08 13:08:38,218:INFO:   
+2021-04-08 13:08:38,218:INFO: Compiler stage 2 finished in 0.00227547 seconds.
+
+2021-04-08 13:08:38,218:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 13:08:38,218:INFO: --------------------------------------------------------
+2021-04-08 13:08:38,218:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 13:08:38,218:INFO:   
+2021-04-08 13:08:38,218:INFO: Compiler stage 3 finished in 0.000130177 seconds.
+
+2021-04-08 13:08:38,218:INFO: Compiler stage 4: Generating code
+2021-04-08 13:08:38,219:INFO: ---------------------------------
+2021-04-08 13:08:38,219:INFO:   Generating code for 1 finite_element(s)
+2021-04-08 13:08:38,256:INFO:   Generating code for 1 dofmap(s)
+2021-04-08 13:08:38,258:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 13:08:38,258:INFO:   Generating code for integrals
+2021-04-08 13:08:38,258:INFO:   Generating code for forms
+2021-04-08 13:08:38,258:INFO:   
+2021-04-08 13:08:38,258:INFO: Compiler stage 4 finished in 0.0394869 seconds.
+
+2021-04-08 13:08:38,258:INFO: Compiler stage 4.1 finished in 2.38419e-06 seconds.
+
+2021-04-08 13:08:38,258:INFO: Compiler stage 5: Formatting code
+2021-04-08 13:08:38,258:INFO: ---------------------------------
+2021-04-08 13:08:38,258:INFO:   
+2021-04-08 13:08:38,258:INFO: Compiler stage 5 finished in 0.000282049 seconds.
+
+2021-04-08 13:08:38,258:INFO: FFC finished in 0.0425544 seconds.
+2021-04-08 13:08:39,135:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 13:08:39,135:INFO: Compiling coordinate_mapping ffc_coordinate_mapping_03f5f31b18693a85a7c2e1366f147fd2f4c06f58
+
+2021-04-08 13:08:39,135:INFO: Compiler stage 1: Analyzing coordinate_mapping(s)
+2021-04-08 13:08:39,135:INFO: -------------------------------------------------
+2021-04-08 13:08:39,135:INFO:   
+2021-04-08 13:08:39,135:INFO: Compiler stage 1 finished in 0.000164747 seconds.
+
+2021-04-08 13:08:39,135:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 13:08:39,136:INFO: -------------------------------------------------------
+2021-04-08 13:08:39,136:INFO:   Computing representation of 0 elements
+2021-04-08 13:08:39,136:INFO:   Computing representation of 0 dofmaps
+2021-04-08 13:08:39,136:INFO:   Computing representation of 1 coordinate mappings
+2021-04-08 13:08:39,136:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,136:INFO:   Computing representation of integrals
+2021-04-08 13:08:39,136:INFO:   Computing representation of forms
+2021-04-08 13:08:39,136:INFO:   
+2021-04-08 13:08:39,136:INFO: Compiler stage 2 finished in 0.000976324 seconds.
+
+2021-04-08 13:08:39,136:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 13:08:39,137:INFO: --------------------------------------------------------
+2021-04-08 13:08:39,137:INFO:   Skipping optimizations, add -O or attach {'optimize': True} metadata to integrals
+2021-04-08 13:08:39,137:INFO:   
+2021-04-08 13:08:39,137:INFO: Compiler stage 3 finished in 0.000217199 seconds.
+
+2021-04-08 13:08:39,137:INFO: Compiler stage 4: Generating code
+2021-04-08 13:08:39,137:INFO: ---------------------------------
+2021-04-08 13:08:39,137:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 13:08:39,137:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 13:08:39,137:INFO:   Generating code for 1 coordinate_mapping(s)
+2021-04-08 13:08:39,141:INFO:   Generating code for integrals
+2021-04-08 13:08:39,141:INFO:   Generating code for forms
+2021-04-08 13:08:39,141:INFO:   
+2021-04-08 13:08:39,141:INFO: Compiler stage 4 finished in 0.00410628 seconds.
+
+2021-04-08 13:08:39,141:INFO: Compiler stage 4.1 finished in 9.53674e-07 seconds.
+
+2021-04-08 13:08:39,141:INFO: Compiler stage 5: Formatting code
+2021-04-08 13:08:39,141:INFO: ---------------------------------
+2021-04-08 13:08:39,141:INFO:   
+2021-04-08 13:08:39,141:INFO: Compiler stage 5 finished in 0.000235319 seconds.
+
+2021-04-08 13:08:39,141:INFO: FFC finished in 0.00593543 seconds.
+2021-04-08 13:08:39,812:Level 25: Calling FFC just-in-time (JIT) compiler, this may take some time.
+2021-04-08 13:08:39,812:INFO: Compiling form ffc_form_f03259635e03008c6167a28f3f8239ca150b998d
+
+2021-04-08 13:08:39,812:INFO: Compiler stage 1: Analyzing form(s)
+2021-04-08 13:08:39,812:INFO: -----------------------------------
+2021-04-08 13:08:39,812:DEBUG:   Preprocessing form using 'uflacs' representation family.
+2021-04-08 13:08:39,827:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:39,827:INFO: Adjusting missing element cell to tetrahedron.
+2021-04-08 13:08:39,828:INFO:   
+2021-04-08 13:08:39,828:INFO:   Geometric dimension:       3
+  Number of cell subdomains: 0
+  Rank:                      2
+  Arguments:                 '(v_0, v_1)'
+  Number of coefficients:    2
+  Coefficients:              '[f_9, f_10]'
+  Unique elements:           'Vector<3 x CG1(?,?)>, R0(?,?)'
+  Unique sub elements:       'Vector<3 x CG1(?,?)>, R0(?,?), CG1(?,?)'
+  
+2021-04-08 13:08:39,828:INFO:   representation:    auto --> uflacs
+2021-04-08 13:08:39,828:INFO:   quadrature_rule:   auto --> default
+2021-04-08 13:08:39,828:INFO:   quadrature_degree: auto --> 0
+2021-04-08 13:08:39,828:INFO:   quadrature_degree: 0
+2021-04-08 13:08:39,828:INFO:   
+2021-04-08 13:08:39,828:INFO: Compiler stage 1 finished in 0.0162599 seconds.
+
+2021-04-08 13:08:39,828:INFO: Compiler stage 2: Computing intermediate representation
+2021-04-08 13:08:39,828:INFO: -------------------------------------------------------
+2021-04-08 13:08:39,829:INFO:   Computing representation of 0 elements
+2021-04-08 13:08:39,829:INFO:   Computing representation of 0 dofmaps
+2021-04-08 13:08:39,829:INFO:   Computing representation of 0 coordinate mappings
+2021-04-08 13:08:39,829:INFO:   Computing representation of integrals
+2021-04-08 13:08:39,829:INFO:   Computing uflacs representation
+2021-04-08 13:08:39,829:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,829:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,829:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,829:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,829:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,840:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,840:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,842:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,842:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,843:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,843:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,843:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,844:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,844:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,844:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,845:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,845:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,846:DEBUG:   Reusing element from cache
+2021-04-08 13:08:39,881:DEBUG: Blocks of each mode: 
+
+2021-04-08 13:08:39,881:INFO:   Computing representation of forms
+2021-04-08 13:08:39,881:INFO:   
+2021-04-08 13:08:39,881:INFO: Compiler stage 2 finished in 0.0528159 seconds.
+
+2021-04-08 13:08:39,881:INFO: Compiler stage 3: Optimizing intermediate representation
+2021-04-08 13:08:39,881:INFO: --------------------------------------------------------
+2021-04-08 13:08:39,881:INFO:   Optimizing uflacs representation
+2021-04-08 13:08:39,881:INFO:   
+2021-04-08 13:08:39,881:INFO: Compiler stage 3 finished in 0.000143528 seconds.
+
+2021-04-08 13:08:39,881:INFO: Compiler stage 4: Generating code
+2021-04-08 13:08:39,882:INFO: ---------------------------------
+2021-04-08 13:08:39,882:INFO:   Generating code for 0 finite_element(s)
+2021-04-08 13:08:39,882:INFO:   Generating code for 0 dofmap(s)
+2021-04-08 13:08:39,882:INFO:   Generating code for 0 coordinate_mapping(s)
+2021-04-08 13:08:39,882:INFO:   Generating code for integrals
+2021-04-08 13:08:39,882:INFO:   Generating code from ffc.uflacs representation
+2021-04-08 13:08:39,899:INFO:   Generating code for forms
+2021-04-08 13:08:39,899:INFO:   
+2021-04-08 13:08:39,899:INFO: Compiler stage 4 finished in 0.01771 seconds.
+
+2021-04-08 13:08:39,899:INFO: Compiler stage 4.1 finished in 7.15256e-07 seconds.
+
+2021-04-08 13:08:39,899:INFO: Compiler stage 5: Formatting code
+2021-04-08 13:08:39,899:INFO: ---------------------------------
+2021-04-08 13:08:39,899:INFO:   
+2021-04-08 13:08:39,899:INFO: Compiler stage 5 finished in 0.00024128 seconds.
+
+2021-04-08 13:08:39,900:INFO: FFC finished in 0.0874059 seconds.
+2021-04-08 13:08:47,948:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:08:51,210:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:08:55,990:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:00,291:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:04,074:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:08,297:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:11,522:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:15,417:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:19,268:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:22,895:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:23,008:INFO: 
+Wrapping Up Results
+2021-04-08 13:09:37,545:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:42,062:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:46,575:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:51,153:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:09:56,910:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:10:04,239:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:10:10,859:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:10:16,305:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:10:22,474:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:10:28,316:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:10:28,437:INFO: 
+Wrapping Up Results
+2021-04-08 13:10:45,943:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:10:54,659:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:11:02,475:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:11:10,990:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:11:21,099:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:11:29,082:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:11:37,543:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:11:46,085:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:11:55,837:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:12:05,131:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:12:05,242:INFO: 
+Wrapping Up Results
+2021-04-08 13:12:24,000:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:12:33,664:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:12:43,505:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:12:55,399:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:13:05,277:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:13:14,137:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:13:23,094:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:13:32,032:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:13:41,921:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:13:51,867:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:13:51,995:INFO: 
+Wrapping Up Results
+2021-04-08 13:14:17,791:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:14:33,739:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:14:48,813:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:15:05,770:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:15:21,745:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:15:36,179:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:15:52,602:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:16:08,023:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:16:24,006:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:16:39,632:INFO: Evaluate Results and Ensemble Process
+2021-04-08 13:16:41,831:INFO: 
+Wrapping Up Results
+2021-04-08 15:28:19,777:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:22,178:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:24,134:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:26,209:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:28,375:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:29,805:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:31,824:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:34,042:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:36,227:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:38,400:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:28:38,574:INFO: 
+Wrapping Up Results
+2021-04-08 15:28:52,573:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:29:06,399:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:29:21,722:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:29:37,138:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:29:52,231:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:30:07,104:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:30:22,621:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:30:37,888:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:30:52,896:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:31:07,717:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:31:07,949:INFO: 
+Wrapping Up Results
+2021-04-08 15:31:34,116:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:31:58,736:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:32:23,267:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:32:48,157:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:33:13,255:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:33:38,961:INFO: Evaluate Results and Ensemble Process
+2021-04-08 15:34:03,502:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:19,581:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:21,752:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:24,026:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:26,188:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:28,266:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:30,513:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:32,711:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:34,641:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:36,791:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:38,888:INFO: Evaluate Results and Ensemble Process
+2021-04-08 16:26:39,072:INFO: 
+Wrapping Up Results
+2021-04-08 18:54:18,772:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:20,752:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:22,866:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:24,876:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:27,169:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:29,548:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:31,835:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:34,156:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:36,074:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:38,091:INFO: Evaluate Results and Ensemble Process
+2021-04-08 18:54:38,301:INFO: 
+Wrapping Up Results
+2021-04-08 18:54:52,582:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:12,654:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:14,950:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:16,897:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:19,141:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:21,256:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:23,452:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:25,697:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:27,965:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:30,114:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:32,393:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:51:32,579:INFO: 
+Wrapping Up Results
+2021-04-08 19:51:46,560:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:52:00,867:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:09,290:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:11,586:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:13,847:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:16,321:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:18,410:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:20,641:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:22,954:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:25,382:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:27,821:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:30,318:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:53:30,528:INFO: 
+Wrapping Up Results
+2021-04-08 19:57:41,139:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:57:43,809:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:57:46,420:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:57:55,545:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:58:19,221:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:58:21,787:INFO: Evaluate Results and Ensemble Process
+2021-04-08 19:58:24,343:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:00:24,514:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:00:27,051:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:07:37,737:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:07:42,777:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:07:47,637:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:07:52,657:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:07:57,672:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:08:02,578:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:08:07,424:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:08:12,501:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:08:18,003:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:08:22,997:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:08:25,194:INFO: 
+Wrapping Up Results
+2021-04-08 20:14:35,848:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:14:53,369:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:14:58,141:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:02,954:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:07,857:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:12,687:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:17,596:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:22,496:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:27,681:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:32,543:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:37,611:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:15:39,982:INFO: 
+Wrapping Up Results
+2021-04-08 20:18:06,800:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:11,778:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:16,707:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:21,792:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:26,739:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:31,644:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:36,320:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:41,193:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:45,979:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:50,883:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:18:53,496:INFO: 
+Wrapping Up Results
+2021-04-08 20:19:02,384:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:19:12,709:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:19:23,148:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:19:33,253:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:19:44,980:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:19:55,864:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:20:06,566:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:20:17,037:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:20:27,771:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:20:38,547:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:20:40,740:INFO: 
+Wrapping Up Results
+2021-04-08 20:20:50,977:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:21:05,109:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:21:18,014:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:21:31,549:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:21:43,944:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:21:56,943:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:22:10,838:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:22:23,952:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:22:37,219:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:22:50,763:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:22:52,947:INFO: 
+Wrapping Up Results
+2021-04-08 20:23:07,512:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:23:23,771:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:23:39,657:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:23:54,745:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:24:11,053:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:24:27,008:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:24:43,583:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:24:59,185:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:15,411:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:31,872:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:34,215:INFO: 
+Wrapping Up Results
+2021-04-08 20:25:35,819:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:36,602:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:37,264:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:37,983:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:38,702:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:39,376:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:40,094:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:40,773:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:41,538:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:42,262:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:42,374:INFO: 
+Wrapping Up Results
+2021-04-08 20:25:46,744:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:48,619:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:50,953:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:53,199:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:55,545:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:57,654:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:25:59,814:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:21,053:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:21,802:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:22,413:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:23,129:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:23,813:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:24,428:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:25,102:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:25,721:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:26,331:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:26,948:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:27,054:INFO: 
+Wrapping Up Results
+2021-04-08 20:35:31,380:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:33,231:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:34,896:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:36,559:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:38,289:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:40,215:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:41,949:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:43,687:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:45,539:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:47,461:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:47,564:INFO: 
+Wrapping Up Results
+2021-04-08 20:35:52,491:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:54,885:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:57,301:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:35:59,747:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:02,203:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:04,942:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:07,596:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:10,499:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:13,405:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:16,260:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:16,395:INFO: 
+Wrapping Up Results
+2021-04-08 20:36:21,971:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:25,162:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:28,462:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:31,640:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:35,116:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:38,762:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:42,638:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:46,792:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:50,396:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:53,850:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:36:53,972:INFO: 
+Wrapping Up Results
+2021-04-08 20:36:58,574:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:00,173:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:02,049:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:04,932:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:06,272:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:07,788:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:09,241:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:10,464:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:37:11,725:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:18,355:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:19,103:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:19,738:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:20,429:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:21,058:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:21,687:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:22,326:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:23,002:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:23,642:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:24,262:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:24,368:INFO: 
+Wrapping Up Results
+2021-04-08 20:49:28,644:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:30,476:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:32,224:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:34,047:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:36,140:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:38,035:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:39,708:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:41,442:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:43,156:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:44,960:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:45,071:INFO: 
+Wrapping Up Results
+2021-04-08 20:49:50,006:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:52,273:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:54,638:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:57,042:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:49:59,334:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:02,414:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:05,129:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:07,907:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:10,660:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:13,516:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:13,635:INFO: 
+Wrapping Up Results
+2021-04-08 20:50:19,231:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:22,822:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:26,085:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:29,293:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:32,765:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:36,419:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:40,025:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:43,509:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:46,798:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:50,071:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:50,213:INFO: 
+Wrapping Up Results
+2021-04-08 20:50:54,229:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:56,335:INFO: Evaluate Results and Ensemble Process
+2021-04-08 20:50:57,905:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:20,138:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:20,908:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:21,527:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:22,213:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:22,913:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:23,538:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:24,221:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:24,847:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:25,490:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:26,160:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:26,253:INFO: 
+Wrapping Up Results
+2021-04-08 21:19:30,515:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:32,329:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:34,030:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:35,752:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:37,480:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:39,248:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:41,039:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:42,681:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:44,484:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:46,320:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:46,433:INFO: 
+Wrapping Up Results
+2021-04-08 21:19:51,293:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:53,830:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:56,369:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:19:58,840:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:01,367:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:03,922:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:06,362:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:08,982:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:11,646:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:14,358:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:14,470:INFO: 
+Wrapping Up Results
+2021-04-08 21:20:20,386:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:23,519:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:26,789:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:29,944:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:33,028:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:36,339:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:39,676:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:43,224:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:46,669:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:50,070:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:50,185:INFO: 
+Wrapping Up Results
+2021-04-08 21:20:53,877:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:55,128:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:56,871:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:20:58,492:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:21:00,455:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:21:01,765:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:31,196:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:32,302:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:33,552:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:34,714:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:36,389:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:37,836:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:38,938:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:40,439:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:41,732:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:43,069:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:43,173:INFO: 
+Wrapping Up Results
+2021-04-08 21:54:51,730:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:53,801:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:56,562:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:54:59,656:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:02,689:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:05,321:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:07,962:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:10,484:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:13,450:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:17,153:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:17,270:INFO: 
+Wrapping Up Results
+2021-04-08 21:55:27,982:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:31,422:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:34,471:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:39,205:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:44,202:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:47,668:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:51,160:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:54,850:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:55:59,295:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:03,299:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:03,424:INFO: 
+Wrapping Up Results
+2021-04-08 21:56:16,299:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:20,476:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:25,248:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:30,585:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:34,523:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:38,633:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:43,004:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:47,238:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:51,207:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:56,523:INFO: Evaluate Results and Ensemble Process
+2021-04-08 21:56:56,639:INFO: 
+Wrapping Up Results
+2021-04-08 22:02:41,485:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:43,206:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:44,472:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:45,783:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:47,337:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:48,740:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:49,894:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:51,306:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:52,701:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:53,928:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:02:54,034:INFO: 
+Wrapping Up Results
+2021-04-08 22:03:02,483:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:05,046:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:07,403:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:10,377:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:13,104:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:16,345:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:18,487:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:21,792:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:25,010:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:28,259:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:28,374:INFO: 
+Wrapping Up Results
+2021-04-08 22:03:38,335:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:41,984:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:45,316:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:48,677:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:52,835:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:03:57,132:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:01,440:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:05,815:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:11,439:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:29,485:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:31,007:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:32,736:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:34,008:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:35,429:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:36,754:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:38,074:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:39,503:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:40,940:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:42,557:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:42,675:INFO: 
+Wrapping Up Results
+2021-04-08 22:04:50,761:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:53,956:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:04:57,238:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:00,363:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:03,593:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:06,511:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:09,209:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:12,142:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:14,899:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:17,818:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:17,929:INFO: 
+Wrapping Up Results
+2021-04-08 22:05:28,943:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:33,516:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:37,228:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:40,650:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:44,952:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:48,313:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:51,656:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:05:55,078:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:00,722:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:04,081:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:04,204:INFO: 
+Wrapping Up Results
+2021-04-08 22:06:17,182:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:21,854:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:26,994:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:32,173:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:36,494:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:40,511:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:45,458:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:49,383:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:54,610:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:59,749:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:06:59,871:INFO: 
+Wrapping Up Results
+2021-04-08 22:09:09,109:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:11,566:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:13,606:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:15,824:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:17,871:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:20,397:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:22,737:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:25,068:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:27,815:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:29,778:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:29,884:INFO: 
+Wrapping Up Results
+2021-04-08 22:09:39,813:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:43,973:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:48,274:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:52,268:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:56,101:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:09:59,735:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:04,210:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:09,341:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:13,378:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:18,102:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:18,230:INFO: 
+Wrapping Up Results
+2021-04-08 22:10:32,502:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:37,168:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:42,319:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:47,170:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:52,866:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:10:59,682:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:05,806:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:12,830:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:19,270:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:24,382:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:24,501:INFO: 
+Wrapping Up Results
+2021-04-08 22:11:39,408:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:45,286:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:53,151:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:11:59,977:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:12:06,261:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:12:13,863:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:12:22,625:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:12:28,768:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:12:34,983:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:12:41,817:INFO: Evaluate Results and Ensemble Process
+2021-04-08 22:12:41,936:INFO: 
+Wrapping Up Results
+2021-04-08 23:25:39,111:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:41,310:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:43,232:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:45,371:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:47,466:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:49,655:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:52,113:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:54,648:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:56,997:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:59,381:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:25:59,493:INFO: 
+Wrapping Up Results
+2021-04-08 23:26:08,886:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:12,645:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:15,730:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:19,670:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:23,258:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:27,879:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:31,820:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:35,951:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:39,364:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:43,037:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:43,149:INFO: 
+Wrapping Up Results
+2021-04-08 23:26:54,358:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:26:59,337:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:05,097:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:11,192:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:16,383:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:23,251:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:29,071:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:34,152:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:40,298:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:46,171:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:27:46,288:INFO: 
+Wrapping Up Results
+2021-04-08 23:28:00,513:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:07,081:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:13,292:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:20,565:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:27,403:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:35,411:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:41,521:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:48,080:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:28:56,685:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:29:03,712:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:29:03,839:INFO: 
+Wrapping Up Results
+2021-04-08 23:33:37,599:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:33:43,461:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:33:48,969:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:33:54,276:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:34:00,493:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:34:07,617:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:34:13,799:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:34:20,025:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:34:26,586:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:34:33,706:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:34:33,823:INFO: 
+Wrapping Up Results
+2021-04-08 23:44:11,367:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:44:17,309:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:44:23,434:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:44:29,549:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:44:35,760:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:44:42,087:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:44:49,747:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:44:55,887:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:45:02,308:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:45:08,591:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:45:08,706:INFO: 
+Wrapping Up Results
+2021-04-08 23:53:31,648:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:53:35,837:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:53:39,773:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:53:43,636:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:53:47,438:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:53:51,516:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:53:55,436:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:00,093:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:04,475:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:09,035:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:09,141:INFO: 
+Wrapping Up Results
+2021-04-08 23:54:17,058:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:21,908:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:27,183:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:32,509:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:37,901:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:43,554:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:48,840:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:54,018:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:54:59,515:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:04,894:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:05,015:INFO: 
+Wrapping Up Results
+2021-04-08 23:55:13,335:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:19,085:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:24,796:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:31,032:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:37,305:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:43,622:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:49,785:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:55:55,961:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:01,516:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:07,665:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:07,781:INFO: 
+Wrapping Up Results
+2021-04-08 23:56:16,587:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:22,965:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:29,827:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:37,010:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:44,491:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:52,053:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:56:58,829:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:57:05,383:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:57:12,051:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:57:19,368:INFO: Evaluate Results and Ensemble Process
+2021-04-08 23:57:19,448:INFO: 
+Wrapping Up Results
+2021-04-09 00:22:19,067:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:22:24,904:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:22:31,077:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:22:37,244:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:22:43,273:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:22:50,202:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:22:57,155:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:23:03,783:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:23:10,656:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:23:17,768:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:23:17,863:INFO: 
+Wrapping Up Results
+2021-04-09 00:25:20,754:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:25:26,765:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:25:32,966:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:25:39,319:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:25:45,921:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:25:52,725:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:26:00,551:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:26:08,577:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:26:17,760:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:26:25,501:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:26:25,589:INFO: 
+Wrapping Up Results
+2021-04-09 00:26:40,211:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:26:53,225:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:30:43,097:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:30:48,947:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:30:54,747:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:00,663:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:06,937:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:13,413:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:19,919:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:26,596:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:33,508:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:40,534:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:31:40,618:INFO: 
+Wrapping Up Results
+2021-04-09 00:31:55,277:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:32:08,071:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:32:21,664:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:32:35,143:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:32:48,904:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:33:02,227:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:33:13,689:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:33:26,009:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:33:38,427:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:33:50,807:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:33:50,938:INFO: 
+Wrapping Up Results
+2021-04-09 00:38:23,800:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:38:29,525:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:38:35,197:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:38:41,179:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:38:47,487:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:38:54,268:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:39:00,974:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:39:08,259:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:39:15,743:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:39:23,001:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:39:23,088:INFO: 
+Wrapping Up Results
+2021-04-09 00:39:37,261:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:39:49,418:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:40:01,934:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:40:14,240:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:40:26,434:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:40:39,006:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:40:51,743:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:41:04,504:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:41:18,098:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:41:32,074:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:41:32,231:INFO: 
+Wrapping Up Results
+2021-04-09 00:45:32,611:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:45:41,608:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:45:50,946:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:46:02,117:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:46:12,840:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:46:24,260:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:46:35,211:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:46:46,214:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:46:57,210:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:47:08,167:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:47:08,291:INFO: 
+Wrapping Up Results
+2021-04-09 00:47:24,799:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:47:39,319:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:47:53,286:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:48:07,523:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:48:21,960:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:48:37,023:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:48:50,244:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:49:04,538:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:49:18,906:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:49:33,570:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:49:33,660:INFO: 
+Wrapping Up Results
+2021-04-09 00:53:59,888:INFO: Evaluate Results and Ensemble Process
+2021-04-09 00:54:08,532:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:01:47,579:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:01:49,457:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:01:51,572:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:01:53,675:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:01:55,819:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:01:58,020:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:01:59,956:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:02:02,144:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:02:04,077:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:02:06,009:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:02:06,190:INFO: 
+Wrapping Up Results
+2021-04-09 01:05:42,618:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:44,931:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:47,051:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:49,035:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:50,884:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:53,059:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:54,861:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:57,149:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:05:59,316:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:06:01,559:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:06:01,774:INFO: 
+Wrapping Up Results
+2021-04-09 01:08:01,387:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:08:33,333:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:08:41,264:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:08:50,792:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:08:59,458:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:09:07,617:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:09:16,079:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:09:24,803:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:09:33,847:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:09:43,170:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:09:52,116:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:09:52,469:INFO: 
+Wrapping Up Results
+2021-04-09 01:17:56,300:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:18:04,022:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:01,955:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:09,011:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:16,642:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:24,727:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:32,892:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:41,647:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:49,940:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:20:58,047:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:21:06,274:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:21:13,999:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:21:14,315:INFO: 
+Wrapping Up Results
+2021-04-09 01:26:48,898:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:49,608:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:50,233:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:50,857:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:51,569:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:52,217:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:52,784:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:53,321:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:53,968:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:54,549:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:26:54,654:INFO: 
+Wrapping Up Results
+2021-04-09 01:27:03,930:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:27:09,892:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:27:17,114:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:27:24,148:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:27:34,013:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:27:40,510:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:27:46,668:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:27:53,251:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:00,928:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:08,477:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:08,598:INFO: 
+Wrapping Up Results
+2021-04-09 01:28:17,714:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:20,348:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:22,931:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:25,511:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:28,105:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:30,736:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:33,403:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:35,972:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:38,558:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:41,147:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:28:43,381:INFO: 
+Wrapping Up Results
+2021-04-09 01:29:05,359:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:05,835:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:06,499:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:07,100:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:07,763:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:08,310:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:08,912:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:09,487:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:10,223:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:10,833:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:10,940:INFO: 
+Wrapping Up Results
+2021-04-09 01:29:48,170:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:48,644:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:49,213:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:49,718:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:50,255:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:50,732:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:51,331:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:51,845:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:52,437:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:52,929:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:29:53,026:INFO: 
+Wrapping Up Results
+2021-04-09 01:30:02,373:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:18,528:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:20,877:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:23,023:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:25,437:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:27,545:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:29,841:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:32,850:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:36,283:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:39,515:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:41,568:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:41,695:INFO: 
+Wrapping Up Results
+2021-04-09 01:31:51,718:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:55,660:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:31:59,730:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:03,912:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:08,065:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:12,234:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:16,588:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:21,156:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:25,308:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:29,694:INFO: Evaluate Results and Ensemble Process
+2021-04-09 01:32:29,817:INFO: 
+Wrapping Up Results
+2021-04-12 14:10:48,436:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:10:52,867:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:10:57,476:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:02,101:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:06,848:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:11,596:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:17,236:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:22,461:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:28,053:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:33,708:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:33,823:INFO: 
+Wrapping Up Results
+2021-04-12 14:11:42,240:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:47,872:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:53,563:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:11:59,604:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:05,566:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:11,358:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:17,292:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:23,153:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:29,003:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:34,891:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:35,005:INFO: 
+Wrapping Up Results
+2021-04-12 14:12:44,663:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:51,359:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:12:58,182:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:05,169:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:12,053:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:18,952:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:26,199:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:33,645:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:40,956:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:48,820:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:13:48,900:INFO: 
+Wrapping Up Results
+2021-04-12 14:13:59,590:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:14:08,269:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:14:16,821:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:14:25,602:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:14:34,479:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:14:43,861:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:14:53,304:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:15:01,890:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:15:09,918:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:15:18,202:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:15:18,338:INFO: 
+Wrapping Up Results
+2021-04-12 14:15:31,125:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:15:41,423:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:15:51,734:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:16:02,024:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:16:12,743:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:16:23,731:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:16:35,168:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:16:45,277:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:16:55,075:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:17:06,518:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:17:06,705:INFO: 
+Wrapping Up Results
+2021-04-12 14:20:13,364:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:18,534:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:23,412:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:28,243:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:33,123:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:38,155:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:43,804:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:49,333:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:20:54,777:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:21:00,609:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:21:00,735:INFO: 
+Wrapping Up Results
+2021-04-12 14:21:09,372:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:21:15,299:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:33:16,817:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:33:24,134:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:33:32,042:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:33:40,780:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:33:49,586:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:33:58,243:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:34:06,957:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:34:15,204:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:34:23,935:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:34:32,046:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:34:32,362:INFO: 
+Wrapping Up Results
+2021-04-12 14:34:49,618:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:35:07,781:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:31,652:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:34,054:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:36,694:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:39,410:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:41,763:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:44,705:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:46,831:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:48,730:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:50,782:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:52,656:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:46:52,754:INFO: 
+Wrapping Up Results
+2021-04-12 14:47:01,265:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:04,895:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:07,706:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:10,855:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:13,990:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:16,751:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:19,767:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:23,441:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:27,032:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:29,881:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:29,996:INFO: 
+Wrapping Up Results
+2021-04-12 14:47:40,402:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:45,097:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:48,607:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:52,326:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:55,998:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:47:59,862:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:04,528:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:08,364:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:12,499:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:15,824:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:15,951:INFO: 
+Wrapping Up Results
+2021-04-12 14:48:27,663:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:32,032:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:36,366:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:41,804:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:46,098:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:50,924:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:48:55,638:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:00,110:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:06,179:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:10,214:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:10,336:INFO: 
+Wrapping Up Results
+2021-04-12 14:49:22,309:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:26,981:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:32,774:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:38,047:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:43,199:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:49,039:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:49:55,920:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:50:01,731:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:50:08,376:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:50:14,785:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:50:14,907:INFO: 
+Wrapping Up Results
+2021-04-12 14:50:30,534:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:50:40,891:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:50:51,180:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:51:02,022:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:51:11,888:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:51:22,914:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:51:33,693:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:51:44,265:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:51:54,380:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:52:05,634:INFO: Evaluate Results and Ensemble Process
+2021-04-12 14:52:07,870:INFO: 
+Wrapping Up Results
+2021-04-12 15:07:31,032:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:07:35,622:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:07:40,832:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:07:45,507:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:07:50,100:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:07:55,246:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:00,938:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:06,326:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:12,022:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:17,488:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:17,611:INFO: 
+Wrapping Up Results
+2021-04-12 15:08:26,124:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:32,897:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:39,305:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:45,362:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:51,786:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:08:57,960:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:04,389:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:10,725:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:17,077:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:23,299:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:23,426:INFO: 
+Wrapping Up Results
+2021-04-12 15:09:33,853:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:40,456:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:47,254:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:09:54,124:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:01,036:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:08,263:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:15,682:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:22,994:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:30,750:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:38,554:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:38,642:INFO: 
+Wrapping Up Results
+2021-04-12 15:10:45,066:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:49,095:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:52,938:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:10:56,765:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:01,032:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:05,183:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:09,356:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:13,505:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:17,755:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:22,004:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:22,135:INFO: 
+Wrapping Up Results
+2021-04-12 15:11:29,988:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:35,743:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:40,286:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:44,846:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:49,251:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:54,708:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:11:59,761:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:12:04,776:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:12:09,741:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:12:14,829:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:12:14,961:INFO: 
+Wrapping Up Results
+2021-04-12 15:14:04,319:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:09,204:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:14,037:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:18,827:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:23,819:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:29,356:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:34,718:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:39,874:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:45,202:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:50,699:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:14:50,823:INFO: 
+Wrapping Up Results
+2021-04-12 15:26:52,520:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:26:59,566:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:27:06,894:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:27:14,296:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:27:22,934:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:27:31,159:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:27:39,493:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:27:47,897:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:27:56,213:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:28:04,370:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:28:04,490:INFO: 
+Wrapping Up Results
+2021-04-12 15:28:16,762:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:28:27,590:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:28:39,182:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:28:50,173:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:29:01,269:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:29:12,243:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:29:23,552:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:29:34,516:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:29:45,558:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:29:56,676:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:29:56,805:INFO: 
+Wrapping Up Results
+2021-04-12 15:30:07,816:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:30:16,255:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:40:33,551:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:40:40,851:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:40:48,193:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:40:55,437:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:41:03,279:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:41:11,283:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:41:19,307:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:41:27,510:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:41:35,955:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:41:44,258:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:41:44,383:INFO: 
+Wrapping Up Results
+2021-04-12 15:43:17,069:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:43:24,713:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:43:32,171:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:43:40,731:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:43:48,867:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:43:56,871:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:44:05,494:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:44:14,149:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:44:23,608:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:44:32,392:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:44:32,525:INFO: 
+Wrapping Up Results
+2021-04-12 15:45:38,242:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:45:49,291:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:46:02,280:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:46:14,851:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:46:27,265:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:46:40,180:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:46:54,167:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:47:08,732:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:47:22,733:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:47:36,276:INFO: Evaluate Results and Ensemble Process
+2021-04-12 15:47:36,407:INFO: 
+Wrapping Up Results
+2021-04-14 15:40:29,401:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:40:39,770:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:40:49,389:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:40:59,701:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:41:10,106:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:41:20,828:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:41:31,044:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:41:41,378:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:41:52,009:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:42:02,231:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:42:04,370:INFO: 
+Wrapping Up Results
+2021-04-14 15:42:16,534:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:42:29,699:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:42:43,712:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:42:58,511:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:43:11,310:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:43:23,785:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:43:38,364:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:43:52,420:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:44:06,537:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:44:21,764:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:44:23,925:INFO: 
+Wrapping Up Results
+2021-04-14 15:44:42,415:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:49:18,039:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:49:29,624:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:49:39,960:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:49:51,427:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:50:03,170:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:50:13,928:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:50:25,927:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:50:37,908:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:50:49,211:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:51:00,557:INFO: Evaluate Results and Ensemble Process
+2021-04-14 15:51:03,361:INFO: 
+Wrapping Up Results
+2021-04-14 17:08:44,249:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:08:53,955:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:09:03,559:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:09:12,987:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:09:22,176:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:09:32,647:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:09:42,096:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:09:52,096:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:10:01,448:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:10:11,005:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:10:12,535:INFO: 
+Wrapping Up Results
+2021-04-14 17:10:27,076:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:10:41,254:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:10:54,889:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:11:07,908:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:11:20,932:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:11:34,421:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:11:47,486:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:12:00,415:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:12:13,764:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:12:27,004:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:12:28,743:INFO: 
+Wrapping Up Results
+2021-04-14 17:12:47,530:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:43:35,224:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:43:54,120:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:47:39,500:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:48:25,149:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:49:26,359:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:49:37,846:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:49:50,307:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:50:01,792:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:50:13,746:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:50:25,582:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:50:37,723:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:51:20,014:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:51:29,998:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:51:43,421:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:51:54,539:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:52:05,543:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:53:59,432:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:54:09,868:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:54:20,095:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:54:30,433:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:54:56,875:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:55:08,234:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:55:46,326:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:59:07,962:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:59:26,696:INFO: Evaluate Results and Ensemble Process
+2021-04-14 17:59:46,657:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:00:07,593:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:01:41,358:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:03:07,856:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:03:18,776:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:03:28,551:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:03:40,260:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:03:51,348:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:05:48,777:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:06:00,536:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:08:26,038:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:08:36,809:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:08:47,567:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:11:11,496:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:11:24,641:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:11:37,962:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:11:49,940:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:12:02,761:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:12:14,433:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:12:26,886:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:23:15,200:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:24:41,023:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:32,927:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:33,435:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:33,925:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:34,483:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:34,978:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:35,468:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:35,975:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:36,461:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:36,952:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:37,444:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:25:37,566:INFO: 
+Wrapping Up Results
+2021-04-14 18:26:53,261:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:27:05,270:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:27:19,243:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:27:33,763:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:29:04,411:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:29:18,268:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:30:03,451:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:32:55,147:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:33:10,926:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:33:26,344:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:33:41,827:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:33:57,174:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:34:12,665:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:34:27,202:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:34:42,130:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:34:57,255:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:35:12,853:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:35:15,375:INFO: 
+Wrapping Up Results
+2021-04-14 18:40:13,402:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:40:29,044:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:40:44,390:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:40:59,370:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:41:14,928:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:41:30,730:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:41:46,237:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:42:00,802:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:42:15,285:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:42:30,710:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:42:33,269:INFO: 
+Wrapping Up Results
+2021-04-14 18:43:57,633:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:44:16,517:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:44:35,247:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:44:54,643:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:45:15,067:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:45:34,179:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:51:42,360:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:52:00,116:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:52:19,376:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:52:39,492:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:55:00,881:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:55:04,214:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:55:07,109:INFO: Evaluate Results and Ensemble Process
+2021-04-14 18:55:10,623:INFO: Evaluate Results and Ensemble Process
+2021-05-25 11:32:41,070:INFO: Evaluate Results and Ensemble Process
+2021-05-25 12:30:13,957:INFO: Evaluate Results and Ensemble Process

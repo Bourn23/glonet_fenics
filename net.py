@@ -28,36 +28,53 @@ import math
 import ga_helper as ga
 import pygad
 
+import utils
+
 
 Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 # ___ BASE CLASSES ___
 class Generator:
-    def __init__(self, params, generate_sample):
+    def __init__(self, params, generate_sample, density = False):
         # if on, every iteration new samples are created
         self.sampling_mode = generate_sample
+        self.density_field = None
+        self.density = density
+        if self.density and (self.density_field is None):
+            # self.density_field = self.generate()
+            print('Initializing Density field')
+            batch_size = 4
+            noise_dims = (60, 40)
+            noise_amplitude = 0.4
+            theta_generated = (torch.rand(batch_size * noise_dims[0] * noise_dims[1]).type(
+                torch.float64) * 2. - 1.) * noise_amplitude
 
+
+            self.density_field = torch.clip(theta_generated, 0.001, 1.).requires_grad_()
+        else:
         # memory
-        self.E_0 = params.E_0
-        self.nu_0 = params.nu_0
-        self.E_r, self.nu_r = lame(params.E_0, params.nu_0) # E_r == mu_, nu_r == nu_0
-        self.batch_size_ = params.batch_size_start
-        self.force = self.force_ = params.force
+            self.E_0 = params.E_0
+            self.nu_0 = params.nu_0
+            self.E_r, self.nu_r = lame(params.E_0, params.nu_0) # E_r == mu_, nu_r == nu_0
+            self.batch_size_ = params.batch_size_start
+            self.force = self.force_ = params.force
 
-        # perturb initial values
-        self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
-        self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
-        
-        self.force = torch.DoubleTensor([[self.force_]])
-        self.mu, self.beta = lame(self.E_r, self.nu_r)
-        self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
-        self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
-        
+            # perturb initial values
+            self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
+            self.nu_r = self.nu_0 / 4 * np.random.randn() + self.nu_0
+
+            self.force = torch.DoubleTensor([[self.force_]])
+            self.mu, self.beta = lame(self.E_r, self.nu_r)
+            self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
+            self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
+
     def parameters(self):
-        return [self.mu, self.beta, self.force]
+        if self.density:
+            return [self.density_field]
+        else: return [self.mu, self.beta, self.force]
 
 
-    def generate(self, sampling = False):
+    def generate_beam(self, sampling = False):
         #TODO: multi data point generation? (* self.batch_size)
         if self.sampling_mode or sampling: #or self.first_run:
             self.E_r = self.E_0 / 4 * np.random.randn() + self.E_0
@@ -66,13 +83,29 @@ class Generator:
             
             self.mu = torch.tensor([[self.mu]], requires_grad=True, dtype=torch.float64)
             self.beta = torch.tensor([[self.beta]], requires_grad=True, dtype=torch.float64)
-            
-            self.first_run = False
+
             
         return {'mu': self.mu, 'beta': self.beta, 'force': self.force, 'E_r': self.E_r, 'nu_r': self.nu_r}
 
+    def generate_df(self, batch_size = 4, noise_dims = (60, 40), noise_amplitude = 0.5):
+        '''
+        smaple noise vector z
+        :param batch_size: generated nodes per element (for quadrialteral element is 4, and for triangle is 3)
+        :param  noise_dims: (x, y) for elements in width and length
+        :param noise_amplitude: noise scale
+        '''
+        theta_generated = (torch.rand(batch_size, noise_dims[0], noise_dims[1]).type(
+            torch.float64) * 2. - 1.) * noise_amplitude
+
+        self.density_field = torch.clip(theta_generated.reshape(1, -1), 0.001, 1.)
+
+        return {'theta': self.density_field}
+
+    def generate(self):
+        return {'theta': self.density_field}
+
 class Model:
-    def __init__(self, params):
+    def __init__(self, params, density = False):
         """
         :param params: a list of model related variables
         
@@ -83,11 +116,11 @@ class Model:
         model, base model
         """
         # values to store
-        self.generator = Generator(params, params.generate_samples_mode)
+        self.generator = Generator(params, params.generate_samples_mode, density = density)
         
-        self.history = np.zeros([0,3])
+        self.history = np.zeros([0,2])
         self.loss_history = np.zeros([0,2])
-        self.data    = np.zeros([0,3])
+        self.data    = np.zeros([0,1])
 
         self.training_time = 0
         self.infer_time = 0
@@ -157,7 +190,7 @@ class GPR(Model):
 
         self.loss = nn.MSELoss()
         # init_data(params.gpr_init)
-        self.init_data(eng, 50) #TODO: chnage it to 1
+        self.init_data(eng, 30) #TODO: chnage it to 1
 
 
     def init_data(self, eng, i  = 200):
@@ -280,7 +313,7 @@ class GPR(Model):
             return l
             
 
-        fig, ax = plt.subplots(1, 3, figsize=(6, 3))
+        fig, ax = plt.subplots(2, 2, figsize=(6, 3))
 
         ax[0].set_title('Predicted loss')
         ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
@@ -293,6 +326,13 @@ class GPR(Model):
         ax[2].set_title('Acquisition function')
         ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
 
+        ax[3].plot(np.log(self.data[:, 2]))
+        ax[3].set_title('GPR Loss Iteration')
+        # ax[3].set_xlabel('Iteration')
+        # ax[3].set_ylabel('Log Loss')
+
+
+        # print('GPR loss data', self.data[:, 2])
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
@@ -372,8 +412,15 @@ class GPR(Model):
         # global_memory.gpr_XY = self.XY
 
     def error_summary(self, global_memory):
-        print(f'check if there is any negative loss {global_memory.gpr_data}')
-
+        # print(f'check if there is any negative loss {global_memory.gpr_data}')
+        fig, ax = plt.subplots(figsize=(6,3))
+        ax.plot(np.log(self.data[:,2]))
+        print("GPR loss :", self.data[:, 2])
+        ax.set_xlabel('Iteration')
+        ax.set_ylabel('Log Loss')
+        print("Getting GPR Loss")
+        plt.savefig('GPR_LOSS.png', dpi = 300)
+        plt.close()
         M = len(global_memory.gpr_data)
         N = 1000
         # boot strapping 2nd column: Nu
@@ -385,7 +432,7 @@ class GPR(Model):
             for j in range(M):
                 df.loc[i+j] = [E[j], nu[j]] # for sgd
                 # df.loc[i+j] = [E[j][0][0], nu[j][0][0]] # for sgd
-                
+
         # print('df is ', df)
         df.to_csv('./results/E_nu_table.csv')
 
@@ -574,7 +621,7 @@ class GPRL(Model):
             return l
             
 
-        fig, ax = plt.subplots(1, 3, figsize=(6, 3))
+        fig, ax = plt.subplots(2, 2, figsize=(6, 3))
 
         ax[0].set_title('Predicted loss')
         ax[0].contourf(self.X, self.Y, self.Z.reshape(self.X.shape))
@@ -586,6 +633,11 @@ class GPRL(Model):
 
         ax[2].set_title('Acquisition function')
         ax[2].contourf(self.X, self.Y, self.A.reshape(self.X.shape))
+
+        ax[3].plot(self.data[:, 2])
+        ax[3].set_title('GPR Loss Iteration')
+        ax[3].set_xlabel('Iteration')
+        ax[3].set_ylabel('Log Loss')
 
 
         plt.savefig(fig_path, dpi = 300)
@@ -618,36 +670,40 @@ class GPRL(Model):
 
 class SGD(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
-        super().__init__(params)
+        super().__init__(params, density = True)
 
         self.PE_CALLS = 0
-
-        self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=1e5, betas=(params.beta1, params.beta2))
+        # print(self.generator.parameters())
+        # self.optimizer = torch.optim.Adam(self.generator.parameters()[:-1], lr=1e4, betas=(params.beta1, params.beta2)) # for E, u
+        self.optimizer = torch.optim.Adam(self.generator.parameters(), lr=1e-4)
+        # print(self.optimizer.param_groups)
         # self.optimizer = torch.optim.Adagrad(self.generator.parameters()[:-1], lr = 1e5, lr_decay=1e-1)
-        self.loss = torch.nn.MSELoss()
+        # self.loss = torch.nn.MSELoss()
 
 
     def train(self, eng, t, global_memory):
         """t: is the tqdm; global memory holds states of history and date if needs to be shared across models"""
         start_time = time.time()
 
-        data = self.generator.generate()
-        # print('sgd data is ', data)
-        err = eng.Eval_Eff_1D_SGD(data)
+        data = self.generator.density_field
+        print('sgd data is ', data)
+        # err_theta, err_u = eng.Eval_Eff_1D_SGD(data)
+        err_u = eng.Eval_Eff_1D_SGD(data)
         self.PE_CALLS += 1
         # pred_deflection = eng.Eval_Eff_1D_SGD(data)
         
         self.optimizer.zero_grad()
         # err = torch.log(self.loss(pred_deflection, eng.target_deflection))
-        err.backward()
+        # print('err theta', err_theta)
+        print('err u', err_u)
+        err_u.backward()
+        # print(data.grad)
         self.optimizer.step()
 
 
-        self.history = np.vstack([self.history, [data['mu'][0][0].detach().numpy(), data['beta'][0][0].detach().numpy(), err.detach().numpy()]])  
-        E_f, nu_f = youngs_poisson(data['mu'].detach().numpy(),
-                            data['beta'].detach().numpy())
-    
-        self.data = np.vstack([self.data, [E_f, nu_f, err.detach().numpy()]])
+        # self.history = np.vstack([self.history, [err_theta.detach().numpy(), err_u.detach().numpy()]])
+        # print(data['theta'].detach().numpy().shape)
+        # self.data = np.vstack([self.data, [data['theta'].detach().numpy()]])
 
         end_time = time.time()
         self.training_time += end_time - start_time
@@ -677,9 +733,14 @@ class SGD(Model):
 
 
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
-        except: pass
+        except:
+            try:
+                ax.set(xlim=( .5 * 1e7, 1 * 1e7), ylim=(0.20, 0.6))
+                ax.contourf(global_memory.contour_X, global_memory.contour_Y, global_memory.contour_Z.reshape(global_memory.contour_X.shape))
+            except:
+                pass
         # if : global_memory.gpr_X: ax[1].contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
-        ax.set_title('history of $E$ and $Nu$ \n SGD')
+        ax.set_title('history of $E$ and $\nu$ \n SGD')
         ax.plot(self.data[:, 0], self.data[:, 1], '-k')  # values obtained by torch
         ax.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # red = true value
         ax.plot(self.data[-1, 0], self.data[-1, 1], 'g.')  # red = true value
@@ -690,7 +751,9 @@ class SGD(Model):
         ax.plot(self.data[np.argmin(np.min(self.data, axis = 1))][0], self.data[np.argmin(np.min(self.data, axis = 1))][1], 'gx')  # blue cross = taken out
 
         ax.set_xlabel('$E$', fontsize=10)
-        ax.set_ylabel('$Nu$', fontsize='medium')
+        ax.set_ylabel('$\nu$', fontsize='medium')
+
+        # print('errors sgd', self.data[:, 2])
 
         if axis: return ax
             
@@ -698,8 +761,9 @@ class SGD(Model):
         plt.close()
 
         # Error - Iter
-        fig, ax = plt.subplots(figsize=(6,3))
-        ax.plot(len(self.data), self.data[:,2])
+        fig, ax = plt.subplots(figsize=(6,4))
+        ax.plot(self.data[:,2])
+        print("SGD loss :", self.data[:, 2])
         ax.set_xlabel('Iteration', fontsize=10)
         ax.set_ylabel('Error', fontsize='medium')
         plt.savefig(fig_path + 'error_diagram.png', dpi = 300)
@@ -709,6 +773,7 @@ class SGD(Model):
 
     def evaluate(self, eng, global_memory):
         pass
+
         # print("================SGD=================")
         # print('\nground truth:    {:.2e} {:.2e}'.format(self.generator.E_0, self.generator.nu_0))
 
@@ -745,7 +810,7 @@ class SGD(Model):
         except:     global_memory.sgd_loss = self.loss_history
         
     def error_summary(self, global_memory):
-        print(f'check if there is any negative loss {global_memory.sgd_data}')
+        # print(f'check if there is any negative loss {global_memory.sgd_data}')
 
         M = len(global_memory.sgd_data)
         N = 1000
@@ -757,21 +822,40 @@ class SGD(Model):
             nu = np.random.choice(global_memory.sgd_data[:, 1], replace = True, size = M)
             for j in range(M):
                 df.loc[i+j] = [E[j][0][0], nu[j][0][0]] # for sgd
-                
+
         # print('df is ', df)
         df.to_csv('./results/E_nu_table.csv')
 
-        print("E 95%  CI", np.quantile(df['E'], [0.025, 0.975]))
-        print("NU 95% CI", np.quantile(df['nu'], [0.025, 0.975]))
-        print("======STATS======")
-        print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
-        print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu'])))
-        print("======SD======")
-        # print('loss history is', global_memory.gpr_loss)
-        print("E STD", np.std(global_memory.sgd_loss[:, 0]))
-        print("NU STD", np.std(global_memory.sgd_loss[:, 1]))
-        print(f" average 'E' error: ", round(np.sum(abs(self.loss_history[:,0])) / len(self.loss_history), 2), '%')
-        print(f" average 'nu' error: ", round(np.sum(abs(self.loss_history[:,1])) / len(self.loss_history), 2), '%')
+        # print("E 95%  CI", np.quantile(df['E'], [0.025, 0.975]))
+        # print("NU 95% CI", np.quantile(df['nu'], [0.025, 0.975]))
+        # print("======STATS======")
+        # print('E 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E'])))
+        # print('NU 95% CI st' , st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu'])))
+        # print("======SD======")
+        # # print('loss history is', global_memory.gpr_loss)
+        # print("E STD", np.std(global_memory.sgd_loss[:, 0]))
+        # print("NU STD", np.std(global_memory.sgd_loss[:, 1]))
+        # print(f" average 'E' error: ", round(np.sum(abs(self.loss_history[:,0])) / len(self.loss_history), 2), '%')
+
+        E_error = round(np.sum(abs(self.loss_history[:,0])) / len(self.loss_history), 2)
+        nu_error = round(np.sum(abs(self.loss_history[:, 1])) / len(self.loss_history), 2)
+
+        print("E : {error} +- {std} \n\tTrue Value is within {CI} with {CI_range}% confidence".format(
+            error = round(np.sum(abs(global_memory.sgd_loss[:,0])) / len(global_memory.sgd_loss), 2),
+            std = round(np.std(global_memory.sgd_loss[:, 0]),2),
+            CI_range = '95',
+            CI = st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E']))))
+
+        print("nu : {error} +- {std} \n\tTrue Value is within {CI} with {CI_range}% confidence".format(
+            error=round(np.sum(abs(global_memory.sgd_loss[:, 1])) / len(global_memory.sgd_loss), 2),
+            std=round(np.std(global_memory.sgd_loss[:, 1]),2),
+            CI_range='95',
+            CI=st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu']))))
+        # normal weighted sum
+        return {
+            "success_metric": (E_error, nu_error)
+        }
+        # print(f" average 'nu' error: ", round(np.sum(abs(self.loss_history[:,1])) / len(self.loss_history), 2), '%')
 class GA(Model):
     def __init__(self, params, eng, global_memory, model_params = None):
         super().__init__(params)
@@ -1055,17 +1139,17 @@ class GAP(Model):
                 return -100000,
 
             
-            result =  loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist(),
+            result =  1/loss(eng.Eval_Eff_1D_parallel(data), eng.target_deflection).sum().detach().tolist(),
             self.PE_CALLS += 1
 
             return result
 
         fitnessfunction = efficiency
 
-        num_generations = 100 # Number of generations.
+        # num_generations = 40 # Number of generations.
         num_parents_mating = 7 # Number of solutions to be selected as parents in the mating pool.
 
-        num_generations = 10
+        num_generations = 20
         init_params = np.random.uniform(0.1, 1, (num_generations, 2))
 
         num_genes = 2 # num of values to be estimated, here E,nu
@@ -1111,12 +1195,12 @@ class GAP(Model):
         try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
         except: pass
 
-        ax.set_title('GA - Iteration vs. Fitness')
-        ax.set_xlabel('Generation')
-        ax.set_ylabel('Fitness')
+        ax.set_title('GA Loss')
+        ax.set_xlabel('Iteration')
+        ax.set_ylabel('log loss')
         
         ax.plot(np.log(self.ga_instance.best_solutions_fitness), linewidth=3)
-        
+        print("GA loss :", -np.log(self.ga_instance.best_solutions_fitness))
         if axis: return ax
             
         plt.savefig(fig_path, dpi = 300)
@@ -1399,7 +1483,7 @@ class PSOL(Model):
             return result
 
         self.fitness_function = fitness_function
-
+        self.error = []
         self.N = len(self.particles)
         self.w = w
         self.c_1 = c_1
@@ -1461,6 +1545,7 @@ class PSOL(Model):
 
     def update_bests(self):
         fits = self.fitness_function(self.particles)
+        self.data = np.vstack([self.data, [self.particles[0], self.particles[1], fits]])
 
         for i in range(len(self.particles)):
             # update best personnal value (cognitive)
@@ -1471,6 +1556,8 @@ class PSOL(Model):
                 if fits[i] < self.g_best_value:
                     self.g_best_value = fits[i]
                     self.g_best = self.particles[i]
+        # print(fits)
+        self.error.append(fits)
 
     def evaluate(self, eng, global_memory):
         start_time = time.time()
@@ -1485,14 +1572,14 @@ class PSOL(Model):
         
         end_time = time.time()
         self.training_time += end_time - start_time
-        self.quick_save_fig(self.folder + f'{self.iter}.png')
+        self.quick_save_fig(self.folder + f'{self.iter}.png', global_memory)
 
         return self.is_running
 
 
     def summary(self, global_memory):
         # TODO:predict mu and beta
-
+        print("errors is", self.error)
         saving_folder = self.gif_folder + f'/{self.iter}_tmp.gif'
         make_gif_from_folder(self.folder, saving_folder)
 
@@ -1528,8 +1615,13 @@ class PSOL(Model):
 
         if axis:
             axis.set_title('Predicted loss \n PSOL')
-            try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
-            except: pass
+            axis.set_xlabel('$E$')
+            axis.set_ylabel('$\nu$')
+            try:
+                axis.contourf(global_memory.contour_X, global_memory.contour_Y,
+                            global_memory.contour_Z.reshape(global_memory.contour_X.shape))
+            except:
+                pass
             E_f, nu_f = lame(self.g_best[0]*1e7, self.g_best[1]) 
             E_f, nu_f = youngs_poisson(E_f, nu_f)
             l, = axis.plot(self.generator.E_0, self.generator.nu_0, 'bs')  # blue = true value
@@ -1543,14 +1635,14 @@ class PSOL(Model):
         E_f, nu_f = youngs_poisson(E_f, nu_f)
 
         ax[0].set_title('Predicted loss \nPSOL')
-        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        try: ax.contourf(global_memory.contour_X, global_memory.contour_Y, global_memory.contour_Z.reshape(global_memory.contour_X.shape))
         except: pass
         ax[0].plot(self.generator.E_0, self.generator.nu_0, 'bs')  # white = true value
         ax[0].plot(E_f, nu_f, 'rs')  # red = predicted value
 
         # plot contour
         ax[1].set_title('All Particles \nPSOL')
-        try: ax.contourf(global_memory.gpr_X, global_memory.gpr_Y, global_memory.gpr_Z.reshape(global_memory.gpr_X.shape))
+        try: ax.contourf(global_memory.contour_X, global_memory.contour_Y, global_memory.contour_Z.reshape(global_memory.contour_X.shape))
         except: pass
         X, Y = self.particles.swapaxes(0, 1)
         X, Y = lame(X*1e7, Y)
@@ -1564,15 +1656,27 @@ class PSOL(Model):
         if self.velocities is not None:
             ax[1].quiver(X, Y, U, V, color='#000', headwidth=2, headlength=2, width=5e-3)
 
+        if len(ax) == 3:
+            error_iter = np.min(self.error, axis = 1)
+            ax[2].plot(error_iter)
+            print("PSO loss :", error_iter)
+            ax[2].set_xlabel('Iteration')
+            ax[2].set_ylabel('Log Loss')
+            ax[2].set_title('PSO Convergence')
 
         plt.savefig(fig_path, dpi = 300)
         plt.close()
 
-    def quick_save_fig(self, fig_path):
-        fig, ax = plt.subplots(figsize=(6, 3))
+    def quick_save_fig(self, fig_path, global_memory):
+        fig, ax = plt.subplots(figsize=(6, 4))
         normalize = True
         # plot contour
         ax.set_title('All Particles \nPSOL')
+        try:
+            # ax.set(xlim=(.5 * 1e7, 1 * 1e7), ylim=(0.20, 1.2))
+            ax.contourf(global_memory.contour_X, global_memory.contour_Y,
+                    global_memory.contour_Z.reshape(global_memory.contour_X.shape))
+        except: print('whats wrong!')
 
         X, Y = self.particles.swapaxes(0, 1)
         X, Y = lame(X*1e7, Y)
@@ -1583,9 +1687,44 @@ class PSOL(Model):
                 N = np.sqrt(U**2+V**2)
                 U, V = U/N, V/N
         ax.scatter(X, Y, color='#000')
+        ax.set(xlim=(.6*1e6, 1.2*1e7), ylim=(.0, 1.55))
+
         if self.velocities is not None:
             ax.quiver(X, Y, U, V, color='#000', headwidth=2, headlength=2, width=5e-3)
 
 
+
         plt.savefig(fig_path, dpi = 300)
         plt.close()
+
+    def error_summary(self, global_memory):
+        pass
+        # print(f'check if there is any negative loss {global_memory.gpr_data}')
+
+
+        # M = len(global_memory.psol_data)
+        # N = 1000
+        # # boot strapping 2nd column: Nu
+        #
+        # df = pd.DataFrame(columns=('E', 'nu'))
+        # for i in range(N):
+        #     E = np.random.choice(global_memory.psol_data[:, 0], replace=True, size=M)
+        #     nu = np.random.choice(global_memory.psol_data[:, 1], replace=True, size=M)
+        #     for j in range(M):
+        #         df.loc[i + j] = [E[j], nu[j]]  # for sgd
+        #         # df.loc[i+j] = [E[j][0][0], nu[j][0][0]] # for sgd
+        #
+        # # print('df is ', df)
+        # df.to_csv('./results/E_nu_table_PSOL.csv')
+        #
+        # print("E : {error} +- {std} \n\tTrue Value is within {CI} with {CI_range}% confidence".format(
+        #     error=round(np.sum(abs(global_memory.psol_history[:, 0])) / len(global_memory.psol_history), 2),
+        #     std=round(np.std(global_memory.psol_history[:, 0]), 2),
+        #     CI_range='95',
+        #     CI=st.norm.interval(alpha=0.95, loc=np.mean(df['E']), scale=st.sem(df['E']))))
+        #
+        # print("nu : {error} +- {std} \n\tTrue Value is within {CI} with {CI_range}% confidence".format(
+        #     error=round(np.sum(abs(global_memory.psol_history[:, 1])) / len(global_memory.psol_history), 2),
+        #     std=round(np.std(global_memory.psol_history[:, 1]), 2),
+        #     CI_range='95',
+        #     CI=st.norm.interval(alpha=0.95, loc=np.mean(df['nu']), scale=st.sem(df['nu']))))

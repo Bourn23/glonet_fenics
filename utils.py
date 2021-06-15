@@ -11,7 +11,7 @@ import scipy.io as io
 import torch
 import numpy as np
 
-from dolfin import *; from mshr import *
+# from dolfin import *; from mshr import *
 
 
 import glob
@@ -243,7 +243,7 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
     files = os.path.join(folder, '*.png')
     img, *imgs = [Image.open(f) for f in sorted(glob.glob(files))]
     img.save(fp=out_file_path, format='GIF', append_images=imgs,
-             save_all=True, duration=200, loop=0)
+             save_all=True, duration=500, loop=0)
     if remove_folder:
         shutil.rmtree(folder, ignore_errors=True)
 
@@ -251,106 +251,111 @@ def make_gif_from_folder(folder, out_file_path, remove_folder=False):
 def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
     import plotly.graph_objects as go
     import numpy as np                      #8.5 # .32
-    X_grid, Y_grid = np.meshgrid(np.linspace(8*1e6, 9*1e6, 25), # seq(start, stop, #)
-                                 np.linspace(0.25, 0.45, 25))
+    X_grid, Y_grid = np.meshgrid(np.linspace(.6 * 1e6, 1.2 * 1e7, 70), # seq(start, stop, #)
+                                 np.linspace(.0, 1.55, 70))
     x, y = X_grid, Y_grid
     X_grid, Y_grid = lame(X_grid, Y_grid)
     # does it make a disfference? how to make it more efficient?
     Z_grid, syn_data = eng.GradientFromSolver_1D_parallel({'mu': X_grid, 'beta': Y_grid})
 
-    z = Z_grid * 1e14
-    print('min z', z.min())
-    print('location of min,z is', z.argmin())
-    print('the 2dlocation is', np.where(z == z.min()))
-    x_min, y_min = np.where(z == z.min())
-    sh_0, sh_1 = z.shape
-    for i in range(3):
-        fig = None
-        print('i is ', i)
-        if i == 0:
-            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
-            fig.update_layout(scene = dict(
-                xaxis = dict(nticks=5, range=[x.min(),x.max()],),
-                yaxis = dict(nticks=6, range=[y.min(),y.max()],),
-                zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
-                zaxis_title = "Displacement (1E4)",
-                xaxis_title="Young's Modulus",
-                yaxis_title="Poisson's Ratio",),
-                title='Displacement Field of E, nu', autosize=True,   
-                width=500, height=500,
-                margin=dict(l=2, r=50, b=65, t=90),    
-            )
-        if i == 1:
-            fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1])])
+    # z = Z_grid * 1e16
+    z = np.log(Z_grid)
+    print(np.min(z))
+    #ucnomment
+    # print('min z', z.min())
+    # print('location of min,z is', z.argmin())
+    # print('the 2dlocation is', np.where(z == z.min()))
+    # x_min, y_min = np.where(z == z.min())
+    # sh_0, sh_1 = z.shape
 
-            # indices of minimum
-            x_min, y_min = np.where(z[:,::-1] == z[:,::-1].min())
-            x_min, y_min = x_min[0], y_min[0]
-            y_min = np.where(y[:,::-1] == y[x_min, y_min])
+    # plotly; uncomment
+    # for i in range(3):
+    #     fig = None
+    #     print('i is ', i)
+    #     if i == 0:
+    #         fig = go.Figure(data=[go.Surface(z=z, x=x, y=y)])
+    #         fig.update_layout(scene = dict(
+    #             xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+    #             yaxis = dict(nticks=6, range=[y.min(),y.max()],),
+    #             zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
+    #             zaxis_title = "Displacement (1E4)",
+    #             xaxis_title="Young's Modulus",
+    #             yaxis_title="Poisson's Ratio",),
+    #             title='Displacement Field of E, nu', autosize=True,
+    #             width=500, height=500,
+    #             margin=dict(l=2, r=50, b=65, t=90),
+    #         )
+    #     if i == 1:
+    #         fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[:,::-1])])
+    #
+    #         # indices of minimum
+    #         x_min, y_min = np.where(z[:,::-1] == z[:,::-1].min())
+    #         x_min, y_min = x_min[0], y_min[0]
+    #         y_min = np.where(y[:,::-1] == y[x_min, y_min])
+    #
+    #         y = y[:,::-1]
+    #         z = z[:,::-1]
+    #
+    #         # https://stackoverflow.com/questions/58532310/how-to-style-format-point-markers-in-plotly-3d-scatterplot
+    #         fig = go.Figure(data=[go.Surface(z=z, x=x, y=y, colorbar_x = 0),
+    #             go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]], mode='markers', marker=dict(size=25, color=z, colorscale='reds'), opacity = 1)])
+    #
+    #         fig.update_layout(scene = dict(
+    #             xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+    #             yaxis = dict(nticks=6, range=[y.max(),y.min()],),
+    #             zaxis = dict(nticks=5, range=[z.min() - 1,z.max() + 0.5],),
+    #             zaxis_title = "Displacement (1E14)",
+    #             xaxis_title="Young's Modulus",
+    #             yaxis_title="Poisson's Ratio",),
+    #             title='Displacement Field of E, nu', autosize=True,
+    #             width=500, height=500,
+    #             margin=dict(l=2, r=50, b=65, t=90),
+    #         )
+    #
+    #         camera = dict(
+    #             eye=dict(x=2, y=2, z=0.64)
+    #         )
+    #         fig.update_layout(scene_camera=camera)
+    #     if i == 2:
+    #         fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[::-1,::-1])])
+    #         fig.update_layout(scene = dict(
+    #                         xaxis = dict(nticks=5, range=[x.min(),x.max()],),
+    #                         yaxis = dict(nticks=6, range=[y.max(),y.min()],),
+    #                         zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
+    #                         zaxis_title = "Displacement (1E4)",
+    #                         xaxis_title="Young's Modulus",
+    #                         yaxis_title="Poisson's Ratio",),
+    #                         title='Displacement Field of E, nu', autosize=True,
+    #                         width=500, height=500,
+    #                         margin=dict(l=2, r=50, b=65, t=90),
+    #         )
+    #
+    #     # fig.update_traces(contours_z=dict(show=True, usecolormap=True,
+    #     #                 highlightcolor="limegreen", project_z=True))
+    #     fig.write_image(f'./results/figures/error_history/3d_plot_{i}.png')
+    #     # scene_settings = dict(
+    #     #         xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
+    #     #         yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
+    #     #         zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
+    #
+    #
+    #     # x, y, z = (X_grid, Y_grid, Z_grid)
+    #
+    #     # disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
+    #
+    #     # fig = go.Figure(data=[
+    #     #     go.Mesh3d(
+    #     #         x=x, y=y, z=z,
+    #     #         # Intensity of each vertex, which will be interpolated and color-coded
+    #     #         intensity=disp,
+    #     #         name='y', showscale=True
+    #     #     )
+    #     # ])
+    #     # fig.update_layout(scene = scene_settings)
+    #     # fig.update_layout(scene_aspectmode = 'cube')
 
-            y = y[:,::-1]
-            z = z[:,::-1]
-
-            # https://stackoverflow.com/questions/58532310/how-to-style-format-point-markers-in-plotly-3d-scatterplot
-            fig = go.Figure(data=[go.Surface(z=z, x=x, y=y, colorbar_x = 0),
-                go.Scatter3d(z=[z.min()], x=[x[x_min]], y=[y[y_min]], mode='markers', marker=dict(size=25, color=z, colorscale='reds'), opacity = 1)])
-            
-            fig.update_layout(scene = dict(
-                xaxis = dict(nticks=5, range=[x.min(),x.max()],),
-                yaxis = dict(nticks=6, range=[y.max(),y.min()],),
-                zaxis = dict(nticks=5, range=[z.min() - 1,z.max() + 0.5],),
-                zaxis_title = "Displacement (1E14)",
-                xaxis_title="Young's Modulus",
-                yaxis_title="Poisson's Ratio",),
-                title='Displacement Field of E, nu', autosize=True,   
-                width=500, height=500,
-                margin=dict(l=2, r=50, b=65, t=90),    
-            )
-
-            camera = dict(
-                eye=dict(x=2, y=2, z=0.64)
-            )
-            fig.update_layout(scene_camera=camera)
-        if i == 2:
-            fig = go.Figure(data=[go.Surface(z=z[:,::-1], x=x, y=y[::-1,::-1])])
-            fig.update_layout(scene = dict(
-                            xaxis = dict(nticks=5, range=[x.min(),x.max()],),
-                            yaxis = dict(nticks=6, range=[y.max(),y.min()],),
-                            zaxis = dict(nticks=5, range=[z.min(),z.max() + 0.1],),
-                            zaxis_title = "Displacement (1E4)",
-                            xaxis_title="Young's Modulus",
-                            yaxis_title="Poisson's Ratio",),
-                            title='Displacement Field of E, nu', autosize=True,   
-                            width=500, height=500,
-                            margin=dict(l=2, r=50, b=65, t=90),    
-            )
-
-        # fig.update_traces(contours_z=dict(show=True, usecolormap=True,
-        #                 highlightcolor="limegreen", project_z=True))
-        fig.write_image(f'./results/figures/error_history/3d_plot_{i}.png')
-        # scene_settings = dict(
-        #         xaxis = dict(range=[X_grid.min(), X_grid.max()], showbackground=False, zerolinecolor="black"),
-        #         yaxis = dict(range=[Y_grid.min(), Y_grid.max()], showbackground=False, zerolinecolor="black"),
-        #         zaxis = dict(range=[Z_grid.min(), Z_grid.max() + 1], showbackground=False, zerolinecolor="black"))
-
-
-        # x, y, z = (X_grid, Y_grid, Z_grid)
-
-        # disp = np.linalg.norm(Z_grid, axis=1).T  # the zero index is because of the "N" above!
-
-        # fig = go.Figure(data=[
-        #     go.Mesh3d(
-        #         x=x, y=y, z=z,
-        #         # Intensity of each vertex, which will be interpolated and color-coded
-        #         intensity=disp,
-        #         name='y', showscale=True
-        #     )
-        # ])
-        # fig.update_layout(scene = scene_settings)
-        # fig.update_layout(scene_aspectmode = 'cube')
-
-
-    return syn_data
+    return x,y,z
+    # return syn_data
 
 # def plot_3d(eng, particles=None, velocity=None, normalize=True, color='#000', ax=None):
 #     from matplotlib import cm
@@ -480,7 +485,7 @@ def save_images(imgs, eng, fig_path):
     fig.update_layout(scene = scene_settings)
     fig.update_layout(scene_aspectmode = 'cube')
     fig.write_image(fig_path)
-
+    # fig.show()
 def save_imagesz(imgs, eng, fig_path):
     import plotly.graph_objects as go
     import numpy as np

@@ -16,9 +16,9 @@ import torch.fft
 import utils
 import scipy.io as io
 import numpy as np
-import pandas as pd
+# import pandas as pd
 import scipy.stats as st
-from dolfin import *; from mshr import *
+# from dolfin import *; from mshr import *
 from net import *
 
 import icecream as ic
@@ -111,7 +111,7 @@ def evaluate(eng, params, global_memory, global_count, elapsed_time):
 
     
 
-def train(eng, params, global_memory, global_count, pca=None):
+def train(eng, params, global_memory, global_count, models = None, pca=None):
     """
     training the models
     evaluating them
@@ -140,13 +140,11 @@ def train(eng, params, global_memory, global_count, pca=None):
     #TODO: params.models = ['gpr_1', 'nn', 'abcd'] or it could be a dictionary of {'model': params, 'model_2': params}
     # this naming convention allows us to set up different models of a single algorithm. name + _ + number
     active_models = {}
-    for model in params.models:
-        # #TODO: try to get models' arguments from params file. like 'model_1' : {'lr': 1, 'beta' : 2, ...}
-        # if model in params: # checks if we have configuration for this model; type dict
-        #     model_param = params.model
-        # else: model_param = None
+    for model in models:
+        # TODO: try to get models' arguments from params file. like 'model_1' : {'lr': 1, 'beta' : 2, ...}
         model_param = None
-
+        # print("params model is", params)
+        print('model being used is', model)
         name = model.split('_')[0]        
 
         if model_param: exec(f"active_models['{model}'] = {name}(params, eng, global_memory, model_params)") #Init with params
@@ -154,9 +152,8 @@ def train(eng, params, global_memory, global_count, pca=None):
         # experiment with having exec insantiate the class; how else I can insantiate?
 
 
-    
+
     # training loop
-    # with tqdm(params.numIter, desc = "sub_optimizers", leave = False) as t:
     for _ in trange(params.numIter, desc = "Sub Optimization", leave = False):
         t=0
 
@@ -200,13 +197,16 @@ def train(eng, params, global_memory, global_count, pca=None):
                     model.evaluate(eng, global_memory)
 
             # plot 
-            if it % params.plot_iter == 0:
+            if (it % params.plot_iter == 0) or (it > params.numIter):
                 #TODO: a unified structure for each model's plotting function is needed.
                 for name, model in active_models.items():
                     fig_path = params.output_dir +  f'/figures/{name}/{name}_{global_count}_{params.iter}.png'
                     model.plot(fig_path, global_memory)
 
-
+    for name, model in active_models.items(): # make sure there's only 1 active model/time
+        print(f"\n************{name}************")
+        model.error_summary(global_memory)
+        return
 
 def sample_z(batch_size, generator):
     '''
@@ -396,8 +396,8 @@ def save_images(imgs, eng, fig_path):
 
     fig.update_layout(scene = scene_settings)
     fig.update_layout(scene_aspectmode = 'cube')
-    fig.write_image(fig_path)
-
+    # fig.write_image(fig_path)
+    fig.show()
 
 
 def visualize_generated_images(generator, params, eng, n_row = 10, n_col = 1):
